@@ -1,0 +1,127 @@
+.status {
+  height: 170px;
+  margin: 6px;
+  padding-top: 0px;
+  .status-title {
+    border-bottom: 1px solid black;
+    width: 90%;
+  }
+  .status-body {
+    .status-body-icon {
+      display: flex;
+      justify-content: space-between;
+      padding: 14px;
+      .happy-option {
+        width: 30%;
+      }
+      .normal-option {
+        width: 40%;
+      }
+      .sad-option {
+        width: 30%;
+      }
+      .span-icon-status-color {
+        cursor: pointer;
+      }
+      .icon-status-color {
+        font-size: 26px;
+      }
+      .span-icon-status-happy,
+      .span-icon-status-normal,
+      .span-icon-status-sad {
+        cursor: pointer;
+        transition: all 0.8s;
+      }
+      #happy-icon-title,
+      #normal-icon-title,
+      #sad-icon-title {
+        display: none;
+        margin-top: 10px;
+      }
+      .span-icon-status-happy:hover {
+        .icon-status-happy {
+          transition: all 0.8s;
+          transform: scale(1.4);
+        }
+        + #happy-icon-title {
+          display: block;
+        }
+      }
+      .span-icon-status-normal:hover {
+        .icon-status-normal {
+          transition: all 0.8s;
+          transform: scale(1.4);
+        }
+        + #normal-icon-title {
+          display: block;
+        }
+      }
+      .span-icon-status-sad:hover {
+        .icon-status-sad {
+          transition: all 0.8s;
+          transform: scale(1.4);
+        }
+        + #sad-icon-title {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .icon-title {
+    display: flex;
+    justify-content: center;
+    #happy-icon-title,
+    #normal-icon-title,
+    #sad-icon-title {
+      margin-top: 20px;
+      position: inherit;
+    }
+  }
+  .input-status-body {
+    justify-content: center;
+    display: flex;
+    .input-status {
+      position: absolute;
+      bottom: 10%;
+      display: block;
+      width: 70%;
+      box-sizing: border-box;
+      border: none;
+      border-bottom: 2px solid #d4e2ee;
+      outline: 0;
+    }
+  }
+}
+.goal-board {
+  padding: 10px;
+  margin: 6px;
+  border-radius: 4px;
+  border: 0.5px solid black;
+  .goal-board-title {
+    padding-bottom: 10px;
+  }
+  .goal-item {
+    background-color: #fff;
+    width: 100%;
+    margin: 4px;
+    border-radius: 4px;
+    border: 0.5px solid black;
+    .goal-item-title {
+      display: flex;
+      padding: 4px;
+      h5 {
+        margin-left: 10px;
+      }
+    }
+    .goal-item-list {
+      .goal-item-singel {
+        display: flex;
+        margin-left: 20px;
+        input {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}

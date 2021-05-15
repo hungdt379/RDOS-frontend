@@ -1,0 +1,292 @@
+.background-header {
+  background-color: #bde1ff !important;
+  .thanks-header {
+    max-width: 90% !important;
+  }
+}
+
+.thanks-footer {
+  background-color: #ffffff !important;
+}
+
+.gray-color {
+  color: #9e9e9e;
+}
+
+.home-page {
+  margin-top: 0px !important;
+  .container-thanks-home-page {
+    max-width: 100% !important;
+  }
+  .news-feed {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+    .card-postthank {
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px -4px #9a9a9a;
+    }
+    .drop-button {
+      display: none;
+      .button-left {
+        float: left;
+      }
+      .button-right {
+        float: right;
+      }
+    }
+    .post-newfeeds {
+      margin-bottom: 10px;
+
+      .cardbody-post-newfeed {
+        padding-top: 10px;
+        .content-post {
+          font-weight: 500;
+        }
+        .tab-bar-post {
+          .thank-people {
+            display: flex;
+          }
+          .option-post {
+            display: none;
+            i {
+              color: #9e9e9e;
+            }
+          }
+        }
+        .pic-info {
+          .pic-info-image {
+            object-fit: contain;
+            width: 100%;
+            max-height: 40rem;
+            background: black;
+          }
+        }
+      }
+    }
+    .post-newfeeds:hover {
+      .tab-bar-post {
+        .option-post {
+          display: block;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+.pic-newfeed {
+  flex: 1;
+  img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+  }
+  img:hover {
+    opacity: 60%;
+  }
+}
+.side-content-right {
+  display: flex;
+  justify-content: flex-end;
+}
+.side-content {
+  position: fixed;
+  width: 22%;
+  height: 100%;
+}
+
+.div-post-button {
+  width: 50%;
+  .post-button {
+    border-radius: 4px;
+    border-color: #bde1ff;
+    width: 100%;
+    border-radius: 5px;
+  }
+  .post-button:hover {
+    color: #fff;
+    background-color: #3452e1;
+    border-color: #2948df;
+  }
+}
+
+.button-bottom-post-newfeed {
+  border-top: #e2e7e7 solid 0.1px;
+  padding-top: 4px;
+  .seen-reaction-button-of-post {
+    margin-top: 2px;
+    width: 50%;
+    border-top: black;
+
+    .seen-reaction-button-post {
+      border-radius: 4px;
+      width: 100%;
+      border-radius: 5px;
+      color: #9e9e9e;
+      .icon-react {
+        transition: all 0.4s;
+      }
+      .icon-react-submit {
+        font-size: 16px;
+      }
+    }
+    .seen-reaction-button-post:hover {
+      color: rgb(27, 27, 27);
+      background-color: #dce5e6;
+      .icon-react {
+        transform: scale(1.5);
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .side-content {
+    display: none;
+  }
+  .home-page {
+    .news-feed {
+      .drop-button {
+        display: block;
+      }
+    }
+  }
+}
+
+.search-partner {
+  width: 90%;
+}
+
+.side-right {
+  padding-bottom: 110px;
+  background-color: #f8f9fa;
+}
+
+.dropdown-thanks-notification {
+  width: 380px !important;
+  .menu-notification {
+    display: flex;
+  }
+}
+
+.thanks-detail {
+  margin-top: 0px !important;
+  .thank-people {
+    display: flex;
+  }
+}
+
+.personal-detail-page {
+  margin-top: 0px !important;
+}
+
+.personal-info {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  width: 100% !important;
+  .detail-info {
+    display: flex;
+  }
+}
+
+.post-thank-image {
+  width: 100%;
+  object-fit: contain;
+  max-height: 40rem;
+  background: black;
+}
+
+.modal-viewer {
+  bottom: -30%;
+  .modal-viewer-top-bar {
+    margin: 10px;
+    display: flex;
+    .modal-title {
+      margin: auto;
+    }
+    .button-close {
+      margin-right: 10px;
+    }
+  }
+  .viewer-list {
+    border-top: 0.1px solid #bdbbbb;
+    margin: 10px;
+    .user-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      .like-icon {
+        font-size: 16px;
+        margin: auto;
+      }
+      .heart-icon {
+        font-size: 20px;
+        margin: auto;
+        color: red;
+      }
+    }
+  }
+}
+.user-viewer {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  .user-name {
+    margin: 0;
+  }
+}
+
+.bottom-post-newfeed {
+  
+  .seen-reaction-of-post {
+    display: flex;
+    justify-content: space-between;
+    .total-reaction-div {
+      .total-reaction {
+        font-size: 12px;
+      }
+      .icon-reaction {
+        font-size: 12px;
+      }
+    }
+    .total-reaction-div:hover {
+      cursor: pointer;
+    }
+    .viewer-div {
+      .total-viewer-div {
+        cursor: pointer;
+        .total-viewer {
+          font-size: 12px;
+        }
+        .icon-viewer {
+          font-size: 12px;
+        }
+      }
+      .viewer-list {
+        .viewer-div-list {
+          p {
+            color: #ffffff;
+            padding: 5px;
+          }
+        }
+      }
+    }
+  }
+  .viewer-total{
+    cursor: pointer;
+  }
+}
+
+.mh-55 {
+  height: 55rem !important;
+}
+.card-shadow {
+  box-shadow: 0 2px 8px -4px #9a9a9a !important;
+}
+
+.img-post-thank > img {
+  width: 100%;
+  max-height: 40rem;
+  object-fit: contain;
+  background: black;
+}
