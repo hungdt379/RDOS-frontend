@@ -37,6 +37,7 @@ File: Main Css File
 @import "custom/components/demos";
 @import "custom/components/print";
 
+
 // Plugins
 @import "custom/plugins/custom-scrollbar";
 @import "custom/plugins/calendar";
@@ -64,6 +65,7 @@ File: Main Css File
 @import "custom/plugins/vector-maps";
 @import "custom/plugins/leaflet-maps";
 
+
 // Pages
 @import "custom/pages/authentication";
 @import "custom/pages/ecommerce";
@@ -75,5 +77,3 @@ File: Main Css File
 @import "custom/pages/coming-soon";
 @import "custom/pages/timeline";
 @import "custom/pages/extras-pages";
-@import "custom/pages/users/editprofile";
-@import "custom/pages/thanks/announcement.scss";

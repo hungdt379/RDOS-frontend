@@ -11,17 +11,17 @@ const AuthMiddleware = ({
   <Route
     path={path}
     render={(props) => {
-      if (
-        !login.authUser.token ||
-        login.isLogout === true ||
-        !loadState().token
-      ) {
-        return (
-          <Redirect
-            to={{ pathname: "/login", state: { from: props.location } }}
-          />
-        );
-      }
+      // if (
+      //   !login.authUser.token ||
+      //   login.isLogout === true ||
+      //   !loadState().token
+      // ) {
+      //   return (
+      //     <Redirect
+      //       to={{ pathname: "/login", state: { from: props.location } }}
+      //     />
+      //   );
+      // }
       return (
         <Layout>
           <Component {...props} />

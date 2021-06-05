@@ -1,0 +1,84 @@
+.header-menu{
+  position: fixed;
+  width: 100%;
+  background-color: #bfc8e2;
+  z-index: 100;
+}
+
+.search-bar{
+  width: 100%;
+}
+
+.table-header {
+  color: rgba(0,0,0,1);
+  padding-top:12px;
+  font-family: Roboto;
+  font-weight: Bold;
+  font-size: 16px;
+  opacity: 1;
+  text-align: right;
+}
+
+.menu-search{
+  padding-top: 12px;
+  width: auto;
+}
+
+.home-icon {
+  color: rgba(0,0,0,1);
+  font-family: Roboto;
+  font-weight: Bold;
+  font-size: 16px;
+  opacity: 1;
+  text-align: left;
+}
+
+.menu-type{
+  width: 100%;
+  height: 35px;
+}
+
+.title-menu{
+  margin-left: calc(100% - 95%);
+  font-family: Arial;
+  padding-top: 90px;
+  color: #000000;
+  font-size: 15px;
+}
+
+.item-menu{
+  margin-left: calc(100% - 97.5%);
+  margin-top: 5px;
+  width: 95%;
+  height: 80px;
+  background-color: #ffffff;
+  border: 1px solid #6a7187;
+  border-radius: 10px;
+}
+
+.item-name {
+  color: rgba(0,0,0,1);
+  font-family: Arial;
+  padding: 6px 0px 0px 0px;
+  font-size: 14px;
+}
+.item-cost {
+  color: rgba(0,0,0,1);
+  font-family: Arial;
+  padding: 25px 0px 0px 0px;
+  bottom: 0px;
+  font-size: 14px;
+}
+
+.add-button{
+  padding: 25px 0px 0px 0px;
+  text-align: right;
+}
+
+.add-btn{
+  border-radius: 50%;
+}
+
+#extra{
+  margin-bottom: 60px;
+}
