@@ -17,7 +17,7 @@ const app = (
       <BrowserRouter>
         <SnackbarProvider maxSnack={3}>
           <ModalTokenExpires />
-          <App />
+            <App/>
         </SnackbarProvider>
       </BrowserRouter>
     </Provider>
