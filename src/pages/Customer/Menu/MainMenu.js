@@ -2,6 +2,7 @@ import React, {useState} from "react";
 
 //Import scss
 import "../../../assets/scss/custom/pages/customer/menu.scss";
+import {Link} from "react-router-dom";
 
 const MainMenu = (props) => {
 
@@ -14,9 +15,11 @@ const MainMenu = (props) => {
                     <div className="item-cost">129.000 vnd</div>
                 </div>
                 <div align="right" className="add-button col-2">
-                    <button className="add-btn">
-                        <div>+</div>
-                    </button>
+                    <Link to="/customer-detail-combo">
+                        <button className="add-btn">
+                            <div>+</div>
+                        </button>
+                    </Link>
                 </div>
             </div>
             <div className="item-menu d-flex">
@@ -25,9 +28,11 @@ const MainMenu = (props) => {
                     <div className="item-cost">169.000 vnd</div>
                 </div>
                 <div align="right" className="add-button col-2">
-                    <button className="add-btn">
-                        <div>+</div>
-                    </button>
+                    <Link to="/customer-detail-combo">
+                        <button className="add-btn">
+                            <div>+</div>
+                        </button>
+                    </Link>
                 </div>
             </div>
             <div className="item-menu d-flex">
@@ -36,9 +41,11 @@ const MainMenu = (props) => {
                     <div className="item-cost">209.000 vnd</div>
                 </div>
                 <div align="right" className="add-button col-2">
-                    <button className="add-btn">
-                        <div>+</div>
-                    </button>
+                    <Link to="/customer-detail-combo">
+                        <button className="add-btn">
+                            <div>+</div>
+                        </button>
+                    </Link>
                 </div>
             </div>
             <div className="item-menu d-flex">
@@ -47,9 +54,11 @@ const MainMenu = (props) => {
                     <div className="item-cost">209.000 vnd</div>
                 </div>
                 <div align="right" className="add-button col-2">
-                    <button className="add-btn">
-                        <div>+</div>
-                    </button>
+                    <Link to="/customer-detail-combo">
+                        <button className="add-btn">
+                            <div>+</div>
+                        </button>
+                    </Link>
                 </div>
             </div>
         </React.Fragment>

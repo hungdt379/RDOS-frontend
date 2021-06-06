@@ -5,7 +5,7 @@ import {withRouter, Link} from 'react-router-dom';
 import {AvForm, AvField} from 'availity-reactstrap-validation';
 import {loginUser} from '../../store/actions';
 import profile from "../../assets/images/profile-img.png";
-import logo from "../../assets/images/thanks/logo-thank.png";
+import logo from "../../assets/images/customer/logo-web.jpg";
 import '../../assets/scss/custom/pages/Authentication/login.scss';
 import {GoogleLogin} from "react-google-login";
 

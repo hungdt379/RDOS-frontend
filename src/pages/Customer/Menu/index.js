@@ -46,9 +46,12 @@ const CustomerMenu = (props) => {
             <div id="drink"><DrinkMenu/></div>
             <div id="extra"><ExtraMenu/></div>
 
-            <div>
-                Nut icon gio hang
-                viet css cach dong
+            <div className="cart">
+                <Link to="/customer-cart">
+                    <button className="cart-button">
+                        <div>Xem danh sách món đã chọn</div>
+                    </button>
+                </Link>
             </div>
         </React.Fragment>
     );
