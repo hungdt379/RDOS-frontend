@@ -28,24 +28,32 @@ const CustomerHome = (props) => {
                 </Link>
 
                 <div className="d-flex">
-                    <button className="square-button">
-                        <div className="square-icon">(icon)</div>
-                        <div className="square-text-button">Gọi thanh toán</div>
-                    </button>
-                    <button className="square-button">
-                        <div className="square-icon">(icon)</div>
-                        <div className="square-text-button">Gọi phục vụ</div>
-                    </button>
-                    <button className="square-button">
-                        <div className="square-icon">(icon)</div>
-                        <div className="square-text-button">Gọi thanh toán</div>
-                    </button>
+                    <Link align="center" className="square-button">
+                        <button style={{backgroundColor:'#50a5f1', borderRadius: '10px', width:'100%'}}>
+                            <div className="square-icon">(icon)</div>
+                            <div className="square-text-button">Gọi thanh toán</div>
+                        </button>
+                    </Link>
+                    <Link align="center" className="square-button">
+                        <button style={{backgroundColor:'#50a5f1', borderRadius: '10px', width:'100%'}}>
+                            <div className="square-icon">(icon)</div>
+                            <div className="square-text-button">Gọi phục vụ</div>
+                        </button>
+                    </Link>
+                    <Link align="center" className="square-button" to="/customer-feedback">
+                        <button style={{backgroundColor:'#50a5f1', borderRadius: '10px', width:'100%'}}>
+                            <div className="square-icon">(icon)</div>
+                            <div className="square-text-button">Đánh giá</div>
+                        </button>
+                    </Link>
                 </div>
 
-                <button className="menu-button d-flex">
-                    <div className="icon">(icon)</div>
-                    <div className="text-button">Xem Order</div>
-                </button>
+                <Link to="/customer-see-order">
+                    <button className="menu-button d-flex">
+                        <div className="icon">(icon)</div>
+                        <div className="text-button">Xem Order</div>
+                    </button>
+                </Link>
             </div>
 
         </React.Fragment>

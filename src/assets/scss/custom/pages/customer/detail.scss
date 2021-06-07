@@ -1,0 +1,79 @@
+.header-detail{
+  position: fixed;
+  width: 100%;
+  background-color: #bfc8e2;
+  z-index: 100;
+  height:35px
+}
+
+.image-item{
+  margin-top: 40px;
+}
+
+.detail-item{
+  margin-top: 15px;
+  margin-left: calc(100% - 95%);
+  .name-item{
+    font-size: 20px;
+  }
+  .cost-item{
+
+  }
+}
+
+.list-item{
+  width: 100%;
+  height: auto;
+  background-color: #ffffff;
+  border: 1px solid #6a7187;
+  border-radius: 20px;
+  padding: 10px 0px 10px 0px;
+}
+
+.check-all-button{
+  margin-right: calc(100% - 95%);
+}
+
+.note-item{
+  width: 100%;
+  margin-bottom: 100px;
+  .note-input-item{
+    width: 100%;
+    height: 35px;
+    border-radius: 10px;
+  }
+}
+
+.order-cart{
+  background-color: #6a7187;
+  height: 45px;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  bottom: 50px;
+  text-align: right;
+  .order-button{
+    margin-top: 5px;
+    width: auto;
+    height: 35px;
+    border-radius: 10px;
+  }
+}
+
+.order-drink{
+  background-color: #6a7187;
+  height: 45px;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  bottom: 50px;
+  .order-button-drink{
+    margin-top: 5px;
+    width: auto;
+    height: 35px;
+    border-radius: 10px;
+  }
+  .add-minus{
+    margin-top: 10px;
+  }
+}

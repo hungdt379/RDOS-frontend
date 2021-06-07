@@ -2,6 +2,7 @@ import React, {useState} from "react";
 
 //Import scss
 import "../../../assets/scss/custom/pages/customer/menu.scss";
+import {Link} from "react-router-dom";
 
 const ExtraMenu = (props) => {
 
@@ -14,9 +15,11 @@ const ExtraMenu = (props) => {
                     <div className="item-cost">30.000 vnd</div>
                 </div>
                 <div align="right" className="add-button col-2">
-                    <button className="add-btn">
-                        <div>+</div>
-                    </button>
+                    <Link to="/customer-detail-drink">
+                        <button className="add-btn">
+                            <div>+</div>
+                        </button>
+                    </Link>
                 </div>
             </div>
             <div className="item-menu d-flex">
@@ -25,9 +28,11 @@ const ExtraMenu = (props) => {
                     <div className="item-cost">30.000 vnd</div>
                 </div>
                 <div align="right" className="add-button col-2">
-                    <button className="add-btn">
-                        <div>+</div>
-                    </button>
+                    <Link to="/customer-detail-drink">
+                        <button className="add-btn">
+                            <div>+</div>
+                        </button>
+                    </Link>
                 </div>
             </div>
             <div className="item-menu d-flex">
@@ -36,9 +41,11 @@ const ExtraMenu = (props) => {
                     <div className="item-cost">50.000 vnd</div>
                 </div>
                 <div align="right" className="add-button col-2">
-                    <button className="add-btn">
-                        <div>+</div>
-                    </button>
+                    <Link to="/customer-detail-drink">
+                        <button className="add-btn">
+                            <div>+</div>
+                        </button>
+                    </Link>
                 </div>
             </div>
         </React.Fragment>

@@ -18,7 +18,14 @@ import CustomerMenu from "../pages/Customer/Menu/index";
 
 // Customer Invalid page
 import Invalid from "../pages/Customer/Invalid";
+
+import DetailCombo from "../pages/Customer/Detail/DetailCombo";
+import DetailDrink from "../pages/Customer/Detail/DetailDrink";
 import App from "../App";
+import Cart from "../pages/Customer/Cart";
+import SeeOrder from "../pages/Customer/SeeOrder/index";
+import DetailItemOrder from "../pages/Customer/SeeOrder/DetailOrder";
+import Feedback from "../pages/Customer/Feedback";
 
 export const userRoutes = [
     {
@@ -28,6 +35,30 @@ export const userRoutes = [
     {
         path: "/customer-home", component: (window.innerWidth <= 900 && window.innerWidth / window.innerHeight <= 2.2)
             ? CustomerHome : Invalid
+    },
+    {
+        path: "/customer-detail-combo", component: (window.innerWidth <= 900 && window.innerWidth / window.innerHeight <= 2.2)
+            ? DetailCombo : Invalid
+    },
+    {
+        path: "/customer-detail-drink", component: (window.innerWidth <= 900 && window.innerWidth / window.innerHeight <= 2.2)
+            ? DetailDrink : Invalid
+    },
+    {
+        path: "/customer-cart", component: (window.innerWidth <= 900 && window.innerWidth / window.innerHeight <= 2.2)
+            ? Cart : Invalid
+    },
+    {
+        path: "/customer-see-order", component: (window.innerWidth <= 900 && window.innerWidth / window.innerHeight <= 2.2)
+            ? SeeOrder : Invalid
+    },
+    {
+        path: "/customer-detail-item", component: (window.innerWidth <= 900 && window.innerWidth / window.innerHeight <= 2.2)
+            ? DetailItemOrder : Invalid
+    },
+    {
+        path: "/customer-feedback", component: (window.innerWidth <= 900 && window.innerWidth / window.innerHeight <= 2.2)
+            ? Feedback : Invalid
     },
     // this route should be at the end of all other routes
     {path: "/", exact: true, component: () => <Redirect to="/customer-home"/>}
