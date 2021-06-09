@@ -51,7 +51,7 @@ const DetailDrink = (props) => {
 
             <div className="detail-item">
                 <div className="name-item"><b>Coca</b></div>
-                <div className="cost-item">Giá: 10.000 vnd</div>
+                <div style={{marginBottom: '100px'}} className="cost-item">Giá: 10.000 vnd</div>
             </div>
 
             <div className="d-flex order-drink">

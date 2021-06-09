@@ -21,9 +21,9 @@ function OrderList() {
     const [displayStatus, setStatus] = useState("confirm");
 
     const [orderState, setOrderState] = useState([]);
+    const [itemState, setItemState] = useState([]);
 
     useEffect(() => {
-        console.log('a :' + window.location.pathname);
         let orderState = [
             {order: 123, table: "MB01", status: "confirm"},
             {order: 124, table: "MB02", status: "confirm"},
@@ -51,6 +51,99 @@ function OrderList() {
             {order: 140, table: "MB07", status: "paid"},
         ];
 
+        let itemState = [
+            {
+                id: 1,
+                order: 123,
+                item: 'Combo 129',
+                price: 129000,
+                table: "MB01",
+                number: 2,
+                type: "combo",
+                status: "complete"
+            },
+            {
+                id: 2,
+                order: 123,
+                item: 'Ngô chiên',
+                price: 40000,
+                table: "MB02",
+                number: 5,
+                type: "extra",
+                status: "complete"
+            },
+            {
+                id: 3,
+                order: 123,
+                item: 'Coca',
+                price: 10000,
+                table: "MB03",
+                number: 4,
+                type: "drink",
+                status: "in process"
+            },
+            {
+                id: 4,
+                order: 124,
+                item: 'Combo 169',
+                price: 169000,
+                table: "MB01",
+                number: 2,
+                type: "combo",
+                status: "complete"
+            },
+            {
+                id: 5,
+                order: 124,
+                item: 'Ngô ',
+                price: 30000,
+                table: "MB02",
+                number: 5,
+                type: "extra",
+                status: "complete"
+            },
+            {
+                id: 6,
+                order: 124,
+                item: 'Fanta',
+                price: 10000,
+                table: "MB03",
+                number: 4,
+                type: "drink",
+                status: "complete"
+            },
+            {
+                id: 7,
+                order: 122,
+                item: 'Combo 209',
+                price: 209000,
+                table: "MB01",
+                number: 2,
+                type: "combo",
+                status: "complete"
+            },
+            {
+                id: 8,
+                order: 122,
+                item: 'Ngô chiên',
+                price: 40000,
+                table: "MB02",
+                number: 5,
+                type: "extra",
+                status: "complete"
+            },
+            {
+                id: 9,
+                order: 122,
+                item: 'Sprie',
+                price: 10000,
+                table: "MB03",
+                number: 4,
+                type: "drink",
+                status: "complete"
+            },
+        ];
+
         setOrderState(
             orderState.map(d => {
                 return {
@@ -61,6 +154,23 @@ function OrderList() {
                 };
             })
         );
+
+        setItemState(
+            itemState.map(it => {
+                return {
+                    select: false,
+                    order: it.order,
+                    item: it.item,
+                    price: it.price,
+                    table: it.table,
+                    number: it.number,
+                    type: it.type,
+                    status: it.status,
+                };
+            })
+        );
+        console.log('a :' + orderState.map((d, i) => (itemState.map((it, i) => (it.order == d.order)))));
+
     }, []);
 
     return (
@@ -112,14 +222,15 @@ function OrderList() {
                                             <div className="col-3">
                                                 <b>{d.table}</b>
                                             </div>
-                                            <div className="col-3" style={{color:d.status=="confirm" ? "lightcoral" : "green"}}>
+                                            <div className="col-3"
+                                                 style={{color: d.status == "confirm" ? "lightcoral" : "green"}}>
                                                 {d.status}
                                             </div>
                                             <div className="col-2">
                                                 <Link>
                                                     <button
                                                         className="card-order-button"
-                                                        onClick={(e) => (window.location.pathname='/receptionist-home/'+d.order)}
+                                                        onClick={(e) => (window.location.pathname = '/receptionist-home/' + d.order)}
                                                     >
                                                         <div>
                                                             <b>Chi tiết</b>
@@ -132,7 +243,7 @@ function OrderList() {
                                     : (null)
                                 )}
                             </PerfectScrollbar>
-                            <div align="right" style={{height: '60px', width:'80%', alignItems:'center'}}>
+                            <div align="right" style={{height: '60px', width: '80%', alignItems: 'center'}}>
                                 <button>
                                     <b>Gộp hóa đơn</b>
                                 </button>
@@ -142,15 +253,92 @@ function OrderList() {
                     <div align="center" className="col-6">
                         <div className="side-content">
                             <div style={{height: '30px'}}><b style={{fontSize: '25px'}}>Chi tiết order</b></div>
-
-                            <PerfectScrollbar className="mh-55">
-
-                            </PerfectScrollbar>
+                            {orderState.map((d, i) => ("/receptionist-home/" + d.order == window.location.pathname) ? (
+                                    <div>
+                                        <div style={{height: '30px'}} className="d-flex">
+                                            <div align="center" className="col-4">
+                                                <label style={{fontSize: '20px'}}>
+                                                    <b>Mã Order: </b>{d.order}
+                                                </label>
+                                            </div>
+                                            <div align="center" className="col-4">
+                                                <label style={{fontSize: '20px'}}>
+                                                    <b>Mã bàn: </b>{d.table}
+                                                </label>
+                                            </div>
+                                            <div align="center" className="col-4">
+                                                <label style={{fontSize: '20px'}}>
+                                                    <b>Trạng thái: </b>
+                                                    <label className="col-3"
+                                                           style={{color: d.status == "confirm" ? "lightcoral" : "green"}}>
+                                                        {d.status}
+                                                    </label>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <PerfectScrollbar className="mh-55">
+                                            {itemState.map((it, i) => (it.order == d.order) ? (
+                                                    <div className="card-order d-flex">
+                                                        <div className="col-3">
+                                                            <b>{it.item}</b>
+                                                        </div>
+                                                        <div className="col-2">
+                                                            <b>{it.number}</b>
+                                                        </div>
+                                                        <div className="col-5">
+                                                            <b>{it.price}x{it.number}={it.number * it.price}</b>
+                                                        </div>
+                                                        <div className="col-2"
+                                                             style={{color: it.status == "in process" ? "lightcoral" : "green"}}>
+                                                            {it.status}
+                                                        </div>
+                                                    </div>
+                                                )
+                                                : (null)
+                                            )}
+                                        </PerfectScrollbar>
+                                        <div style={{height: '60px'}} className="d-flex">
+                                            <div align="center" className="col-6">
+                                                <div>Tổng
+                                                    tiền: {itemState.filter((it) => (it.order == d.order)).reduce((total, pr) => total + pr.price * pr.number, 0)}</div>
+                                                <div>
+                                                            <textarea style={{height: 50, width: 'auto'}}>
+                                                                Khách còn để lại 2 coca
+                                                            </textarea>
+                                                </div>
+                                            </div>
+                                            <div align="center" className="col-6">
+                                                {(itemState.filter((it) => (it.order == d.order)).every(it => it.status == "complete" && d.status=="confirm") === true)
+                                                    ? (
+                                                        <Link to="/receptionist-home">
+                                                            <button style={{backgroundColor: 'green'}}>
+                                                                <b>Xuất hóa đơn</b>
+                                                            </button>
+                                                        </Link>
+                                                    )
+                                                    : (
+                                                        <button disabled={true}>
+                                                            <b>Xuất hóa đơn</b>
+                                                        </button>
+                                                    )
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                                : (null)
+                            )}
+                            {(window.location.pathname == '/receptionist-home') ?
+                                (
+                                    <div style={{fontSize: '25px', color: 'lightcoral'}}>Hãy chọn 1 Order để xem chi
+                                        tiết</div>
+                                ) : (null)
+                            }
                         </div>
                     </div>
                 </div>
             </div>
-            <div none-display-receptionist>
+            <div className='none-display-receptionist'>
                 <Invalid/>
             </div>
         </React.Fragment>
