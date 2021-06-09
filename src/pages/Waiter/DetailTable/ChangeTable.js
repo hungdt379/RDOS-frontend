@@ -6,7 +6,7 @@ const ChangeTable = (props) =>{
         <React.Fragment>
             <div className="MyContainer">
                 <Link to="/waiter-view-all-table">
-                    <h3 style={{paddingLeft: "30px"}}>RDOS</h3>
+                    <h3 style={{paddingLeft: "30px", paddingTop:'20px'}}>RDOS</h3>
                 </Link>
 
                 <div className="form-role">
@@ -18,7 +18,7 @@ const ChangeTable = (props) =>{
                 </div>
             </div>
             <div>
-                <ul className="nav">
+                <ul className="nav-notification">
                     <li>
                         <Link to="/waiter-detail-table-notification">Thông báo</Link>
                     </li>

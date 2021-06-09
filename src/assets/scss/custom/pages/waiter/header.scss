@@ -1,7 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-}
 
 .MyContainer {
   width: 100%;
@@ -18,10 +14,6 @@
 
 }
 
-h3 {
-  padding-top: 20px;
-}
-
 .form-role {
   display: flex;
   justify-content: flex-end;
@@ -36,12 +28,12 @@ h3 {
 }
 
 
-.nav {
+.nav-notification {
   display: flex;
   justify-content: center;
 }
 
-.nav li {
+.nav-notification li {
   list-style: none;
   padding: 10px;
   box-sizing: border-box;
@@ -52,7 +44,7 @@ h3 {
 
 }
 
-.nav li a {
+.nav-notification li a {
   text-decoration: none;
   color: white;
 }

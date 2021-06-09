@@ -9,7 +9,7 @@ function ViewAllTable(){
 
 
             <div className="MyContainer">
-                <h3 style={{paddingLeft: "30px"}}>RDOS</h3>
+                <h3 style={{paddingLeft: "30px", paddingTop:'20px'}}>RDOS</h3>
                 <div className="form-role">
                     <Link to="/waiter-check-list" className="myButton">Check List</Link>
                     <div className="role">
