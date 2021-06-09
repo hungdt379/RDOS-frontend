@@ -27,6 +27,16 @@ import SeeOrder from "../pages/Customer/SeeOrder/index";
 import DetailItemOrder from "../pages/Customer/SeeOrder/DetailOrder";
 import Feedback from "../pages/Customer/Feedback";
 import OrderList from "../pages/Receptionist/OrderList";
+import SignIn from "../pages/Waiter/SignInWaiter";
+import ViewAllTable from "../pages/Waiter/home";
+import DetailTable from "../pages/Waiter/DetailTable";
+import CheckList from "../pages/Waiter/CheckList";
+import ConfirmOrder from "../pages/Waiter/DetailTable/ConfirmOrder";
+import ConfirmedOrder from "../pages/Waiter/DetailTable/ConfirmedOrder";
+import ChangeTable from "../pages/Waiter/DetailTable/ChangeTable";
+import Notification from "../pages/Waiter/DetailTable/Notification";
+
+// Waiter Page;
 
 export const userRoutes = [
     {
@@ -61,6 +71,36 @@ export const userRoutes = [
         path: "/customer-feedback", component: (window.innerWidth <= 900 && window.innerWidth / window.innerHeight <= 2.2)
             ? Feedback : Invalid
     },
+
+    //Waiter Page
+    {
+      path: "/waiter-sign-in-waiter" , component: SignIn
+    },
+
+    {
+        path: "/waiter-view-all-table" , component: ViewAllTable
+    },
+
+    {
+        path: "/waiter-detail-table" , component: DetailTable
+    },
+
+    {
+      path: "/waiter-check-list", component: CheckList
+    },
+    {
+      path: "/waiter-detail-table-confirm-order" , component: ConfirmOrder
+    },
+    {
+        path: "/waiter-detail-table-confirmed-order" , component: ConfirmedOrder
+    },
+    {
+        path: "/waiter-detail-table-change-table" , component: ChangeTable
+    },
+    {
+        path: "/waiter-detail-table-notification" , component: Notification
+    },
+    //Receptionist Page
     {
         path: "/receptionist-home", component: OrderList
     },

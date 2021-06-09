@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.MyContainer {
+  width: 100%;
+  background-color: #4EC7FB;
+  display: flex;
+  justify-content: space-between;
+
+
+}
+
+.myButton {
+  color: white;
+  padding: 30px;
+
+}
+
+h3 {
+  padding-top: 20px;
+}
+
+.form-role {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.form-role p {
+  padding-top: 30px;
+}
+
+.role {
+  padding-right: 20px;
+}
+
+
+.nav {
+  display: flex;
+  justify-content: center;
+}
+
+.nav li {
+  list-style: none;
+  padding: 10px;
+  box-sizing: border-box;
+  background: rgba(161, 53, 53, 1);
+  box-shadow: inset 0 0 15px;
+  margin: 20px 70px;
+  color: white;
+
+}
+
+.nav li a {
+  text-decoration: none;
+  color: white;
+}
