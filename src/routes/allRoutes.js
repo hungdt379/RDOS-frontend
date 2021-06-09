@@ -26,6 +26,7 @@ import Cart from "../pages/Customer/Cart";
 import SeeOrder from "../pages/Customer/SeeOrder/index";
 import DetailItemOrder from "../pages/Customer/SeeOrder/DetailOrder";
 import Feedback from "../pages/Customer/Feedback";
+import OrderList from "../pages/Receptionist/OrderList";
 
 export const userRoutes = [
     {
@@ -59,6 +60,9 @@ export const userRoutes = [
     {
         path: "/customer-feedback", component: (window.innerWidth <= 900 && window.innerWidth / window.innerHeight <= 2.2)
             ? Feedback : Invalid
+    },
+    {
+        path: "/receptionist-home", component: OrderList
     },
     // this route should be at the end of all other routes
     {path: "/", exact: true, component: () => <Redirect to="/customer-home"/>}

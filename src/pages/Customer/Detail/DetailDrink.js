@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 
 import imageItem from "../../../assets/images/customer/logo-web.jpg";
 import {useDispatch} from "react-redux";
+import Invalid from "../Invalid";
 
 const addMinus = [
     {data_attr: 1},
@@ -27,6 +28,7 @@ const DetailDrink = (props) => {
 
     return (
         <React.Fragment>
+            <div className="display-customer">
             <div className="header-detail">
                 <div>
                     <div className="col-2">
@@ -77,6 +79,10 @@ const DetailDrink = (props) => {
                         </button>
                     </Link>
                 </div>
+            </div>
+            </div>
+            <div className="none-display-customer">
+                <Invalid/>
             </div>
         </React.Fragment>
     );
