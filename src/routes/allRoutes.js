@@ -15,7 +15,7 @@ import CustomerHome from "../pages/Customer/Home";
 
 //Customer Menu page
 import CustomerMenu from "../pages/Customer/Menu/index";
-
+import  KitchenOrderList from "../pages/Kitchen/OrderList/index"
 // Customer Invalid page
 import Invalid from "../pages/Customer/Invalid";
 
@@ -27,6 +27,7 @@ import SeeOrder from "../pages/Customer/SeeOrder/index";
 import DetailItemOrder from "../pages/Customer/SeeOrder/DetailOrder";
 import Feedback from "../pages/Customer/Feedback";
 import OrderList from "../pages/Receptionist/OrderList";
+import KitchenMenu from "../pages/Kitchen/MenuManagement";
 
 export const userRoutes = [
     {
@@ -60,6 +61,13 @@ export const userRoutes = [
     {
         path: "/customer-feedback", component: (window.innerWidth <= 900 && window.innerWidth / window.innerHeight <= 2.2)
             ? Feedback : Invalid
+    },
+    //path kitchen
+    {
+        path: "/kitchen-home", component: KitchenOrderList
+    },
+    {
+      path:"/kitchen-menu" , component: KitchenMenu
     },
     {
         path: "/receptionist-home", component: OrderList
