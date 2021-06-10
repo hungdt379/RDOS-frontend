@@ -36,10 +36,13 @@ import ConfirmOrder from "../pages/Waiter/DetailTable/ConfirmOrder";
 import ConfirmedOrder from "../pages/Waiter/DetailTable/ConfirmedOrder";
 import ChangeTable from "../pages/Waiter/DetailTable/ChangeTable";
 import Notification from "../pages/Waiter/DetailTable/Notification";
+import KitchenOrderList from "../pages/Kitchen/OrderList/index";
+import KitchenMenu from "../pages/Kitchen/MenuManagement";
 
 // Waiter Page;
 
 export const userRoutes = [
+    //Customer
     {path: "/customer-menu", component: CustomerMenu},
     {path: "/customer-home", component: CustomerHome},
     {path: "/customer-detail-combo", component: DetailCombo},
@@ -49,6 +52,7 @@ export const userRoutes = [
     {path: "/customer-detail-item", component: DetailItemOrder},
     {path: "/customer-feedback", component: Feedback},
 
+    //Receptionist
     {path: "/receptionist-home", component: OrderList},
     {path: "/receptionist-feedback", component: ViewFeedback},
 
@@ -61,6 +65,10 @@ export const userRoutes = [
     {path: "/waiter-detail-table-confirmed-order" , component: ConfirmedOrder},
     {path: "/waiter-detail-table-change-table" , component: ChangeTable},
     {path: "/waiter-detail-table-notification" , component: Notification},
+
+    //path kitchen
+    {path: "/kitchen-home", component: KitchenOrderList},
+    {path:"/kitchen-menu" , component: KitchenMenu},
     // this route should be at the end of all other routes
     {path: "/", exact: true, component: () => <Redirect to="/customer-home"/>}
 ];
