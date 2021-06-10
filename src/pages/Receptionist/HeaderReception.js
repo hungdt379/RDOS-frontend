@@ -41,7 +41,7 @@ const Header = (props) => {
                     </div>
 
                     <div align="center">
-                        <Link to="/receptionist-home">
+                        <Link to="/receptionist-feedback">
                             <div>
                                 <div style={{color:'#000000'}}>(icon)</div>
                                 <div style={{color:'#000000'}}><b>Xem Feedback</b></div>

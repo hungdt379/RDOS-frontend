@@ -27,43 +27,19 @@ import SeeOrder from "../pages/Customer/SeeOrder/index";
 import DetailItemOrder from "../pages/Customer/SeeOrder/DetailOrder";
 import Feedback from "../pages/Customer/Feedback";
 import OrderList from "../pages/Receptionist/OrderList";
+import ViewFeedback from "../pages/Receptionist/ViewFeedback";
 
 export const userRoutes = [
-    {
-        path: "/customer-menu", component: (window.innerWidth <= 900 && window.innerWidth / window.innerHeight <= 2.2)
-            ? CustomerMenu : Invalid
-    },
-    {
-        path: "/customer-home", component: (window.innerWidth <= 900 && window.innerWidth / window.innerHeight <= 2.2)
-            ? CustomerHome : Invalid
-    },
-    {
-        path: "/customer-detail-combo", component: (window.innerWidth <= 900 && window.innerWidth / window.innerHeight <= 2.2)
-            ? DetailCombo : Invalid
-    },
-    {
-        path: "/customer-detail-drink", component: (window.innerWidth <= 900 && window.innerWidth / window.innerHeight <= 2.2)
-            ? DetailDrink : Invalid
-    },
-    {
-        path: "/customer-cart", component: (window.innerWidth <= 900 && window.innerWidth / window.innerHeight <= 2.2)
-            ? Cart : Invalid
-    },
-    {
-        path: "/customer-see-order", component: (window.innerWidth <= 900 && window.innerWidth / window.innerHeight <= 2.2)
-            ? SeeOrder : Invalid
-    },
-    {
-        path: "/customer-detail-item", component: (window.innerWidth <= 900 && window.innerWidth / window.innerHeight <= 2.2)
-            ? DetailItemOrder : Invalid
-    },
-    {
-        path: "/customer-feedback", component: (window.innerWidth <= 900 && window.innerWidth / window.innerHeight <= 2.2)
-            ? Feedback : Invalid
-    },
-    {
-        path: "/receptionist-home", component: OrderList
-    },
+    {path: "/customer-menu", component: CustomerMenu},
+    {path: "/customer-home", component: CustomerHome},
+    {path: "/customer-detail-combo", component: DetailCombo},
+    {path: "/customer-detail-drink", component: DetailDrink},
+    {path: "/customer-cart", component: Cart},
+    {path: "/customer-see-order", component: SeeOrder},
+    {path: "/customer-detail-item", component: DetailItemOrder},
+    {path: "/customer-feedback", component: Feedback},
+    {path: "/receptionist-home", component: OrderList},
+    {path: "/receptionist-feedback", component: ViewFeedback},
     // this route should be at the end of all other routes
     {path: "/", exact: true, component: () => <Redirect to="/customer-home"/>}
 ];
