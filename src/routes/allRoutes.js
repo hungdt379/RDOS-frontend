@@ -28,6 +28,16 @@ import DetailItemOrder from "../pages/Customer/SeeOrder/DetailOrder";
 import Feedback from "../pages/Customer/Feedback";
 import OrderList from "../pages/Receptionist/OrderList";
 import ViewFeedback from "../pages/Receptionist/ViewFeedback";
+import SignIn from "../pages/Waiter/SignInWaiter";
+import ViewAllTable from "../pages/Waiter/home";
+import DetailTable from "../pages/Waiter/DetailTable";
+import CheckList from "../pages/Waiter/CheckList";
+import ConfirmOrder from "../pages/Waiter/DetailTable/ConfirmOrder";
+import ConfirmedOrder from "../pages/Waiter/DetailTable/ConfirmedOrder";
+import ChangeTable from "../pages/Waiter/DetailTable/ChangeTable";
+import Notification from "../pages/Waiter/DetailTable/Notification";
+
+// Waiter Page;
 
 export const userRoutes = [
     {path: "/customer-menu", component: CustomerMenu},
@@ -38,8 +48,19 @@ export const userRoutes = [
     {path: "/customer-see-order", component: SeeOrder},
     {path: "/customer-detail-item", component: DetailItemOrder},
     {path: "/customer-feedback", component: Feedback},
+
     {path: "/receptionist-home", component: OrderList},
     {path: "/receptionist-feedback", component: ViewFeedback},
+
+    //Waiter Page
+    {path: "/waiter-sign-in-waiter" , component: SignIn},
+    {path: "/waiter-view-all-table" , component: ViewAllTable},
+    {path: "/waiter-detail-table" , component: DetailTable},
+    {path: "/waiter-check-list", component: CheckList},
+    {path: "/waiter-detail-table-confirm-order" , component: ConfirmOrder},
+    {path: "/waiter-detail-table-confirmed-order" , component: ConfirmedOrder},
+    {path: "/waiter-detail-table-change-table" , component: ChangeTable},
+    {path: "/waiter-detail-table-notification" , component: Notification},
     // this route should be at the end of all other routes
     {path: "/", exact: true, component: () => <Redirect to="/customer-home"/>}
 ];
