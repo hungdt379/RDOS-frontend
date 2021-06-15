@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Redirect, withRouter } from "react-router-dom";
 import { loadState } from "../../store/localStorage";
 
-const AuthMiddleware = ({
+const AuthCustomer = ({
                             component: Component,
                             layout: Layout,
                             login,
@@ -11,12 +11,17 @@ const AuthMiddleware = ({
     <Route
         path={path}
         render={(props) => {
-            if (!localStorage.getItem("authUser")) {
-                return (
-                    <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
-                );
-            }
-
+            // if (
+            //   !login.authUser.token ||
+            //   login.isLogout === true ||
+            //   !loadState().token
+            // ) {
+            //   return (
+            //     <Redirect
+            //       to={{ pathname: "/login", state: { from: props.location } }}
+            //     />
+            //   );
+            // }
             return (
                 <Layout>
                     <Component {...props} />
@@ -26,4 +31,4 @@ const AuthMiddleware = ({
     />
 );
 
-export default withRouter(AuthMiddleware);
+export default withRouter(AuthCustomer);

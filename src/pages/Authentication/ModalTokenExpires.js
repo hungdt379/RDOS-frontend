@@ -38,7 +38,7 @@ const ModalWarrningToken = () => {
         </button>
       </div>
       <div className="modal-body">
-        <h5>Phiên đăng nhập hết hạn, vui lòng đăng xuất và đăng nhập lại</h5>
+        <h5>Mật khẩu hoặc tài khoản không đúng</h5>
       </div>
       <div className="modal-footer">
         <button

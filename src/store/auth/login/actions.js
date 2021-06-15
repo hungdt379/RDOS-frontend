@@ -8,10 +8,10 @@ import {
   TOKEN_STATUS_INVALID,
 } from "./actionTypes";
 
-export const loginUser = (user) => {
+export const loginUser = (user, history) => {
   return {
     type: LOGIN_USER,
-    payload: { user },
+    payload: { user, history },
   };
 };
 
