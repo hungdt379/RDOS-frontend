@@ -5,31 +5,37 @@ import { clearState, saveState } from "../../localStorage";
 import { apiUrls } from "../../../apis/api";
 import Request from "../../../apis/Request";
 
-function* loginUser({ payload: { user } }) {
+function* loginUser({ payload: { user, history } }) {
   try {
-    if (user.accessToken) {
-      yield saveState(user);
-      yield put(authorizationUser(true));
+    const response = yield call(Request.post, apiUrls.loginUsername, {username: user.username, password: user.password});
+    if (response.status === false) {
+      yield put(apiError(response));
     }
+    if (response.data.token) {
+      localStorage.setItem("authUser", JSON.stringify(response));
+      yield put(loginSuccess(response, false, true));
+      console.log("auth: "+response.data.user.role);
+      history.push('/'+response.data.user.role);
+    }
+    // yield saveState(user);
+    // yield put(authorizationUser(user, history));
   } catch (error) {
     yield put(apiError(error));
   }
 }
 
-function* authorization() {
-  try {
-    const json = yield call(Request.get, apiUrls.loginWithGoogle, {});
-    if (json.status === false) {
-      yield put(apiError(json));
-    }
-    if (json.data.token) {
-      yield put(loginSuccess(json.data, false, true));
-      saveState(json.data);
-    }
-  } catch (e) {
-    yield put(apiError(e));
-  }
-}
+// function* authorization({ payload: { user, history } }) {
+//   try {
+//     const json = yield call(Request.post, apiUrls.loginUsername, {username: user.username, password: user.password});
+//     yield setTimeout(() => {
+//       saveState(json.data);
+//       history.push('/')
+//     }, 3000)
+//     yield put(loginSuccess(json.data, false, true));
+//   } catch (e) {
+//     yield put(apiError(e));
+//   }
+// }
 
 function* logoutUser() {
   try {
@@ -43,9 +49,9 @@ export function* watchUserLogin() {
   yield takeEvery(LOGIN_USER, loginUser);
 }
 
-export function* watchAuthorizationRedirect() {
-  yield takeEvery(AUTHORIZATION_USER, authorization);
-}
+// export function* watchAuthorizationRedirect() {
+//   yield takeEvery(AUTHORIZATION_USER, authorization);
+// }
 
 export function* watchUserLogout() {
   yield takeEvery(LOGOUT_USER, logoutUser);
@@ -53,7 +59,7 @@ export function* watchUserLogout() {
 
 const sagaAuth = [
   watchUserLogin(),
-  watchAuthorizationRedirect(),
+  // watchAuthorizationRedirect(),
   watchUserLogout(),
 ];
 

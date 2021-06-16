@@ -3,6 +3,7 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import "../../../assets/scss/custom/pages/receptionist/receptionist.scss";
 
 import Header from "../../Kitchen/HeaderKitchen";
+import NotFound from "../../Authentication/Page401";
 
 function KitchenMenu(){
 
@@ -36,38 +37,50 @@ function KitchenMenu(){
         );
     }, []);
 
+    const [role, setrole] = useState([]);
+
+    useEffect(() => {
+        if (localStorage.getItem("authUser")) {
+            const obj = JSON.parse(localStorage.getItem("authUser"));
+            setrole(obj.data.user.role);
+        }
+    }, []);
+
+    console.log('role :' + role);
+
     return(
         <React.Fragment>
-            <div className="display-receptionist">
-                <Header/>
-                <div align="center" className="d-flex receptionist-order">
-                    <div align="center" className="col-12">
-                        <div style={{height: '30px'}}><b style={{fontSize: '25px'}}>Menu</b></div>
-                        <div className="side-content">
-                            <div id="search-form">
-                               <input type="text" id="fn-search"
-                                                                  style={{marginLeft: "20px",marginTop: "30px", width: "50%"}}
-                                                                  placeholder="Nhập Món Cần Tìm"/>
-                                <input type="button"  style={{marginLeft: "30px", padding:"0 10px"}}
-                                       onClick="load()" value="Tìm Kiếm"
-                                       />
-                            </div>
-                            <PerfectScrollbar className="mh-55">
-                            <table style={{marginLeft:"40px",width:"95%"}} className="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">STT</th>
-                                    <th scope="col">Mã Món</th>
-                                    <th scope="col">Tên Món</th>
-                                    <th scope="col">Hình Ảnh</th>
-                                    <th scope="col">Chi Tiết</th>
-                                    <th scope="col">Giá Bán</th>
-                                    <th scope="col">Trạng Thái</th>
-                                </tr>
-                                </thead>
-                                <tbody>
+            {(role === 'k')?(
+                <div className="display-receptionist">
+                    <Header/>
+                    <div align="center" className="d-flex receptionist-order">
+                        <div align="center" className="col-12">
+                            <div style={{height: '30px'}}><b style={{fontSize: '25px'}}>Menu</b></div>
+                            <div className="side-content">
+                                <div id="search-form">
+                                    <input type="text" id="fn-search"
+                                           style={{marginLeft: "20px",marginTop: "30px", width: "50%"}}
+                                           placeholder="Nhập Món Cần Tìm"/>
+                                    <input type="button"  style={{marginLeft: "30px", padding:"0 10px"}}
+                                           onClick="load()" value="Tìm Kiếm"
+                                    />
+                                </div>
+                                <PerfectScrollbar className="mh-55">
+                                    <table style={{marginLeft:"40px",width:"95%"}} className="table">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">STT</th>
+                                            <th scope="col">Mã Món</th>
+                                            <th scope="col">Tên Món</th>
+                                            <th scope="col">Hình Ảnh</th>
+                                            <th scope="col">Chi Tiết</th>
+                                            <th scope="col">Giá Bán</th>
+                                            <th scope="col">Trạng Thái</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
 
-                                    {orderState.map((d, i) =>
+                                        {orderState.map((d, i) =>
                                             <tr>
                                                 <th scope="row">{d.stt}</th>
                                                 <td>{d.itemID}</td>
@@ -81,15 +94,16 @@ function KitchenMenu(){
                                                     </div>
                                                 </button></td>
                                             </tr>
-                                    )}
+                                        )}
 
-                                </tbody>
-                            </table>
-                            </PerfectScrollbar>
+                                        </tbody>
+                                    </table>
+                                </PerfectScrollbar>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            ):(<NotFound/>)}
         </React.Fragment>
     );
 }

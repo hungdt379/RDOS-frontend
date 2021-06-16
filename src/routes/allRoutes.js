@@ -41,7 +41,7 @@ import KitchenMenu from "../pages/Kitchen/MenuManagement";
 
 // Waiter Page;
 
-export const userRoutes = [
+export const customerRoutes = [
     //Customer
     {path: "/customer-menu", component: CustomerMenu},
     {path: "/customer-home", component: CustomerHome},
@@ -51,13 +51,16 @@ export const userRoutes = [
     {path: "/customer-see-order", component: SeeOrder},
     {path: "/customer-detail-item", component: DetailItemOrder},
     {path: "/customer-feedback", component: Feedback},
+];
+
+export const userRoutes = [
 
     //Receptionist
     {path: "/receptionist-home", component: OrderList},
     {path: "/receptionist-feedback", component: ViewFeedback},
 
     //Waiter Page
-    {path: "/waiter-sign-in-waiter" , component: SignIn},
+    // {path: "/waiter-sign-in-waiter" , component: SignIn},
     {path: "/waiter-view-all-table" , component: ViewAllTable},
     {path: "/waiter-detail-table" , component: DetailTable},
     {path: "/waiter-check-list", component: CheckList},
@@ -70,7 +73,9 @@ export const userRoutes = [
     {path: "/kitchen-home", component: KitchenOrderList},
     {path:"/kitchen-menu" , component: KitchenMenu},
     // this route should be at the end of all other routes
-    {path: "/", exact: true, component: () => <Redirect to="/customer-home"/>}
+    {path: "/r", exact: true, component: () => <Redirect to="/receptionist-home"/>},
+    {path: "/w", exact: true, component: () => <Redirect to="/waiter-view-all-table"/>},
+    {path: "/k", exact: true, component: () => <Redirect to="/kitchen-home"/>}
 ];
 
 export const authRoutes = [

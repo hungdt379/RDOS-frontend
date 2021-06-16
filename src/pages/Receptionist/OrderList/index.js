@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 import Header from "../HeaderReception";
 import {Col, Container, Row} from "reactstrap/es";
 import Invalid from "../../Customer/Invalid";
+import NotFound from "../../Authentication/Page401";
 
 // Import menuDropdown
 
@@ -173,174 +174,191 @@ function OrderList() {
 
     }, []);
 
+    const [role, setrole] = useState([]);
+
+    useEffect(() => {
+        if (localStorage.getItem("authUser")) {
+            const obj = JSON.parse(localStorage.getItem("authUser"));
+            setrole(obj.data.user.role);
+        }
+    }, []);
+
+    console.log('role :' + role);
+
     return (
         <React.Fragment>
-            <div className="display-receptionist">
-                <Header/>
-                <div align="center" className="d-flex receptionist-order">
-                    <div align="center" className="col-6">
-                        <div className="side-content">
-                            <div style={{height: '30px'}}><b style={{fontSize: '25px'}}>Danh sách order</b></div>
-                            <div style={{height: '30px'}} className="d-flex">
-                                {statusState.map(result => (
-                                    <div align="center" className="col-6">
-                                        <label style={{fontSize: '20px'}}>
-                                            <input
-                                                type="radio"
-                                                value={result.code}
-                                                name="statusValue"
-                                                checked={displayStatus === result.code}
-                                                onChange={(e) => setStatus(e.target.value)}
-                                            /> {result.name}
-                                        </label>
+            {(role === 'r') ? (
+                <div>
+                    <div className="display-receptionist">
+                        <Header/>
+                        <div align="center" className="d-flex receptionist-order">
+                            <div align="center" className="col-6">
+                                <div className="side-content">
+                                    <div style={{height: '30px'}}><b style={{fontSize: '25px'}}>Danh sách order</b>
                                     </div>
-                                ))}
-                            </div>
-                            <PerfectScrollbar className="mh-55">
-                                {orderState.map((d, i) => (d.status == displayStatus) ? (
-                                        <div className="card-order d-flex">
-                                            <div className="col-1">
-                                                <input
-                                                    onChange={event => {
-                                                        let checked = event.target.checked;
-                                                        setOrderState(
-                                                            orderState.map(data => {
-                                                                if (d.order === data.order) {
-                                                                    data.select = checked;
-                                                                }
-                                                                return data;
-                                                            })
-                                                        );
-                                                    }}
-                                                    type="checkbox"
-                                                    checked={d.select}
-                                                />
-                                            </div>
-                                            <div className="col-3">
-                                                <b>{d.order}</b>
-                                            </div>
-                                            <div className="col-3">
-                                                <b>{d.table}</b>
-                                            </div>
-                                            <div className="col-3"
-                                                 style={{color: d.status == "confirm" ? "lightcoral" : "green"}}>
-                                                {d.status}
-                                            </div>
-                                            <div className="col-2">
-                                                <Link>
-                                                    <button
-                                                        className="card-order-button"
-                                                        onClick={(e) => (window.location.pathname = '/receptionist-home/' + d.order)}
-                                                    >
-                                                        <div>
-                                                            <b>Chi tiết</b>
-                                                        </div>
-                                                    </button>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                    )
-                                    : (null)
-                                )}
-                            </PerfectScrollbar>
-                            <div align="right" style={{height: '60px', width: '80%', alignItems: 'center'}}>
-                                <button>
-                                    <b>Gộp hóa đơn</b>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div align="center" className="col-6">
-                        <div className="side-content">
-                            <div style={{height: '30px'}}><b style={{fontSize: '25px'}}>Chi tiết order</b></div>
-                            {orderState.map((d, i) => ("/receptionist-home/" + d.order == window.location.pathname) ? (
-                                    <div>
-                                        <div style={{height: '30px'}} className="d-flex">
-                                            <div align="center" className="col-4">
-                                                <label style={{fontSize: '20px'}}>
-                                                    <b>Mã Order: </b>{d.order}
-                                                </label>
-                                            </div>
-                                            <div align="center" className="col-4">
-                                                <label style={{fontSize: '20px'}}>
-                                                    <b>Mã bàn: </b>{d.table}
-                                                </label>
-                                            </div>
-                                            <div align="center" className="col-4">
-                                                <label style={{fontSize: '20px'}}>
-                                                    <b>Trạng thái: </b>
-                                                    <label className="col-3"
-                                                           style={{color: d.status == "confirm" ? "lightcoral" : "green"}}>
-                                                        {d.status}
-                                                    </label>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <PerfectScrollbar className="mh-55">
-                                            {itemState.map((it, i) => (it.order == d.order) ? (
-                                                    <div className="card-order d-flex">
-                                                        <div className="col-3">
-                                                            <b>{it.item}</b>
-                                                        </div>
-                                                        <div className="col-2">
-                                                            <b>{it.number}</b>
-                                                        </div>
-                                                        <div className="col-5">
-                                                            <b>{it.price}x{it.number}={it.number * it.price}</b>
-                                                        </div>
-                                                        <div className="col-2"
-                                                             style={{color: it.status == "in process" ? "lightcoral" : "green"}}>
-                                                            {it.status}
-                                                        </div>
-                                                    </div>
-                                                )
-                                                : (null)
-                                            )}
-                                        </PerfectScrollbar>
-                                        <div style={{height: '60px'}} className="d-flex">
+                                    <div style={{height: '30px'}} className="d-flex">
+                                        {statusState.map(result => (
                                             <div align="center" className="col-6">
-                                                <div>Tổng
-                                                    tiền: {itemState.filter((it) => (it.order == d.order)).reduce((total, pr) => total + pr.price * pr.number, 0)}</div>
-                                                <div>
+                                                <label style={{fontSize: '20px'}}>
+                                                    <input
+                                                        type="radio"
+                                                        value={result.code}
+                                                        name="statusValue"
+                                                        checked={displayStatus === result.code}
+                                                        onChange={(e) => setStatus(e.target.value)}
+                                                    /> {result.name}
+                                                </label>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <PerfectScrollbar className="mh-55">
+                                        {orderState.map((d, i) => (d.status == displayStatus) ? (
+                                                <div className="card-order d-flex">
+                                                    <div className="col-1">
+                                                        <input
+                                                            onChange={event => {
+                                                                let checked = event.target.checked;
+                                                                setOrderState(
+                                                                    orderState.map(data => {
+                                                                        if (d.order === data.order) {
+                                                                            data.select = checked;
+                                                                        }
+                                                                        return data;
+                                                                    })
+                                                                );
+                                                            }}
+                                                            type="checkbox"
+                                                            checked={d.select}
+                                                        />
+                                                    </div>
+                                                    <div className="col-3">
+                                                        <b>{d.order}</b>
+                                                    </div>
+                                                    <div className="col-3">
+                                                        <b>{d.table}</b>
+                                                    </div>
+                                                    <div className="col-3"
+                                                         style={{color: d.status == "confirm" ? "lightcoral" : "green"}}>
+                                                        {d.status}
+                                                    </div>
+                                                    <div className="col-2">
+                                                        <Link>
+                                                            <button
+                                                                className="card-order-button"
+                                                                onClick={(e) => (window.location.pathname = '/receptionist-home/' + d.order)}
+                                                            >
+                                                                <div>
+                                                                    <b>Chi tiết</b>
+                                                                </div>
+                                                            </button>
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            )
+                                            : (null)
+                                        )}
+                                    </PerfectScrollbar>
+                                    <div align="right" style={{height: '60px', width: '80%', alignItems: 'center'}}>
+                                        <button>
+                                            <b>Gộp hóa đơn</b>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div align="center" className="col-6">
+                                <div className="side-content">
+                                    <div style={{height: '30px'}}><b style={{fontSize: '25px'}}>Chi tiết order</b></div>
+                                    {orderState.map((d, i) => ("/receptionist-home/" + d.order == window.location.pathname) ? (
+                                            <div>
+                                                <div style={{height: '30px'}} className="d-flex">
+                                                    <div align="center" className="col-4">
+                                                        <label style={{fontSize: '20px'}}>
+                                                            <b>Mã Order: </b>{d.order}
+                                                        </label>
+                                                    </div>
+                                                    <div align="center" className="col-4">
+                                                        <label style={{fontSize: '20px'}}>
+                                                            <b>Mã bàn: </b>{d.table}
+                                                        </label>
+                                                    </div>
+                                                    <div align="center" className="col-4">
+                                                        <label style={{fontSize: '20px'}}>
+                                                            <b>Trạng thái: </b>
+                                                            <label className="col-3"
+                                                                   style={{color: d.status == "confirm" ? "lightcoral" : "green"}}>
+                                                                {d.status}
+                                                            </label>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <PerfectScrollbar className="mh-55">
+                                                    {itemState.map((it, i) => (it.order == d.order) ? (
+                                                            <div className="card-order d-flex">
+                                                                <div className="col-3">
+                                                                    <b>{it.item}</b>
+                                                                </div>
+                                                                <div className="col-2">
+                                                                    <b>{it.number}</b>
+                                                                </div>
+                                                                <div className="col-5">
+                                                                    <b>{it.price}x{it.number}={it.number * it.price}</b>
+                                                                </div>
+                                                                <div className="col-2"
+                                                                     style={{color: it.status == "in process" ? "lightcoral" : "green"}}>
+                                                                    {it.status}
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                        : (null)
+                                                    )}
+                                                </PerfectScrollbar>
+                                                <div style={{height: '60px'}} className="d-flex">
+                                                    <div align="center" className="col-6">
+                                                        <div>Tổng
+                                                            tiền: {itemState.filter((it) => (it.order == d.order)).reduce((total, pr) => total + pr.price * pr.number, 0)}</div>
+                                                        <div>
                                                             <textarea style={{height: 50, width: 'auto'}}>
                                                                 Khách còn để lại 2 coca
                                                             </textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div align="center" className="col-6">
+                                                        {(itemState.filter((it) => (it.order == d.order)).every(it => it.status == "complete" && d.status == "confirm") === true)
+                                                            ? (
+                                                                <Link to="/receptionist-home">
+                                                                    <button style={{backgroundColor: 'green'}}>
+                                                                        <b>Xuất hóa đơn</b>
+                                                                    </button>
+                                                                </Link>
+                                                            )
+                                                            : (
+                                                                <button disabled={true}>
+                                                                    <b>Xuất hóa đơn</b>
+                                                                </button>
+                                                            )
+                                                        }
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div align="center" className="col-6">
-                                                {(itemState.filter((it) => (it.order == d.order)).every(it => it.status == "complete" && d.status=="confirm") === true)
-                                                    ? (
-                                                        <Link to="/receptionist-home">
-                                                            <button style={{backgroundColor: 'green'}}>
-                                                                <b>Xuất hóa đơn</b>
-                                                            </button>
-                                                        </Link>
-                                                    )
-                                                    : (
-                                                        <button disabled={true}>
-                                                            <b>Xuất hóa đơn</b>
-                                                        </button>
-                                                    )
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                )
-                                : (null)
-                            )}
-                            {(window.location.pathname == '/receptionist-home') ?
-                                (
-                                    <div style={{fontSize: '25px', color: 'lightcoral'}}>Hãy chọn 1 Order để xem chi
-                                        tiết</div>
-                                ) : (null)
-                            }
+                                        )
+                                        : (null)
+                                    )}
+                                    {(window.location.pathname == '/receptionist-home') ?
+                                        (
+                                            <div style={{fontSize: '25px', color: 'lightcoral'}}>Hãy chọn 1 Order để xem
+                                                chi
+                                                tiết</div>
+                                        ) : (null)
+                                    }
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div className='none-display-receptionist'>
+                        <Invalid/>
+                    </div>
                 </div>
-            </div>
-            <div className='none-display-receptionist'>
-                <Invalid/>
-            </div>
+            ) : (<NotFound/>)}
         </React.Fragment>
     );
 }
