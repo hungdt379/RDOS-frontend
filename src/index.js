@@ -12,16 +12,16 @@ import ModalTokenExpires from "./pages/Authentication/ModalTokenExpires";
 import { SnackbarProvider } from "notistack";
 
 const app = (
-  <PersistGate loading={null} persistor={persistor}>
-    <Provider store={store}>
-      <BrowserRouter>
-        <SnackbarProvider maxSnack={3}>
-          <ModalTokenExpires />
-            <App/>
-        </SnackbarProvider>
-      </BrowserRouter>
-    </Provider>
-  </PersistGate>
+    <PersistGate loading={null} persistor={persistor}>
+        <Provider store={store}>
+            <BrowserRouter>
+                <SnackbarProvider maxSnack={3}>
+                    <ModalTokenExpires />
+                    <App/>
+                </SnackbarProvider>
+            </BrowserRouter>
+        </Provider>
+    </PersistGate>
 );
 
 ReactDOM.render(app, document.getElementById("root"));

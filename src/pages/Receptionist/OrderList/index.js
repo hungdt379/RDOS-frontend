@@ -191,15 +191,15 @@ function OrderList() {
                 <div>
                     <div className="display-receptionist">
                         <Header/>
-                        <div align="center" className="d-flex receptionist-order">
-                            <div align="center" className="col-6">
+                        <div align="center" className="receptionist-order">
+                            <div align="center" className="col-xl-6">
                                 <div className="side-content">
-                                    <div style={{height: '30px'}}><b style={{fontSize: '25px'}}>Danh sách order</b>
+                                    <div style={{height: '30px'}}><b style={{fontSize:'20px'}}>Danh sách order</b>
                                     </div>
                                     <div style={{height: '30px'}} className="d-flex">
                                         {statusState.map(result => (
                                             <div align="center" className="col-6">
-                                                <label style={{fontSize: '20px'}}>
+                                                <label>
                                                     <input
                                                         type="radio"
                                                         value={result.code}
@@ -265,24 +265,24 @@ function OrderList() {
                                     </div>
                                 </div>
                             </div>
-                            <div align="center" className="col-6">
+                            <div align="center" className="col-xl-6">
                                 <div className="side-content">
-                                    <div style={{height: '30px'}}><b style={{fontSize: '25px'}}>Chi tiết order</b></div>
+                                    <div style={{height: '30px'}}><b style={{fontSize:'20px'}}>Chi tiết order</b></div>
                                     {orderState.map((d, i) => ("/receptionist-home/" + d.order == window.location.pathname) ? (
                                             <div>
                                                 <div style={{height: '30px'}} className="d-flex">
                                                     <div align="center" className="col-4">
-                                                        <label style={{fontSize: '20px'}}>
+                                                        <label>
                                                             <b>Mã Order: </b>{d.order}
                                                         </label>
                                                     </div>
                                                     <div align="center" className="col-4">
-                                                        <label style={{fontSize: '20px'}}>
+                                                        <label>
                                                             <b>Mã bàn: </b>{d.table}
                                                         </label>
                                                     </div>
                                                     <div align="center" className="col-4">
-                                                        <label style={{fontSize: '20px'}}>
+                                                        <label>
                                                             <b>Trạng thái: </b>
                                                             <label className="col-3"
                                                                    style={{color: d.status == "confirm" ? "lightcoral" : "green"}}>
@@ -297,13 +297,13 @@ function OrderList() {
                                                                 <div className="col-3">
                                                                     <b>{it.item}</b>
                                                                 </div>
-                                                                <div className="col-2">
+                                                                <div className="col-1">
                                                                     <b>{it.number}</b>
                                                                 </div>
                                                                 <div className="col-5">
                                                                     <b>{it.price}x{it.number}={it.number * it.price}</b>
                                                                 </div>
-                                                                <div className="col-2"
+                                                                <div className="col-3"
                                                                      style={{color: it.status == "in process" ? "lightcoral" : "green"}}>
                                                                     {it.status}
                                                                 </div>
@@ -345,7 +345,7 @@ function OrderList() {
                                     )}
                                     {(window.location.pathname == '/receptionist-home') ?
                                         (
-                                            <div style={{fontSize: '25px', color: 'lightcoral'}}>Hãy chọn 1 Order để xem
+                                            <div style={{fontSize:'25px',color: 'lightcoral'}}>Hãy chọn 1 Order để xem
                                                 chi
                                                 tiết</div>
                                         ) : (null)
@@ -353,9 +353,6 @@ function OrderList() {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className='none-display-receptionist'>
-                        <Invalid/>
                     </div>
                 </div>
             ) : (<NotFound/>)}

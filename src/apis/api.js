@@ -1,5 +1,6 @@
 export const apiUrls = {
   loginUsername: "api/auth/login",
+  loginCustomer: "api/auth/login/table",
   getAllFriend: "api/profiles",
   getDepartment: "api/groups",
   getInfoUser: "api/user/profiles",
