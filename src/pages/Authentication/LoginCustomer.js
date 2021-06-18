@@ -11,19 +11,20 @@ import {withRouter, Redirect} from 'react-router-dom';
 import {AvForm, AvField} from 'availity-reactstrap-validation';
 
 // actions
-import {loginUser, apiError, logoutUser} from '../../store/auth/login/actions';
+import {customerLoginUser, apiErrorCus} from '../../store/auth/logincustomer/actions';
 
 // import images
 import profile from "../../assets/images/customer/logo-web.jpg";
 
-
-
-const Login = (props) => {
+const LoginCustomer = (props) => {
 
     // handleValidSubmit
-    function  handleValidSubmit(event, values) {
-        props.loginUser(values, props.history);
+    function handleValidSubmit(event, values) {
+        props.customerLoginUser(values, props.history);
     }
+
+    let query = new URLSearchParams(window.location.search);
+
     return (
         <React.Fragment>
             <div className="home-btn d-none d-sm-block">
@@ -38,8 +39,7 @@ const Login = (props) => {
                                     <Row style={{backgroundColor: 'lightcoral'}}>
                                         <Col className="col-7">
                                             <div className="text-primary p-4">
-                                                <h5 className="text-primary">Welcome Back !</h5>
-                                                <p>Sign in to continue to RDOS.</p>
+                                                <h5 className="text-primary">Chào mừng bạn đến với Nhất Nướng !</h5>
                                             </div>
                                         </Col>
                                         <Col className="col-5 align-self-end">
@@ -51,33 +51,33 @@ const Login = (props) => {
                                     <div>
                                         <div className="avatar-md profile-user-wid mb-4">
                                                 <span className="avatar-title rounded-circle bg-light">
-                                                    <b style={{color: 'lightcoral', fontSize: '18px'}}>RDOS</b>
+                                                    <b style={{color: 'lightcoral', fontSize: '18px'}}>{query.get("username")}</b>
                                                 </span>
                                         </div>
                                     </div>
-                                    <div>
-                                        <b style={{color: 'lightcoral', fontSize: '15px'}}>Restaurant Digital Order
-                                            System</b>
-                                    </div>
                                     <div className="p-2">
 
-                                        <AvForm className="form-horizontal" onValidSubmit={(e,v) => { handleValidSubmit(e,v) }}>
+                                        <AvForm className="form-horizontal" onValidSubmit={(e, v) => {
+                                            handleValidSubmit(e, v)
+                                        }}>
 
                                             {/*{props.error && props.error ? <Alert color="danger">{props.error}</Alert> : null}*/}
 
-                                            <div className="form-group">
+                                            <div style={{display: 'none'}} className="form-group">
                                                 <AvField name="username" label="Username" className="form-control"
-                                                         placeholder="Enter username" type="text" required/>
+                                                         placeholder="Enter username" type="text" required
+                                                         value={query.get("username")}/>
                                             </div>
 
-                                            <div className="form-group">
+                                            <div style={{display: 'none'}} className="form-group">
                                                 <AvField name="password" label="Password" type="password"
-                                                         required placeholder="Enter Password"/>
+                                                         required placeholder="Enter Password"
+                                                         value={query.get("password")}/>
                                             </div>
 
                                             <div className="mt-3">
                                                 <button className="btn btn-primary btn-block waves-effect waves-light"
-                                                        type="submit">Đăng nhập
+                                                        type="submit">Tiếp tục
                                                 </button>
                                             </div>
                                         </AvForm>
@@ -98,8 +98,8 @@ const Login = (props) => {
 
 
 const mapStatetoProps = state => {
-    const { error } = state.Login;
-    return { error };
+    const {errorcus} = state.LoginCustomer;
+    return {errorcus};
 }
 
-export default withRouter(connect(mapStatetoProps, { loginUser,apiError })(Login));
+export default withRouter(connect(mapStatetoProps, {customerLoginUser, apiErrorCus})(LoginCustomer));

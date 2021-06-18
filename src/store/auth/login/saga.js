@@ -16,6 +16,10 @@ function* loginUser({ payload: { user, history } }) {
       yield put(loginSuccess(response, false, true));
       console.log("auth: "+response.data.user.role);
       history.push('/'+response.data.user.role);
+      yield setTimeout(() => {
+        clearState();
+        history.push('/timeout')
+      }, 3600000*8)
     }
     // yield saveState(user);
     // yield put(authorizationUser(user, history));

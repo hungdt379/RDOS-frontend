@@ -1,1 +1,1 @@
-export const whitelist = ['Login'];
+export const whitelist = ['Login','LoginCustomer'];
