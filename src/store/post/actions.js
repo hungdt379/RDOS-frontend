@@ -38,6 +38,26 @@ export const postThankError = (error) => {
   };
 };
 
+
+export const postNumberCustomerRequest = (payload) => {
+  return {
+    type: actionTypes.POST_NUMBER_CUSTOMER,
+    payload: payload,
+  };
+};
+export const postNumberCustomerSuccess = (response) => {
+  return {
+    type: actionTypes.POST_NUMBER_CUSTOMER_SUCCESS,
+    payload: response,
+  };
+};
+export const postNumberCustomerError = (error) => {
+  return {
+    type: actionTypes.POST_NUMBER_CUSTOMER_ERROR,
+    payload: error,
+  };
+};
+
 export const getAnnouncementRequest = (payload) => ({
   type: actionTypes.GET_ANNOUNCEMENT,
   payload: payload,

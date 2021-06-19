@@ -12,34 +12,36 @@ function* loginUser({ payload: { user, history } }) {
       yield put(apiError(response));
     }
     if (response.data.token) {
-      localStorage.setItem("authUser", JSON.stringify(response));
+      // localStorage.setItem("authUser", JSON.stringify(response));
       yield put(loginSuccess(response, false, true));
-      console.log("auth: "+response.data.user.role);
+
+      yield saveState(response);
+      yield put(authorizationUser(true));
       history.push('/'+response.data.user.role);
       yield setTimeout(() => {
         clearState();
         history.push('/timeout')
       }, 3600000*8)
     }
-    // yield saveState(user);
-    // yield put(authorizationUser(user, history));
+
+
   } catch (error) {
     yield put(apiError(error));
   }
 }
 
-// function* authorization({ payload: { user, history } }) {
-//   try {
-//     const json = yield call(Request.post, apiUrls.loginUsername, {username: user.username, password: user.password});
-//     yield setTimeout(() => {
-//       saveState(json.data);
-//       history.push('/')
-//     }, 3000)
-//     yield put(loginSuccess(json.data, false, true));
-//   } catch (e) {
-//     yield put(apiError(e));
-//   }
-// }
+function* authorization({ payload: { user, history } }) {
+  try {
+    const json = yield call(Request.post, apiUrls.loginUsername, {username: user.username, password: user.password});
+    yield setTimeout(() => {
+      saveState(json.data);
+      history.push('/')
+    }, 3000)
+    yield put(loginSuccess(json.data, false, true));
+  } catch (e) {
+    yield put(apiError(e));
+  }
+}
 
 function* logoutUser() {
   try {
@@ -53,9 +55,9 @@ export function* watchUserLogin() {
   yield takeEvery(LOGIN_USER, loginUser);
 }
 
-// export function* watchAuthorizationRedirect() {
-//   yield takeEvery(AUTHORIZATION_USER, authorization);
-// }
+export function* watchAuthorizationRedirect() {
+  yield takeEvery(AUTHORIZATION_USER, authorization);
+}
 
 export function* watchUserLogout() {
   yield takeEvery(LOGOUT_USER, logoutUser);
@@ -63,7 +65,7 @@ export function* watchUserLogout() {
 
 const sagaAuth = [
   watchUserLogin(),
-  // watchAuthorizationRedirect(),
+  watchAuthorizationRedirect(),
   watchUserLogout(),
 ];
 

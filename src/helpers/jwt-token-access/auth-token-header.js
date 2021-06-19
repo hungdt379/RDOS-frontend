@@ -11,7 +11,7 @@ export const authHeader = () => {
 
 export const authHeaderGetApi = () => {
   const obj = loadState();
-  return { Authorization: `Bearer ${obj.token}` };
+  return { Authorization: `Bearer ${obj.data.token}` };
 };
 
 export const authHeaderCus = () => {

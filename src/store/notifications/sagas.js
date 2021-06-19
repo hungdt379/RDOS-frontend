@@ -40,6 +40,23 @@ export function* watchGetNotifications() {
   yield takeEvery(actionTypes.GET_ALL_NOTIFICATION, allNotification);
 }
 
-const sagaNotificatons = [watchTotalOfNotifications(), watchGetNotifications()];
+//all table
+function* allTable({ payload }) {
+  try {
+    const response = yield call(Request.getApi,apiUrls.getAllTables,payload);
+    if(response){
+      // localStorage.setItem("allTable", JSON.stringify(response));
+      yield put(actions.getAllTableSuccess(response.data));
+    }
+  } catch (error) {
+    yield put(actions.getAllTableError(error));
+  }
+}
+
+export function* watchGetAllTable() {
+  yield takeEvery(actionTypes.GET_ALL_TABLE_REQUEST, allTable);
+}
+
+const sagaNotificatons = [watchTotalOfNotifications(), watchGetNotifications(), watchGetAllTable()];
 
 export default sagaNotificatons;

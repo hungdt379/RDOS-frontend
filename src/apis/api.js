@@ -2,6 +2,8 @@ export const apiUrls = {
   loginUsername: "api/auth/login",
   loginCustomer: "api/auth/login/table",
   getAllFriend: "api/profiles",
+  getAllTables: "api/waiter/tables?page=1&pageSize=10",
+  postOpenTable: "api/waiter/table/open",
   getDepartment: "api/groups",
   getInfoUser: "api/user/profiles",
   getAllNewsfeed: "api/home/thanks/newsfeed",
