@@ -37,3 +37,22 @@ export const getAllNotificationError = (error) => {
     payload: error,
   };
 };
+
+
+//all table
+export const getAllTableRequest = (payload) => ({
+  type: actionTypes.GET_ALL_TABLE_REQUEST,
+  payload: payload,
+});
+export const getAllTableSuccess = (response) => {
+  return {
+    type: actionTypes.GET_ALL_TABLE_SUCCESS,
+    payload: response,
+  };
+};
+export const getAllTableError = (error) => {
+  return {
+    type: actionTypes.GET_ALL_TABLE_ERROR,
+    payload: error,
+  };
+};

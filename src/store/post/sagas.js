@@ -50,8 +50,31 @@ function* postThanks({ payload }) {
     yield put(actions.postThankError(error));
   }
 }
+
 export function* watchPostThank() {
   yield takeLatest(actionTypes.POST_THANK_REQUEST, postThanks);
+}
+
+
+function* postNumberCustomer({ payload: { table , history} }) {
+  try {
+    const response = yield call(
+        Request.postApi,
+        apiUrls.postOpenTable,
+        {_id: table._id, number: table.number}
+    );
+    if (response.data.token) {
+      localStorage.setItem("numberCustomer" , response);
+      yield put(actions.postNumberCustomerSuccess(response));
+    }
+    return response;
+  } catch (error) {
+    yield put(actions.postNumberCustomerError(error));
+  }
+}
+
+export function* watchPostNumberCustomer() {
+  yield takeLatest(actionTypes.POST_NUMBER_CUSTOMER, postNumberCustomer);
 }
 
 function* getAnnouncement({ payload }) {
@@ -168,6 +191,7 @@ const sagaPost = [
   watchGetReactionUser(),
   watchPostReactionUser(),
   watchDeleteReactionUser(),
+    watchPostNumberCustomer()
 ];
 
 export default sagaPost;

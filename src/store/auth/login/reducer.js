@@ -31,7 +31,7 @@ const login = (state = initialState, action) => {
       if (action.payload.user) {
         axios.defaults.headers.common[
           "Authorization"
-        ] = `Bearer ${action.payload.user.token}`;
+        ] = `Bearer ${action.payload.user.data.token}`;
       }
       return Object.assign({}, state, {
         authUser: action.payload.user,

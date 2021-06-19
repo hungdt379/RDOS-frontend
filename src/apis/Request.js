@@ -21,7 +21,7 @@ axios.interceptors.response.use(
     return error;
   }
 );
-class Request {
+ class Request {
   constructor() {
     this.cancelToken = axios.CancelToken;
     this.source = this.cancelToken.source();
@@ -40,9 +40,9 @@ class Request {
       .catch((error) => {});
   }
 
-  getApi(url, params) {
+   getApi(url, params) {
     const { urlProcess, allParams } = getURL(url, params);
-    return axios
+    return  axios
       .get(urlProcess, {
         params: allParams,
         headers: authHeaderGetApi(),

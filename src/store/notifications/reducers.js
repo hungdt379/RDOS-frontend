@@ -34,7 +34,26 @@ const getAllNotifications = (state = allNotificationsReducer, action) => {
   }
 };
 
+const allTableReducer = {
+  allTables: [],
+};
+
+const getAllTable = (state = allTableReducer, action) => {
+  switch (action.type) {
+    case actionTypes.GET_ALL_TABLE_REQUEST:
+      return { ...state };
+    case actionTypes.GET_ALL_TABLE_SUCCESS:
+      state =  { ...state, allTables: action.payload };
+    case actionTypes.GET_ALL_TABLE_ERROR:
+      return { ...state, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+
 export const Notification = combineReducers({
   totalOfNotifications,
   getAllNotifications,
+  getAllTable,
 });

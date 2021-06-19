@@ -15,7 +15,7 @@ function DetailTable (){
         }
     }, []);
 
-    console.log('role :' + role);
+
 
     return(
         <React.Fragment>

@@ -37,6 +37,25 @@ const postThank = (state = dataPostThankReducer, action) => {
   }
 };
 
+
+const dataPostNumberCustomerReducer = {
+  dataPostNumberCustomer: [],
+};
+
+
+const postNumberCustomer= (state = dataPostThankReducer, action) => {
+  switch (action.type) {
+    case actionTypes.POST_NUMBER_CUSTOMER:
+      return { ...state };
+    case actionTypes.POST_NUMBER_CUSTOMER_SUCCESS:
+      return { ...state, dataPostNumberCustomer: action.payload };
+    case actionTypes.POST_NUMBER_CUSTOMER_ERROR:
+      return { ...state, error: action.payload };
+    default:
+      return state;
+  }
+};
+
 const dataAnnouncementReducer = {
   dataAnnouncement: [],
 };
@@ -118,4 +137,5 @@ export const Posts = combineReducers({
   Newsfeed,
   Department,
   getReactionPost,
+  postNumberCustomer,
 });
