@@ -114,13 +114,13 @@ function ViewFeedback() {
         <div>
             {(role === 'r') ? (
                 <div>
-                    <div className="display-receptionist">
+                    <div>
                         <Header/>
                         <div style={{marginTop: '100px', marginBottom: '60px'}} align="center"
                              className="table-responsive">
-                            <Table style={{width: 'auto',}} align="center" className="table mb-0">
+                            <Table style={{width: '100%',}} align="center" className="table mb-0">
 
-                                <thead>
+                                <thead align="center">
                                 <tr>
                                     <th>STT</th>
                                     <th>Thời gian</th>
@@ -129,7 +129,7 @@ function ViewFeedback() {
                                     <th>Nội dung</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody align="center">
                                 {stateFeedback.map((fe, i) => (
                                     <tr>
                                         <th>{fe.fid}</th>
@@ -142,9 +142,6 @@ function ViewFeedback() {
                                 </tbody>
                             </Table>
                         </div>
-                    </div>
-                    <div className='none-display-receptionist'>
-                        <Invalid/>
                     </div>
                 </div>
             ) : (<NotFound/>)}

@@ -21,9 +21,21 @@ import NonAuthLayout from "./components/NonAuthLayout";
 import "./assets/scss/theme.scss";
 import NotFound from "./pages/Authentication/Page401";
 import AuthCustomer from "./routes/middleware/AuthCustomer";
+import LoginCustomer from "./store/auth/logincustomer/reducer";
 
 const App = (props) => {
     const dispatch = useDispatch();
+
+    const [role, setrole] = useState([]);
+
+    useEffect(() => {
+        if (localStorage.getItem("authUser")) {
+            const obj = JSON.parse(localStorage.getItem("authUser"));
+            setrole(obj.data.user.role);
+        }
+    }, []);
+
+    console.log('role :' + role);
 
     function getLayout() {
         let layoutCls = RdosCustomerLayout;
@@ -52,41 +64,77 @@ const App = (props) => {
         />
     );
 
+    // const NonAuthMiddleware = ({
+    //                                component: Component,
+    //                                layout: Layout,
+    //                                login,
+    //                                path,
+    //                            }) => {
+    //     if (
+    //         login.loading === true &&
+    //         login.auth === false &&
+    //         login.authUser != " "
+    //     ) {
+    //         return <Redirect to={{pathname: "/loading"}}/>;
+    //     }
+    //
+    //     return (
+    //         <Route
+    //             path={path}
+    //             render={(props) => {
+    //                 if (login.loading === false && login.auth === true) {
+    //                     setTimeout(() => {
+    //                         props.history.push("/"+{role});
+    //                     }, 3000);
+    //                 }
+    //                 return (
+    //                     <Layout>
+    //                         <Component {...props} />
+    //                     </Layout>
+    //                 );
+    //             }}
+    //         />
+    //     );
+    // };
+
     return (
         <React.Fragment>
-            <Switch>
-                {authRoutes.map((route, idx) => (
-                    <NonAuthMiddleware
-                        path={route.path}
-                        layout={NonAuthLayout}
-                        component={route.component}
-                        key={idx}
-                        login={props.login}
-                    />
-                ))}
+            <Router>
+                <Switch>
+                    {authRoutes.map((route, idx) => (
+                        <NonAuthMiddleware
+                            path={route.path}
+                            layout={NonAuthLayout}
+                            component={route.component}
+                            key={idx}
+                            login={props.login}
+                        />
+                    ))}
 
-                {customerRoutes.map((route, idx) => (
-                    <AuthCustomer
-                        path={route.path}
-                        layout={Layout}
-                        component={route.component}
-                        key={idx}
-                    />
-                ))}
+                    {customerRoutes.map((route, idx) => (
+                        <AuthCustomer
+                            path={route.path}
+                            layout={Layout}
+                            component={route.component}
+                            key={idx}
+                            login={props.loginCus}
+                        />
+                    ))}
 
-                {userRoutes.map((route, idx) =>  (
-                    <AuthMiddleware
-                        path={route.path}
-                        layout={Layout}
-                        component={route.component}
-                        key={idx}
-                        login={props.login}
-                    />
-                ))}
+                    {userRoutes.map((route, idx) => (
+                        <AuthMiddleware
+                            path={route.path}
+                            layout={Layout}
+                            component={route.component}
+                            key={idx}
+                            login={props.login}
+                        />
+                    ))}
 
-                <Route path={"/not-found"} component={NotFound}/>
-                <Redirect to="/not-found"/>
-            </Switch>
+                    <Route path={"/not-found"} component={NotFound}/>
+                    <Redirect to="/not-found"/>
+                </Switch>
+            </Router>
         </React.Fragment>
     );
 };
@@ -94,6 +142,8 @@ const App = (props) => {
 const mapStateToProps = (state) => {
     return {
         layout: state.Layout,
+        login: state.Login || {},
+        loginCus: state.LoginCustomer || {},
     };
 };
 

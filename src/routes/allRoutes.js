@@ -38,10 +38,15 @@ import ChangeTable from "../pages/Waiter/DetailTable/ChangeTable";
 import Notification from "../pages/Waiter/DetailTable/Notification";
 import KitchenOrderList from "../pages/Kitchen/OrderList/index";
 import KitchenMenu from "../pages/Kitchen/MenuManagement";
+import Timeout from "../pages/Authentication/Timeout";
+import LoginCustomer from "../pages/Authentication/LoginCustomer";
 
 // Waiter Page;
 
 export const customerRoutes = [
+    //Authentication
+    {path: "/customer-login", component: LoginCustomer},
+
     //Customer
     {path: "/customer-menu", component: CustomerMenu},
     {path: "/customer-home", component: CustomerHome},
@@ -81,8 +86,10 @@ export const userRoutes = [
 export const authRoutes = [
     {path: "/logout", component: Logout},
     {path: "/login", component: Login},
+    {path: "/customer-login", component: LoginCustomer},
     {path: "/forget-password", component: ForgetPwd},
     {path: "/register", component: Register},
     {path: "/loading", component: Loading},
     {path: "/not-found", component: NotFound},
+    {path: "/timeout", component: Timeout},
 ];

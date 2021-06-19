@@ -18,6 +18,10 @@ function* loginUser({ payload: { user, history } }) {
       yield saveState(response);
       yield put(authorizationUser(true));
       history.push('/'+response.data.user.role);
+      yield setTimeout(() => {
+        clearState();
+        history.push('/timeout')
+      }, 3600000*8)
     }
 
 
