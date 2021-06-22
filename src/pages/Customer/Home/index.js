@@ -1,12 +1,14 @@
 import React, {useState} from "react";
 
 import {Link} from "react-router-dom";
-
+import { connect, shallowEqual, useSelector } from "react-redux";
+import { withRouter } from "react-router-dom";
 //Import scss
 import "../../../assets/scss/custom/pages/customer/home.scss";
 import "../../../assets/scss/custom/pages/customer/screen.scss";
 import CallWaiter from "../CallWaiter";
 import Invalid from "../Invalid";
+import {withNamespaces} from "react-i18next";
 
 const CustomerHome = (props) => {
     //const {tog_standard} = props;
@@ -17,7 +19,7 @@ const CustomerHome = (props) => {
                 <div className="v4_1">
                     <div className="d-flex header-home">
                         <div align="left" className="system col-6">RDOS</div>
-                        <div align="right" className="table-code col-6">MB01</div>
+                        <div align="right" className="table-code col-6">{props.authCustomer.data.user.user_name}</div>
                     </div>
 
                     <div align='center' className="info">
@@ -81,4 +83,11 @@ const CustomerHome = (props) => {
     );
 };
 
-export default CustomerHome;
+const mapStatetoProps = (state) => {
+    const { error, success } = state.Profile;
+    const { authCustomer } = state.LoginCustomer;
+    return { error, success, authCustomer };
+};
+export default withRouter(
+    connect(mapStatetoProps)(withNamespaces()(CustomerHome))
+);

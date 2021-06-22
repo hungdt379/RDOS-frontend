@@ -14,6 +14,7 @@ import { Posts } from "./post/reducers";
 import { User } from "./users/reducers";
 import { Statistics } from "./statistics/reducers";
 import { Notification } from "./notifications/reducers";
+import { Customer } from "./customer/reducers";
 
 const appReducer = combineReducers({
   Layout,
@@ -22,6 +23,8 @@ const appReducer = combineReducers({
   Account,
   Profile,
   ForgetPassword,
+
+  Customer,
 
   Posts,
 

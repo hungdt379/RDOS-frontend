@@ -1,9 +1,18 @@
 export const apiUrls = {
+  //Authentication
   loginUsername: "api/auth/login",
   loginCustomer: "api/auth/login/table",
-  getAllFriend: "api/profiles",
+
+  //Customer
+  getAllCategories: "api/customer/categories",
+  getAllMenus: "api/customer/menu",
+
+  //Waiter
   getAllTables: "api/waiter/tables?page=1&pageSize=10",
   postOpenTable: "api/waiter/table/open",
+
+  //Bai cu
+  getAllFriend: "api/profiles",
   getDepartment: "api/groups",
   getInfoUser: "api/user/profiles",
   getAllNewsfeed: "api/home/thanks/newsfeed",
