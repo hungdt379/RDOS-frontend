@@ -1,13 +1,14 @@
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
 import {
-  AUTHORIZATION_USER,
+  AUTHORIZATION_USER_CUS,
   CUSTOMER_LOGIN_USER,
   CUSTOMER_LOGOUT_USER,
 } from "./actionTypes";
-import {apiError, apiErrorCus, customerLoginSuccess} from "./actions";
-import {clearState, clearStateCustomer, saveState} from "../../localStorage";
+import {apiErrorCus, authorizationUserCus, customerLoginSuccess} from "./actions";
+import {clearStateCustomer, saveStateCustomer} from "../../localStorage";
 import { apiUrls } from "../../../apis/api";
 import Request from "../../../apis/Request";
+import {authorizationUser, loginSuccess} from "../login/actions";
 
 function* customerLoginUser({ payload: { user, history } }) {
   try {
@@ -16,8 +17,11 @@ function* customerLoginUser({ payload: { user, history } }) {
       yield put(apiErrorCus(response));
     }
     if (response.data.token) {
-      localStorage.setItem("authCustomer", JSON.stringify(response));
+      //localStorage.setItem("authCustomer", JSON.stringify(response));
       yield put(customerLoginSuccess(response, false, true));
+
+      yield saveStateCustomer(response);
+      yield put(authorizationUserCus(true));
       console.log("authCustomer: "+response.data.user.role);
       history.push('/customer-home');
     }
@@ -25,6 +29,19 @@ function* customerLoginUser({ payload: { user, history } }) {
     // yield put(authorizationUser(user, history));
   } catch (error) {
     yield put(apiErrorCus(error));
+  }
+}
+
+function* authorizationCus({ payload: { user, history } }) {
+  try {
+    const json = yield call(Request.postCus, apiUrls.loginCustomer, {username: user.username, password: user.password});
+    yield setTimeout(() => {
+      saveStateCustomer(json.data);
+      history.push('/')
+    }, 3000)
+    yield put(customerLoginSuccess(json.data, false, true));
+  } catch (e) {
+    yield put(apiErrorCus(e));
   }
 }
 
@@ -40,9 +57,9 @@ export function* watchCustomerLogin() {
   yield takeEvery(CUSTOMER_LOGIN_USER, customerLoginUser);
 }
 
-// export function* watchAuthorizationRedirect() {
-//   yield takeEvery(AUTHORIZATION_USER, authorization);
-// }
+export function* watchAuthorizationRedirectCus() {
+  yield takeEvery(AUTHORIZATION_USER_CUS, authorizationCus);
+}
 
 export function* watchCustomerLogout() {
   yield takeEvery(CUSTOMER_LOGOUT_USER, customerLogoutUser);
@@ -50,7 +67,7 @@ export function* watchCustomerLogout() {
 
 const sagaAuthCustomer = [
   watchCustomerLogin(),
-  // watchAuthorizationRedirect(),
+  watchAuthorizationRedirectCus(),
   watchCustomerLogout(),
 ];
 

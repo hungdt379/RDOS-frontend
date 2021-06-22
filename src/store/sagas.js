@@ -11,6 +11,7 @@ import sagaUser from "./users/saga";
 import sagaPost from "./post/sagas";
 import sagaStatistics from "./statistics/sagas";
 import sagaNotificatons from "./notifications/sagas";
+import sagaCustomer from "./customer/sagas";
 
 export default function* rootSaga() {
     yield all([
@@ -25,5 +26,6 @@ export default function* rootSaga() {
         ...sagaPost,
         ...sagaStatistics,
         ...sagaNotificatons,
+        ...sagaCustomer,
     ]);
 }

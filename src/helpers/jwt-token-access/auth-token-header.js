@@ -25,5 +25,5 @@ export const authHeaderCus = () => {
 
 export const authHeaderGetApiCus = () => {
   const obj = loadStateCustomer();
-  return { Authorization: `Bearer ${obj.token}` };
+  return { Authorization: `Bearer ${obj.data.token}` };
 };

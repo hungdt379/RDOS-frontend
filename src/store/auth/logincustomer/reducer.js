@@ -1,6 +1,6 @@
 import {
   API_ERROR_CUSTOMER,
-  AUTHORIZATION_USER,
+  AUTHORIZATION_USER_CUS,
   CUSTOMER_LOGIN_SUCCESS,
   CUSTOMER_LOGIN_USER,
   CUSTOMER_LOGOUT_USER,
@@ -22,7 +22,7 @@ const loginCustomer = (state = initialState, action) => {
   switch (action.type) {
     case CUSTOMER_LOGIN_USER:
       return (state = { ...state, loading: true });
-    case AUTHORIZATION_USER:
+    case AUTHORIZATION_USER_CUS:
       return Object.assign({}, state, {
         auth: false,
         loading: true,
@@ -31,7 +31,7 @@ const loginCustomer = (state = initialState, action) => {
       if (action.payload.user) {
         axios.defaults.headers.common[
           "Authorization"
-        ] = `Bearer ${action.payload.user.token}`;
+        ] = `Bearer ${action.payload.user.data.token}`;
       }
       return Object.assign({}, state, {
         authCustomer: action.payload.user,

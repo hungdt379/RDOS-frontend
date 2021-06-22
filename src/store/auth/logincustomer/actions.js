@@ -1,6 +1,6 @@
 import {
   API_ERROR_CUSTOMER,
-  AUTHORIZATION_USER,
+  AUTHORIZATION_USER_CUS,
   CUSTOMER_LOGIN_SUCCESS,
   CUSTOMER_LOGIN_USER,
   CUSTOMER_LOGOUT_USER,
@@ -21,9 +21,9 @@ export const customerLoginSuccess = (user, auth, authCustomer) => {
     payload: { user, auth, authCustomer },
   };
 };
-export const authorizationUser = () => {
+export const authorizationUserCus = () => {
   return {
-    type: AUTHORIZATION_USER,
+    type: AUTHORIZATION_USER_CUS,
     payload: {},
   };
 };
