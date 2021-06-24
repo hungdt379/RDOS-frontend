@@ -5,23 +5,29 @@ import "../../../assets/scss/custom/pages/customer/menu.scss";
 import {BrowserRouter as Router, Link, Route, Switch, withRouter} from "react-router-dom";
 import NonAuthLayout from "../../../components/NonAuthLayout";
 import * as actions from "../../../store/customer/actions";
-import MainMenu from "./MainMenu";
-import DrinkMenu from "./DrinkMenu";
-import ExtraMenu from "./ExtraMenu";
 import Invalid from "../Invalid";
 import {withNamespaces} from "react-i18next";
 import {connect} from "react-redux";
-import {getAllCategoryRequest} from "../../../store/customer/actions";
-import {apiError} from "../../../store/auth/login/actions";
 
 const CustomerMenu = (props) => {
+
+    const [search, setSearch] = useState('');
+
+    // const onchange = (e) => {
+    //     const value = e.target.value;
+    //     setSearch({
+    //         ...search,
+    //         [e.target.value]: value,
+    //     });
+    //     props.dispatch(actions.getAllSearchRequest(value));
+    // };
 
     useEffect(() => {
         props.dispatch(actions.getAllCategoryRequest());
         props.dispatch(actions.getAllMenuRequest());
     }, []);
 
-    console.log("combo : "+props?.dataMenu?.combo);
+    console.log("combo : " + props?.dataMenu?.combo);
 
     return (
         <React.Fragment>
@@ -32,8 +38,14 @@ const CustomerMenu = (props) => {
                             <div>(icon)</div>
                             <div>home</div>
                         </Link></div>
-                        <div align="center" className="menu-search col-8"><input className="search-bar" type="text"
-                                                                                 name="search" placeholder="Search..."/>
+                        <div align="center" className="menu-search col-8">
+                            <input className="search-bar" type="text" name="search" placeholder="Tìm kiếm..."
+                                   // value={search}
+                                   onChange={(e) => (
+                                       setSearch(e.target.value),
+                                       props.dispatch(actions.getAllSearchRequest(e.target.value))
+                                   )}
+                            />
                         </div>
                         <div className="table-header col-2">RDOS</div>
                     </div>
@@ -58,14 +70,15 @@ const CustomerMenu = (props) => {
                         ))}
                     </div>
                 </div>
-
-                <div id="combo">
-                    <div className="title-menu"><b>Combo nướng + lẩu</b></div>
-                    {props?.dataMenu?.combo?.map((combo) => (
+                <div className={(search !== '')?'dis-menu':'none-dis-menu'}>
+                    <div className="title-menu">Món bạn đang tìm là:</div>
+                    {props?.dataSearch?.map((se) => (
                         <div className="item-menu d-flex">
                             <div align="left" className="col-10">
-                                <div className="item-name"><b>{combo?.name}</b></div>
-                                <div className="item-cost">{(combo?.cost).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')} vnd</div>
+                                <div className="item-name"><b>{se?.name}</b></div>
+                                <div
+                                    className="item-cost">{(se?.cost).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')} vnd
+                                </div>
                             </div>
                             <div align="right" className="add-button col-2">
                                 <Link to="/customer-detail-combo">
@@ -77,41 +90,67 @@ const CustomerMenu = (props) => {
                         </div>
                     ))}
                 </div>
-                <div id="drink">
-                    <div className="title-menu"><b>Đồ uống</b></div>
-                    {props?.dataMenu?.drink?.map((drink) => (
-                        <div className="item-menu d-flex">
-                            <div align="left" className="col-10">
-                                <div className="item-name"><b>{drink?.name}</b></div>
-                                <div className="item-cost">{(drink?.cost).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')} vnd</div>
+                <div className={(search === '')?'dis-menu':'none-dis-menu'}>
+                    <div id="combo">
+                        <div className="title-menu"><b>Combo nướng + lẩu</b></div>
+                        {props?.dataMenu?.combo?.map((combo) => (
+                            <div className="item-menu d-flex">
+                                <div align="left" className="col-10">
+                                    <div className="item-name"><b>{combo?.name}</b></div>
+                                    <div
+                                        className="item-cost">{(combo?.cost).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')} vnd
+                                    </div>
+                                </div>
+                                <div align="right" className="add-button col-2">
+                                    <Link to="/customer-detail-combo">
+                                        <button className="add-btn">
+                                            <div>+</div>
+                                        </button>
+                                    </Link>
+                                </div>
                             </div>
-                            <div align="right" className="add-button col-2">
-                                <Link to="/customer-detail-drink">
-                                    <button className="add-btn">
-                                        <div>+</div>
-                                    </button>
-                                </Link>
+                        ))}
+                    </div>
+                    <div id="drink">
+                        <div className="title-menu"><b>Đồ uống</b></div>
+                        {props?.dataMenu?.drink?.map((drink) => (
+                            <div className="item-menu d-flex">
+                                <div align="left" className="col-10">
+                                    <div className="item-name"><b>{drink?.name}</b></div>
+                                    <div
+                                        className="item-cost">{(drink?.cost).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')} vnd
+                                    </div>
+                                </div>
+                                <div align="right" className="add-button col-2">
+                                    <Link to="/customer-detail-drink">
+                                        <button className="add-btn">
+                                            <div>+</div>
+                                        </button>
+                                    </Link>
+                                </div>
                             </div>
-                        </div>
-                    ))}
-                </div>
-                <div id="fast">
-                    <div className="title-menu"><b>Đồ ăn kèm</b></div>
-                    {props?.dataMenu?.fast?.map((fast) => (
-                        <div className="item-menu d-flex">
-                            <div align="left" className="col-10">
-                                <div className="item-name"><b>{fast?.name}</b></div>
-                                <div className="item-cost">{(fast?.cost).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')} vnd</div>
+                        ))}
+                    </div>
+                    <div id="fast">
+                        <div className="title-menu"><b>Đồ ăn kèm</b></div>
+                        {props?.dataMenu?.fast?.map((fast) => (
+                            <div className="item-menu d-flex">
+                                <div align="left" className="col-10">
+                                    <div className="item-name"><b>{fast?.name}</b></div>
+                                    <div
+                                        className="item-cost">{(fast?.cost).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')} vnd
+                                    </div>
+                                </div>
+                                <div align="right" className="add-button col-2">
+                                    <Link to="/customer-detail-drink">
+                                        <button className="add-btn">
+                                            <div>+</div>
+                                        </button>
+                                    </Link>
+                                </div>
                             </div>
-                            <div align="right" className="add-button col-2">
-                                <Link to="/customer-detail-drink">
-                                    <button className="add-btn">
-                                        <div>+</div>
-                                    </button>
-                                </Link>
-                            </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
                 {/*<div id="drink"><DrinkMenu/></div>*/}
                 {/*<div id="fast"><ExtraMenu/></div>*/}
@@ -135,6 +174,7 @@ const mapStateToProps = (state) => {
     return {
         dataCategory: state.Customer.getAllCategory.allCategories,
         dataMenu: state.Customer.getAllMenu.allMenu,
+        dataSearch: state.Customer.getAllSearch.allSearch,
     };
 };
 

@@ -6,6 +6,7 @@ export const apiUrls = {
   //Customer
   getAllCategories: "api/customer/categories",
   getAllMenus: "api/customer/menu",
+  getAllSearchs: "api/search",
 
   //Waiter
   getAllTables: "api/waiter/tables?page=1&pageSize=10",

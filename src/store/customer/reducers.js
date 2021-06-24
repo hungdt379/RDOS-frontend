@@ -37,8 +37,27 @@ const getAllMenu = (state = allMenuReducer, action) => {
     }
 };
 
+//all Search
+const allSearchReducer = {
+    allSearch: [],
+};
+
+const getAllSearch = (state = allSearchReducer, action) => {
+    switch (action.type) {
+        case actionTypes.GET_ALL_SEARCH_REQUEST:
+            return { ...state };
+        case actionTypes.GET_ALL_SEARCH_SUCCESS:
+            state =  { ...state, allSearch: action.payload };
+        case actionTypes.GET_ALL_SEARCH_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
 
 export const Customer = combineReducers({
     getAllCategory,
     getAllMenu,
+    getAllSearch,
 });

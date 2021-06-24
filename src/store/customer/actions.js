@@ -35,3 +35,21 @@ export const getAllMenuError = (error) => {
         payload: error,
     };
 };
+
+//all search
+export const getAllSearchRequest = (payload) => ({
+    type: actionTypes.GET_ALL_SEARCH_REQUEST,
+    payload: payload,
+});
+export const getAllSearchSuccess = (response) => {
+    return {
+        type: actionTypes.GET_ALL_SEARCH_SUCCESS,
+        payload: response,
+    };
+};
+export const getAllSearchError = (error) => {
+    return {
+        type: actionTypes.GET_ALL_SEARCH_ERROR,
+        payload: error,
+    };
+};
