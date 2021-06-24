@@ -38,9 +38,27 @@ export function* watchGetAllMenu() {
     yield takeEvery(actionTypes.GET_ALL_MENU_REQUEST, allMenu);
 }
 
+//all Search
+function* allSearch({ payload: a }) {
+    try {
+        const response = yield call(Request.getApiCus,apiUrls.getAllSearchs, {q: a});
+        if(response){
+            yield put(actions.getAllSearchSuccess(response.data));
+        }
+        console.log("search: "+response.data)
+    } catch (error) {
+        yield put(actions.getAllSearchError(error));
+    }
+}
+
+export function* watchGetAllSearch() {
+    yield takeEvery(actionTypes.GET_ALL_SEARCH_REQUEST, allSearch);
+}
+
 const sagaCustomer = [
     watchGetAllCategory(),
     watchGetAllMenu(),
+    watchGetAllSearch(),
 ];
 
 export default sagaCustomer;
