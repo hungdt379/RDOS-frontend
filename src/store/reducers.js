@@ -15,6 +15,8 @@ import { User } from "./users/reducers";
 import { Statistics } from "./statistics/reducers";
 import { Notification } from "./notifications/reducers";
 import { Customer } from "./customer/reducers";
+import { Receptionist } from "./receptionist/reducers";
+import {CUSTOMER_LOGOUT_USER} from "./auth/logincustomer/actionTypes";
 
 const appReducer = combineReducers({
   Layout,
@@ -26,6 +28,8 @@ const appReducer = combineReducers({
 
   Customer,
 
+  Receptionist,
+
   Posts,
 
   Statistics,
@@ -35,7 +39,7 @@ const appReducer = combineReducers({
   Notification,
 });
 const rootReducer = (state, action) => {
-  if (action.type === LOGOUT_USER) {
+  if (action.type === LOGOUT_USER || action.type === CUSTOMER_LOGOUT_USER) {
     localStorage.removeItem("persist:root");
     return appReducer(undefined, action);
   }

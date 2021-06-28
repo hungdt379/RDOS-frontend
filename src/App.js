@@ -49,53 +49,48 @@ const App = (props) => {
 
     const Layout = getLayout();
 
-    const NonAuthMiddleware = ({
-                                   component: Component,
-                                   layout: Layout
-                               }) => (
-        <Route
-            render={props => {
-                return (
-                    <Layout>
-                        <Component {...props} />
-                    </Layout>
-                );
-            }}
-        />
-    );
-
     // const NonAuthMiddleware = ({
     //                                component: Component,
-    //                                layout: Layout,
-    //                                login,
-    //                                path,
-    //                            }) => {
-    //     if (
-    //         login.loading === true &&
-    //         login.auth === false &&
-    //         login.authUser != " "
-    //     ) {
-    //         return <Redirect to={{pathname: "/loading"}}/>;
-    //     }
-    //
-    //     return (
-    //         <Route
-    //             path={path}
-    //             render={(props) => {
-    //                 if (login.loading === false && login.auth === true) {
-    //                     setTimeout(() => {
-    //                         props.history.push("/"+{role});
-    //                     }, 3000);
-    //                 }
-    //                 return (
-    //                     <Layout>
-    //                         <Component {...props} />
-    //                     </Layout>
-    //                 );
-    //             }}
-    //         />
-    //     );
-    // };
+    //                                layout: Layout
+    //                            }) => (
+    //     <Route
+    //         render={props => {
+    //             return (
+    //                 <Layout>
+    //                     <Component {...props} />
+    //                 </Layout>
+    //             );
+    //         }}
+    //     />
+    // );
+
+    const NonAuthMiddleware = ({
+                                   component: Component,
+                                   layout: Layout,
+                                   login,
+                                   path,
+                               }) => {
+        if (
+            login.loading === true &&
+            login.auth === false &&
+            login.authUser != " "
+        ) {
+            return <Redirect to={{pathname: "/loading"}}/>;
+        }
+
+        return (
+            <Route
+                path={path}
+                render={(props) => {
+                    return (
+                        <Layout>
+                            <Component {...props} />
+                        </Layout>
+                    );
+                }}
+            />
+        );
+    };
 
     return (
         <React.Fragment>

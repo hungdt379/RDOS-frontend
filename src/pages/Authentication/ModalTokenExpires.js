@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Modal} from "reactstrap";
 import {logoutUser} from "../../store/auth/login/actions";
 import {setTokenStatusInvalid} from "../../store/auth/login/actions";
+import {customerLogoutUser} from "../../store/auth/logincustomer/actions";
 
 const ModalWarrningToken = () => {
     const dispatch = useDispatch();
@@ -38,21 +39,48 @@ const ModalWarrningToken = () => {
                 </button>
             </div>
             <div className="modal-body">
-                {(window.location.pathname === "/login") ? (<h5>Mật khẩu hoặc tài khoản không đúng</h5>) :
+                {(window.location.pathname === "/loading") ? (<h5>Mật khẩu hoặc tài khoản không đúng</h5>) :
                     (window.location.pathname === "/customer-login") ? (<h5>Bàn chưa được mở</h5>) :
                         (<h5>Đã xảy ra lỗi</h5>)}
             </div>
             <div className="modal-footer">
-                <button
-                    type="button"
-                    onClick={() => {
-                        dispatch(logoutUser(true));
-                    }}
-                    className="btn btn-secondary waves-effect"
-                    data-dismiss="modal"
-                >
-                    Tiếp Tục.
-                </button>
+                {(window.location.pathname === "/loading") ? (
+                        <button
+                            type="button"
+                            onClick={() => {
+                                dispatch(logoutUser(false));
+                            }}
+                            className="btn btn-secondary waves-effect"
+                            data-dismiss="modal"
+                        >
+                            Tiếp Tục.
+                        </button>
+                    ) :
+                    (window.location.pathname === "/customer-login") ? (
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    dispatch(customerLogoutUser(false));
+                                }}
+                                className="btn btn-secondary waves-effect"
+                                data-dismiss="modal"
+                            >
+                                Tiếp Tục.
+                            </button>
+                        ) :
+                        (
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    dispatch(logoutUser(false));
+                                    dispatch(customerLogoutUser(false));
+                                }}
+                                className="btn btn-secondary waves-effect"
+                                data-dismiss="modal"
+                            >
+                                Tiếp Tục.
+                            </button>
+                        )}
             </div>
         </Modal>
     );

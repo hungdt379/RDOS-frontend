@@ -83,7 +83,7 @@ const CustomerMenu = (props) => {
                             <div align="right" className="add-button col-2">
                                 <Link to="/customer-detail-combo">
                                     <button className="add-btn">
-                                        <div>+</div>
+                                        <div><i style={{color: "#000000"}} className="bx bx-plus-medical bx-tada"></i></div>
                                     </button>
                                 </Link>
                             </div>
@@ -104,7 +104,7 @@ const CustomerMenu = (props) => {
                                 <div align="right" className="add-button col-2">
                                     <Link to="/customer-detail-combo">
                                         <button className="add-btn">
-                                            <div>+</div>
+                                            <div><i style={{color: "#000000"}} className="bx bx-plus-medical bx-tada"></i></div>
                                         </button>
                                     </Link>
                                 </div>
@@ -124,7 +124,7 @@ const CustomerMenu = (props) => {
                                 <div align="right" className="add-button col-2">
                                     <Link to="/customer-detail-drink">
                                         <button className="add-btn">
-                                            <div>+</div>
+                                            <div><i style={{color: "#000000"}} className="bx bx-plus-medical bx-tada"></i></div>
                                         </button>
                                     </Link>
                                 </div>
@@ -144,7 +144,7 @@ const CustomerMenu = (props) => {
                                 <div align="right" className="add-button col-2">
                                     <Link to="/customer-detail-drink">
                                         <button className="add-btn">
-                                            <div>+</div>
+                                            <div><i style={{color: "#000000"}} className="bx bx-plus-medical bx-tada"></i></div>
                                         </button>
                                     </Link>
                                 </div>

@@ -53,3 +53,43 @@ export const getAllSearchError = (error) => {
         payload: error,
     };
 };
+
+//call Waiter
+export const postCallWaiterRequest = (payload) => {
+    return {
+        type: actionTypes.POST_CALL_WAITER_REQUEST,
+        payload: payload,
+    };
+};
+export const postCallWaiterSuccess = (response) => {
+    return {
+        type: actionTypes.POST_CALL_WAITER_SUCCESS,
+        payload: response,
+    };
+};
+export const postCallWaiterError = (error) => {
+    return {
+        type: actionTypes.POST_CALL_WAITER_ERROR,
+        payload: error,
+    };
+};
+
+//call Payment
+export const postCallPaymentRequest = () => {
+    return {
+        type: actionTypes.POST_CALL_PAYMENT_REQUEST,
+        // payload: payload,
+    };
+};
+export const postCallPaymentSuccess = (response) => {
+    return {
+        type: actionTypes.POST_CALL_PAYMENT_SUCCESS,
+        payload: response,
+    };
+};
+export const postCallPaymentError = (error) => {
+    return {
+        type: actionTypes.POST_CALL_PAYMENT_ERROR,
+        payload: error,
+    };
+};
