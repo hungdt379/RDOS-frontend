@@ -55,9 +55,46 @@ const getAllSearch = (state = allSearchReducer, action) => {
     }
 };
 
+//call waiter
+const dataPostCallWaiterReducer = {
+    dataPostCallWaiter: [],
+};
+
+const postCallWaiter = (state = dataPostCallWaiterReducer, action) => {
+    switch (action.type) {
+        case actionTypes.POST_CALL_WAITER_REQUEST:
+            return { ...state };
+        case actionTypes.POST_CALL_WAITER_SUCCESS:
+            return { ...state, dataPostCallWaiter: action.payload };
+        case actionTypes.POST_CALL_WAITER_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+//call payment
+const dataPostCallPaymentReducer = {
+    dataPostCallPayment: [],
+};
+
+const postCallPayment = (state = dataPostCallPaymentReducer, action) => {
+    switch (action.type) {
+        case actionTypes.POST_CALL_PAYMENT_REQUEST:
+            return { ...state };
+        case actionTypes.POST_CALL_PAYMENT_SUCCESS:
+            return { ...state, dataPostCallPayment: action.payload };
+        case actionTypes.POST_CALL_PAYMENT_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
 
 export const Customer = combineReducers({
     getAllCategory,
     getAllMenu,
     getAllSearch,
+    postCallWaiter,
+    postCallPayment,
 });

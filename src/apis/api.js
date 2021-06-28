@@ -8,6 +8,12 @@ export const apiUrls = {
   getAllMenus: "api/customer/menu",
   getAllSearchs: "api/search",
 
+  callWaiter: "api/customer/call/waiter",
+  callPayment: "api/customer/call/payment",
+
+  //Receptionist
+  getNotificationsReceptionist: "api/receptionist/notifications",
+
   //Waiter
   getAllTables: "api/waiter/tables?page=1&pageSize=10",
   postOpenTable: "api/waiter/table/open",

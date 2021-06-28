@@ -61,13 +61,13 @@ const DetailDrink = (props) => {
                             <button className="add-btn" onClick={() => {
                                 countDown(pr.data_attr)
                             }}>
-                                <div>-</div>
+                                <div><i style={{color: "#000000"}} className="bx bx-minus bx-tada"></i></div>
                             </button>
                             <b style={{color: '#000000'}}> {pr.data_attr} </b>
                             <button className="add-btn" onClick={() => {
                                 countUP(pr.data_attr)
                             }}>
-                                <div>+</div>
+                                <div><i style={{color: "#000000"}} className="bx bx-plus bx-tada"></i></div>
                             </button>
                         </div>
                     )

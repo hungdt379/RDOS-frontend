@@ -1,45 +1,68 @@
-import React, {useState, Component, useEffect} from "react";
+import React, {useMemo, useState} from "react";
 
 //Import scss
 import "../../../assets/scss/custom/pages/customer/detail.scss";
 import {Link} from "react-router-dom";
 
 import imageItem from "../../../assets/images/customer/logo-web.jpg";
-import {Modal} from "reactstrap/es";
-
-// const dish = [
-//     "Ba chỉ bò",
-//     "Ba chỉ lợn",
-//     "Xúc xích",
-//     "Sụn",
-//     "Bắp bò",
-//     "Kim chi",
-//     "Rau củ quả",
-// ];
+import {
+    Modal,
+    Input,
+    Button
+} from "reactstrap/es";
+import * as actions from "../../../store/customer/actions";
+import {useSelector} from "react-redux";
+import {useForm, Controller} from "react-hook-form";
 
 function CallWaiter(props) {
 
-    const {open, onClose} = props;
+    const { open, onClose, handleSubmitCallWaiter } = props;
+    const { handleSubmit, control } = useForm();
+
+    const submit = (data) => {
+        const { content } = data;
+        const postData = {
+            content: content,
+        };
+        handleSubmitCallWaiter(postData);
+    };
 
     return (
-        <Modal size="lg" isOpen={open} toggle={onClose}>
-            <div align='center'
-                 style={{marginTop: '50px', marginBottom: '60px', borderRadius: '20px'}}>
-                <div style={{paddingTop: '20px', marginBottom: '10px'}} className="note-item">
-                    <input style={{height: '100px', width: '95%'}} className="note-input-item" type="text" name="search"
-                           placeholder="Note..."/>
+        <Modal size="lg" isOpen={open} toggle={onClose} className="pt-5">
+            <form align='center'
+                  style={{marginTop: '50px', marginBottom: '60px', borderRadius: '20px'}}
+                  onSubmit={handleSubmit(submit)}>
+                <div><b style={{fontSize: '20px'}}>Gọi phục vụ</b></div>
+                <div align='center' style={{paddingTop: '20px', marginBottom: '10px'}} className="note-item">
+                    <Controller
+                        control={control}
+                        defaultValue={''}
+                        name="content"
+                        rules={{ required: true }}
+                        render={({ onChange, value, ref }) => (
+                            <Input
+                                style={{width: '90%'}}
+                                type="text"
+                                control={control}
+                                name="content"
+                                onChange={onChange}
+                                value={value}
+                                rows="5"
+                                maxLength="100"
+                                required
+                            />
+                        )}
+                    />
                 </div>
-                <div style={{width: '95%', paddingBottom: '20px'}}>
-                    <Link to="/customer-home">
-                        <button onClick={onClose} style={{width: '100%'}}>
-                            <div>Gọi phục vụ</div>
-                        </button>
-                    </Link>
+                <div style={{width: '100%', paddingBottom: '20px'}}>
+                    <Button style={{width: '80%'}}>
+                        <div>Gọi phục vụ</div>
+                    </Button>
                 </div>
-            </div>
+            </form>
         </Modal>
     )
         ;
-};
+}
 
 export default CallWaiter;
