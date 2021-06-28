@@ -94,7 +94,7 @@ const NotificationDropdown = (props) => {
                         </Row>
                     </div>
                     <PerfectScrollbar style={{height: "100%"}}>
-                        {props?.allNotificationReceptionist?.data?.reverse().map((notification) => (
+                        {props?.allNotificationReceptionist?.data?.map((notification) => (
                             <NotificationCard
                                 key={notification._id}
                                 data={notification}
