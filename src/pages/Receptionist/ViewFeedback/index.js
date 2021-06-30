@@ -9,96 +9,30 @@ import Header from "../HeaderReception";
 import {Col, Container, Row, Table} from "reactstrap/es";
 import Invalid from "../../Customer/Invalid";
 import NotFound from "../../Authentication/Page401";
+import * as actions from "../../../store/receptionist/actions";
+import {withNamespaces} from "react-i18next";
+import moment from "moment";
 
 // Import menuDropdown
 
-function ViewFeedback() {
+const ViewFeedback = (props) => {
 
-    const [stateFeedback, setFeedback] = useState([]);
+    const [page, setPage] = useState(1)
 
-    useEffect(() => {
-        let stateFeedback = [
-            {
-                fid: 1,
-                time: '20:00:00',
-                food: 'Rất ngon',
-                service: 'Rất hài lòng',
-                content: 'Sẽ ủng hộ nhà hàng dài dài'
-            },
-            {
-                fid: 2,
-                time: '20:00:00',
-                food: 'Rất ngon',
-                service: 'Rất hài lòng',
-                content: 'Sẽ ủng hộ nhà hàng dài dài'
-            },
-            {
-                fid: 3,
-                time: '20:00:00',
-                food: 'Rất ngon',
-                service: 'Rất hài lòng',
-                content: 'Sẽ ủng hộ nhà hàng dài dài'
-            },
-            {
-                fid: 4,
-                time: '20:00:00',
-                food: 'Rất ngon',
-                service: 'Rất hài lòng',
-                content: 'Sẽ ủng hộ nhà hàng dài dài'
-            },
-            {
-                fid: 5,
-                time: '20:00:00',
-                food: 'Rất ngon',
-                service: 'Rất hài lòng',
-                content: 'Sẽ ủng hộ nhà hàng dài dài'
-            },
-            {
-                fid: 6,
-                time: '20:00:00',
-                food: 'Rất ngon',
-                service: 'Rất hài lòng',
-                content: 'Sẽ ủng hộ nhà hàng dài dài'
-            },
-            {
-                fid: 7,
-                time: '20:00:00',
-                food: 'Rất ngon',
-                service: 'Rất hài lòng',
-                content: 'Sẽ ủng hộ nhà hàng dài dài'
-            },
-            {
-                fid: 8,
-                time: '20:00:00',
-                food: 'Rất ngon',
-                service: 'Rất hài lòng',
-                content: 'Sẽ ủng hộ nhà hàng dài dài'
-            },
-            {
-                fid: 9,
-                time: '20:00:00',
-                food: 'Rất ngon',
-                service: 'Rất hài lòng',
-                content: 'Sẽ ủng hộ nhà hàng dài dài'
-            },
-        ];
+    const [pageSize] = useState(12)
 
-        setFeedback(
-            stateFeedback.map(fe => {
-                return {
-                    select: false,
-                    fid: fe.fid,
-                    time: fe.time,
-                    food: fe.food,
-                    service: fe.service,
-                    content: fe.content,
-                };
-            })
-        );
+    const prevPage = () => {
+        const pg = page === 1 ? 1 : page - 1
+        setPage(pg)
+        props.dispatch(actions.getAllFeedbackRequest(pg));
+    }
 
-    }, []);
-
-    console.log("a: " + stateFeedback);
+    const nextPage = () => {
+        const pg = page < Math.ceil(props?.allFeedback?.total / pageSize) ? page + 1 : page
+        setPage(pg)
+        props.dispatch(actions.getAllFeedbackRequest(pg));
+        // props.dispatch(actions.getAllNotificationReceptionist({ page, pageSize, receiver }));
+    }
 
     const [role, setrole] = useState([]);
     useEffect(() => {
@@ -106,6 +40,7 @@ function ViewFeedback() {
             const obj = JSON.parse(localStorage.getItem("authUser"));
             setrole(obj.data.user.role);
         }
+        props.dispatch(actions.getAllFeedbackRequest(page));
     }, []);
 
     console.log('role :' + role);
@@ -118,11 +53,12 @@ function ViewFeedback() {
                         <Header/>
                         <div style={{marginTop: '100px', marginBottom: '60px'}} align="center"
                              className="table-responsive">
-                            <Table style={{width: '100%',}} align="center" className="table mb-0">
+                            <h1>Danh sách Feedback cho nhà hàng</h1>
+                            <Table style={{width: '80%', border: '2px solid lightcoral'}} align="center"
+                                   className="table mb-0">
 
-                                <thead align="center">
+                                <thead align="center" style={{backgroundColor: 'lightcoral', color:'black'}}>
                                 <tr>
-                                    <th>STT</th>
                                     <th>Thời gian</th>
                                     <th>Về món ăn</th>
                                     <th>Về phục vụ</th>
@@ -130,17 +66,28 @@ function ViewFeedback() {
                                 </tr>
                                 </thead>
                                 <tbody align="center">
-                                {stateFeedback.map((fe, i) => (
-                                    <tr>
-                                        <th>{fe.fid}</th>
-                                        <th>{fe.time}</th>
-                                        <th>{fe.food}</th>
-                                        <th>{fe.service}</th>
+                                {props?.allFeedback?.data?.map((fe, i) => (
+                                    <tr style={{borderBottom: '2px solid black'}}>
+                                        <th>{moment(fe.updated_at).format("DD/ MMM/ YYYY")}</th>
+                                        <th>{fe.rate_dish}</th>
+                                        <th>{fe.rate_service}</th>
                                         <th>{fe.content}</th>
                                     </tr>
                                 ))}
                                 </tbody>
                             </Table>
+                            <div className="inline-flex mt-2 mt-0">
+                                <button
+                                    onClick={prevPage}
+                                >
+                                    <i style={{color: "lightcoral", fontSize: '30px'}} className="bx bx-caret-left-square"></i>
+                                </button>
+                                <button
+                                    onClick={nextPage}
+                                >
+                                    <i style={{color: "lightcoral", fontSize: '30px'}} className="bx bx-caret-right-square"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -148,5 +95,12 @@ function ViewFeedback() {
         </div>
     )
 }
+const mapStateToProps = (state) => {
+    return {
+        // totalsOfNotification:
+        // state.Notification.totalOfNotifications.totalNotifications,
+        allFeedback: state.Receptionist.getAllFeedback.allFeedback,
+    };
+};
 
-export default ViewFeedback;
+export default withNamespaces()(connect(mapStateToProps)(ViewFeedback));

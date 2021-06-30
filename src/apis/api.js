@@ -10,9 +10,11 @@ export const apiUrls = {
 
   callWaiter: "api/customer/call/waiter",
   callPayment: "api/customer/call/payment",
+  sendFeedbackApi: "api/customer/feedback",
 
   //Receptionist
   getNotificationsReceptionist: "api/receptionist/notifications",
+  viewFeedbackApi: "api/receptionist/feedback",
 
   //Waiter
   getAllTables: "api/waiter/tables?page=1&pageSize=10",

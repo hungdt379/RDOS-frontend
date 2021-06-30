@@ -17,3 +17,21 @@ export const getAllNotificationReceptionistError = (error) => {
         payload: error,
     };
 };
+
+//all feedback
+export const getAllFeedbackRequest = (payload) => ({
+    type: actionTypes.GET_ALL_FEEDBACK_REQUEST,
+    payload: payload,
+});
+export const getAllFeedbackSuccess = (response) => {
+    return {
+        type: actionTypes.GET_ALL_FEEDBACK_SUCCESS,
+        payload: response,
+    };
+};
+export const getAllFeedbackError = (error) => {
+    return {
+        type: actionTypes.GET_ALL_FEEDBACK_ERROR,
+        payload: error,
+    };
+};

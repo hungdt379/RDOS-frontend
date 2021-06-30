@@ -40,37 +40,30 @@ const CustomerMenu = (props) => {
                         </Link></div>
                         <div align="center" className="menu-search col-8">
                             <input className="search-bar" type="text" name="search" placeholder="Tìm kiếm..."
-                                   // value={search}
+                                // value={search}
                                    onChange={(e) => (
                                        setSearch(e.target.value),
-                                       props.dispatch(actions.getAllSearchRequest(e.target.value))
+                                           props.dispatch(actions.getAllSearchRequest(e.target.value))
                                    )}
                             />
                         </div>
                         <div className="table-header col-2">RDOS</div>
                     </div>
-                    <div className="d-flex menu-bar">
-                        {props?.dataCategory?.map((category) => (
-                            <a className="menu-type-a" href={"#" + category?.name}>
-                                <button className="menu-type">
-                                    <div>{(category?.name === 'combo') ? ('Combo Nướng + Lẩu') :
-                                        (category?.name === 'drink') ? ('Đồ uống') :
-                                            (category?.name === 'fast') ? ('Đồ ăn kèm') : null}</div>
-                                </button>
-                            </a>
-                        ))}
-                        {props?.dataCategory?.map((category) => (
-                            <a className="menu-type-a" href={"#" + category?.name}>
-                                <button className="menu-type">
-                                    <div>{(category?.name === 'combo') ? ('Combo Nướng + Lẩu') :
-                                        (category?.name === 'drink') ? ('Đồ uống') :
-                                            (category?.name === 'fast') ? ('Đồ ăn kèm') : null}</div>
-                                </button>
-                            </a>
-                        ))}
+                    <div className={(search === '') ? 'dis-menu' : 'none-dis-menu'}>
+                        <div className="d-flex menu-bar">
+                            {props?.dataCategory?.map((category) => (
+                                <a className="menu-type-a" href={"#" + category?.name}>
+                                    <button className="menu-type">
+                                        <div>{(category?.name === 'combo') ? ('Combo Nướng + Lẩu') :
+                                            (category?.name === 'drink') ? ('Đồ uống') :
+                                                (category?.name === 'fast') ? ('Đồ ăn kèm') : null}</div>
+                                    </button>
+                                </a>
+                            ))}
+                        </div>
                     </div>
                 </div>
-                <div className={(search !== '')?'dis-menu':'none-dis-menu'}>
+                <div className={(search !== '') ? 'dis-menu' : 'none-dis-menu'}>
                     <div className="title-menu">Món bạn đang tìm là:</div>
                     {props?.dataSearch?.map((se) => (
                         <div className="item-menu d-flex">
@@ -83,14 +76,15 @@ const CustomerMenu = (props) => {
                             <div align="right" className="add-button col-2">
                                 <Link to="/customer-detail-combo">
                                     <button className="add-btn">
-                                        <div><i style={{color: "#000000"}} className="bx bx-plus-medical bx-tada"></i></div>
+                                        <div><i style={{color: "#000000"}} className="bx bx-plus-medical bx-tada"></i>
+                                        </div>
                                     </button>
                                 </Link>
                             </div>
                         </div>
                     ))}
                 </div>
-                <div className={(search === '')?'dis-menu':'none-dis-menu'}>
+                <div className={(search === '') ? 'dis-menu' : 'none-dis-menu'}>
                     <div id="combo">
                         <div className="title-menu"><b>Combo nướng + lẩu</b></div>
                         {props?.dataMenu?.combo?.map((combo) => (
@@ -104,7 +98,8 @@ const CustomerMenu = (props) => {
                                 <div align="right" className="add-button col-2">
                                     <Link to="/customer-detail-combo">
                                         <button className="add-btn">
-                                            <div><i style={{color: "#000000"}} className="bx bx-plus-medical bx-tada"></i></div>
+                                            <div><i style={{color: "#000000"}}
+                                                    className="bx bx-plus-medical bx-tada"></i></div>
                                         </button>
                                     </Link>
                                 </div>
@@ -124,7 +119,8 @@ const CustomerMenu = (props) => {
                                 <div align="right" className="add-button col-2">
                                     <Link to="/customer-detail-drink">
                                         <button className="add-btn">
-                                            <div><i style={{color: "#000000"}} className="bx bx-plus-medical bx-tada"></i></div>
+                                            <div><i style={{color: "#000000"}}
+                                                    className="bx bx-plus-medical bx-tada"></i></div>
                                         </button>
                                     </Link>
                                 </div>
@@ -144,7 +140,8 @@ const CustomerMenu = (props) => {
                                 <div align="right" className="add-button col-2">
                                     <Link to="/customer-detail-drink">
                                         <button className="add-btn">
-                                            <div><i style={{color: "#000000"}} className="bx bx-plus-medical bx-tada"></i></div>
+                                            <div><i style={{color: "#000000"}}
+                                                    className="bx bx-plus-medical bx-tada"></i></div>
                                         </button>
                                     </Link>
                                 </div>

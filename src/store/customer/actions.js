@@ -93,3 +93,23 @@ export const postCallPaymentError = (error) => {
         payload: error,
     };
 };
+
+//send Feedback
+export const sendFeedbackRequest = (payload) => {
+    return {
+        type: actionTypes.SEND_FEEDBACK_REQUEST,
+        payload: payload,
+    };
+};
+export const sendFeedbackSuccess = (response) => {
+    return {
+        type: actionTypes.SEND_FEEDBACK_SUCCESS,
+        payload: response,
+    };
+};
+export const sendFeedbackError = (error) => {
+    return {
+        type: actionTypes.SEND_FEEDBACK_ERROR,
+        payload: error,
+    };
+};

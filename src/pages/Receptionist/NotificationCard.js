@@ -29,9 +29,12 @@ const NotificationCard = (props) => {
         seconds = Math.floor(seconds % 60);
         seconds = (seconds >= 10) ? seconds : "0" + seconds;
         if (hours != "") {
-            return hours + "h" + minutes + "p";
+            return hours + "h" + minutes + "p trước";
         }
-        return minutes + "p";
+        if (minutes != "") {
+            return minutes + "p trước";
+        }
+        return "vừa xong";
     }
 
     return (
@@ -48,7 +51,7 @@ const NotificationCard = (props) => {
                                 {"thanh toán"}
                             </p>
                             <p className="mt-0 mb-0 mr-2 ml-2 pl-2 font-size-15" style={{color: 'blue'}}>
-                                {getYoutubeLikeToDisplay(Date.now()-Date.parse(data.updated_at))} <i>trước</i>
+                                {getYoutubeLikeToDisplay(Date.now()-Date.parse(data.updated_at))}
                             </p>
                         </div>
                     </div>

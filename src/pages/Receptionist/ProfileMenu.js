@@ -6,6 +6,10 @@ import {
     DropdownItem,
 } from "reactstrap";
 import imageItem from "../../assets/images/customer/logo-web.jpg";
+import {logoutUser} from "../../store/auth/login/actions";
+import { withRouter } from "react-router-dom";
+import { withNamespaces } from "react-i18next";
+import { connect, shallowEqual, useSelector } from "react-redux";
 
 const ProfileMenu = (props) => {
     const [menu, setMenu] = useState(false);
@@ -36,6 +40,10 @@ const ProfileMenu = (props) => {
                     <div className="dropdown-divider"></div>
                     <button
                         className="dropdown-item"
+                        onClick={() => {
+                            props.dispatch(logoutUser(false));
+                        }}
+                        className="dropdown-item"
                     >
                         <i className="bx bx-power-off font-size-16 align-middle mr-1 text-danger"/>
                         <span>Đăng xuất</span>
@@ -46,7 +54,12 @@ const ProfileMenu = (props) => {
     );
 };
 
-// export default withRouter(
-//     connect(mapStatetoProps)(withNamespaces()(ProfileMenu))
-// );
-export default ProfileMenu;
+const mapStatetoProps = (state) => {
+    const { error, success } = state.Profile;
+    const { authUser } = state.Login;
+    return { error, success, authUser };
+};
+
+export default withRouter(
+    connect(mapStatetoProps)(withNamespaces()(ProfileMenu))
+);

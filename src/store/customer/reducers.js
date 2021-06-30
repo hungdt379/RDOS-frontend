@@ -91,10 +91,29 @@ const postCallPayment = (state = dataPostCallPaymentReducer, action) => {
     }
 };
 
+//send Feedback
+const sendFeedbackReducer = {
+    dataSendFeedback: [],
+};
+
+const sendFeedback = (state = sendFeedbackReducer, action) => {
+    switch (action.type) {
+        case actionTypes.SEND_FEEDBACK_REQUEST:
+            return { ...state };
+        case actionTypes.SEND_FEEDBACK_SUCCESS:
+            return { ...state, dataSendFeedback: action.payload };
+        case actionTypes.SEND_FEEDBACK_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
 export const Customer = combineReducers({
     getAllCategory,
     getAllMenu,
     getAllSearch,
     postCallWaiter,
     postCallPayment,
+    sendFeedback,
 });

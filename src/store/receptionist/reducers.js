@@ -18,6 +18,24 @@ const getAllNotificationsReceptionist = (state = allNotificationsReceptionistRed
     }
 };
 
+//all feedback
+const allFeedbackReducer = {
+    allFeedback: [],
+};
+const getAllFeedback = (state = allFeedbackReducer, action) => {
+    switch (action.type) {
+        case actionTypes.GET_ALL_FEEDBACK_REQUEST:
+            return { ...state };
+        case actionTypes.GET_ALL_FEEDBACK_SUCCESS:
+            return { ...state, allFeedback: action.payload };
+        case actionTypes.GET_ALL_FEEDBACK_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
 export const Receptionist = combineReducers({
     getAllNotificationsReceptionist,
+    getAllFeedback,
 });

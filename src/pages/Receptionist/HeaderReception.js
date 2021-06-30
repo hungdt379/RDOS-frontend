@@ -12,6 +12,7 @@ import ProfileMenu from "./ProfileMenu";
 //i18n
 import { withNamespaces } from 'react-i18next';
 import imageItem from "../../assets/images/customer/logo-web.jpg";
+import NotificationFooter from "./NotificationFooter";
 
 const Header = (props) => {
 
@@ -21,9 +22,10 @@ const Header = (props) => {
                 <div className="navbar-header top-header thanks-header">
                     <div className="d-flex">
                         <div className="navbar-brand-box">
-                            <Link to="/receptionist-home" className="logo logo-dark">
+                            <Link to="/receptionist-home" className="logo logo-dark d-flex">
+                                <NotificationFooter/>
                                 <div style={{fontSize:'20px', color:'#000000'}}>
-                                    RDOS
+                                    <b>RDOS</b>
                                 </div>
                             </Link>
 
