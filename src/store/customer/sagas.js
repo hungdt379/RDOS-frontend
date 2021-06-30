@@ -87,12 +87,29 @@ export function* watchPostCallPayment() {
     yield takeEvery(actionTypes.POST_CALL_PAYMENT_REQUEST, postCallPayment);
 }
 
+//send Feedback
+function* postSendFeedback({ payload }) {
+    try {
+        const response = yield call(Request.postApiCus, apiUrls.sendFeedbackApi, payload);
+        yield put(actions.sendFeedbackSuccess(response.data));
+        console.log("send feedback: " + response.data)
+        // return response;
+    } catch (error) {
+        yield put(actions.sendFeedbackError(error));
+    }
+}
+
+export function* watchPostSendFeedback() {
+    yield takeEvery(actionTypes.SEND_FEEDBACK_REQUEST, postSendFeedback);
+}
+
 const sagaCustomer = [
     watchGetAllCategory(),
     watchGetAllMenu(),
     watchGetAllSearch(),
     watchPostCallWaiter(),
     watchPostCallPayment(),
+    watchPostSendFeedback(),
 ];
 
 export default sagaCustomer;
