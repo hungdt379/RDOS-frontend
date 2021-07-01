@@ -52,6 +52,11 @@ const NotificationDropdown = (props) => {
     console.log("notiFirebase: "+ todoList);
     // console.log("page: "+ (props?.allNotificationReceptionist?.total % pageSize) )
 
+    const maskAsRead = () => {
+        props.dispatch(actions.maskAsReadRequest());
+        props.dispatch(actions.getAllNotificationReceptionist(page));
+    }
+
     return (
         <>
             <Dropdown
@@ -86,7 +91,7 @@ const NotificationDropdown = (props) => {
                                 <h6 className="m-0"> Thông báo </h6>
                             </Col>
                             <div className="col-auto">
-                                <a href="#!" className="small">
+                                <a onClick={maskAsRead} className="small">
                                     {" "}
                                     Đánh dấu xem hết
                                 </a>

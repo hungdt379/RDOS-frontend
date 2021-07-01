@@ -65,16 +65,16 @@ const CustomerMenu = (props) => {
                 </div>
                 <div className={(search !== '') ? 'dis-menu' : 'none-dis-menu'}>
                     <div className="title-menu">Món bạn đang tìm là:</div>
-                    {props?.dataSearch?.map((se) => (
+                    {props?.dataSearch?.map((se,id) => (
                         <div className="item-menu d-flex">
                             <div align="left" className="col-10">
                                 <div className="item-name"><b>{se?.name}</b></div>
                                 <div
-                                    className="item-cost">{(se?.cost).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')} vnd
+                                    className="item-cost">{(se?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
                                 </div>
                             </div>
                             <div align="right" className="add-button col-2">
-                                <Link to="/customer-detail-combo">
+                                <Link to={`/customer-detail-combo/${se?._id}`}>
                                     <button className="add-btn">
                                         <div><i style={{color: "#000000"}} className="bx bx-plus-medical bx-tada"></i>
                                         </div>
@@ -87,16 +87,16 @@ const CustomerMenu = (props) => {
                 <div className={(search === '') ? 'dis-menu' : 'none-dis-menu'}>
                     <div id="combo">
                         <div className="title-menu"><b>Combo nướng + lẩu</b></div>
-                        {props?.dataMenu?.combo?.map((combo) => (
+                        {props?.dataMenu?.combo?.map((combo, id) => (
                             <div className="item-menu d-flex">
                                 <div align="left" className="col-10">
                                     <div className="item-name"><b>{combo?.name}</b></div>
                                     <div
-                                        className="item-cost">{(combo?.cost).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')} vnd
+                                        className="item-cost">{(combo?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
                                     </div>
                                 </div>
                                 <div align="right" className="add-button col-2">
-                                    <Link to="/customer-detail-combo">
+                                    <Link to={`/customer-detail-combo/${combo?._id}`}>
                                         <button className="add-btn">
                                             <div><i style={{color: "#000000"}}
                                                     className="bx bx-plus-medical bx-tada"></i></div>
@@ -113,11 +113,11 @@ const CustomerMenu = (props) => {
                                 <div align="left" className="col-10">
                                     <div className="item-name"><b>{drink?.name}</b></div>
                                     <div
-                                        className="item-cost">{(drink?.cost).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')} vnd
+                                        className="item-cost">{(drink?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
                                     </div>
                                 </div>
                                 <div align="right" className="add-button col-2">
-                                    <Link to="/customer-detail-drink">
+                                    <Link to={`/customer-detail-combo/${drink?._id}`}>
                                         <button className="add-btn">
                                             <div><i style={{color: "#000000"}}
                                                     className="bx bx-plus-medical bx-tada"></i></div>
@@ -134,11 +134,11 @@ const CustomerMenu = (props) => {
                                 <div align="left" className="col-10">
                                     <div className="item-name"><b>{fast?.name}</b></div>
                                     <div
-                                        className="item-cost">{(fast?.cost).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')} vnd
+                                        className="item-cost">{(fast?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
                                     </div>
                                 </div>
                                 <div align="right" className="add-button col-2">
-                                    <Link to="/customer-detail-drink">
+                                    <Link to={`/customer-detail-combo/${fast?._id}`}>
                                         <button className="add-btn">
                                             <div><i style={{color: "#000000"}}
                                                     className="bx bx-plus-medical bx-tada"></i></div>
@@ -149,16 +149,6 @@ const CustomerMenu = (props) => {
                         ))}
                     </div>
                 </div>
-                {/*<div id="drink"><DrinkMenu/></div>*/}
-                {/*<div id="fast"><ExtraMenu/></div>*/}
-
-                {/*<div className="cart">*/}
-                {/*    <Link to="/customer-cart">*/}
-                {/*        <button className="cart-button">*/}
-                {/*            <div>Xem danh sách món đã chọn</div>*/}
-                {/*        </button>*/}
-                {/*    </Link>*/}
-                {/*</div>*/}
             </div>
             <div className="none-display-customer">
                 <Invalid/>

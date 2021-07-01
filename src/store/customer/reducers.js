@@ -109,6 +109,24 @@ const sendFeedback = (state = sendFeedbackReducer, action) => {
     }
 };
 
+//get food in combo
+const getFoodInComboReducer = {
+    dataFoodInCombo: [],
+};
+
+const getFoodInCombo = (state = getFoodInComboReducer, action) => {
+    switch (action.type) {
+        case actionTypes.GET_FOOD_IN_COMBO_REQUEST:
+            return { ...state };
+        case actionTypes.GET_FOOD_IN_COMBO_SUCCESS:
+            return { ...state, dataFoodInCombo: action.payload };
+        case actionTypes.GET_FOOD_IN_COMBO_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
 export const Customer = combineReducers({
     getAllCategory,
     getAllMenu,
@@ -116,4 +134,5 @@ export const Customer = combineReducers({
     postCallWaiter,
     postCallPayment,
     sendFeedback,
+    getFoodInCombo,
 });

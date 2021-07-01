@@ -7,6 +7,7 @@ export const apiUrls = {
   getAllCategories: "api/customer/categories",
   getAllMenus: "api/customer/menu",
   getAllSearchs: "api/search",
+  displayFoodInCombo: "api/customer/menu/item/detail",
 
   callWaiter: "api/customer/call/waiter",
   callPayment: "api/customer/call/payment",
@@ -15,6 +16,7 @@ export const apiUrls = {
   //Receptionist
   getNotificationsReceptionist: "api/receptionist/notifications",
   viewFeedbackApi: "api/receptionist/feedback",
+  maskAsReadReceptionistApi: "api/receptionist/notifications/read",
 
   //Waiter
   getAllTables: "api/waiter/tables?page=1&pageSize=10",

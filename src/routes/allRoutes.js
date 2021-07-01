@@ -20,7 +20,6 @@ import CustomerMenu from "../pages/Customer/Menu/index";
 import Invalid from "../pages/Customer/Invalid";
 
 import DetailCombo from "../pages/Customer/Detail/DetailCombo";
-import DetailDrink from "../pages/Customer/Detail/DetailDrink";
 import App from "../App";
 import Cart from "../pages/Customer/Cart";
 import SeeOrder from "../pages/Customer/SeeOrder/index";
@@ -50,8 +49,7 @@ export const customerRoutes = [
     //Customer
     {path: "/customer-menu", component: CustomerMenu},
     {path: "/customer-home", component: CustomerHome},
-    {path: "/customer-detail-combo", component: DetailCombo},
-    {path: "/customer-detail-drink", component: DetailDrink},
+    {path: "/customer-detail-combo/:_id", component: DetailCombo},
     {path: "/customer-cart", component: Cart},
     {path: "/customer-see-order", component: SeeOrder},
     {path: "/customer-detail-item", component: DetailItemOrder},

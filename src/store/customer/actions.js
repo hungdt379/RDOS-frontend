@@ -113,3 +113,23 @@ export const sendFeedbackError = (error) => {
         payload: error,
     };
 };
+
+//get Food in combo
+export const getFoodInComboRequest = (payload) => {
+    return {
+        type: actionTypes.GET_FOOD_IN_COMBO_REQUEST,
+        payload: payload,
+    };
+};
+export const getFoodInComboSuccess = (response) => {
+    return {
+        type: actionTypes.GET_FOOD_IN_COMBO_SUCCESS,
+        payload: response,
+    };
+};
+export const getFoodInComboError = (error) => {
+    return {
+        type: actionTypes.GET_FOOD_IN_COMBO_ERROR,
+        payload: error,
+    };
+};
