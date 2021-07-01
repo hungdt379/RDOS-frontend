@@ -35,7 +35,25 @@ const getAllFeedback = (state = allFeedbackReducer, action) => {
     }
 };
 
+//maskAsReadRe
+const maskAsReadReReducer = {
+    maskAsReadRe: [],
+};
+const maskAsReadReceptionist = (state = maskAsReadReReducer, action) => {
+    switch (action.type) {
+        case actionTypes.MASK_AS_READ_REQUEST:
+            return { ...state };
+        case actionTypes.MASK_AS_READ_SUCCESS:
+            return { ...state, maskAsReadRe: action.payload };
+        case actionTypes.MASK_AS_READ_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
 export const Receptionist = combineReducers({
     getAllNotificationsReceptionist,
     getAllFeedback,
+    maskAsReadReceptionist,
 });

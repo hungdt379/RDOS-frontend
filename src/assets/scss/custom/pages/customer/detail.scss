@@ -36,10 +36,16 @@
 
 .note-item{
   width: 100%;
+  margin: 10px 0px 10px 0px;
   .note-input-item{
     width: 100%;
     border-radius: 10px;
   }
+}
+
+.checkbox-dish{
+  width: 50%;
+  margin: 10px 0px 10px 0px;
 }
 
 .order-cart{

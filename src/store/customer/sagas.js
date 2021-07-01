@@ -103,6 +103,23 @@ export function* watchPostSendFeedback() {
     yield takeEvery(actionTypes.SEND_FEEDBACK_REQUEST, postSendFeedback);
 }
 
+//get food in combo
+function* allFoodInCombo({payload}) {
+    try {
+        const response = yield call(Request.getApiCus, apiUrls.displayFoodInCombo, payload);
+        if (response) {
+            yield put(actions.getFoodInComboSuccess(response));
+        }
+        console.log("food in combo: " + response.data)
+    } catch (error) {
+        yield put(actions.getFoodInComboError(error));
+    }
+}
+
+export function* watchGetFoodInCombo() {
+    yield takeEvery(actionTypes.GET_FOOD_IN_COMBO_REQUEST, allFoodInCombo);
+}
+
 const sagaCustomer = [
     watchGetAllCategory(),
     watchGetAllMenu(),
@@ -110,6 +127,7 @@ const sagaCustomer = [
     watchPostCallWaiter(),
     watchPostCallPayment(),
     watchPostSendFeedback(),
+    watchGetFoodInCombo(),
 ];
 
 export default sagaCustomer;

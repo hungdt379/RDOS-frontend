@@ -68,7 +68,7 @@ const ViewFeedback = (props) => {
                                 <tbody align="center">
                                 {props?.allFeedback?.data?.map((fe, i) => (
                                     <tr style={{borderBottom: '2px solid black'}}>
-                                        <th>{moment(fe.updated_at).format("DD/ MMM/ YYYY")}</th>
+                                        <th>{moment(fe.created_at).format("DD/ MMM/ YYYY")}</th>
                                         <th>{fe.rate_dish}</th>
                                         <th>{fe.rate_service}</th>
                                         <th>{fe.content}</th>

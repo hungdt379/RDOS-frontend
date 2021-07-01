@@ -40,9 +40,28 @@ export function* watchGetFeedback() {
     yield takeEvery(actionTypes.GET_ALL_FEEDBACK_REQUEST, allFeedback);
 }
 
+//mask as read Receptionist
+function* maskAsReadRecep({payload}) {
+    try {
+        const response = yield call(
+            Request.getApi,
+            apiUrls.maskAsReadReceptionistApi,
+            {receiver: "receptionist"}
+        );
+        yield put(actions.maskAsReadSuccess(response.data));
+        console.log("mask as read : "+ response.data)
+    } catch (error) {
+        yield put(actions.maskAsReadError(error));
+    }
+}
+export function* watchMaskAsReadRecep() {
+    yield takeEvery(actionTypes.MASK_AS_READ_REQUEST, maskAsReadRecep);
+}
+
 const sagaReceptionist = [
     watchGetNotificationsReceptionist(),
-    watchGetFeedback()
+    watchGetFeedback(),
+    watchMaskAsReadRecep()
 ];
 
 export default sagaReceptionist;

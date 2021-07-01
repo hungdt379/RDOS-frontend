@@ -35,3 +35,21 @@ export const getAllFeedbackError = (error) => {
         payload: error,
     };
 };
+
+//mask as read
+export const maskAsReadRequest = (payload) => ({
+    type: actionTypes.MASK_AS_READ_REQUEST,
+    payload: payload,
+});
+export const maskAsReadSuccess = (response) => {
+    return {
+        type: actionTypes.MASK_AS_READ_SUCCESS,
+        payload: response,
+    };
+};
+export const maskAsReadError = (error) => {
+    return {
+        type: actionTypes.MASK_AS_READ_ERROR,
+        payload: error,
+    };
+};

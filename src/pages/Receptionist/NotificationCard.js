@@ -43,15 +43,17 @@ const NotificationCard = (props) => {
                 to=""
                 className="text-reset notification-item"
             >
-                <div className="media">
+                <div className="media" style={{backgroundColor:(data.read === false)?"lightblue":"white"}}>
                     <div className="media-body">
                         <div className="menu-notification d-flex">
+                            {(data.read === false) ? (
+                                <i style={{color: "green"}} className="bx bx-up-arrow-circle bx-tada"></i>) : (null)}
                             <h6 className="mt-0 mb-0 font-size-15">{data.user_fulname}</h6>
                             <p className="mt-0 mb-0 mr-2 ml-2 pl-2 font-size-15">
                                 {"thanh toán"}
                             </p>
                             <p className="mt-0 mb-0 mr-2 ml-2 pl-2 font-size-15" style={{color: 'blue'}}>
-                                {getYoutubeLikeToDisplay(Date.now()-Date.parse(data.updated_at))}
+                                {getYoutubeLikeToDisplay(Date.now() - Date.parse(data.created_at))}
                             </p>
                         </div>
                     </div>
