@@ -51,9 +51,47 @@ const getAllTable = (state = allTableReducer, action) => {
   }
 };
 
+const TableReducer = {
+  TableByID: [],
+};
+
+const getTable = (state = TableReducer, action) => {
+  switch (action.type) {
+    case actionTypes.GET_TABLE_REQUEST:
+      return { ...state };
+    case actionTypes.GET_TABLE_SUCCESS:
+      state =  { ...state, TableByID: action.payload };
+    case actionTypes.GET_TABLE_ERROR:
+      return { ...state, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+
+const TableUpdateReducer = {
+  UpdateTableByID: [],
+};
+
+const postUpdateTable = (state = TableUpdateReducer, action) => {
+  switch (action.type) {
+    case actionTypes.POST_UPDATE_TABLE_REQUEST:
+      return { ...state };
+    case actionTypes.POST_UPDATE_TABLE_SUCCESS:
+      state =  { ...state, UpdateTableByID: action.payload };
+    case actionTypes.POST_UPDATE_TABLE_ERROR:
+      return { ...state,UpdateTableByID: action.payload };
+    default:
+      return state;
+  }
+};
+
+
 
 export const Notification = combineReducers({
   totalOfNotifications,
   getAllNotifications,
   getAllTable,
+  getTable,
+  postUpdateTable,
 });

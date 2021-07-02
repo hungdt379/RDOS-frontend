@@ -58,6 +58,27 @@ export const postNumberCustomerError = (error) => {
   };
 };
 
+
+export const postCloseTableRequest = (payload) => {
+  return {
+    type: actionTypes.POST_CLOSE_TABLE_REQUEST,
+    payload: payload,
+  };
+};
+export const postCloseTableSuccess = (response) => {
+  return {
+    type: actionTypes.POST_CLOSE_TABLE_SUCCESS,
+    payload: response,
+  };
+};
+export const postCloseTableError = (error) => {
+  return {
+    type: actionTypes.POST_CLOSE_TABLE_ERROR,
+    payload: error,
+  };
+};
+
+
 export const getAnnouncementRequest = (payload) => ({
   type: actionTypes.GET_ANNOUNCEMENT,
   payload: payload,

@@ -3,10 +3,11 @@ import {Link, Route, Router, Switch} from 'react-router-dom';
 import "../../../assets/scss/custom/pages/waiter/header.scss";
 import "../../../assets/scss/custom/pages/waiter/detailTable.scss";
 import ConfirmOrder from "./ConfirmOrder";
+import {useParams} from "react-router-dom";
 import NotFound from "../../Authentication/Page401";
 
 function DetailTable (){
-
+    const {id} = useParams();
     const [role, setrole] = useState([]);
     useEffect(() => {
         if (localStorage.getItem("authUser")) {
@@ -14,7 +15,6 @@ function DetailTable (){
             setrole(obj.data.user.role);
         }
     }, []);
-
 
 
     return(

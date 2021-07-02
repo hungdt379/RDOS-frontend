@@ -3,13 +3,14 @@ import * as actionTypes from "./actionTypes";
 import * as actions from "./actions";
 import { apiUrls } from "../../apis/api";
 import Request from "../../apis/Request";
+import {postUpdateTableSuccess} from "./actions";
 
 function* totalOfNotification() {
   try {
     const response = yield call(
-      Request.getApi,
-      apiUrls.totalOfNotifications,
-      {}
+        Request.getApi,
+        apiUrls.totalOfNotifications,
+        {}
     );
     yield put(actions.totalOfNotificationsSuccess(response.data));
   } catch (error) {
@@ -18,8 +19,8 @@ function* totalOfNotification() {
 }
 export function* watchTotalOfNotifications() {
   yield takeEvery(
-    actionTypes.TOTAL_OF_NOTIFICATIONS_REQUEST,
-    totalOfNotification
+      actionTypes.TOTAL_OF_NOTIFICATIONS_REQUEST,
+      totalOfNotification
   );
 }
 
@@ -27,13 +28,16 @@ export function* watchTotalOfNotifications() {
 function* allNotification({ payload }) {
   try {
     const response = yield call(
-      Request.getApi,
-      apiUrls.getNotificationOfUser,
-      payload
+        Request.getApi,
+        apiUrls.getAllNotifications,
+        payload
     );
-    yield put(actions.getAllNotificationSuccess(response));
+    if(response){
+      yield put(actions.getAllNotificationSuccess(response));
+      console.log(response)
+    }
   } catch (error) {
-    yield put(actions.getAllNotificationError(error));
+    yield put(actions.getAllNotificationError(false));
   }
 }
 export function* watchGetNotifications() {
@@ -57,6 +61,42 @@ export function* watchGetAllTable() {
   yield takeEvery(actionTypes.GET_ALL_TABLE_REQUEST, allTable);
 }
 
-const sagaNotificatons = [watchTotalOfNotifications(), watchGetNotifications(), watchGetAllTable()];
+//get table by id
+function* TableByID({ payload }) {
+  try {
+    const response = yield call(Request.getApi,apiUrls.getTableByID,payload);
+    if(response){
+      yield put(actions.getTableSuccess(response.data));
+    }
+    return response;
+  } catch (error) {
+    yield put(actions.getTableError(error));
+  }
+}
+
+
+export function* watchGetTableByID() {
+  yield takeEvery(actionTypes.GET_TABLE_REQUEST, TableByID);
+}
+
+
+//update table by id
+function* UpdateTableByID({ payload }) {
+  try {
+    const response = yield call(Request.postApi,apiUrls.postUpdateTable,payload);
+    if(response){
+      yield put(actions.postUpdateTableSuccess(response));
+    }
+  } catch (error) {
+    yield put(actions.getTableError(error));
+  }
+}
+
+export function* watchPostUpdateTableByID() {
+  yield takeEvery(actionTypes.POST_UPDATE_TABLE_REQUEST, UpdateTableByID);
+}
+
+
+const sagaNotificatons = [watchTotalOfNotifications(), watchGetNotifications(),watchPostUpdateTableByID(), watchGetAllTable(),watchGetTableByID()];
 
 export default sagaNotificatons;

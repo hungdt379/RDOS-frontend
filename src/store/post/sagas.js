@@ -18,8 +18,8 @@ import { getAnnouncementRequest } from "./actions";
 function* getPostDetail({ payload }) {
   try {
     const response = yield call(
-      Request.getApi,
-      apiUrls.getPostDetail(payload.id)
+        Request.getApi,
+        apiUrls.getPostDetail(payload.id)
     );
     yield put(actions.getPostDetailSuccess(response));
   } catch (error) {
@@ -33,9 +33,9 @@ function* watchGetPostDetail() {
 function* postThanks({ payload }) {
   try {
     const response = yield call(
-      Request.postApi,
-      apiUrls.postThank,
-      payload.data
+        Request.postApi,
+        apiUrls.postThank,
+        payload.data
     );
     if (response.status) {
       yield put(actions.postThankSuccess(response));
@@ -56,15 +56,14 @@ export function* watchPostThank() {
 }
 
 
-function* postNumberCustomer({ payload: { table , history} }) {
+function* postNumberCustomer({ payload }) {
   try {
     const response = yield call(
         Request.postApi,
         apiUrls.postOpenTable,
-        {_id: table._id, number: table.number}
+        payload
     );
-    if (response.data.token) {
-      localStorage.setItem("numberCustomer" , response);
+    if (response){
       yield put(actions.postNumberCustomerSuccess(response));
     }
     return response;
@@ -74,15 +73,36 @@ function* postNumberCustomer({ payload: { table , history} }) {
 }
 
 export function* watchPostNumberCustomer() {
-  yield takeLatest(actionTypes.POST_NUMBER_CUSTOMER, postNumberCustomer);
+  yield takeEvery(actionTypes.POST_NUMBER_CUSTOMER, postNumberCustomer);
+}
+
+function* postCloseTable({ payload }) {
+  try {
+    const response = yield call(
+        Request.postApi,
+        apiUrls.postCloseTableApi,
+        payload
+    );
+    if (response){
+      yield  put(actions.postCloseTableSuccess(response));
+    }
+    return response;
+  } catch (error) {
+    yield put(actions.postCloseTableError(error));
+  }
+}
+
+
+export function* watchPostCloseTable() {
+  yield takeLatest(actionTypes.POST_CLOSE_TABLE_REQUEST, postCloseTable);
 }
 
 function* getAnnouncement({ payload }) {
   try {
     const response = yield call(
-      Request.postApi,
-      apiUrls.getAnnouncement,
-      payload
+        Request.postApi,
+        apiUrls.getAnnouncement,
+        payload
     );
     yield put(actions.getAnnouncementSuccess(response));
   } catch (error) {
@@ -96,9 +116,9 @@ function* watchGetAnnouncement() {
 function* getAllPostNewsfeed({ payload }) {
   try {
     const response = yield call(
-      Request.getApi,
-      apiUrls.getAllNewsfeed,
-      payload
+        Request.getApi,
+        apiUrls.getAllNewsfeed,
+        payload
     );
     yield put(actions.getAllNewsfeedSuccess(response.data));
   } catch (error) {
@@ -124,8 +144,8 @@ function* watchGetDepartmentData() {
 function* postSeenUser({ payload }) {
   try {
     const response = yield call(
-      Request.getApi,
-      apiUrls.postSeenUser(payload.thank_id)
+        Request.getApi,
+        apiUrls.postSeenUser(payload.thank_id)
     );
     yield put(actions.postSeenSuccess(response));
   } catch (error) {
@@ -151,11 +171,11 @@ function* watchGetReactionUser() {
 function* postReactionUser({ payload }) {
   try {
     const response = yield call(
-      Request.postApi,
-      apiUrls.reactionUser(payload.thank_id),
-      {
-        type: payload.type,
-      }
+        Request.postApi,
+        apiUrls.reactionUser(payload.thank_id),
+        {
+          type: payload.type,
+        }
     );
     yield put(actions.postReactionSuccess(response));
   } catch (error) {
@@ -169,8 +189,8 @@ function* watchPostReactionUser() {
 function* deleteReactionUser({ payload }) {
   try {
     const response = yield call(
-      Request.deleteApi,
-      apiUrls.reactionUser(payload.thank_id)
+        Request.deleteApi,
+        apiUrls.reactionUser(payload.thank_id)
     );
     yield put(actions.deleteReactionSuccess(response));
   } catch (error) {
@@ -191,7 +211,8 @@ const sagaPost = [
   watchGetReactionUser(),
   watchPostReactionUser(),
   watchDeleteReactionUser(),
-    watchPostNumberCustomer()
+  watchPostNumberCustomer(),
+  watchPostCloseTable(),
 ];
 
 export default sagaPost;
