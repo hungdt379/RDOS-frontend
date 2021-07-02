@@ -43,7 +43,7 @@ const dataPostNumberCustomerReducer = {
 };
 
 
-const postNumberCustomer= (state = dataPostThankReducer, action) => {
+const postNumberCustomer= (state = dataPostNumberCustomerReducer, action) => {
   switch (action.type) {
     case actionTypes.POST_NUMBER_CUSTOMER:
       return { ...state };
@@ -56,9 +56,27 @@ const postNumberCustomer= (state = dataPostThankReducer, action) => {
   }
 };
 
+const dataPostCloseTableReducer = {
+  dataPostCloseTable: [],
+};
+
+const postCloseTable= (state = dataPostCloseTableReducer, action) => {
+  switch (action.type) {
+    case actionTypes.POST_CLOSE_TABLE_REQUEST:
+      return { ...state };
+    case actionTypes.POST_CLOSE_TABLE_SUCCESS:
+      return { ...state, dataPostCloseTable: action.payload };
+    case actionTypes.POST_CLOSE_TABLE_ERROR:
+      return { ...state, error: action.payload };
+    default:
+      return state;
+  }
+};
+
 const dataAnnouncementReducer = {
   dataAnnouncement: [],
 };
+
 const getAnnouncement = (state = dataAnnouncementReducer, action) => {
   switch (action.type) {
     case actionTypes.GET_ANNOUNCEMENT:
@@ -138,4 +156,5 @@ export const Posts = combineReducers({
   Department,
   getReactionPost,
   postNumberCustomer,
+  postCloseTable,
 });

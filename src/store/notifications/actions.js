@@ -56,3 +56,40 @@ export const getAllTableError = (error) => {
     payload: error,
   };
 };
+
+
+// get table by id
+export const getTableRequest = (payload) => ({
+  type: actionTypes.GET_TABLE_REQUEST,
+  payload: payload,
+});
+export const getTableSuccess = (response) => {
+  return {
+    type: actionTypes.GET_TABLE_SUCCESS,
+    payload: response,
+  };
+};
+export const getTableError = (error) => {
+  return {
+    type: actionTypes.GET_TABLE_ERROR,
+    payload: error,
+  };
+};
+
+// post update table by id
+export const postUpdateTableRequest = (payload) => ({
+  type: actionTypes.POST_UPDATE_TABLE_REQUEST,
+  payload: payload,
+});
+export const postUpdateTableSuccess = (response) => {
+  return {
+    type: actionTypes.POST_UPDATE_TABLE_SUCCESS,
+    payload: response,
+  };
+};
+export const postUpdateTableError = (error) => {
+  return {
+    type: actionTypes.POST_UPDATE_TABLE_ERROR,
+    payload: error,
+  };
+};

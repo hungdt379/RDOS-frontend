@@ -19,8 +19,12 @@ export const apiUrls = {
   maskAsReadReceptionistApi: "api/receptionist/notifications/read",
 
   //Waiter
-  getAllTables: "api/waiter/tables?page=1&pageSize=10",
+  getAllTables: "api/waiter/tables?page=1&pageSize=15",
   postOpenTable: "api/waiter/table/open",
+  getTableByID: "api/waiter/table/id",
+  getAllNotifications: "api/waiter/table/notifications",
+  postUpdateTable: "api/waiter/table/update",
+  postCloseTableApi:"api/waiter/table/close",
 
   //Bai cu
   getAllFriend: "api/profiles",
