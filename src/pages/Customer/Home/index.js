@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {connect, shallowEqual, useDispatch, useSelector} from "react-redux";
 import {withRouter} from "react-router-dom";
@@ -10,22 +10,57 @@ import CallWaiter from "../CallWaiter";
 import Invalid from "../Invalid";
 import {withNamespaces} from "react-i18next";
 import {postCallWaiterRequest} from "../../../store/customer/actions";
+import firebase from "../../../helpers/firebase";
+import NotificationCardFooter from "../../Receptionist/NotificationCardFooter";
 
 const CustomerHome = (props) => {
     //const {tog_standard} = props;
     const dispatch = useDispatch();
     const [openCall, setOpenCall] = useState(false);
 
-    const [notiPayment, setNotiPayment] = useState('');
-    const [notiWaiter, setNotiWaiter] = useState('');
+    const [notiPayment, setNotiPayment] = useState('Đã gửi yêu cầu thanh toán, hãy đợi giây lát!');
+    const [notiWaiter, setNotiWaiter] = useState('Đã gửi yêu cầu đến phục vụ, hãy đợi giây lát!');
 
     const handleSubmitCallWaiters = (data) => {
         dispatch(postCallWaiterRequest({data}));
         setOpenCall(false);
         alert("Đã gửi yêu cầu đến phục vụ bàn!");
-        setNotiWaiter('Đã gửi yêu cầu đến phục vụ bàn!');
     };
 
+    const [todoListRe, setTodoListRe] = useState(0);
+    const [todoDataRe, setTodoDataRe] = useState();
+
+    const [todoListWa, setTodoListWa] = useState(0);
+    const [todoDataWa, setTodoDataWa] = useState();
+
+    useEffect(() => {
+        const todoRef = firebase.database().ref('receptionist');
+        todoRef.on('value', (snapshot) => {
+            setTodoListRe(snapshot.numChildren());
+
+            const todos = snapshot.val();
+            const todoDataRe = [];
+            for (let id in todos) {
+                todoDataRe.push({id, ...todos[id]});
+            }
+            setTodoDataRe(todoDataRe);
+        });
+
+        const todoWa = firebase.database().ref('waiter/' + props.authCustomer.data.user.user_id);
+        todoWa.on('value', (snapshot) => {
+            setTodoListWa(snapshot.numChildren());
+
+            const todosw = snapshot.val();
+            const todoDataWa = [];
+            for (let id in todosw) {
+                todoDataWa.push({id, ...todosw[id]});
+            }
+            setTodoDataWa(todoDataWa);
+        });
+    }, []);
+
+    console.log("notiFirebase notire true: " + todoDataRe);
+    console.log("notiFirebase notiwa true: " + todoDataWa);
     console.log("auCus: " + props.authCustomer.data.token);
 
     return (
@@ -52,9 +87,14 @@ const CustomerHome = (props) => {
                     <div className="d-flex">
                         <Link align="center" className="square-button">
                             <button onClick={() => {
-                                props.dispatch(actions.postCallPaymentRequest());
-                                alert("Đã gửi yêu cầu thanh toán đến nhà hàng!");
-                                setNotiPayment('Đã gửi yêu cầu thanh toán đến nhà hàng!');
+                                if ((todoDataRe.filter((tr, index) => (tr.user_id === props.authCustomer.data.user.user_id)).length === 0) &&
+                                    (todoDataWa.filter((tw, index) => (tw.title === "Gọi thanh toán")).length === 0))
+                                {
+                                    props.dispatch(actions.postCallPaymentRequest());
+                                    alert("Đã gửi yêu cầu thanh toán đến nhà hàng!");
+                                }else{
+                                    alert("Bạn đã gửi đi yêu cầu trước đó, vui lòng đợi trong giây lát!");
+                                }
                             }}
                                     style={{backgroundColor: '#50a5f1', borderRadius: '10px', width: '100%'}}>
                                 <div className="square-icon">(icon)</div>
@@ -64,7 +104,11 @@ const CustomerHome = (props) => {
                         <Link align="center" className="square-button">
                             <button
                                 onClick={() => {
-                                    setOpenCall(true)
+                                    if (todoDataWa.filter((tw, index) => (tw.title === "Gọi phục vụ")).length === 0) {
+                                        setOpenCall(true)
+                                    } else {
+                                        alert("Bạn đã gửi đi yêu cầu trước đó, vui lòng đợi trong giây lát!");
+                                    }
                                 }}
                                 style={{backgroundColor: '#50a5f1', borderRadius: '10px', width: '100%'}}>
                                 <div className="square-icon">(icon)</div>
@@ -95,10 +139,19 @@ const CustomerHome = (props) => {
                         handleSubmitCallWaiter={handleSubmitCallWaiters}
                     />
                 </div>
-                <div style={{display: (notiPayment === '')?'none':'block'}} align="center"><i style={{color: "lightcoral", fontSize: '20px'}} className="bx bx-calendar-check bx-tada"></i><b
-                    style={{color: 'lightcoral', fontSize: '15px'}}>{notiPayment}</b></div>
-                <div style={{display: (notiWaiter === '')?'none':'block'}} align="center"><i style={{color: "green", fontSize: '20px'}} className="bx bx-calendar-check bx-tada"></i><b
-                    style={{color: 'green', fontSize: '15px'}}>{notiWaiter}</b></div>
+                {todoDataRe ? ((todoDataRe.filter((tr, index) => (tr.user_id === props.authCustomer.data.user.user_id)).length !== 0) ?
+                        (<div align="center"><i style={{color: "lightcoral", fontSize: '20px'}}
+                                                className="bx bx-calendar-check bx-tada"></i><b
+                            style={{color: 'lightcoral', fontSize: '15px'}}>{notiPayment}</b></div>) : (<div></div>)
+                    )
+                    : ''}
+                {todoDataWa
+                    ? ((todoDataWa.filter((tw, index) => (tw.title === "Gọi phục vụ")).length !== 0) ?
+                            (<div align="center"><i style={{color: "green", fontSize: '20px'}}
+                                                    className="bx bx-calendar-check bx-tada"></i><b
+                                style={{color: 'green', fontSize: '15px'}}>{notiWaiter}</b></div>) : (<div></div>)
+                    )
+                    : ''}
             </div>
             <div className="none-display-customer">
                 <Invalid/>

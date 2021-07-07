@@ -8,12 +8,16 @@ import imageItem from "../../../assets/images/customer/logo-web.jpg";
 import Invalid from "../Invalid";
 import {withNamespaces} from "react-i18next";
 import {connect, useDispatch} from "react-redux";
-import {getFoodInComboRequest} from "../../../store/customer/actions";
+import {
+    addToCartRequest,
+    getFoodInComboRequest,
+} from "../../../store/customer/actions";
 import {useParams} from "react-router";
+import * as actions from "../../../store/customer/actions";
 
-const addMinus = [
-    {data_attr: 1},
-];
+// const addMinus = [
+//     {data_attr: 1},
+// ];
 
 const DetailCombo = (props) => {
     const dispatch = useDispatch();
@@ -21,30 +25,81 @@ const DetailCombo = (props) => {
 
     console.log("comboId: " + _id);
 
-    const [foodState, setFoodState] = useState();
-
     useEffect(() => {
         dispatch(getFoodInComboRequest({_id}));
     }, []);
 
-
-    const [minusAdd, setMinusAdd] = useState(addMinus);
+    // const [minusAdd, setMinusAdd] = useState(1);
 
     function countUP(prev_data_attr) {
-        setMinusAdd(minusAdd.map(p => ({...p, data_attr: prev_data_attr + 1})));
+        setQuantity(prev_data_attr + 1);
+        setCost(props?.dataFoodInCombo?.data?.find((cb) => (cb._id === _id)).cost);
     }
 
     function countDown(prev_data_attr) {
         if (prev_data_attr > 1) {
-            setMinusAdd(minusAdd.map(p => ({...p, data_attr: prev_data_attr - 1})))
+            setQuantity(prev_data_attr - 1)
         }
         ;
+        setCost(props?.dataFoodInCombo?.data?.find((cb) => (cb._id === _id)).cost);
     }
 
     const backPage = () => {
         props.history.goBack();
         dispatch(getFoodInComboRequest());
     }
+
+    const [item_id, setItem_id] = useState(_id);
+    const [quantity, setQuantity] = useState(0);
+    const [note, setNote] = useState('');
+    const [dish_in_combo, setDish] = useState([]);
+    const [cost, setCost] = useState(0);
+
+    const [checkedState, setCheckedState] = useState([]);
+
+    console.log("checkedStatetest: " + checkedState);
+
+    const handleOnChange = (position) => {
+        const updatedCheckedState = checkedState.map((item, index) =>
+            index === position ? !item : item
+        );
+
+        setCheckedState(updatedCheckedState);
+
+        const testDish = updatedCheckedState.map(
+            (currentState, index) => {
+                if (currentState === true) {
+                    return (props?.dataFoodInCombo?.data?.find((cb) => (cb._id === _id)).dish_in_combo[index].name);
+                }
+            },
+        );
+        setDish(testDish.filter(function (el) {
+            return el != null;
+        }));
+    };
+
+    console.log("test check: " + dish_in_combo);
+
+    console.log("cost test: " + cost);
+    console.log("noc test: " + quantity);
+
+    const data = {item_id, quantity, note, dish_in_combo, cost};
+
+    const handleSubmit = () => {
+        dispatch(addToCartRequest(data));
+        props.history.push('/customer-cart');
+    };
+
+    const [show, setShow] = useState("none");
+    const [hide, setHide] = useState("block");
+
+    const handleDetail = () => {
+        setShow("block");
+        setHide("none");
+        setCost(props?.dataFoodInCombo?.data?.find((cb) => (cb._id === _id)).cost);
+        setQuantity(props.authCustomer.data.user.number_of_customer);
+        setCheckedState(new Array(props?.dataFoodInCombo?.data?.find((cb) => (cb._id === _id)).dish_in_combo.length).fill(false));
+    };
 
     return (
         <React.Fragment>
@@ -64,7 +119,6 @@ const DetailCombo = (props) => {
                         </div>
                     </div>
                 </div>
-
                 {props?.dataFoodInCombo?.data?.map((d, i) => (d.dish_in_combo.length !== 0) ? (
                     <div>
                         <div align="center" className="image-item">
@@ -81,52 +135,57 @@ const DetailCombo = (props) => {
                                 className="cost-item">Giá: {(d.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
                             </div>
                         </div>
-                        <div className="list-item">
-                            <div className="d-flex">
-                                <div align="left" className="col-6"><b style={{marginLeft: 'calc(100% - 95%)'}}>Bao
-                                    gồm:</b>
+                        <div align="center" style={{display: hide}}>
+                            <a onClick={handleDetail}>
+                                <div>Chi tiết</div>
+                                <i style={{color: "lightcoral", fontSize: '30px'}}
+                                   className="bx bx-chevron-down-circle bx-tada"></i>
+                            </a>
+                        </div>
+                        <div style={{display: show}}>
+                            <div className="list-item">
+                                <div className="d-flex">
+                                    <div align="left" className="col-6"><b style={{marginLeft: 'calc(100% - 95%)'}}>Bao
+                                        gồm:</b>
+                                    </div>
+                                    <div align="right" className="col-6">
+                                        {/*<input*/}
+                                        {/*    className="check-all-button"*/}
+                                        {/*    type="checkbox"*/}
+                                        {/*    onChange={e => {*/}
+                                        {/*        // let checked = e.target.checked;*/}
+                                        {/*        // setFoodState(*/}
+                                        {/*        //     foodState.map(ch => {*/}
+                                        {/*        //         ch.select = checked;*/}
+                                        {/*        //         return ch;*/}
+                                        {/*        //     })*/}
+                                        {/*        // );*/}
+                                        {/*        setCost(props?.dataFoodInCombo?.data?.find((cb) => (cb._id === _id)).cost);*/}
+                                        {/*        setQuantity(props.authCustomer.data.user.number_of_customer);*/}
+                                        {/*    }}*/}
+                                        {/*/><b>Chọn hết</b>*/}
+                                    </div>
                                 </div>
-                                <div align="right" className="col-6">
-                                    <input
-                                        className="check-all-button"
-                                        type="checkbox"
-                                        onChange={e => {
-                                            let checked = e.target.checked;
-                                            setFoodState(
-                                                foodState.map(ch => {
-                                                    ch.select = checked;
-                                                    return ch;
-                                                })
-                                            );
-                                        }}
-                                    /><b>Chọn hết</b>
-                                </div>
-                            </div>
-                            <div className="d-flex">
-                                <div align="center" className="checkbox-dish">
-                                    {d?.dish_in_combo?.map((dic, i) => (
-                                        <div>
-                                            <label key={dic._id}>
-                                                <input
-                                                    onChange={event => {
-                                                        let checked = event.target.checked;
-                                                        setFoodState(
-                                                            foodState.map(data => {
-                                                                if (dic._id === data._id) {
-                                                                    data.select = checked;
-                                                                }
-                                                                return data;
-                                                            })
-                                                        );
-                                                    }}
-                                                    type="checkbox"
-                                                    checked={dic.select}
-                                                />{dic.name}
-                                            </label>
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className="note-item" style={{width: '50%'}}>
+                                <div className="d-flex">
+                                    <div align="center" className="checkbox-dish">
+                                        {d?.dish_in_combo?.map((dic, index) => (
+                                            <div>
+                                                <label key={index}>
+                                                    <input
+                                                        id={dic._id}
+                                                        name={dic.name}
+                                                        value={dic.name}
+                                                        onChange={() => {
+                                                            handleOnChange(index);
+                                                        }}
+                                                        type="checkbox"
+                                                        checked={checkedState[index]}
+                                                    />{dic.name}
+                                                </label>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <div className="note-item" style={{width: '50%'}}>
                                     <textarea
                                         required
                                         style={{width: '80%'}}
@@ -134,22 +193,23 @@ const DetailCombo = (props) => {
                                         type="text"
                                         rows="8"
                                         maxLength="80"
-                                        placeholder="Chú thích..."
-                                        name="content"
-                                        id="content"
-                                        // onChange={(e) => (
-                                        //     setContent(e.target.value)
-                                        // )}
+                                        placeholder="Chú thích...(VD:Ăn được cay, Không ăn được cay,...)"
+                                        name="note"
+                                        id="note"
+                                        onChange={(e) => (
+                                            setNote(e.target.value)
+                                        )}
                                     ></textarea>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="order-cart">
-                            <Link to="/customer-cart">
-                                <button className="order-button">
-                                    <div>Thêm vào danh sách gọi món</div>
-                                </button>
-                            </Link>
+                            <div className="order-cart">
+                                {checkedState.find((cs) => (cs === true)) ? (
+                                    <button onClick={handleSubmit} className="order-button">
+                                        <div>Thêm vào danh sách gọi món</div>
+                                    </button>
+                                ):(null)}
+                            </div>
                         </div>
                     </div>
                 ) : (
@@ -165,31 +225,42 @@ const DetailCombo = (props) => {
                                 className="cost-item">Giá: {(d.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
                             </div>
                         </div>
+                        <div align='center' className="note-item" style={{width: '100%'}}>
+                                <textarea
+                                    style={{width: '80%'}}
+                                    className="introduce-profile note-input-item"
+                                    type="text"
+                                    rows="8"
+                                    maxLength="80"
+                                    placeholder="Chú thích..."
+                                    name="note"
+                                    id="note"
+                                    onChange={(e) => (
+                                        setNote(e.target.value)
+                                    )}
+                                ></textarea>
+                        </div>
                         <div className="d-flex order-drink">
-                            {
-                                minusAdd.map((pr) =>
-                                    <div align="left" className="col-4 add-minus">
-                                        <button className="add-btn" onClick={() => {
-                                            countDown(pr.data_attr)
-                                        }}>
-                                            <div><i style={{color: "#000000"}} className="bx bx-minus bx-tada"></i>
-                                            </div>
-                                        </button>
-                                        <b style={{color: '#000000'}}> {pr.data_attr} </b>
-                                        <button className="add-btn" onClick={() => {
-                                            countUP(pr.data_attr)
-                                        }}>
-                                            <div><i style={{color: "#000000"}} className="bx bx-plus bx-tada"></i></div>
-                                        </button>
+                            <div align="left" className="col-4 add-minus">
+                                <button className="add-btn" onClick={() => {
+                                    countDown(quantity)
+                                }}>
+                                    <div><i style={{color: "#000000"}} className="bx bx-minus bx-tada"></i>
                                     </div>
-                                )
-                            }
+                                </button>
+                                <b style={{color: '#000000'}}> {quantity} </b>
+                                <button className="add-btn" onClick={() => {
+                                    countUP(quantity)
+                                }}>
+                                    <div><i style={{color: "#000000"}} className="bx bx-plus bx-tada"></i></div>
+                                </button>
+                            </div>
                             <div align="right" className="col-8">
-                                <Link to="/customer-cart">
-                                    <button className="order-button-drink">
+                                {(quantity > 0) ? (
+                                    <button onClick={handleSubmit} className="order-button-drink">
                                         <div>Thêm vào danh sách gọi món</div>
                                     </button>
-                                </Link>
+                                ):(null)}
                             </div>
                         </div>
                     </div>
@@ -203,7 +274,9 @@ const DetailCombo = (props) => {
 };
 
 const mapStateToProps = (state) => {
+    const {authCustomer} = state.LoginCustomer;
     return {
+        authCustomer,
         dataCategory: state.Customer.getAllCategory.allCategories,
         dataMenu: state.Customer.getAllMenu.allMenu,
         dataSearch: state.Customer.getAllSearch.allSearch,

@@ -6,8 +6,15 @@ import {Link} from "react-router-dom";
 
 import imageItem from "../../../assets/images/customer/logo-web.jpg";
 import Invalid from "../Invalid";
+import {withNamespaces} from "react-i18next";
+import {connect} from "react-redux";
+import * as actions from "../../../store/customer/actions";
 
-function Cart() {
+const Cart = (props) => {
+
+    useEffect(() => {
+        props.dispatch(actions.getCartRequest());
+    }, []);
 
     return (
         <React.Fragment>
@@ -37,44 +44,30 @@ function Cart() {
                 </div>
 
                 <div>
-                    <div className="title-menu"><b>Số người: 2</b></div>
-                    <Link to="/customer-detail-combo">
-                        <div className="item-menu d-flex">
-                            <div align="left" className="col-8">
-                                <div className="item-name"><b>Combo Nướng 129k</b></div>
-                                <div className="item-cost">258.000 vnd</div>
+                    <div className="title-menu"><b>Số người: {props.authCustomer.data.user.number_of_customer}</b></div>
+                    {props?.dataCart?.data?.item_in_cart?.map((iic, index) => (
+                        <Link>
+                            <div className="item-menu d-flex">
+                                <div align="left" className="col-8">
+                                    <div className="item-name"><b>{iic?.name}</b></div>
+                                    <div className="item-cost"> {(iic?.total_cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd</div>
+                                </div>
+                                <div align="center" className="add-button col-2">
+                                    x{iic.quantity}
+                                </div>
+                                <div align="right" className="add-button col-2">
+                                    <Link>
+                                        <div>xóa</div>
+                                    </Link>
+                                </div>
                             </div>
-                            <div align="center" className="add-button col-2">
-                                x2
-                            </div>
-                            <div align="right" className="add-button col-2">
-                                <Link>
-                                    <div>xóa</div>
-                                </Link>
-                            </div>
-                        </div>
-                    </Link>
-                    <Link to="/customer-detail-drink">
-                        <div className="item-menu d-flex">
-                            <div align="left" className="col-8">
-                                <div className="item-name"><b>Coca</b></div>
-                                <div className="item-cost">20.000 vnd</div>
-                            </div>
-                            <div align="center" className="add-button col-2">
-                                x2
-                            </div>
-                            <div align="right" className="add-button col-2">
-                                <Link>
-                                    <div>xóa</div>
-                                </Link>
-                            </div>
-                        </div>
-                    </Link>
+                        </Link>
+                    ))}
                 </div>
 
                 <div className="d-flex order-drink">
                     <div style={{paddingTop: '10px'}} align="left" className="col-6">
-                        <b style={{color: '#000000'}}>Tổng tiền: 278.000vnd</b>
+                        <b style={{color: '#000000'}}>Tổng tiền: {props?.dataCart?.data?.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd</b>
                     </div>
                     <div align="right" className="col-6">
                         <Link to="/customer-home">
@@ -92,4 +85,15 @@ function Cart() {
     );
 };
 
-export default Cart;
+const mapStateToProps = (state) => {
+    const {authCustomer} = state.LoginCustomer;
+    return {
+        authCustomer,
+        dataCategory: state.Customer.getAllCategory.allCategories,
+        dataMenu: state.Customer.getAllMenu.allMenu,
+        dataSearch: state.Customer.getAllSearch.allSearch,
+        dataCart: state.Customer.getCart.dataCart,
+    };
+};
+
+export default withNamespaces()(connect(mapStateToProps)(Cart));
