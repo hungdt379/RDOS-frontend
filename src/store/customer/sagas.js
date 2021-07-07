@@ -120,6 +120,39 @@ export function* watchGetFoodInCombo() {
     yield takeEvery(actionTypes.GET_FOOD_IN_COMBO_REQUEST, allFoodInCombo);
 }
 
+//add to cart
+function* postAddToCart({ payload }) {
+    try {
+        const response = yield call(Request.postApiCus, apiUrls.addToCartApi, payload);
+        yield put(actions.addToCartSuccess(response.data));
+        console.log("add to cart: " + response.data)
+        // return response;
+    } catch (error) {
+        yield put(actions.addToCartError(error));
+    }
+}
+
+export function* watchPostAddToCart() {
+    yield takeEvery(actionTypes.ADD_TO_CART_REQUEST, postAddToCart);
+}
+
+//get cart
+function* allCart({payload}) {
+    try {
+        const response = yield call(Request.getApiCus, apiUrls.getCartApi, payload);
+        if (response) {
+            yield put(actions.getCartSuccess(response));
+        }
+        console.log("get cart: " + response.data)
+    } catch (error) {
+        yield put(actions.getCartError(error));
+    }
+}
+
+export function* watchGetCart() {
+    yield takeEvery(actionTypes.GET_CART_REQUEST, allCart);
+}
+
 const sagaCustomer = [
     watchGetAllCategory(),
     watchGetAllMenu(),
@@ -128,6 +161,8 @@ const sagaCustomer = [
     watchPostCallPayment(),
     watchPostSendFeedback(),
     watchGetFoodInCombo(),
+    watchPostAddToCart(),
+    watchGetCart(),
 ];
 
 export default sagaCustomer;

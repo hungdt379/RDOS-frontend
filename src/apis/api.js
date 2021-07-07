@@ -8,6 +8,8 @@ export const apiUrls = {
   getAllMenus: "api/customer/menu",
   getAllSearchs: "api/search",
   displayFoodInCombo: "api/customer/menu/item/detail",
+  addToCartApi: "api/customer/cart/item/add",
+  getCartApi: "api/customer/cart",
 
   callWaiter: "api/customer/call/waiter",
   callPayment: "api/customer/call/payment",

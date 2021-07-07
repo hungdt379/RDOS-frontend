@@ -48,7 +48,7 @@ function CallWaiter(props) {
                                 onChange={onChange}
                                 value={value}
                                 rows="5"
-                                maxLength="100"
+                                maxLength="255"
                                 required
                             />
                         )}

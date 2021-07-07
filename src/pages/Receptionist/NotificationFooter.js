@@ -82,14 +82,6 @@ const NotificationFooter = (props) => {
                                         />
                                     ))
                                     : ''}
-                                {/*{props?.allNotificationReceptionist?.data?.map((notification) => (*/}
-                                {/*    <NotificationCardFooter*/}
-                                {/*        key={notification._id}*/}
-                                {/*        data={notification}*/}
-                                {/*        userId={notification.user_id}*/}
-                                {/*        menu={handleChangeMenu}*/}
-                                {/*    />*/}
-                                {/*))}*/}
                             </PerfectScrollbar>
                         </DropdownMenu>
                     </Dropdown>

@@ -25,6 +25,7 @@ const CustomerMenu = (props) => {
     useEffect(() => {
         props.dispatch(actions.getAllCategoryRequest());
         props.dispatch(actions.getAllMenuRequest());
+        props.dispatch(actions.getCartRequest());
     }, []);
 
     console.log("combo : " + props?.dataMenu?.combo);
@@ -148,6 +149,15 @@ const CustomerMenu = (props) => {
                             </div>
                         ))}
                     </div>
+                    {(props?.dataCart?.data?.item_in_cart?.length !== 0) ? (
+                        <div className="cart">
+                            <Link to="/customer-cart">
+                                <button className="cart-button">
+                                    <div>Xem danh sách món đã chọn</div>
+                                </button>
+                            </Link>
+                        </div>
+                    ):(null)}
                 </div>
             </div>
             <div className="none-display-customer">
@@ -162,6 +172,7 @@ const mapStateToProps = (state) => {
         dataCategory: state.Customer.getAllCategory.allCategories,
         dataMenu: state.Customer.getAllMenu.allMenu,
         dataSearch: state.Customer.getAllSearch.allSearch,
+        dataCart: state.Customer.getCart.dataCart,
     };
 };
 

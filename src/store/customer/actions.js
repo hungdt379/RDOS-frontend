@@ -133,3 +133,43 @@ export const getFoodInComboError = (error) => {
         payload: error,
     };
 };
+
+//add to cart
+export const addToCartRequest = (payload) => {
+    return {
+        type: actionTypes.ADD_TO_CART_REQUEST,
+        payload: payload,
+    };
+};
+export const addToCartSuccess = (response) => {
+    return {
+        type: actionTypes.ADD_TO_CART_SUCCESS,
+        payload: response,
+    };
+};
+export const addToCartError = (error) => {
+    return {
+        type: actionTypes.ADD_TO_CART_ERROR,
+        payload: error,
+    };
+};
+
+//get cart
+export const getCartRequest = (payload) => {
+    return {
+        type: actionTypes.GET_CART_REQUEST,
+        payload: payload,
+    };
+};
+export const getCartSuccess = (response) => {
+    return {
+        type: actionTypes.GET_CART_SUCCESS,
+        payload: response,
+    };
+};
+export const getCartError = (error) => {
+    return {
+        type: actionTypes.GET_CART_ERROR,
+        payload: error,
+    };
+};

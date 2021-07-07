@@ -127,6 +127,42 @@ const getFoodInCombo = (state = getFoodInComboReducer, action) => {
     }
 };
 
+//add to cart
+const addToCartReducer = {
+    dataAddToCart: [],
+};
+
+const addToCart = (state = addToCartReducer, action) => {
+    switch (action.type) {
+        case actionTypes.ADD_TO_CART_REQUEST:
+            return { ...state };
+        case actionTypes.ADD_TO_CART_SUCCESS:
+            return { ...state, dataAddToCart: action.payload };
+        case actionTypes.ADD_TO_CART_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+//get cart
+const getCartReducer = {
+    dataCart: [],
+};
+
+const getCart = (state = getCartReducer, action) => {
+    switch (action.type) {
+        case actionTypes.GET_CART_REQUEST:
+            return { ...state };
+        case actionTypes.GET_CART_SUCCESS:
+            return { ...state, dataCart: action.payload };
+        case actionTypes.GET_CART_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
 export const Customer = combineReducers({
     getAllCategory,
     getAllMenu,
@@ -135,4 +171,6 @@ export const Customer = combineReducers({
     postCallPayment,
     sendFeedback,
     getFoodInCombo,
+    addToCart,
+    getCart,
 });
