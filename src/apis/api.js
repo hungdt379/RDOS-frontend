@@ -10,6 +10,8 @@ export const apiUrls = {
   displayFoodInCombo: "api/customer/menu/item/detail",
   addToCartApi: "api/customer/cart/item/add",
   getCartApi: "api/customer/cart",
+  deleteFromCartApi: "api/customer/cart/item/delete",
+  sendOrderApi: "api/customer/order/send",
 
   callWaiter: "api/customer/call/waiter",
   callPayment: "api/customer/call/payment",

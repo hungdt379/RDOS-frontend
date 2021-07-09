@@ -163,6 +163,60 @@ const getCart = (state = getCartReducer, action) => {
     }
 };
 
+//delete from cart
+const deleteFromCartReducer = {
+    dataDeleteFromCart: [],
+};
+
+const deleteFromCart = (state = deleteFromCartReducer, action) => {
+    switch (action.type) {
+        case actionTypes.DELETE_FROM_CART_REQUEST:
+            return { ...state };
+        case actionTypes.DELETE_FROM_CART_SUCCESS:
+            return { ...state, dataDeleteFromCart: action.payload };
+        case actionTypes.DELETE_FROM_CART_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+//delete all from cart
+const deleteAllFromCartReducer = {
+    dataDeleteAllFromCart: [],
+};
+
+const deleteAllFromCart = (state = deleteAllFromCartReducer, action) => {
+    switch (action.type) {
+        case actionTypes.DELETE_ALL_FROM_CART_REQUEST:
+            return { ...state };
+        case actionTypes.DELETE_ALL_FROM_CART_SUCCESS:
+            return { ...state, dataDeleteAllFromCart: action.payload };
+        case actionTypes.DELETE_ALL_FROM_CART_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+//send order
+const sendOrderReducer = {
+    dataSendOrder: [],
+};
+
+const sendOrder = (state = sendOrderReducer, action) => {
+    switch (action.type) {
+        case actionTypes.SEND_ORDER_REQUEST:
+            return { ...state };
+        case actionTypes.SEND_ORDER_SUCCESS:
+            return { ...state, dataSendOrder: action.payload };
+        case actionTypes.SEND_ORDER_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
 export const Customer = combineReducers({
     getAllCategory,
     getAllMenu,
@@ -173,4 +227,7 @@ export const Customer = combineReducers({
     getFoodInCombo,
     addToCart,
     getCart,
+    deleteFromCart,
+    deleteAllFromCart,
+    sendOrder,
 });

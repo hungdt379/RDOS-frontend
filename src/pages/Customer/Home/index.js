@@ -20,6 +20,7 @@ const CustomerHome = (props) => {
 
     const [notiPayment, setNotiPayment] = useState('Đã gửi yêu cầu thanh toán, hãy đợi giây lát!');
     const [notiWaiter, setNotiWaiter] = useState('Đã gửi yêu cầu đến phục vụ, hãy đợi giây lát!');
+    const [notiSendOrder, setNotiSendOrder] = useState('Đã gửi yêu cầu đặt món, hãy đợi giây lát!');
 
     const handleSubmitCallWaiters = (data) => {
         dispatch(postCallWaiterRequest({data}));
@@ -150,6 +151,13 @@ const CustomerHome = (props) => {
                             (<div align="center"><i style={{color: "green", fontSize: '20px'}}
                                                     className="bx bx-calendar-check bx-tada"></i><b
                                 style={{color: 'green', fontSize: '15px'}}>{notiWaiter}</b></div>) : (<div></div>)
+                    )
+                    : ''}
+                {todoDataWa
+                    ? ((todoDataWa.filter((tw, index) => (tw.title === "Đặt món")).length !== 0) ?
+                            (<div align="center"><i style={{color: "blue", fontSize: '20px'}}
+                                                    className="bx bx-calendar-check bx-tada"></i><b
+                                style={{color: 'blue', fontSize: '15px'}}>{notiSendOrder}</b></div>) : (<div></div>)
                     )
                     : ''}
             </div>

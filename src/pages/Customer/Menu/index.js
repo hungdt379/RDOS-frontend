@@ -57,7 +57,10 @@ const CustomerMenu = (props) => {
                                     <button className="menu-type">
                                         <div>{(category?.name === 'combo') ? ('Combo Nướng + Lẩu') :
                                             (category?.name === 'drink') ? ('Đồ uống') :
-                                                (category?.name === 'fast') ? ('Đồ ăn kèm') : null}</div>
+                                                (category?.name === 'normal') ? ('Gọi món') :
+                                                    (category?.name === 'fast') ? ('Đồ ăn kèm') :
+                                                        (category?.name === 'alcohol') ? ('Rượu') :
+                                                (category?.name === 'beer') ? ('Bia') : null}</div>
                                     </button>
                                 </a>
                             ))}
@@ -128,6 +131,27 @@ const CustomerMenu = (props) => {
                             </div>
                         ))}
                     </div>
+                    <div id="normal">
+                        <div className="title-menu"><b>Gọi món</b></div>
+                        {props?.dataMenu?.normal?.map((normal) => (
+                            <div className="item-menu d-flex">
+                                <div align="left" className="col-10">
+                                    <div className="item-name"><b>{normal?.name}</b></div>
+                                    <div
+                                        className="item-cost">{(normal?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                    </div>
+                                </div>
+                                <div align="right" className="add-button col-2">
+                                    <Link to={`/customer-detail-combo/${normal?._id}`}>
+                                        <button className="add-btn">
+                                            <div><i style={{color: "#000000"}}
+                                                    className="bx bx-plus-medical bx-tada"></i></div>
+                                        </button>
+                                    </Link>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                     <div id="fast">
                         <div className="title-menu"><b>Đồ ăn kèm</b></div>
                         {props?.dataMenu?.fast?.map((fast) => (
@@ -140,6 +164,48 @@ const CustomerMenu = (props) => {
                                 </div>
                                 <div align="right" className="add-button col-2">
                                     <Link to={`/customer-detail-combo/${fast?._id}`}>
+                                        <button className="add-btn">
+                                            <div><i style={{color: "#000000"}}
+                                                    className="bx bx-plus-medical bx-tada"></i></div>
+                                        </button>
+                                    </Link>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <div id="alcohol">
+                        <div className="title-menu"><b>Rượu</b></div>
+                        {props?.dataMenu?.alcohol?.map((alcohol) => (
+                            <div className="item-menu d-flex">
+                                <div align="left" className="col-10">
+                                    <div className="item-name"><b>{alcohol?.name}</b></div>
+                                    <div
+                                        className="item-cost">{(alcohol?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                    </div>
+                                </div>
+                                <div align="right" className="add-button col-2">
+                                    <Link to={`/customer-detail-combo/${alcohol?._id}`}>
+                                        <button className="add-btn">
+                                            <div><i style={{color: "#000000"}}
+                                                    className="bx bx-plus-medical bx-tada"></i></div>
+                                        </button>
+                                    </Link>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <div id="beer">
+                        <div className="title-menu"><b>Bia</b></div>
+                        {props?.dataMenu?.beer?.map((beer) => (
+                            <div className="item-menu d-flex">
+                                <div align="left" className="col-10">
+                                    <div className="item-name"><b>{beer?.name}</b></div>
+                                    <div
+                                        className="item-cost">{(beer?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                    </div>
+                                </div>
+                                <div align="right" className="add-button col-2">
+                                    <Link to={`/customer-detail-combo/${beer?._id}`}>
                                         <button className="add-btn">
                                             <div><i style={{color: "#000000"}}
                                                     className="bx bx-plus-medical bx-tada"></i></div>

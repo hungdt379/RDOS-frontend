@@ -9,7 +9,7 @@ import Invalid from "../Invalid";
 import {withNamespaces} from "react-i18next";
 import {connect, useDispatch} from "react-redux";
 import {
-    addToCartRequest,
+    addToCartRequest, getCartRequest,
     getFoodInComboRequest,
 } from "../../../store/customer/actions";
 import {useParams} from "react-router";
@@ -27,6 +27,7 @@ const DetailCombo = (props) => {
 
     useEffect(() => {
         dispatch(getFoodInComboRequest({_id}));
+        dispatch(getCartRequest());
     }, []);
 
     // const [minusAdd, setMinusAdd] = useState(1);
@@ -86,8 +87,15 @@ const DetailCombo = (props) => {
     const data = {item_id, quantity, note, dish_in_combo, cost};
 
     const handleSubmit = () => {
-        dispatch(addToCartRequest(data));
-        props.history.push('/customer-cart');
+        if (props?.dataCart?.data?.item_in_cart?.filter((iic) => (iic._id !== _id &&
+            iic.category_id === "60e7073e5d1e1470c0048f92")).length !== 0 && props?.dataFoodInCombo?.data?.filter((dfic) => dfic.category_id === "60e7073e5d1e1470c0048f92").length !== 0) {
+            alert("Bạn đã chọn một Combo trước đó, vào giỏ hàng xóa và chọn lại bạn nhé!")
+        } else {
+            dispatch(addToCartRequest(data));
+            setTimeout(() => {
+                props.history.push('/customer-cart');
+            }, 800)
+        }
     };
 
     const [show, setShow] = useState("none");
@@ -148,26 +156,31 @@ const DetailCombo = (props) => {
                                     <div align="left" className="col-6"><b style={{marginLeft: 'calc(100% - 95%)'}}>Bao
                                         gồm:</b>
                                     </div>
-                                    <div align="right" className="col-6">
-                                        {/*<input*/}
-                                        {/*    className="check-all-button"*/}
-                                        {/*    type="checkbox"*/}
-                                        {/*    onChange={e => {*/}
-                                        {/*        // let checked = e.target.checked;*/}
-                                        {/*        // setFoodState(*/}
-                                        {/*        //     foodState.map(ch => {*/}
-                                        {/*        //         ch.select = checked;*/}
-                                        {/*        //         return ch;*/}
-                                        {/*        //     })*/}
-                                        {/*        // );*/}
-                                        {/*        setCost(props?.dataFoodInCombo?.data?.find((cb) => (cb._id === _id)).cost);*/}
-                                        {/*        setQuantity(props.authCustomer.data.user.number_of_customer);*/}
-                                        {/*    }}*/}
-                                        {/*/><b>Chọn hết</b>*/}
+                                    <div align="center" className="col-6">
+                                        <input
+                                            className="check-all-button"
+                                            type="checkbox"
+                                            onChange={e => {
+                                                const updatedCheckedState = checkedState.map((item, index) =>
+                                                     !item
+                                                );
+                                                setCheckedState(updatedCheckedState);
+                                                const testDish = updatedCheckedState.map(
+                                                    (currentState, index) => {
+                                                        if (currentState === true) {
+                                                            return (props?.dataFoodInCombo?.data?.find((cb) => (cb._id === _id)).dish_in_combo[index].name);
+                                                        }
+                                                    },
+                                                );
+                                                setDish(testDish.filter(function (el) {
+                                                    return el != null;
+                                                }));
+                                            }}
+                                        /><b>Chọn hết</b>
                                     </div>
                                 </div>
                                 <div className="d-flex">
-                                    <div align="center" className="checkbox-dish">
+                                    <div align="left" className="checkbox-dish">
                                         {d?.dish_in_combo?.map((dic, index) => (
                                             <div>
                                                 <label key={index}>
@@ -186,20 +199,21 @@ const DetailCombo = (props) => {
                                         ))}
                                     </div>
                                     <div className="note-item" style={{width: '50%'}}>
-                                    <textarea
-                                        required
-                                        style={{width: '80%'}}
-                                        className="introduce-profile note-input-item"
-                                        type="text"
-                                        rows="8"
-                                        maxLength="80"
-                                        placeholder="Chú thích...(VD:Ăn được cay, Không ăn được cay,...)"
-                                        name="note"
-                                        id="note"
-                                        onChange={(e) => (
-                                            setNote(e.target.value)
-                                        )}
-                                    ></textarea>
+                                        <div><b>Chú thích:</b></div>
+                                        <textarea
+                                            required
+                                            style={{width: '80%'}}
+                                            className="introduce-profile note-input-item"
+                                            type="text"
+                                            rows="8"
+                                            maxLength="80"
+                                            placeholder="Chú thích...(VD:Ăn được cay, Không ăn được cay,...)"
+                                            name="note"
+                                            id="note"
+                                            onChange={(e) => (
+                                                setNote(e.target.value)
+                                            )}
+                                        ></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -208,7 +222,7 @@ const DetailCombo = (props) => {
                                     <button onClick={handleSubmit} className="order-button">
                                         <div>Thêm vào danh sách gọi món</div>
                                     </button>
-                                ):(null)}
+                                ) : (null)}
                             </div>
                         </div>
                     </div>
@@ -260,7 +274,7 @@ const DetailCombo = (props) => {
                                     <button onClick={handleSubmit} className="order-button-drink">
                                         <div>Thêm vào danh sách gọi món</div>
                                     </button>
-                                ):(null)}
+                                ) : (null)}
                             </div>
                         </div>
                     </div>
@@ -281,6 +295,7 @@ const mapStateToProps = (state) => {
         dataMenu: state.Customer.getAllMenu.allMenu,
         dataSearch: state.Customer.getAllSearch.allSearch,
         dataFoodInCombo: state.Customer.getFoodInCombo.dataFoodInCombo,
+        dataCart: state.Customer.getCart.dataCart,
     };
 };
 
