@@ -153,6 +153,54 @@ export function* watchGetCart() {
     yield takeEvery(actionTypes.GET_CART_REQUEST, allCart);
 }
 
+//delete from cart
+function* postDeleteFromCart({payload}) {
+    try {
+        const response = yield call(Request.postApiCus, apiUrls.deleteFromCartApi+'?item_id[]=', payload);
+        yield put(actions.deleteFromCartSuccess(response.data));
+        console.log("delete from cart: " + response)
+        // return response;
+    } catch (error) {
+        yield put(actions.deleteFromCartError(error));
+    }
+}
+
+export function* watchPostDeleteFromCart() {
+    yield takeEvery(actionTypes.DELETE_FROM_CART_REQUEST, postDeleteFromCart);
+}
+
+//delete all from cart
+function* postDeleteAllFromCart() {
+    try {
+        const response = yield call(Request.postApiCus, apiUrls.deleteFromCartApi, {});
+        yield put(actions.deleteAllFromCartSuccess(response));
+        console.log("delete all from cart: " + response)
+        // return response;
+    } catch (error) {
+        yield put(actions.deleteAllFromCartError(error));
+    }
+}
+
+export function* watchPostDeleteAllFromCart() {
+    yield takeEvery(actionTypes.DELETE_ALL_FROM_CART_REQUEST, postDeleteAllFromCart);
+}
+
+//send order
+function* postSendOrder() {
+    try {
+        const response = yield call(Request.postApiCus, apiUrls.sendOrderApi, {});
+        yield put(actions.sendOrderSuccess(response.data));
+        console.log("call payment: " + response.data)
+        // return response;
+    } catch (error) {
+        yield put(actions.sendOrdertError(error));
+    }
+}
+
+export function* watchPostSendOrder() {
+    yield takeEvery(actionTypes.SEND_ORDER_REQUEST, postSendOrder);
+}
+
 const sagaCustomer = [
     watchGetAllCategory(),
     watchGetAllMenu(),
@@ -163,6 +211,9 @@ const sagaCustomer = [
     watchGetFoodInCombo(),
     watchPostAddToCart(),
     watchGetCart(),
+    watchPostDeleteFromCart(),
+    watchPostDeleteAllFromCart(),
+    watchPostSendOrder(),
 ];
 
 export default sagaCustomer;

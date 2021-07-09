@@ -173,3 +173,63 @@ export const getCartError = (error) => {
         payload: error,
     };
 };
+
+//delete from cart
+export const deleteFromCartRequest = (payload) => {
+    return {
+        type: actionTypes.DELETE_FROM_CART_REQUEST,
+        payload: payload,
+    };
+};
+export const deleteFromCartSuccess = (response) => {
+    return {
+        type: actionTypes.DELETE_FROM_CART_SUCCESS,
+        payload: response,
+    };
+};
+export const deleteFromCartError = (error) => {
+    return {
+        type: actionTypes.DELETE_FROM_CART_ERROR,
+        payload: error,
+    };
+};
+
+//delete all from cart
+export const deleteAllFromCartRequest = (payload) => {
+    return {
+        type: actionTypes.DELETE_ALL_FROM_CART_REQUEST,
+        payload: payload,
+    };
+};
+export const deleteAllFromCartSuccess = (response) => {
+    return {
+        type: actionTypes.DELETE_ALL_FROM_CART_SUCCESS,
+        payload: response,
+    };
+};
+export const deleteAllFromCartError = (error) => {
+    return {
+        type: actionTypes.DELETE_ALL_FROM_CART_ERROR,
+        payload: error,
+    };
+};
+
+//send Order
+export const sendOrderRequest = () => {
+    return {
+        type: actionTypes.SEND_ORDER_REQUEST,
+        // payload: payload,
+    };
+};
+export const sendOrderSuccess = (response) => {
+    return {
+        type: actionTypes.SEND_ORDER_SUCCESS,
+        payload: response,
+    };
+};
+export const sendOrdertError = (error) => {
+    return {
+        type: actionTypes.SEND_ORDER_ERROR,
+        payload: error,
+    };
+};
