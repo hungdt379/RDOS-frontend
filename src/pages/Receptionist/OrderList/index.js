@@ -9,14 +9,15 @@ import Header from "../HeaderReception";
 import {Col, Container, Row} from "reactstrap/es";
 import Invalid from "../../Customer/Invalid";
 import NotFound from "../../Authentication/Page401";
+import chevonRight from "../../../assets/images/receptionist/chevron-down.png";
 
 // Import menuDropdown
 
 function OrderList() {
 
     let statusState = [
-        {code: "confirm", name: "Đã confirm"},
-        {code: "paid", name: "Đã thanh toán"}
+        {id: 's1', code: "confirm", name: "Đã confirm"},
+        {id: 's2', code: "paid", name: "Đã thanh toán"}
     ];
 
     const [displayStatus, setStatus] = useState("confirm");
@@ -194,27 +195,38 @@ function OrderList() {
                         <div align="center" className="receptionist-order">
                             <div align="center" className="col-xl-6">
                                 <div className="side-content">
-                                    <div style={{height: '30px'}}><b style={{fontSize:'20px'}}>Danh sách order</b>
+                                    <div className="list-order-re">
+                                        <b>
+                                            Danh sách order
+                                        </b>
                                     </div>
-                                    <div style={{height: '30px'}} className="d-flex">
-                                        {statusState.map(result => (
-                                            <div align="center" className="col-6">
-                                                <label>
-                                                    <input
-                                                        type="radio"
-                                                        value={result.code}
-                                                        name="statusValue"
-                                                        checked={displayStatus === result.code}
-                                                        onChange={(e) => setStatus(e.target.value)}
-                                                    /> {result.name}
-                                                </label>
-                                            </div>
-                                        ))}
+                                    <div className="ra-button-re d-flex">
+                                        <div className="col-2"></div>
+                                        <div className="col-8 d-flex">
+                                            {statusState.map(result => (
+                                                <div align="center" className="col-6" style={{width: '100%'}}>
+                                                    <label style={{width: '100%'}}>
+                                                        <input
+                                                            type="radio"
+                                                            id={result.id}
+                                                            style={{opacity: '0'}}
+                                                            className="status-check-re"
+                                                            value={result.code}
+                                                            name="statusValue"
+                                                            checked={displayStatus === result.code}
+                                                            onChange={(e) => setStatus(e.target.value)}
+                                                        /> <b className="input-status-re">{result.name}</b>
+                                                        <div for={result.id} className="line-color"></div>
+                                                    </label>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <div className="col-2"></div>
                                     </div>
                                     <PerfectScrollbar className="mh-55">
                                         {orderState.map((d, i) => (d.status == displayStatus) ? (
-                                                <div className="card-order d-flex">
-                                                    <div className="col-1">
+                                                <div>
+                                                    <label className="item-menu-re d-flex">
                                                         <input
                                                             onChange={event => {
                                                                 let checked = event.target.checked;
@@ -229,30 +241,44 @@ function OrderList() {
                                                             }}
                                                             type="checkbox"
                                                             checked={d.select}
+                                                            id={d.order}
+                                                            name={d.order}
+                                                            style={{display: 'none'}}
+                                                            className="check-re-order"
                                                         />
-                                                    </div>
-                                                    <div className="col-3">
-                                                        <b>{d.order}</b>
-                                                    </div>
-                                                    <div className="col-3">
-                                                        <b>{d.table}</b>
-                                                    </div>
-                                                    <div className="col-3"
-                                                         style={{color: d.status == "confirm" ? "lightcoral" : "green"}}>
-                                                        {d.status}
-                                                    </div>
-                                                    <div className="col-2">
-                                                        <Link>
-                                                            <button
-                                                                className="card-order-button"
-                                                                onClick={(e) => (window.location.pathname = '/receptionist-home/' + d.order)}
-                                                            >
-                                                                <div>
-                                                                    <b>Chi tiết</b>
+                                                        <div htmlFor={d.order}
+                                                             className="col-11 d-flex menu-item-bar-re">
+                                                            <div style={{marginTop: 'auto', marginBottom: 'auto'}}
+                                                                 align="left" className="col-11 d-flex">
+                                                                <div align="center" className="col-4 item-cost-re">
+                                                                    <b>{d.order}</b>
                                                                 </div>
-                                                            </button>
-                                                        </Link>
-                                                    </div>
+                                                                <div align="center" className="col-4 item-cost-re">
+                                                                    <b>{d.table}</b>
+                                                                </div>
+                                                                <div align="center" className="col-4 item-name-re"
+                                                                     style={{color: d.status == "confirm" ? "lightcoral" : "green"}}>
+                                                                    {d.status}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="add-button-re col-1">
+                                                            <Link>
+                                                                <a onClick={(e) => (window.location.pathname = '/receptionist-home/' + d.order)}
+                                                                   style={{
+                                                                       marginRight: 'auto',
+                                                                       marginLeft: 'auto'
+                                                                   }}
+                                                                   className="avatar-xs">
+                                                                    <div
+                                                                        className="plus-background-color-re avatar-title rounded-circle mt-2">
+                                                                        <img src={chevonRight}
+                                                                             className="plus-icon-button-re"/>
+                                                                    </div>
+                                                                </a>
+                                                            </Link>
+                                                        </div>
+                                                    </label>
                                                 </div>
                                             )
                                             : (null)
@@ -267,7 +293,7 @@ function OrderList() {
                             </div>
                             <div align="center" className="col-xl-6">
                                 <div className="side-content">
-                                    <div style={{height: '30px'}}><b style={{fontSize:'20px'}}>Chi tiết order</b></div>
+                                    <div style={{height: '30px'}}><b style={{fontSize: '20px'}}>Chi tiết order</b></div>
                                     {orderState.map((d, i) => ("/receptionist-home/" + d.order == window.location.pathname) ? (
                                             <div>
                                                 <div style={{height: '30px'}} className="d-flex">
@@ -345,7 +371,7 @@ function OrderList() {
                                     )}
                                     {(window.location.pathname == '/receptionist-home') ?
                                         (
-                                            <div style={{fontSize:'25px',color: 'lightcoral'}}>Hãy chọn 1 Order để xem
+                                            <div style={{fontSize: '25px', color: 'lightcoral'}}>Hãy chọn 1 Order để xem
                                                 chi
                                                 tiết</div>
                                         ) : (null)

@@ -41,7 +41,7 @@ function CallWaiter(props) {
                         rules={{ required: true }}
                         render={({ onChange, value, ref }) => (
                             <Input
-                                style={{width: '90%'}}
+                                style={{width: '90%', backgroundColor:'#FFEFCD', height:'90px'}}
                                 type="text"
                                 control={control}
                                 name="content"
@@ -55,8 +55,8 @@ function CallWaiter(props) {
                     />
                 </div>
                 <div style={{width: '100%', paddingBottom: '20px'}}>
-                    <Button style={{width: '80%'}}>
-                        <div>Gọi phục vụ</div>
+                    <Button style={{width: '80%', backgroundColor:'#FCBC3A'}}>
+                        <div style={{color: '#000000', fontWeight:'bold'}}>Gọi phục vụ</div>
                     </Button>
                 </div>
             </form>

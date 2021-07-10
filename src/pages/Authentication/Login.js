@@ -14,16 +14,16 @@ import {AvForm, AvField} from 'availity-reactstrap-validation';
 import {loginUser, apiError, logoutUser} from '../../store/auth/login/actions';
 
 // import images
-import profile from "../../assets/images/customer/logo-web.jpg";
-
+import profile from "../../assets/images/customer/logo-web-after-design.jpg";
 
 
 const Login = (props) => {
 
     // handleValidSubmit
-    function  handleValidSubmit(event, values) {
+    function handleValidSubmit(event, values) {
         props.loginUser(values, props.history);
     }
+
     return (
         <React.Fragment>
             <div className="home-btn d-none d-sm-block">
@@ -35,33 +35,38 @@ const Login = (props) => {
                         <Col md={8} lg={6} xl={5}>
                             <Card className="overflow-hidden">
                                 <div className="bg-soft-primary">
-                                    <Row style={{backgroundColor: 'lightcoral'}}>
-                                        <Col className="col-7">
-                                            <div className="text-primary p-4">
-                                                <h5 className="text-primary">Welcome Back !</h5>
+                                    <Row style={{backgroundColor: '#ffffff'}}>
+                                        <Col align='center' className="col-12 mt-3">
+                                            <img src={profile} alt="" className="img-fluid"/>
+                                        </Col>
+                                    </Row>
+                                    <Row style={{backgroundColor: '#ffffff'}}>
+                                        <Col align='center' className="col-12">
+                                            <div className="p-4">
+                                                <div style={{
+                                                    color: '#FCBC3A',
+                                                    fontSize: '22px',
+                                                    fontStyle: 'normal',
+                                                    fontWeight: 'bold'
+                                                }}>
+                                                    Welcome Back !
+                                                </div>
                                                 <p>Sign in to continue to RDOS.</p>
                                             </div>
-                                        </Col>
-                                        <Col className="col-5 align-self-end">
-                                            <img src={profile} alt="" className="img-fluid"/>
                                         </Col>
                                     </Row>
                                 </div>
                                 <CardBody className="pt-0">
                                     <div>
-                                        <div className="avatar-md profile-user-wid mb-4">
-                                                <span className="avatar-title rounded-circle bg-light">
-                                                    <b style={{color: 'lightcoral', fontSize: '18px'}}>RDOS</b>
-                                                </span>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <b style={{color: 'lightcoral', fontSize: '15px'}}>Restaurant Digital Order
-                                            System</b>
+                                        <h3 align='center' style={{color: 'black', fontSize: '15px'}}>Restaurant Digital
+                                            Order
+                                            System</h3>
                                     </div>
                                     <div className="p-2">
 
-                                        <AvForm className="form-horizontal" onValidSubmit={(e,v) => { handleValidSubmit(e,v) }}>
+                                        <AvForm className="form-horizontal" onValidSubmit={(e, v) => {
+                                            handleValidSubmit(e, v)
+                                        }}>
 
                                             {/*{props.error && props.error ? <Alert color="danger">{props.error}</Alert> : null}*/}
 
@@ -76,7 +81,13 @@ const Login = (props) => {
                                             </div>
 
                                             <div className="mt-3">
-                                                <button className="btn btn-primary btn-block waves-effect waves-light"
+                                                <button style={{
+                                                    backgroundColor: '#FCBC3A',
+                                                    color: '#000000',
+                                                    fontSize: '13px',
+                                                    fontWeight: '600',
+                                                    borderRadius: '10px'
+                                                }} className="btn btn-primary btn-block waves-effect waves-light"
                                                         type="submit">Đăng nhập
                                                 </button>
                                             </div>
@@ -86,7 +97,8 @@ const Login = (props) => {
                             </Card>
                             <div className="mt-5 text-center">
                                 <p>© {new Date().getFullYear()} RDOS. Crafted with
-                                    <i className="mdi mdi-heart text-danger"></i> by <b>SWP490_G49</b></p>
+                                    <i style={{color: '#FCBC3A'}} className="mdi mdi-heart"></i> by <b>SWP490_G49</b>
+                                </p>
                             </div>
                         </Col>
                     </Row>
@@ -98,8 +110,8 @@ const Login = (props) => {
 
 
 const mapStatetoProps = state => {
-    const { error } = state.Login;
-    return { error };
+    const {error} = state.Login;
+    return {error};
 }
 
-export default withRouter(connect(mapStatetoProps, { loginUser,apiError })(Login));
+export default withRouter(connect(mapStatetoProps, {loginUser, apiError})(Login));
