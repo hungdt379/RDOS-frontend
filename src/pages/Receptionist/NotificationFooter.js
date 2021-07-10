@@ -62,7 +62,7 @@ const NotificationFooter = (props) => {
                             className="btn header-item noti-icon waves-effect"
                             tag="button"
                             id="page-header-notifications-dropdown"
-                            style={{backgroundColor:'lightcoral'}}
+                            style={{backgroundColor:'#eff2f7'}}
                         >
                         </DropdownToggle>
 
