@@ -20,6 +20,7 @@ import mathPlus from "../../../assets/images/customer/math-plus.png";
 import beers from "../../../assets/images/customer/Group.png";
 import wine from "../../../assets/images/customer/wine.png";
 import chicken from "../../../assets/images/customer/chicken.png";
+import Footer from "../../../components/RdosCustomerLayout/Footer";
 
 const CustomerMenu = (props) => {
 
@@ -101,8 +102,7 @@ const CustomerMenu = (props) => {
                                                             <img src={food} className="icon-button-menu"/>
                                                         </div>
                                                     </div>
-                                                    <div className="square-text-button">Combo</div>
-                                                    <div className="square-text-button">Nướng + Lẩu</div>
+                                                    <div className="square-text-button">Combo Nướng</div>
                                                 </div>
                                             ) :
                                             (category?.name === 'drink') ? (
@@ -207,7 +207,7 @@ const CustomerMenu = (props) => {
                                 </div>
                                 <div className={(search === '') ? 'dis-menu' : 'none-dis-menu'}>
                                     <div id="combo">
-                                        <div className="title-menu"><b>Combo Nướng + Lẩu</b></div>
+                                        <div className="title-menu"><b>Combo Nướng</b></div>
                                         {props?.dataMenu?.combo?.map((combo) => (
                                             <div className="item-menu d-flex">
                                                 <div className="col-11 d-flex menu-item-bar">
@@ -395,7 +395,7 @@ const CustomerMenu = (props) => {
                             </button>
                         </Link>
                     </div>
-                ) : (null)}
+                ) : (<Footer/>)}
             </div>
             <div className="none-display-customer">
                 <Invalid/>

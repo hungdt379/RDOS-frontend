@@ -20,6 +20,7 @@ import bell from "../../../assets/images/customer/bell.png";
 import awards from "../../../assets/images/customer/awards.png";
 
 import {Col, Row} from "reactstrap";
+import Footer from "../../../components/RdosCustomerLayout/Footer";
 
 const CustomerHome = (props) => {
     //const {tog_standard} = props;
@@ -144,7 +145,7 @@ const CustomerHome = (props) => {
                                     style={{backgroundColor: '#50a5f1', borderRadius: '10px', width: '100%'}}>
                                     <div style={{marginRight : 'auto', marginLeft: 'auto'}} className="avatar-sm profile-user-wid mb-2">
                                         <div align="center" style={{backgroundColor:'#FFEFCD'}} className="avatar-title rounded-circle">
-                                            <img style={{width:'18px', height:'25px'}} src={bell} className="icon-button"/>
+                                            <img src={bell} className="icon-button"/>
                                         </div>
                                     </div>
                                     <div className="square-text-button">Gọi phục vụ</div>
@@ -154,7 +155,7 @@ const CustomerHome = (props) => {
                                 <a style={{backgroundColor: '#50a5f1', borderRadius: '10px', width: '100%'}}>
                                     <div style={{marginRight : 'auto', marginLeft: 'auto'}} className="avatar-sm profile-user-wid mb-2">
                                         <div align="center" style={{backgroundColor:'#FFEFCD'}} className="avatar-title rounded-circle">
-                                            <img style={{width:'18px', height:'25px'}} src={awards} className="icon-button"/>
+                                            <img src={awards} className="icon-button"/>
                                         </div>
                                     </div>
                                     <div className="square-text-button">Đánh giá</div>
@@ -165,7 +166,7 @@ const CustomerHome = (props) => {
                         <div align='center' className='pt-3'>
                             <button onClick={() => {
                                 props.history.push('/customer-see-order')
-                            }} className="menu-button-disable" disabled={true}>
+                            }} className='menu-button-disable' disabled={false}>
                                 <div align='center' className="text-button">
                                     <img style={{
                                         width: '25px',
@@ -204,6 +205,7 @@ const CustomerHome = (props) => {
                         )
                         : ''}
                 </div>
+                <Footer/>
             </div>
             <div className="none-display-customer">
                 <Invalid/>

@@ -52,8 +52,8 @@
       line-height: 16px;
       color: #1E1C19;
       .icon-button{
-        width: 20px;
-        height: 15px;
+        //width: 20px;
+        //height: 15px;
       }
     }
   }
@@ -72,8 +72,28 @@
       line-height: 16px;
       color: #7A7A7A;
       .icon-button{
-        width: 20px;
-        height: 15px;
+        //width: 20px;
+        //height: 15px;
+      }
+    }
+  }
+  .menu-button-disable-none{
+    width: 90%;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 55px;
+    background: #FCBC3A;
+    border-radius: 10px;
+    .text-button{
+      font-family: Calibri;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 16px;
+      color: #000000;
+      .icon-button{
+        //width: 20px;
+        //height: 15px;
       }
     }
   }
@@ -85,8 +105,8 @@
       width: 30%;
       border-radius: 10px;
       .icon-button{
-        width: 25px;
-        height: 20px;
+        //width: 25px;
+        //height: 20px;
       }
       .square-text-button{
         font-family: Calibri;

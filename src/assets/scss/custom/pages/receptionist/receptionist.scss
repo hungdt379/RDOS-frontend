@@ -82,10 +82,11 @@
       line-height: 24px;
       text-align: center;
       color: #1E1C19;
-      padding-top: 35px;
+      padding-top: 30px;
+      padding-bottom: 15px;
     }
     .ra-button-re{
-      padding-top: 30px;
+      padding-top: 20px;
       padding-bottom: 20px;
       text-align: center;
       border-bottom: 2px solid #CFCFCF;
@@ -114,6 +115,29 @@
       input[type='radio'].status-check-re:checked ~ b.input-status-re{
         font-weight: bold;
         color: #000000;
+      }
+
+      .detail-order-re{
+        margin-top: auto;
+        margin-bottom: auto;
+        .detail-order-top-re{
+          font-family: Calibri;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 18px;
+          line-height: 19px;
+          text-align: center;
+          color: #1E1C19;
+        }
+        .detail-order-down-re{
+          font-family: Calibri;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 19px;
+          line-height: 20px;
+          text-align: center;
+          color: #1E1C19;
+        }
       }
     }
     .mh-55{
@@ -169,6 +193,24 @@
         }
       }
     }
+    .gop-hoa-don{
+      margin-right: calc(100% - 90%);
+      .button-gop-hoa-don{
+        background: #FCBC3A;
+        border-radius: 10px;
+        height: 45px;
+        width: 200px;
+        .text-gop-hoa-don{
+          font-family: Calibri;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 16px;
+          line-height: 18px;
+          text-align: center;
+          color: #1E1C19;
+        }
+      }
+    }
     .card-order{
       margin-bottom: 5px;
       height: 50px;
@@ -205,8 +247,8 @@
     .header-re-icon{
       background-color: #FFEFCD !important;
       .icon-button-menu-re{
-        width: 20px;
-        height: 20px;
+        //width: 20px;
+        //height: 20px;
       }
     }
     .square-text-button-re{
