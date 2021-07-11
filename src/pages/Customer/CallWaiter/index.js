@@ -33,7 +33,7 @@ function CallWaiter(props) {
                   style={{marginTop: '50px', marginBottom: '60px', borderRadius: '20px'}}
                   onSubmit={handleSubmit(submit)}>
                 <div><b style={{fontSize: '20px'}}>Gọi phục vụ</b></div>
-                <div align='center' style={{paddingTop: '20px', marginBottom: '10px'}} className="note-item">
+                <div align='center' style={{marginTop: '0px', marginBottom: '10px'}} className="note-item">
                     <Controller
                         control={control}
                         defaultValue={''}

@@ -18,15 +18,15 @@ const NotificationCardFooter = (props) => {
     return (
         <SimpleBar key={data._id}>
             <div className="media mb-3"
-                 style={{border: '2px solid green', borderRadius: '5px', width: '100%', backgroundColor: 'white'}}>
+                 style={{border: '2px solid #FCBC3A', borderRadius: '5px', width: '100%', backgroundColor: 'white'}}>
                 <div className="media-body">
                     <div className="menu-notification d-flex">
-                        <h6 className="mt-0 mb-0 font-size-15">{data.user_fullname}</h6>
+                        <p className="ml-3 mt-0 mb-0 font-size-15"><b>{data.user_fullname}</b></p>
                         <p className="mt-0 mb-0 mr-2 ml-2 pl-5 font-size-15">
                             {"gọi thanh toán"}
                         </p>
                         <p className="mt-0 mb-0 mr-2 ml-2 pl-5 font-size-15">
-                            <i style={{color: "green", fontSize: '20px'}} className="bx bx-calendar-check bx-tada"></i>
+                            <i style={{color: "#FCBC3A", fontSize: '20px'}} className="bx bx-calendar-check bx-tada"></i>
                         </p>
                     </div>
                 </div>

@@ -319,18 +319,41 @@ function OrderList() {
                                                     </div>
                                                 </div>
                                                 <PerfectScrollbar className="mh-55">
+                                                    <div style={{
+                                                        backgroundColor: '#ffffff',
+                                                        border: '0px solid #ffffff',
+                                                    }} className="card-order d-flex">
+                                                        <div align="left" className="col-3 card-detail-order-text">
+                                                            <b>Món ăn</b>
+                                                        </div>
+                                                        <div align="left" className="col-2 card-detail-order-text">
+                                                            <b>Giá tiền</b>
+                                                        </div>
+                                                        <div style={{paddingLeft:'0px'}} align="center" className="col-2 card-detail-order-text">
+                                                            <b>Số lượng</b>
+                                                        </div>
+                                                        <div align="right" className="col-2 card-detail-order-text">
+                                                            <b>Tổng tiền</b>
+                                                        </div>
+                                                        <div style={{marginRight:'30px'}} align="right" className="col-3 card-detail-order-text">
+                                                             <b>Trạng thái</b>
+                                                        </div>
+                                                    </div>
                                                     {itemState.map((it, i) => (it.order == d.order) ? (
                                                             <div className="card-order d-flex">
-                                                                <div className="col-3">
-                                                                    <b>{it.item}</b>
+                                                                <div align="left" className="col-3 card-detail-order-text-child">
+                                                                    <div>{it.item}</div>
                                                                 </div>
-                                                                <div className="col-1">
-                                                                    <b>{it.number}</b>
+                                                                <div align="left" className="col-2 card-detail-order-text-child">
+                                                                    <div>{it.price}</div>
                                                                 </div>
-                                                                <div className="col-5">
-                                                                    <b>{it.price}x{it.number}={it.number * it.price}</b>
+                                                                <div style={{paddingLeft:'0px'}} align="center" className="col-2 card-detail-order-text-child">
+                                                                    <div>{it.number}</div>
                                                                 </div>
-                                                                <div className="col-3"
+                                                                <div align="right" className="col-2 card-detail-order-text-child">
+                                                                    <b>{it.number * it.price}</b>
+                                                                </div>
+                                                                <div style={{marginRight:'30px'}} align="right" className="col-3 card-detail-order-text-child"
                                                                      style={{color: it.status == "in process" ? "lightcoral" : "green"}}>
                                                                     {it.status}
                                                                 </div>
@@ -372,7 +395,7 @@ function OrderList() {
                                     )}
                                     {(window.location.pathname == '/receptionist-home') ?
                                         (
-                                            <div style={{fontSize: '25px', color: 'lightcoral'}}>Hãy chọn 1 Order để xem
+                                            <div style={{fontSize: '20px'}}>Hãy chọn 1 Order để xem
                                                 chi
                                                 tiết</div>
                                         ) : (null)

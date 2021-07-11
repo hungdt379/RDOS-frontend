@@ -49,7 +49,7 @@ const LoginCustomer = (props) => {
                                                     fontStyle: 'normal',
                                                     fontWeight: 'bold',
                                                     fontSize: '22px',
-                                                    fontFamily: 'Calibri',
+                                                    fontFamily: 'Cabin',
                                                     lineHeight: '27px',
                                                 }}><b>Chào mừng bạn !</b></div>
                                                 <p style={{
@@ -57,7 +57,7 @@ const LoginCustomer = (props) => {
                                                     fontStyle: 'normal',
                                                     fontWeight: 'bold',
                                                     fontSize: '14px',
-                                                    fontFamily: 'Calibri',
+                                                    fontFamily: 'Cabin',
                                                     lineHeight: '17px',
                                                 }}>Đến với Nhất nướng</p>
                                             </div>

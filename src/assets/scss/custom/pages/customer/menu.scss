@@ -22,7 +22,7 @@
         line-height: 17px;
         text-align: center;
         color: #1E1C19;
-        font-family: Calibri;
+        font-family: Cabin;
       }
     }
   }
@@ -35,6 +35,8 @@
     overflow-y: scroll;
     background-color: #fff;
     text-align: center;
+    padding-top: 25px;
+    padding-bottom: 10px;
     .menu-type-a{
       height: 100%;
       .menu-type{
@@ -55,7 +57,7 @@
           }
         }
         .square-text-button{
-          font-family: Calibri;
+          font-family: Cabin;
           font-style: normal;
           font-weight: 600;
           font-size: 16px;
@@ -100,12 +102,12 @@
 }
 
 .title-menu{
-  font-family: Calibri;
+  font-family: Cabin;
   padding-top: 30px;
   padding-bottom: 15px;
   font-style: normal;
   font-weight: bold;
-  font-size: 19px;
+  font-size: 18px;
   line-height: 19px;
   text-align: center;
   color: #1E1C19;
@@ -126,11 +128,11 @@
       font-size: 16px;
       line-height: 17px;
       padding: 8px 0px 0px 0px;
-      font-family: Calibri;
+      font-family: Cabin;
       color: #000000;
     }
     .item-cost {
-      font-family: Calibri;
+      font-family: Cabin;
       font-style: normal;
       font-weight: normal;
       font-size: 15px;
@@ -179,7 +181,7 @@
     border-radius: 10px 10px 0px 0px;
     z-index: 150;
     .text-cart-button{
-      font-family: Calibri;
+      font-family: Cabin;
       font-style: normal;
       font-weight: 600;
       font-size: 15px;
@@ -215,7 +217,7 @@
 }
 
 .item-name-fe{
-  font-family: 'Calibri';
+  font-family: Cabin;
   font-style: normal;
   font-weight: bold;
   font-size: 22px;
@@ -256,7 +258,7 @@ input[type = 'radio'].check-fes:checked ~ div.form-check-label-fes{
 }
 
 .fe-text{
-  font-family: 'Calibri';
+  font-family: Cabin;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;

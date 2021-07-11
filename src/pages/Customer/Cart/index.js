@@ -50,7 +50,7 @@ const Cart = (props) => {
                                 setTimeout(() => {
                                     props.history.push('/customer-menu')
                                     props.dispatch(actions.getFoodInComboRequest())
-                                }, 1000)
+                                }, 600)
                             }}>
                                 <img src={trash} className="icon-button"/>
                             </a>
@@ -69,7 +69,7 @@ const Cart = (props) => {
                             <b style={{
                                 fontStyle: 'normal',
                                 fontSize: '23px',
-                                fontFamily: 'Calibri',
+                                fontFamily: 'Cabin',
                                 lineHeight: '25px',
                             }}>Số người: {props.authCustomer.data.user.number_of_customer}</b>
                         </div>
@@ -88,7 +88,7 @@ const Cart = (props) => {
                                                             </div>
                                                         </div>
                                                         <div align='right' className="col-2" style={{
-                                                            fontFamily: 'Calibri',
+                                                            fontFamily: 'Cabin',
                                                             fontStyle: 'normal',
                                                             fontWeight: 'bold',
                                                             fontSize: '16px',
@@ -151,10 +151,10 @@ const Cart = (props) => {
                             onClick={() => {
                                 props.dispatch(actions.sendOrderRequest())
                                 alert("Bạn đã đặt món thành công vui lòng chờ nhà bếp ra món!")
-                                props.history.push('/customer-see-order')
+                                props.history.push('/customer-menu')
                             }}>
                             <div style={{
-                                fontFamily: 'Calibri',
+                                fontFamily: 'Cabin',
                                 fontStyle: 'normal',
                                 fontWeight: '600',
                                 fontSize: '16px',
@@ -167,7 +167,7 @@ const Cart = (props) => {
                                     tiền: {props?.dataCart?.data?.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd</b>
                             </div>
                             <div style={{
-                                fontFamily: 'Calibri',
+                                fontFamily: 'Cabin',
                                 fontStyle: 'normal',
                                 fontWeight: '600',
                                 fontSize: '16px',
