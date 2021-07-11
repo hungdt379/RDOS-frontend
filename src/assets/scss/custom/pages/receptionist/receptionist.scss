@@ -12,10 +12,10 @@
     background-color: #ffffff;
     border-radius: 10px;
     .list-order-re{
-      font-family: Calibri;
+      font-family: Cabin;
       font-style: normal;
       font-weight: bold;
-      font-size: 30px;
+      font-size: 29px;
       line-height: 32px;
       text-align: center;
       color: #1E1C19;
@@ -26,10 +26,10 @@
       .status-check-re{
       }
       .input-status-re{
-        font-family: Calibri;
+        font-family: Cabin;
         font-style: normal;
         font-weight: normal;
-        font-size: 22px;
+        font-size: 21px;
         line-height: 23px;
         text-align: center;
         color: #7A7A7A;
@@ -75,10 +75,10 @@
     background-color: #ffffff;
     border-radius: 10px;
     .list-order-re{
-      font-family: Calibri;
+      font-family: Cabin;
       font-style: normal;
       font-weight: bold;
-      font-size: 26px;
+      font-size: 23px;
       line-height: 24px;
       text-align: center;
       color: #1E1C19;
@@ -94,7 +94,7 @@
       .status-check-re{
       }
       .input-status-re{
-        font-family: Calibri;
+        font-family: Cabin;
         font-style: normal;
         font-weight: normal;
         font-size: 18px;
@@ -121,7 +121,7 @@
         margin-top: auto;
         margin-bottom: auto;
         .detail-order-top-re{
-          font-family: Calibri;
+          font-family: Cabin;
           font-style: normal;
           font-weight: normal;
           font-size: 18px;
@@ -130,7 +130,7 @@
           color: #1E1C19;
         }
         .detail-order-down-re{
-          font-family: Calibri;
+          font-family: Cabin;
           font-style: normal;
           font-weight: bold;
           font-size: 19px;
@@ -163,11 +163,11 @@
             font-weight: bold;
             font-size: 20px;
             line-height: 20px;
-            font-family: Calibri;
+            font-family: Cabin;
             color: #000000;
           }
           .item-cost-re{
-            font-family: Calibri;
+            font-family: Cabin;
             font-style: normal;
             font-weight: normal;
             font-size: 15px;
@@ -201,7 +201,7 @@
         height: 45px;
         width: 200px;
         .text-gop-hoa-don{
-          font-family: Calibri;
+          font-family: Cabin;
           font-style: normal;
           font-weight: bold;
           font-size: 16px;
@@ -214,10 +214,25 @@
     .card-order{
       margin-bottom: 5px;
       height: 50px;
-      width: 80%;
-      border: 2px solid lightcoral;
+      width: 95%;
+      background-color: #F8F8FB;
       align-items: center;
       font-size: 16px;
+      .card-detail-order-text{
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 15px;
+        color: #000000;
+      }
+      .card-detail-order-text-child{
+        font-family: Cabin;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 17px;
+        color: #1E1C19;
+      }
       .card-order-button{
         background-color: lightcoral;
       }
@@ -252,7 +267,7 @@
       }
     }
     .square-text-button-re{
-      font-family: Calibri;
+      font-family: Cabin;
       font-style: normal;
       font-size: 16px;
     }
@@ -264,5 +279,21 @@
     .header-re-icon{
       background-color: #FCBC3A !important;
     }
+  }
+}
+
+.plus-background-color-re-noti{
+  height: 30px;
+  width: 30px;
+  background-color: #FCBC3A !important;
+  .plus-icon-button-re-right{
+    height: 25px;
+    width: 25px;
+    transform: matrix(0,-1,1,0,0,0);
+  }
+  .plus-icon-button-re-left{
+    height: 25px;
+    width: 25px;
+    transform: matrix(0,1,-1,0,0,0);
   }
 }

@@ -9,7 +9,7 @@ import Invalid from "../Invalid";
 import {withNamespaces} from "react-i18next";
 import {connect, useDispatch} from "react-redux";
 import {
-    addToCartRequest, getCartRequest,
+    addToCartRequest, getAllCategoryRequest, getCartRequest,
     getFoodInComboRequest,
 } from "../../../store/customer/actions";
 import {useParams} from "react-router";
@@ -35,6 +35,7 @@ const DetailCombo = (props) => {
     useEffect(() => {
         dispatch(getFoodInComboRequest({_id}));
         dispatch(getCartRequest());
+        dispatch(getAllCategoryRequest());
     }, []);
 
     // const [minusAdd, setMinusAdd] = useState(1);
@@ -95,7 +96,7 @@ const DetailCombo = (props) => {
 
     const handleSubmit = () => {
         if (props?.dataCart?.data?.item_in_cart?.filter((iic) => (iic._id !== _id &&
-            iic.category_id === "60e7073e5d1e1470c0048f92")).length !== 0 && props?.dataFoodInCombo?.data?.filter((dfic) => dfic.category_id === "60e7073e5d1e1470c0048f92").length !== 0) {
+            iic.category_id === props?.dataCategory?.map((cat, i) => cat._id)[0])).length !== 0 && props?.dataFoodInCombo?.data?.filter((dfic) => dfic.category_id === props?.dataCategory?.map((cat, i) => cat._id)[0]).length !== 0) {
             alert("Bạn đã chọn một Combo trước đó, vào giỏ hàng xóa và chọn lại bạn nhé!")
         } else {
             dispatch(addToCartRequest(data));
@@ -153,7 +154,7 @@ const DetailCombo = (props) => {
                             <b style={{
                                 fontStyle: 'normal',
                                 fontSize: '23px',
-                                fontFamily: 'Calibri',
+                                fontFamily: 'Cabin',
                                 lineHeight: '25px',
                             }}>{(d.name)}</b>
                             <div
@@ -194,7 +195,7 @@ const DetailCombo = (props) => {
                                                     </div>
                                                 ))}
                                             </div>
-                                            <div className="note-item" style={{width: '50%'}}>
+                                            <div className="note-item" style={{width: '50%', marginTop: '0px'}}>
                                                 <label style={{width: '100%'}}>
                                                     <input
                                                         className="check-all-button"
@@ -220,7 +221,7 @@ const DetailCombo = (props) => {
                                                         <div className="choose-text">Chọn tất cả</div>
                                                     </div>
                                                 </label>
-                                                <div style={{fontFamily: 'Calibri', fontSize: '15px'}}><b>Chú thích:</b>
+                                                <div style={{fontFamily: 'Cabin', fontSize: '15px'}}><b>Chú thích:</b>
                                                 </div>
                                                 <textarea
                                                     required
@@ -266,7 +267,7 @@ const DetailCombo = (props) => {
                             <b style={{
                                 fontStyle: 'normal',
                                 fontSize: '23px',
-                                fontFamily: 'Calibri',
+                                fontFamily: 'Cabin',
                                 lineHeight: '25px',
                             }}>{(d.name)}</b>
                             <div
@@ -278,7 +279,7 @@ const DetailCombo = (props) => {
                                 <div className="home-icon col-2">
                                 </div>
                                 <div align="center" className="menu-search col-8">
-                                    <div style={{marginTop:'-20px'}}>
+                                    <div style={{marginTop: '-20px'}}>
                                         <span style={{
                                             height: '50px',
                                             width: '120px',
@@ -308,7 +309,7 @@ const DetailCombo = (props) => {
                         </div>
                         <div align='center' className="note-item" style={{width: '100%'}}>
                                 <textarea
-                                    style={{width: '90%', backgroundColor:'#FFEFCD', border: '2px solid #FCBC3A'}}
+                                    style={{width: '90%', backgroundColor: '#FFEFCD', border: '2px solid #FCBC3A'}}
                                     className="introduce-profile note-input-item"
                                     type="text"
                                     rows="8"

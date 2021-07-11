@@ -89,7 +89,7 @@ const CustomerMenu = (props) => {
                         </div>
                     </div>
                     <div className={(search === '') ? 'dis-cate' : 'none-dis-cate'}>
-                        <div className="d-flex menu-bar pt-4 pb-2">
+                        <div className="d-flex menu-bar">
                             {props?.dataCategory?.map((category) => (
                                 <a className="menu-type-a" href={"#" + category?.name}>
                                     <button className="menu-type">
