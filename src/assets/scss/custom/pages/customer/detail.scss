@@ -7,7 +7,7 @@
 }
 
 .image-item{
-  padding-top: 35px;
+  padding-top: 50px;
 }
 
 .detail-item{
@@ -16,27 +16,76 @@
   .name-item{
     font-size: 20px;
   }
-  .cost-item{
+}
 
-  }
+.cost-item{
+  font-family: 'Calibri';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 18px;
+  text-align: center;
+  color: #1E1C19;
 }
 
 .list-item{
   width: 100%;
   height: auto;
   background-color: #ffffff;
-  border: 1px solid #6a7187;
   border-radius: 20px;
   padding: 10px 0px 10px 0px;
 }
 
 .check-all-button{
-  margin-right: calc(100% - 95%);
+  display: none;
+}
+.choose-all{
+  background: #FFEFCD;
+  border-radius: 30px;
+  height: 35px;
+  width: 90%;
+  text-align: center;
+  border: 2px solid #FCBC3A;
+  .choose-text{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 18px;
+    text-align: center;
+    padding-top: 8px;
+    color: #1E1C19;
+  }
+}
+
+.check-once-input {
+  display:none;
+}
+.check-once-label{
+  border-radius: 100%;
+  width: 18px !important;
+  height: 18px;
+  background-color: #FFFFFF;
+  border: 2px solid #FCBC3A;
+}
+.check-once-text{
+  font-family: 'Calibri';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 17px;
+  color: #000000;
+}
+input[type='checkbox'].check-once-input:checked ~ label.check-once-label{
+  background-color: #FFEFAD;
+}
+
+input[type='checkbox'].check-all-button:checked ~ div.choose-all{
+  background-color: #FCBC3A;
 }
 
 .note-item{
   width: 100%;
-  margin: 10px 0px 10px 0px;
+  margin: 50px 0px 10px 0px;
   .note-input-item{
     width: 100%;
     border-radius: 10px;

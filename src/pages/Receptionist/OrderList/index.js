@@ -271,7 +271,7 @@ function OrderList() {
                                                                    }}
                                                                    className="avatar-xs">
                                                                     <div
-                                                                        className="plus-background-color-re avatar-title rounded-circle mt-2">
+                                                                        className="plus-background-color-re avatar-title rounded-circle">
                                                                         <img src={chevonRight}
                                                                              className="plus-icon-button-re"/>
                                                                     </div>
@@ -284,37 +284,38 @@ function OrderList() {
                                             : (null)
                                         )}
                                     </PerfectScrollbar>
-                                    <div align="right" style={{height: '60px', width: '80%', alignItems: 'center'}}>
-                                        <button>
-                                            <b>Gộp hóa đơn</b>
+                                    <div className="gop-hoa-don" align="right"
+                                         style={{height: '60px', alignItems: 'center'}}>
+                                        <button className="button-gop-hoa-don">
+                                            <b className="text-gop-hoa-don">Gộp hóa đơn</b>
                                         </button>
                                     </div>
                                 </div>
                             </div>
                             <div align="center" className="col-xl-6">
                                 <div className="side-content">
-                                    <div style={{height: '30px'}}><b style={{fontSize: '20px'}}>Chi tiết order</b></div>
+                                    <div className="list-order-re">
+                                        <b>
+                                            Chi tiết Order
+                                        </b>
+                                    </div>
                                     {orderState.map((d, i) => ("/receptionist-home/" + d.order == window.location.pathname) ? (
                                             <div>
-                                                <div style={{height: '30px'}} className="d-flex">
-                                                    <div align="center" className="col-4">
-                                                        <label>
-                                                            <b>Mã Order: </b>{d.order}
-                                                        </label>
+                                                <div style={{height: '80px', backgroundColor: '#F8F8FB'}}
+                                                     className="ra-button-re d-flex">
+                                                    <div align="center" className="col-4 detail-order-re">
+                                                        <div className='detail-order-top-re'>Mã Order</div>
+                                                        <div className='detail-order-down-re'>{d.order}</div>
                                                     </div>
-                                                    <div align="center" className="col-4">
-                                                        <label>
-                                                            <b>Mã bàn: </b>{d.table}
-                                                        </label>
+                                                    <div align="center" className="col-4 detail-order-re">
+                                                        <div className='detail-order-top-re'>Mã Bàn</div>
+                                                        <div className='detail-order-down-re'>{d.table}</div>
                                                     </div>
-                                                    <div align="center" className="col-4">
-                                                        <label>
-                                                            <b>Trạng thái: </b>
-                                                            <label className="col-3"
-                                                                   style={{color: d.status == "confirm" ? "lightcoral" : "green"}}>
-                                                                {d.status}
-                                                            </label>
-                                                        </label>
+                                                    <div align="center" className="col-4 detail-order-re">
+                                                        <div className='detail-order-top-re'>Trạng thái</div>
+                                                        <div style={{color: d.status == "confirm" ? "lightcoral" : "green"}} className='detail-order-down-re'>
+                                                            {d.status}
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <PerfectScrollbar className="mh-55">
