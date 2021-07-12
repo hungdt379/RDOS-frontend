@@ -12,6 +12,7 @@ import NotFound from "../../Authentication/Page401";
 import * as actions from "../../../store/receptionist/actions";
 import {withNamespaces} from "react-i18next";
 import moment from "moment";
+import chevonRight from "../../../assets/images/receptionist/chevron-down.png";
 
 // Import menuDropdown
 
@@ -51,13 +52,37 @@ const ViewFeedback = (props) => {
                 <div>
                     <div>
                         <Header/>
-                        <div style={{marginTop: '100px', marginBottom: '60px'}} align="center"
+                        <div style={{
+                            marginTop: '100px',
+                            marginBottom: '60px',
+                            paddingTop: '30px',
+                            paddingBottom: '30px',
+                            backgroundColor: '#ffffff',
+                            width: '90%',
+                            marginLeft: 'calc(100% - 95%)',
+                            borderRadius: '10px',
+                        }} align="center"
                              className="table-responsive">
-                            <h1>Danh sách Feedback cho nhà hàng</h1>
-                            <Table style={{width: '80%', border: '2px solid lightcoral'}} align="center"
+                            <h1 style={{
+                                fontFamily: 'Cabin',
+                                fontStyle: 'normal',
+                                fontWeight: 'bold',
+                                fontSize: '23px',
+                                lineHeight: '25px',
+                                color: 'black',
+                            }}>Danh sách đánh giá cho nhà hàng</h1>
+                            <Table style={{width: '90%', marginTop:'20px'}} align="center"
                                    className="table mb-0">
 
-                                <thead align="center" style={{backgroundColor: 'lightcoral', color:'black'}}>
+                                <thead align="left" style={{
+                                    backgroundColor: '#ffffff',
+                                    color: 'black',
+                                    fontFamily: 'Cabin',
+                                    fontStyle: 'normal',
+                                    fontWeight: 'normal',
+                                    fontSize: '15px',
+                                    lineHeight: '16px',
+                                }}>
                                 <tr>
                                     <th>Thời gian</th>
                                     <th>Về món ăn</th>
@@ -65,10 +90,18 @@ const ViewFeedback = (props) => {
                                     <th>Nội dung</th>
                                 </tr>
                                 </thead>
-                                <tbody align="center">
+                                <tbody align="left" style={{backgroundColor: '#ffffff'}}>
                                 {props?.allFeedback?.data?.map((fe, i) => (
-                                    <tr style={{borderBottom: '2px solid black'}}>
-                                        <th>{moment(fe.created_at).format("DD/ MMM/ YYYY")}</th>
+                                    <tr style={{
+                                        backgroundColor: '#F8F8FB',
+                                        border: '10px solid #ffffff',
+                                        fontFamily: 'Cabin',
+                                        fontStyle: 'normal',
+                                        fontWeight: '600',
+                                        fontSize: '14px',
+                                        lineHeight: '17px',
+                                    }}>
+                                        <th>{moment(fe.created_at).format("DD/ MM/ YYYY")}</th>
                                         <th>{fe.rate_dish}</th>
                                         <th>{fe.rate_service}</th>
                                         <th>{fe.content}</th>
@@ -76,17 +109,35 @@ const ViewFeedback = (props) => {
                                 ))}
                                 </tbody>
                             </Table>
-                            <div className="inline-flex mt-2 mt-0">
-                                <button
+                            <div className="inline-flex mt-2 mt-0 d-flex" style={{width:'5%'}}>
+                                <a
                                     onClick={prevPage}
-                                >
-                                    <i style={{color: "lightcoral", fontSize: '30px'}} className="bx bx-caret-left-square"></i>
-                                </button>
-                                <button
+                                    style={{
+                                        marginRight: 'auto',
+                                        marginLeft: 'auto',
+                                        textAlign: 'right'
+                                    }}
+                                    className="avatar-xs">
+                                    <div
+                                        className="plus-background-color-re-noti avatar-title rounded-circle">
+                                        <img src={chevonRight}
+                                             className="plus-icon-button-re-left"/>
+                                    </div>
+                                </a>
+                                <a
                                     onClick={nextPage}
-                                >
-                                    <i style={{color: "lightcoral", fontSize: '30px'}} className="bx bx-caret-right-square"></i>
-                                </button>
+                                    style={{
+                                        marginRight: 'auto',
+                                        marginLeft: 'auto',
+                                        textAlign: 'left'
+                                    }}
+                                    className="avatar-xs">
+                                    <div
+                                        className="plus-background-color-re-noti avatar-title rounded-circle">
+                                        <img src={chevonRight}
+                                             className="plus-icon-button-re-right"/>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>

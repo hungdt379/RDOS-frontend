@@ -2,8 +2,22 @@
   background-color: #ffffff !important;
   position: fixed !important;
   height: 50px !important;
+  z-index: 250;
 }
 
 //.main-customer{
 //  margin-top: -50px;
 //}
+
+@media(max-width: 900px) {
+  .main-customer{
+    background-color: #ffffff;
+    //font-family: ;
+  }
+}
+
+@media(min-width: 900px) {
+  .main-customer{
+    background-color: #F8F8FB;
+  }
+}

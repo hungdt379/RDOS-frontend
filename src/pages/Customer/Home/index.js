@@ -11,7 +11,16 @@ import Invalid from "../Invalid";
 import {withNamespaces} from "react-i18next";
 import {postCallWaiterRequest} from "../../../store/customer/actions";
 import firebase from "../../../helpers/firebase";
-import NotificationCardFooter from "../../Receptionist/NotificationCardFooter";
+// import images
+import profile from "../../../assets/images/customer/logo-web-after-design.jpg";
+import ereader from "../../../assets/images/customer/ereader.png";
+import playListCheck from "../../../assets/images/customer/play-list-check.png";
+import desktop from "../../../assets/images/customer/desktop.png";
+import bell from "../../../assets/images/customer/bell.png";
+import awards from "../../../assets/images/customer/awards.png";
+
+import {Col, Row} from "reactstrap";
+import Footer from "../../../components/RdosCustomerLayout/Footer";
 
 const CustomerHome = (props) => {
     //const {tog_standard} = props;
@@ -67,99 +76,136 @@ const CustomerHome = (props) => {
     return (
         <React.Fragment>
             <div className="display-customer">
-                <div className="v4_1">
-                    <div className="d-flex header-home">
-                        <div align="left" className="system col-6">RDOS</div>
-                        <div align="right" className="table-code col-6">{props.authCustomer.data.user.user_name}</div>
-                    </div>
+                <div style={{marginBottom: '250px'}}>
+                    <div className="v4_1">
+                        <div align="center" className="header-home-table-code">
+                            <div className="mb-3">
+                            <span className="avatar-title bg-light span-table-code">
+                                <div className="div-table-code">{props.authCustomer.data.user.user_name}</div>
+                            </span>
+                            </div>
+                        </div>
 
-                    <div align='center' className="info">
-                        <div className="v56_0">XIN CHÀO QUÝ KHÁCH</div>
-                        <div className="v56_1">Rất hân hạnh được phục vụ Quý Khách</div>
-                    </div>
+                        <div className="bg-soft-primary">
+                            <Row style={{backgroundColor: '#ffffff'}}>
+                                <Col align='center' className="col-12 mt-3">
+                                    <img src={profile} alt="" className="img-fluid"/>
+                                </Col>
+                            </Row>
+                            <Row style={{backgroundColor: '#ffffff'}}>
+                                <Col align='center' className="col-12">
+                                    <div className="p-4">
+                                        <div className='welcome-text'><b>Xin chào Quý khách !</b></div>
+                                        <p className='welcome-do'>Rất hân hạnh được phục vụ Quý khách</p>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </div>
 
-                    <Link to="/customer-menu">
-                        <button className="menu-button d-flex">
-                            <div align="left" className="icon col-4">(icon)</div>
-                            <div align="right" className="text-button col-8">Xem Menu - Gọi món</div>
-                        </button>
-                    </Link>
+                        <div align='center' className='pt-2 pb-5'>
+                            <Link to="/customer-menu">
+                                <button className="menu-button">
+                                    <div align='center' className="text-button">
+                                        <img src={ereader} className="icon-button mr-2 mb-1"/>
+                                        Xem Menu - Gọi món
+                                    </div>
+                                </button>
+                            </Link>
+                        </div>
 
-                    <div className="d-flex">
-                        <Link align="center" className="square-button">
-                            <button onClick={() => {
-                                if ((todoDataRe.filter((tr, index) => (tr.user_id === props.authCustomer.data.user.user_id)).length === 0) &&
-                                    (todoDataWa.filter((tw, index) => (tw.title === "Gọi thanh toán")).length === 0))
-                                {
-                                    props.dispatch(actions.postCallPaymentRequest());
-                                    alert("Đã gửi yêu cầu thanh toán đến nhà hàng!");
-                                }else{
-                                    alert("Bạn đã gửi đi yêu cầu trước đó, vui lòng đợi trong giây lát!");
-                                }
-                            }}
-                                    style={{backgroundColor: '#50a5f1', borderRadius: '10px', width: '100%'}}>
-                                <div className="square-icon">(icon)</div>
-                                <div className="square-text-button">Gọi thanh toán</div>
-                            </button>
-                        </Link>
-                        <Link align="center" className="square-button">
-                            <button
-                                onClick={() => {
-                                    if (todoDataWa.filter((tw, index) => (tw.title === "Gọi phục vụ")).length === 0) {
-                                        setOpenCall(true)
+                        <div className="d-flex three-button pt-2 pb-2">
+                            <Link align="center" className="square-button">
+                                <a onClick={() => {
+                                    if ((todoDataRe.filter((tr, index) => (tr.user_id === props.authCustomer.data.user.user_id)).length === 0) &&
+                                        (todoDataWa.filter((tw, index) => (tw.title === "Gọi thanh toán")).length === 0)) {
+                                        props.dispatch(actions.postCallPaymentRequest());
+                                        alert("Đã gửi yêu cầu thanh toán đến nhà hàng!");
                                     } else {
                                         alert("Bạn đã gửi đi yêu cầu trước đó, vui lòng đợi trong giây lát!");
                                     }
                                 }}
-                                style={{backgroundColor: '#50a5f1', borderRadius: '10px', width: '100%'}}>
-                                <div className="square-icon">(icon)</div>
-                                <div className="square-text-button">Gọi phục vụ</div>
+                                   style={{backgroundColor: '#50a5f1', borderRadius: '10px', width: '100%'}}>
+                                    <div style={{marginRight : 'auto', marginLeft: 'auto'}} className="avatar-sm profile-user-wid mb-2">
+                                        <div align="center" style={{backgroundColor:'#FFEFCD'}} className="avatar-title rounded-circle">
+                                            <img src={desktop} className="icon-button"/>
+                                        </div>
+                                    </div>
+                                    <div className="square-text-button">Gọi thanh toán</div>
+                                </a>
+                            </Link>
+                            <Link align="center" className="square-button">
+                                <a
+                                    onClick={() => {
+                                        if (todoDataWa.filter((tw, index) => (tw.title === "Gọi phục vụ")).length === 0) {
+                                            setOpenCall(true)
+                                        } else {
+                                            alert("Bạn đã gửi đi yêu cầu trước đó, vui lòng đợi trong giây lát!");
+                                        }
+                                    }}
+                                    style={{backgroundColor: '#50a5f1', borderRadius: '10px', width: '100%'}}>
+                                    <div style={{marginRight : 'auto', marginLeft: 'auto'}} className="avatar-sm profile-user-wid mb-2">
+                                        <div align="center" style={{backgroundColor:'#FFEFCD'}} className="avatar-title rounded-circle">
+                                            <img src={bell} className="icon-button"/>
+                                        </div>
+                                    </div>
+                                    <div className="square-text-button">Gọi phục vụ</div>
+                                </a>
+                            </Link>
+                            <Link align="center" className="square-button" to="/customer-feedback">
+                                <a style={{backgroundColor: '#50a5f1', borderRadius: '10px', width: '100%'}}>
+                                    <div style={{marginRight : 'auto', marginLeft: 'auto'}} className="avatar-sm profile-user-wid mb-2">
+                                        <div align="center" style={{backgroundColor:'#FFEFCD'}} className="avatar-title rounded-circle">
+                                            <img src={awards} className="icon-button"/>
+                                        </div>
+                                    </div>
+                                    <div className="square-text-button">Đánh giá</div>
+                                </a>
+                            </Link>
+                        </div>
+
+                        <div align='center' className='pt-3'>
+                            <button onClick={() => {
+                                props.history.push('/customer-see-order')
+                            }} className='menu-button-disable' disabled={false}>
+                                <div align='center' className="text-button">
+                                    <img style={{
+                                        width: '25px',
+                                        height: '20px'
+                                    }} src={playListCheck} className="icon-button mr-2 mb-1"/>
+                                    Xem Order
+                                </div>
                             </button>
-                        </Link>
-                        <Link align="center" className="square-button" to="/customer-feedback">
-                            <button style={{backgroundColor: '#50a5f1', borderRadius: '10px', width: '100%'}}>
-                                <div className="square-icon">(icon)</div>
-                                <div className="square-text-button">Đánh giá</div>
-                            </button>
-                        </Link>
+                        </div>
                     </div>
-
-                    <Link to="/customer-see-order">
-                        <button className="menu-button d-flex">
-                            <div align="left" className="icon col-4">(icon)</div>
-                            <div align="right" className="text-button col-8">Xem Order</div>
-                        </button>
-                    </Link>
-
-
-                </div>
-                <div style={{backgroundColor: '#6a7187', bottom: '60px'}}>
-                    <CallWaiter
-                        open={openCall}
-                        onClose={() => setOpenCall(false)}
-                        handleSubmitCallWaiter={handleSubmitCallWaiters}
-                    />
-                </div>
-                {todoDataRe ? ((todoDataRe.filter((tr, index) => (tr.user_id === props.authCustomer.data.user.user_id)).length !== 0) ?
-                        (<div align="center"><i style={{color: "lightcoral", fontSize: '20px'}}
-                                                className="bx bx-calendar-check bx-tada"></i><b
-                            style={{color: 'lightcoral', fontSize: '15px'}}>{notiPayment}</b></div>) : (<div></div>)
-                    )
-                    : ''}
-                {todoDataWa
-                    ? ((todoDataWa.filter((tw, index) => (tw.title === "Gọi phục vụ")).length !== 0) ?
-                            (<div align="center"><i style={{color: "green", fontSize: '20px'}}
+                    <div style={{backgroundColor: '#6a7187', bottom: '60px'}}>
+                        <CallWaiter
+                            open={openCall}
+                            onClose={() => setOpenCall(false)}
+                            handleSubmitCallWaiter={handleSubmitCallWaiters}
+                        />
+                    </div>
+                    {todoDataRe ? ((todoDataRe.filter((tr, index) => (tr.user_id === props.authCustomer.data.user.user_id)).length !== 0) ?
+                            (<div align="center"><i style={{color: "lightcoral", fontSize: '20px'}}
                                                     className="bx bx-calendar-check bx-tada"></i><b
-                                style={{color: 'green', fontSize: '15px'}}>{notiWaiter}</b></div>) : (<div></div>)
-                    )
-                    : ''}
-                {todoDataWa
-                    ? ((todoDataWa.filter((tw, index) => (tw.title === "Đặt món")).length !== 0) ?
-                            (<div align="center"><i style={{color: "blue", fontSize: '20px'}}
-                                                    className="bx bx-calendar-check bx-tada"></i><b
-                                style={{color: 'blue', fontSize: '15px'}}>{notiSendOrder}</b></div>) : (<div></div>)
-                    )
-                    : ''}
+                                style={{color: 'lightcoral', fontSize: '15px', fontFamily:'Cabin'}}>{notiPayment}</b></div>) : (<div></div>)
+                        )
+                        : ''}
+                    {todoDataWa
+                        ? ((todoDataWa.filter((tw, index) => (tw.title === "Gọi phục vụ")).length !== 0) ?
+                                (<div align="center"><i style={{color: "green", fontSize: '20px'}}
+                                                        className="bx bx-calendar-check bx-tada"></i><b
+                                    style={{color: 'green', fontSize: '15px', fontFamily:'Cabin'}}>{notiWaiter}</b></div>) : (<div></div>)
+                        )
+                        : ''}
+                    {todoDataWa
+                        ? ((todoDataWa.filter((tw, index) => (tw.title === "Đặt món")).length !== 0) ?
+                                (<div align="center"><i style={{color: "blue", fontSize: '20px'}}
+                                                        className="bx bx-calendar-check bx-tada"></i><b
+                                    style={{color: 'blue', fontSize: '15px', fontFamily:'Cabin'}}>{notiSendOrder}</b></div>) : (<div></div>)
+                        )
+                        : ''}
+                </div>
+                <Footer/>
             </div>
             <div className="none-display-customer">
                 <Invalid/>

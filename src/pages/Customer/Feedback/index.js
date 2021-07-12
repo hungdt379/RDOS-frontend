@@ -10,6 +10,8 @@ import {Button, Input, Label} from "reactstrap/es";
 import {sendFeedbackRequest} from "../../../store/customer/actions";
 import {useDispatch} from "react-redux";
 import * as actions from "../../../store/customer/actions";
+import left from "../../../assets/images/customer/chevron-left-o.png";
+import note from "../../../assets/images/customer/notes.png";
 
 const Feedback = (props) => {
     const dispatch = useDispatch();
@@ -32,96 +34,101 @@ const Feedback = (props) => {
     return (
         <React.Fragment>
             <div className="display-customer">
-                <div className="header-detail">
+                <div className="header-menu">
                     <div className="d-flex">
-                        <div className="col-2">
+                        <div className="home-icon col-2">
                             <Link to="/customer-home">
-                                <button style={{height: '35px'}}>
-                                    <div>
-                                        <b>Back</b>
-                                    </div>
-                                </button>
+                                <img src={left} className="icon-button"/>
                             </Link>
                         </div>
-                        <div align="center" className="col-8">
-                            <b>Đánh giá</b>
+                        <div align="center" className="menu-search col-8">
+                            <div className="mt-2 mb-2">
+                                <span className="avatar-title bg-light span-table">
+                                    <div className="div-table">Đánh giá</div>
+                                </span>
+                            </div>
                         </div>
-                        <div align="center" className="menu-search col-2">
+                        <div align="right" className="home-icon col-2">
                         </div>
                     </div>
                 </div>
 
+                <div style={{display: (notiFeedback === '') ? 'none' : 'block', marginBottom: '0px',paddingTop: '50px'}}
+                     align="center"><i style={{color: "green", fontSize: '20px'}}
+                                       className="bx bx-calendar-check bx-tada"></i><b
+                    style={{color: 'green', fontSize: '15px'}}>{notiFeedback}</b></div>
                 <form>
-                    <div style={{paddingTop: '100px'}}>
-                        <div align="left" className="col-10">
-                            <div className="form-group row">
-                                <label
-                                    htmlFor="example-tel-input"
-                                    className="col-md-3 col-form-label"
-                                >
-                                    <div className="item-name"><b>Về món ăn: </b></div>
-                                </label>
+                    <div style={{paddingTop: '60px'}}>
+                        <div className="col-12">
+                            <div>
+                                <div align="center" className="item-name-fe"><b>Về món ăn</b></div>
 
-                                <div className="col-md-9">
-                                    <div className="form-check form-check-inline">
-                                        <input
-                                            type="radio"
-                                            value="Không hài lòng"
-                                            id="dish1"
-                                            name="dish"
-                                            className="form-check-input"
-                                            onChange={(e) => (
-                                                setRateDish(e.target.value)
-                                            )}
-                                            //checked={feedbackData.rateDish === "Không hài lòng"}
-                                        />
-                                        <Label
-                                            className="form-check-label"
-                                            htmlFor="dish1"
-                                        >
-                                            Không hài lòng
-                                        </Label>
+                                <div align="center">
+                                    <div>
+                                        <label for="dish1" align="left" style={{width: '95%', marginBottom: 'auto', marginTop: 'auto'}}>
+                                            <input
+                                                type="radio"
+                                                value="Không hài lòng"
+                                                id="dish1"
+                                                name="dish"
+                                                className="check-fe"
+                                                onChange={(e) => (
+                                                    setRateDish(e.target.value)
+                                                )}
+                                                //checked={feedbackData.rateDish === "Không hài lòng"}
+                                            />
+                                            <div
+                                                className="form-check-label-fe"
+                                                for="dish1"
+                                            >
+                                                <div className="fe-text">Không hài lòng</div>
+                                            </div>
+                                        </label>
                                     </div>
                                     <br/>
-                                    <div className="form-check form-check-inline">
-                                        <input
-                                            type="radio"
-                                            value="Hài lòng"
-                                            id="dish2"
-                                            name="dish"
-                                            className="form-check-input"
-                                            onChange={(e) => (
-                                                setRateDish(e.target.value)
-                                            )}
-                                            //checked={feedbackData.rateDish === "Hài lòng"}
-                                        />
-                                        <Label
-                                            className="form-check-label"
-                                            htmlFor="dish2"
-                                        >
-                                            Hài lòng
-                                        </Label>
+                                    <div>
+                                        <label for="dish2" align="left" style={{width: '95%', marginBottom: 'auto', marginTop: 'auto'}}>
+                                            <input
+                                                type="radio"
+                                                value="Hài lòng"
+                                                id="dish2"
+                                                name="dish"
+                                                className="check-fe"
+                                                onChange={(e) => (
+                                                    setRateDish(e.target.value)
+                                                )}
+                                                //checked={feedbackData.rateDish === "Hài lòng"}
+                                            />
+                                            <div
+                                                className="form-check-label-fe"
+                                                for="dish2"
+                                            >
+                                                <div className="fe-text">Hài lòng</div>
+                                            </div>
+                                        </label>
                                     </div>
                                     <br/>
-                                    <div className="form-check form-check-inline">
-                                        <input
-                                            defaultChecked
-                                            type="radio"
-                                            value="Rất hài lòng"
-                                            id="dish3"
-                                            name="dish"
-                                            className="form-check-input"
-                                            onChange={(e) => (
-                                                setRateDish(e.target.value)
-                                            )}
-                                            //checked={feedbackData.rateDish === "Rất hài lòng"}
-                                        />
-                                        <Label
-                                            className="form-check-label"
-                                            htmlFor="dish3"
-                                        >
-                                            Rất hài lòng
-                                        </Label>
+                                    <div>
+                                        <label for="dish3" align="left" style={{width: '95%', marginBottom: 'auto', marginTop: 'auto'}}>
+                                            <input
+                                                defaultChecked
+                                                type="radio"
+                                                value="Rất hài lòng"
+                                                id="dish3"
+                                                name="dish"
+                                                className="check-fe"
+                                                onChange={(e) => (
+                                                    setRateDish(e.target.value)
+                                                )}
+                                                //checked={feedbackData.rateDish === "Rất hài lòng"}
+                                            />
+                                            <div
+                                                className="form-check-label-fe"
+                                                for="dish3"
+                                            >
+                                                <div className="fe-text">Rất hài lòng</div>
+                                            </div>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -129,75 +136,76 @@ const Feedback = (props) => {
                     </div>
 
                     <div>
-                        <div align="left" className="col-10">
-                            <div className="form-group row">
-                                <label
-                                    htmlFor="example-tel-input"
-                                    className="col-md-3 col-form-label"
-                                >
-                                    <div className="item-name"><b>Về phục vụ: </b></div>
-                                </label>
+                        <div align="left" className="col-12">
+                            <div>
+                                <div className="item-name-fe"><b>Về phục vụ</b></div>
 
-                                <div className="col-md-9">
-                                    <div className="form-check form-check-inline">
-                                        <input
-                                            type="radio"
-                                            value="Không hài lòng"
-                                            id="service1"
-                                            name="service"
-                                            className="form-check-input"
-                                            onChange={(e) => (
-                                                setRateService(e.target.value)
-                                            )}
-                                            //checked={feedbackData.rateService === "Không hài lòng"}
-                                        />
-                                        <Label
-                                            className="form-check-label"
-                                            htmlFor="service1"
-                                        >
-                                            Không hài lòng
-                                        </Label>
+                                <div align="center">
+                                    <div>
+                                        <label for="service1" align="left" style={{width: '95%', marginBottom: 'auto', marginTop: 'auto'}}>
+                                            <input
+                                                type="radio"
+                                                value="Không hài lòng"
+                                                id="service1"
+                                                name="service"
+                                                className="check-fes"
+                                                onChange={(e) => (
+                                                    setRateService(e.target.value)
+                                                )}
+                                                //checked={feedbackData.rateService === "Không hài lòng"}
+                                            />
+                                            <div
+                                                className="form-check-label-fes"
+                                                for="service1"
+                                            >
+                                                <div className="fe-text">Không hài lòng</div>
+                                            </div>
+                                        </label>
                                     </div>
                                     <br/>
-                                    <div className="form-check form-check-inline">
-                                        <input
-                                            type="radio"
-                                            value="Hài lòng"
-                                            id="service2"
-                                            name="service"
-                                            className="form-check-input"
-                                            onChange={(e) => (
-                                                setRateService(e.target.value)
-                                            )}
-                                            //checked={feedbackData.rateService === "Hài lòng"}
-                                        />
-                                        <Label
-                                            className="form-check-label"
-                                            htmlFor="service2"
-                                        >
-                                            Hài lòng
-                                        </Label>
+                                    <div>
+                                        <label for="service2" align="left" style={{width: '95%', marginBottom: 'auto', marginTop: 'auto'}}>
+                                            <input
+                                                type="radio"
+                                                value="Hài lòng"
+                                                id="service2"
+                                                name="service"
+                                                className="check-fes"
+                                                onChange={(e) => (
+                                                    setRateService(e.target.value)
+                                                )}
+                                                //checked={feedbackData.rateService === "Hài lòng"}
+                                            />
+                                            <div
+                                                className="form-check-label-fes"
+                                                for="service2"
+                                            >
+                                                <div className="fe-text">Hài lòng</div>
+                                            </div>
+                                        </label>
                                     </div>
                                     <br/>
-                                    <div className="form-check form-check-inline">
-                                        <input
-                                            defaultChecked
-                                            type="radio"
-                                            value="Rất hài lòng"
-                                            id="service3"
-                                            name="service"
-                                            className="form-check-input"
-                                            onChange={(e) => (
-                                                setRateService(e.target.value)
-                                            )}
-                                            //checked={feedbackData.rateService === "Rất hài lòng"}
-                                        />
-                                        <Label
-                                            className="form-check-label"
-                                            htmlFor="service3"
-                                        >
-                                            Rất hài lòng
-                                        </Label>
+                                    <div>
+                                        <label for="service3" align="left" style={{width: '95%', marginBottom: 'auto', marginTop: 'auto'}}>
+                                            <input
+                                                defaultChecked
+                                                type="radio"
+                                                value="Rất hài lòng"
+                                                id="service3"
+                                                name="service"
+                                                className="check-fes"
+                                                onChange={(e) => (
+                                                    setRateService(e.target.value)
+                                                )}
+                                                //checked={feedbackData.rateService === "Rất hài lòng"}
+                                            />
+                                            <div
+                                                className="form-check-label-fes"
+                                                for="service3"
+                                            >
+                                                <div className="fe-text">Rất hài lòng</div>
+                                            </div>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -206,17 +214,11 @@ const Feedback = (props) => {
 
                     <div style={{marginTop: '50px'}} className="note-item">
                         <div style={{width: '100%'}}>
-                            <label
-                                htmlFor="example-tel-input"
-                                className="col-md-12 col-form-label"
-                            >
-                                <div className="item-name"><b>Góp ý : </b></div>
-                            </label>
 
                             <div className="col-md-12" style={{width: '100%'}}>
                             <textarea
                                 required
-                                style={{width: '100%'}}
+                                style={{width: '100%', backgroundColor:'#FFEFCD', border:'1px solid #FCBC3A'}}
                                 className="introduce-profile"
                                 type="text"
                                 rows="6"
@@ -231,16 +233,14 @@ const Feedback = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div style={{display: (notiFeedback === '') ? 'none' : 'block', marginBottom: '100px'}}
-                         align="center"><i style={{color: "green", fontSize: '20px'}}
-                                           className="bx bx-calendar-check bx-tada"></i><b
-                        style={{color: 'green', fontSize: '15px'}}>{notiFeedback}</b></div>
-                    <div className="order-cart">
-                        <Button onClick={handleSubmit} style={{width: '100%'}} className="order-button">
-                            <div>Gửi đánh giá</div>
-                        </Button>
-                    </div>
                 </form>
+                <div className="cart">
+                    <button onClick={handleSubmit} className="cart-button">
+                        <div className="text-cart-button">
+                            <img src={note} className="icon-button mr-2"/>Gửi đánh giá
+                        </div>
+                    </button>
+                </div>
             </div>
             <div className="none-display-customer">
                 <Invalid/>

@@ -9,6 +9,12 @@ import {withNamespaces} from "react-i18next";
 import {connect} from "react-redux";
 import * as actions from "../../../store/customer/actions";
 import {authHeaderCus, authHeaderGetApiCus} from "../../../helpers/jwt-token-access/auth-token-header";
+import left from "../../../assets/images/customer/chevron-left-o.png";
+import trash from "../../../assets/images/customer/trash.png";
+import PerfectScrollbar from "react-perfect-scrollbar";
+import close from "../../../assets/images/customer/close.png";
+import shoppingCart from "../../../assets/images/customer/shopping-cart.png";
+import Footer from "../../../components/RdosCustomerLayout/Footer";
 
 const Cart = (props) => {
 
@@ -24,99 +30,155 @@ const Cart = (props) => {
     return (
         <React.Fragment>
             <div className="display-customer">
-                <div className="header-detail d-flex">
-                    <div align="left" className="col-sm-3 col-md-2">
-                        <button
-                            onClick={backPage}
-                            style={{height: '33px'}}>
-                            <div>
-                                <b>Back</b>
+                <div className="header-menu">
+                    <div className="d-flex">
+                        <div className="home-icon col-2">
+                            <a onClick={backPage}>
+                                <img src={left} className="icon-button"/>
+                            </a>
+                        </div>
+                        <div align="center" className="menu-search col-8">
+                            <div className="mt-2 mb-2">
+                                <span className="avatar-title bg-light span-table">
+                                    <div className="div-table">Món đã chọn</div>
+                                </span>
                             </div>
-                        </button>
-                    </div>
-                    <div style={{paddingTop: '8px'}} align="center" className="col-sm-6 col-md-8">
-                        <b>Món đã chọn</b>
-                    </div>
-                    <div align="right" className="col-sm-3 col-md-2">
-                        <button onClick={() => {
-                            props.dispatch(actions.deleteAllFromCartRequest())
-                            setTimeout(() => {
-                                props.history.push('/customer-menu')
-                                props.dispatch(actions.getFoodInComboRequest())
-                            }, 1000)
-                        }}
-                                style={{height: '33px'}}>
-                            <div>
-                                <b>Xóa hết</b>
-                            </div>
-                        </button>
-                    </div>
-                </div>
-
-                <div>
-                    <div className="title-menu d-flex">
-                        <div className="col-12" align="left">
-                            <b>Số người: {props.authCustomer.data.user.number_of_customer}</b>
+                        </div>
+                        <div align="right" className="home-icon col-2">
+                            <a onClick={() => {
+                                props.dispatch(actions.deleteAllFromCartRequest())
+                                setTimeout(() => {
+                                    props.history.push('/customer-menu')
+                                    props.dispatch(actions.getFoodInComboRequest())
+                                }, 600)
+                            }}>
+                                <img src={trash} className="icon-button"/>
+                            </a>
                         </div>
                     </div>
-                    {props?.dataCart?.data?.item_in_cart?.map((iic, index) => (
-                        <Link key={index}>
-                            <div className="item-menu d-flex">
-                                <div align="left" className="col-8">
-                                    <div className="item-name"><b>{iic?.name}</b></div>
-                                    <div
-                                        className="item-cost"> {(iic?.total_cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
-                                    </div>
-                                </div>
-                                <div align="center" className="add-button col-2">
-                                    x{iic.quantity}
-                                </div>
 
-                                <div align="right" className="add-button col-2">
-                                    <a onClick={() => {
-                                        fetch('http://165.227.99.160/api/customer/cart/item/delete?item_id[]=' + iic?._id, {
-                                            method: 'POST',
-                                            headers: authHeaderGetApiCus(),
-                                        })
-                                            .then(res => {
-                                                if (res.ok) {
-                                                    console.log('DELETE SUCCESS')
-                                                } else {
-                                                    console.log('DELETE FAILED')
-                                                }
-                                            })
-                                            .then(data => console.log(data))
-                                            .catch(error => console.log('ERROR'))
-                                        setTimeout(() => {
-                                            props.dispatch(actions.getCartRequest())
-                                        }, 500)
-                                    }}>
-                                        <i style={{color: "red", fontSize: '20px'}} className="bx bx-trash"></i>
-                                    </a>
-                                </div>
+                    <div>
+                        <div align="center" style={{
+                            height: '60px',
+                            backgroundColor: '#F8F8FB',
+                            paddingTop: '35px',
+                            paddingBottom: '50px',
+                            marginTop: 'auto',
+                            marginBottom: 'auto'
+                        }}>
+                            <b style={{
+                                fontStyle: 'normal',
+                                fontSize: '23px',
+                                fontFamily: 'Cabin',
+                                lineHeight: '25px',
+                            }}>Số người: {props.authCustomer.data.user.number_of_customer}</b>
+                        </div>
+                        <div style={{marginTop: '20px'}} className="cover-list">
+                            <div className="side-list-menu">
+                                <PerfectScrollbar className="list-menu">
+                                    {props?.dataCart?.data?.item_in_cart?.map((iic, index) => (
+                                        <Link key={index}>
+                                            <div className="item-menu d-flex">
+                                                <div className="col-11 d-flex menu-item-bar">
+                                                    <div align="left" className="col-11 d-flex">
+                                                        <div className="col-10">
+                                                            <div className="item-name"><b>{iic?.name}</b></div>
+                                                            <div
+                                                                className="item-cost ">{(iic?.total_cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                                            </div>
+                                                        </div>
+                                                        <div align='right' className="col-2" style={{
+                                                            fontFamily: 'Cabin',
+                                                            fontStyle: 'normal',
+                                                            fontWeight: 'bold',
+                                                            fontSize: '16px',
+                                                            lineHeight: '17px',
+                                                            textAlign: 'right',
+                                                            color: '#1E1C19',
+                                                            marginTop:'auto',
+                                                            marginBottom:'auto'
+                                                        }}>{iic.quantity}</div>
+                                                    </div>
+                                                </div>
+                                                <div className="add-button col-1">
+                                                    <a onClick={() => {
+                                                        fetch('http://165.227.99.160/api/customer/cart/item/delete?item_id[]=' + iic?._id, {
+                                                            method: 'POST',
+                                                            headers: authHeaderGetApiCus(),
+                                                        })
+                                                            .then(res => {
+                                                                if (res.ok) {
+                                                                    console.log('DELETE SUCCESS')
+                                                                } else {
+                                                                    console.log('DELETE FAILED')
+                                                                }
+                                                            })
+                                                            .then(data => console.log(data))
+                                                            .catch(error => console.log('ERROR'))
+                                                        setTimeout(() => {
+                                                            props.dispatch(actions.getCartRequest())
+                                                        }, 500)
+                                                    }}>
+                                                        <div style={{
+                                                            marginRight: 'auto',
+                                                            marginLeft: 'auto'
+                                                        }}
+                                                             className="avatar-xs">
+                                                            <div
+                                                                className="plus-background-color avatar-title rounded-circle mt-2"
+                                                            style={{backgroundColor: 'red'}}>
+                                                                <img src={close} className="plus-icon-button"/>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </PerfectScrollbar>
                             </div>
-                        </Link>
-                    ))}
+                        </div>
+                    </div>
                 </div>
 
-                <div className="d-flex order-drink">
-                    <div style={{paddingTop: '10px'}} align="left" className="col-6">
-                        <b style={{color: '#000000'}}>Tổng
-                            tiền: {props?.dataCart?.data?.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd</b>
-                    </div>
-                    <div align="right" className="col-6">
-                        {props?.dataCart?.data?.item_in_cart.length > 0 ? (
-                            <button
-                                onClick={() => {
-                                    props.dispatch(actions.sendOrderRequest())
-                                    alert("Bạn đã đặt món thành công vui lòng chờ nhà bếp ra món!")
-                                    props.history.push('/customer-see-order')
+                <div className="cart">
+                    {props?.dataCart?.data?.item_in_cart.length > 0 ? (
+                        <button className="cart-button d-flex"
+                                style={{
+                                    marginTop:'auto',
+                                    marginBottom: 'auto',
                                 }}
-                                className="order-button-drink">
-                                <div>Gửi yêu câu đặt món</div>
-                            </button>
-                        ) : (null)}
-                    </div>
+                            onClick={() => {
+                                props.dispatch(actions.sendOrderRequest())
+                                alert("Bạn đã đặt món thành công vui lòng chờ nhà bếp ra món!")
+                                props.history.push('/customer-menu')
+                            }}>
+                            <div style={{
+                                fontFamily: 'Cabin',
+                                fontStyle: 'normal',
+                                fontWeight: '600',
+                                fontSize: '16px',
+                                lineHeight: '17px',
+                                color: '#1E1C19',
+                                marginTop:'auto',
+                                marginBottom:'auto'
+                            }} align="left" className="col-6">
+                                <b style={{color: '#000000'}}>{props?.dataCart?.data?.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd</b>
+                            </div>
+                            <div style={{
+                                fontFamily: 'Cabin',
+                                fontStyle: 'normal',
+                                fontWeight: '600',
+                                fontSize: '16px',
+                                lineHeight: '17px',
+                                color: '#1E1C19',
+                                marginTop:'auto',
+                                marginBottom:'auto'
+                            }} align="right" className="col-6">
+                                Gửi yêu câu đặt món
+                            </div>
+                        </button>
+                    ) : (<Footer/>)}
                 </div>
             </div>
             <div className="none-display-customer">

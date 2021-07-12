@@ -13,6 +13,7 @@ import NotificationCard from "./NotificationCard";
 
 //i18n
 import {withNamespaces} from "react-i18next";
+import chevonRight from "../../assets/images/receptionist/chevron-down.png";
 
 const NotificationDropdown = (props) => {
     // Declare a new state variable, which we'll call "menu"
@@ -82,16 +83,25 @@ const NotificationDropdown = (props) => {
                 </DropdownToggle>
 
                 <DropdownMenu
+                    style={{
+                        border: '2px solid #FCBC3A'
+                    }}
                     className="dropdown-menu dropdown-menu-lg dropdown-thanks-notification p-0"
                     right
                 >
                     <div className="p-3">
                         <Row className="align-items-center">
                             <Col>
-                                <h6 className="m-0"> Thông báo </h6>
+                                <h6 style={{
+                                    fontSize:'12px',
+                                    fontFamily: 'Cabin'
+                                }} className="m-0"> Thông báo </h6>
                             </Col>
                             <div className="col-auto">
-                                <a onClick={maskAsRead} className="small">
+                                <a style={{
+                                    fontSize:'12px',
+                                    fontFamily: 'Cabin'
+                                }} onClick={maskAsRead} className="small">
                                     {" "}
                                     Đánh dấu xem hết
                                 </a>
@@ -107,29 +117,40 @@ const NotificationDropdown = (props) => {
                                 menu={handleChangeMenu}
                             />
                         ))}
-                        <div align="center" className="p-2 border-top">
-                            <div style={{width:'100%'}} className="inline-flex mt-2 mt-0">
-                                <button
-                                    style={{width:'50%'}}
-                                    className="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l"
+                        <div align="center" className="p-2">
+                            <div style={{width:'100%'}} className="d-flex">
+                                <a
+                                    align="center"
                                     onClick={prevPage}
+                                    style={{
+                                        width:'50%',
+                                        marginRight: 'auto',
+                                        marginLeft: 'auto'
+                                    }}
+                                    className="avatar-xs"
                                 >
-                                    Trước
-                                </button>
-                                {/*<input style={{width:'30%'}} className="search-bar" type="text" name="search" disabled*/}
-                                {/*       //value={page}*/}
-                                {/*       onChange={(e) => (*/}
-                                {/*           setPage(e.target.value),*/}
-                                {/*               props.dispatch(actions.getAllNotificationReceptionist( e.target.value))*/}
-                                {/*       )}*/}
-                                {/*/>*/}
-                                <button
-                                    style={{width:'50%'}}
-                                    className="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r"
+                                    <div
+                                        className="plus-background-color-re-noti avatar-title rounded-circle">
+                                        <img src={chevonRight}
+                                             className="plus-icon-button-re-left"/>
+                                    </div>
+                                </a>
+                                <a
+                                    align="center"
+                                    style={{
+                                        width:'50%',
+                                        marginRight: 'auto',
+                                        marginLeft: 'auto'
+                                    }}
+                                    className="avatar-xs"
                                     onClick={nextPage}
                                 >
-                                    Sau
-                                </button>
+                                    <div
+                                        className="plus-background-color-re-noti avatar-title rounded-circle">
+                                        <img src={chevonRight}
+                                             className="plus-icon-button-re-right"/>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </PerfectScrollbar>

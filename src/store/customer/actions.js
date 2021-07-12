@@ -233,3 +233,21 @@ export const sendOrdertError = (error) => {
         payload: error,
     };
 };
+
+// view order
+export const getViewOrderRequest = (payload) => ({
+    type: actionTypes.GET_VIEW_ORDER_REQUEST,
+    payload: payload,
+});
+export const getViewOrderSuccess = (response) => {
+    return {
+        type: actionTypes.GET_VIEW_ORDER_SUCCESS,
+        payload: response,
+    };
+};
+export const getViewOrderError = (error) => {
+    return {
+        type: actionTypes.GET_VIEW_ORDER_ERROR,
+        payload: error,
+    };
+};

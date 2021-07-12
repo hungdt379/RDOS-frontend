@@ -87,7 +87,7 @@ class Layout extends Component {
                     <div className="main-content">
                         {this.props.children}
                     </div>
-                    <Footer />
+                    {/*<Footer />*/}
                 </div>
 
             </React.Fragment>

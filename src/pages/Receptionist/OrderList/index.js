@@ -9,14 +9,15 @@ import Header from "../HeaderReception";
 import {Col, Container, Row} from "reactstrap/es";
 import Invalid from "../../Customer/Invalid";
 import NotFound from "../../Authentication/Page401";
+import chevonRight from "../../../assets/images/receptionist/chevron-down.png";
 
 // Import menuDropdown
 
 function OrderList() {
 
     let statusState = [
-        {code: "confirm", name: "Đã confirm"},
-        {code: "paid", name: "Đã thanh toán"}
+        {id: 's1', code: "confirm", name: "Đã confirm"},
+        {id: 's2', code: "paid", name: "Đã thanh toán"}
     ];
 
     const [displayStatus, setStatus] = useState("confirm");
@@ -194,27 +195,38 @@ function OrderList() {
                         <div align="center" className="receptionist-order">
                             <div align="center" className="col-xl-6">
                                 <div className="side-content">
-                                    <div style={{height: '30px'}}><b style={{fontSize:'20px'}}>Danh sách order</b>
+                                    <div className="list-order-re">
+                                        <b>
+                                            Danh sách order
+                                        </b>
                                     </div>
-                                    <div style={{height: '30px'}} className="d-flex">
-                                        {statusState.map(result => (
-                                            <div align="center" className="col-6">
-                                                <label>
-                                                    <input
-                                                        type="radio"
-                                                        value={result.code}
-                                                        name="statusValue"
-                                                        checked={displayStatus === result.code}
-                                                        onChange={(e) => setStatus(e.target.value)}
-                                                    /> {result.name}
-                                                </label>
-                                            </div>
-                                        ))}
+                                    <div className="ra-button-re d-flex">
+                                        <div className="col-2"></div>
+                                        <div className="col-8 d-flex">
+                                            {statusState.map(result => (
+                                                <div align="center" className="col-6" style={{width: '100%'}}>
+                                                    <label style={{width: '100%'}}>
+                                                        <input
+                                                            type="radio"
+                                                            id={result.id}
+                                                            style={{opacity: '0'}}
+                                                            className="status-check-re"
+                                                            value={result.code}
+                                                            name="statusValue"
+                                                            checked={displayStatus === result.code}
+                                                            onChange={(e) => setStatus(e.target.value)}
+                                                        /> <b className="input-status-re">{result.name}</b>
+                                                        <div for={result.id} className="line-color"></div>
+                                                    </label>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <div className="col-2"></div>
                                     </div>
                                     <PerfectScrollbar className="mh-55">
                                         {orderState.map((d, i) => (d.status == displayStatus) ? (
-                                                <div className="card-order d-flex">
-                                                    <div className="col-1">
+                                                <div>
+                                                    <label className="item-menu-re d-flex">
                                                         <input
                                                             onChange={event => {
                                                                 let checked = event.target.checked;
@@ -229,81 +241,127 @@ function OrderList() {
                                                             }}
                                                             type="checkbox"
                                                             checked={d.select}
+                                                            id={d.order}
+                                                            name={d.order}
+                                                            style={{display: 'none'}}
+                                                            className="check-re-order"
                                                         />
-                                                    </div>
-                                                    <div className="col-3">
-                                                        <b>{d.order}</b>
-                                                    </div>
-                                                    <div className="col-3">
-                                                        <b>{d.table}</b>
-                                                    </div>
-                                                    <div className="col-3"
-                                                         style={{color: d.status == "confirm" ? "lightcoral" : "green"}}>
-                                                        {d.status}
-                                                    </div>
-                                                    <div className="col-2">
-                                                        <Link>
-                                                            <button
-                                                                className="card-order-button"
-                                                                onClick={(e) => (window.location.pathname = '/receptionist-home/' + d.order)}
-                                                            >
-                                                                <div>
-                                                                    <b>Chi tiết</b>
+                                                        <div htmlFor={d.order}
+                                                             className="col-11 d-flex menu-item-bar-re">
+                                                            <div style={{marginTop: 'auto', marginBottom: 'auto'}}
+                                                                 align="left" className="col-11 d-flex">
+                                                                <div align="center" className="col-4 item-cost-re">
+                                                                    <b>{d.order}</b>
                                                                 </div>
-                                                            </button>
-                                                        </Link>
-                                                    </div>
+                                                                <div align="center" className="col-4 item-cost-re">
+                                                                    <b>{d.table}</b>
+                                                                </div>
+                                                                <div align="center" className="col-4 item-name-re"
+                                                                     style={{color: d.status == "confirm" ? "lightcoral" : "green"}}>
+                                                                    {d.status}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="add-button-re col-1">
+                                                            <Link>
+                                                                <a onClick={(e) => (window.location.pathname = '/receptionist-home/' + d.order)}
+                                                                   style={{
+                                                                       marginRight: 'auto',
+                                                                       marginLeft: 'auto'
+                                                                   }}
+                                                                   className="avatar-xs">
+                                                                    <div
+                                                                        className="plus-background-color-re avatar-title rounded-circle">
+                                                                        <img src={chevonRight}
+                                                                             className="plus-icon-button-re"/>
+                                                                    </div>
+                                                                </a>
+                                                            </Link>
+                                                        </div>
+                                                    </label>
                                                 </div>
                                             )
                                             : (null)
                                         )}
                                     </PerfectScrollbar>
-                                    <div align="right" style={{height: '60px', width: '80%', alignItems: 'center'}}>
-                                        <button>
-                                            <b>Gộp hóa đơn</b>
+                                    <div className="gop-hoa-don" align="right"
+                                         style={{height: '60px', alignItems: 'center'}}>
+                                        <button className="button-gop-hoa-don">
+                                            <b className="text-gop-hoa-don">Gộp hóa đơn</b>
                                         </button>
                                     </div>
                                 </div>
                             </div>
                             <div align="center" className="col-xl-6">
                                 <div className="side-content">
-                                    <div style={{height: '30px'}}><b style={{fontSize:'20px'}}>Chi tiết order</b></div>
+                                    <div className="list-order-re">
+                                        <b>
+                                            Chi tiết Order
+                                        </b>
+                                    </div>
                                     {orderState.map((d, i) => ("/receptionist-home/" + d.order == window.location.pathname) ? (
                                             <div>
-                                                <div style={{height: '30px'}} className="d-flex">
-                                                    <div align="center" className="col-4">
-                                                        <label>
-                                                            <b>Mã Order: </b>{d.order}
-                                                        </label>
+                                                <div style={{height: '80px', backgroundColor: '#F8F8FB'}}
+                                                     className="ra-button-re d-flex">
+                                                    <div align="center" className="col-4 detail-order-re">
+                                                        <div className='detail-order-top-re'>Mã Order</div>
+                                                        <div className='detail-order-down-re'>{d.order}</div>
                                                     </div>
-                                                    <div align="center" className="col-4">
-                                                        <label>
-                                                            <b>Mã bàn: </b>{d.table}
-                                                        </label>
+                                                    <div align="center" className="col-4 detail-order-re">
+                                                        <div className='detail-order-top-re'>Mã Bàn</div>
+                                                        <div className='detail-order-down-re'>{d.table}</div>
                                                     </div>
-                                                    <div align="center" className="col-4">
-                                                        <label>
-                                                            <b>Trạng thái: </b>
-                                                            <label className="col-3"
-                                                                   style={{color: d.status == "confirm" ? "lightcoral" : "green"}}>
-                                                                {d.status}
-                                                            </label>
-                                                        </label>
+                                                    <div align="center" className="col-4 detail-order-re">
+                                                        <div className='detail-order-top-re'>Trạng thái</div>
+                                                        <div style={{color: d.status == "confirm" ? "lightcoral" : "green"}}
+                                                             className='detail-order-down-re'>
+                                                            {d.status}
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <PerfectScrollbar className="mh-55">
+                                                    <div style={{
+                                                        backgroundColor: '#ffffff',
+                                                        border: '0px solid #ffffff',
+                                                    }} className="card-order d-flex">
+                                                        <div align="left" className="col-3 card-detail-order-text">
+                                                            <b>Món ăn</b>
+                                                        </div>
+                                                        <div align="left" className="col-2 card-detail-order-text">
+                                                            <b>Giá tiền</b>
+                                                        </div>
+                                                        <div style={{paddingLeft: '0px'}} align="center"
+                                                             className="col-2 card-detail-order-text">
+                                                            <b>Số lượng</b>
+                                                        </div>
+                                                        <div align="right" className="col-2 card-detail-order-text">
+                                                            <b>Tổng tiền</b>
+                                                        </div>
+                                                        <div style={{marginRight: '30px'}} align="right"
+                                                             className="col-3 card-detail-order-text">
+                                                            <b>Trạng thái</b>
+                                                        </div>
+                                                    </div>
                                                     {itemState.map((it, i) => (it.order == d.order) ? (
                                                             <div className="card-order d-flex">
-                                                                <div className="col-3">
-                                                                    <b>{it.item}</b>
+                                                                <div align="left"
+                                                                     className="col-3 card-detail-order-text-child">
+                                                                    <div>{it.item}</div>
                                                                 </div>
-                                                                <div className="col-1">
-                                                                    <b>{it.number}</b>
+                                                                <div align="left"
+                                                                     className="col-2 card-detail-order-text-child">
+                                                                    <div>{it.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
                                                                 </div>
-                                                                <div className="col-5">
-                                                                    <b>{it.price}x{it.number}={it.number * it.price}</b>
+                                                                <div style={{paddingLeft: '0px'}} align="center"
+                                                                     className="col-2 card-detail-order-text-child">
+                                                                    <div>{it.number}</div>
                                                                 </div>
-                                                                <div className="col-3"
+                                                                <div align="right"
+                                                                     className="col-2 card-detail-order-text-child">
+                                                                    <b>{(it.number * it.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</b>
+                                                                </div>
+                                                                <div style={{marginRight: '30px'}} align="right"
+                                                                     className="col-3 card-detail-order-text-child"
                                                                      style={{color: it.status == "in process" ? "lightcoral" : "green"}}>
                                                                     {it.status}
                                                                 </div>
@@ -312,28 +370,75 @@ function OrderList() {
                                                         : (null)
                                                     )}
                                                 </PerfectScrollbar>
-                                                <div style={{height: '60px'}} className="d-flex">
-                                                    <div align="center" className="col-6">
-                                                        <div>Tổng
-                                                            tiền: {itemState.filter((it) => (it.order == d.order)).reduce((total, pr) => total + pr.price * pr.number, 0)}</div>
+                                                <div style={{height: '60px', width: '98%'}} className="d-flex">
+                                                    <div align="left" className="col-4">
+                                                        <div style={{
+                                                            fontFamily: 'Cabin',
+                                                            fontStyle: 'normal',
+                                                            fontWeight: 'normal',
+                                                            fontSize: '12px',
+                                                            lineHeight: '15px',
+                                                            color: '#000000',
+                                                        }}>Tổng tiền:
+                                                        </div>
+                                                        <div style={{
+                                                            fontFamily: 'Cabin',
+                                                            fontStyle: 'normal',
+                                                            fontWeight: 'bold',
+                                                            fontSize: '18px',
+                                                            lineHeight: '22px',
+                                                            color: '#000000',
+                                                        }}>
+                                                            {itemState.filter((it) => (it.order == d.order)).reduce((total, pr) => total + pr.price * pr.number, 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                                        </div>
+                                                    </div>
+                                                    <div align="left" className="col-5">
                                                         <div>
-                                                            <textarea style={{height: 50, width: 'auto'}}>
+                                                            <textarea style={{
+                                                                height: 50,
+                                                                width: '100%',
+                                                                borderRadius: '10px'
+                                                            }}>
                                                                 Khách còn để lại 2 coca
                                                             </textarea>
                                                         </div>
                                                     </div>
-                                                    <div align="center" className="col-6">
+                                                    <div align="right" className="col-3">
                                                         {(itemState.filter((it) => (it.order == d.order)).every(it => it.status == "complete" && d.status == "confirm") === true)
                                                             ? (
                                                                 <Link to="/receptionist-home">
-                                                                    <button style={{backgroundColor: 'green'}}>
-                                                                        <b>Xuất hóa đơn</b>
+                                                                    <button style={{
+                                                                        backgroundColor: '#FCBC3A',
+                                                                        borderRadius: '10px',
+                                                                        height: '45px',
+                                                                        width: '100%'
+                                                                    }}>
+                                                                        <b style={{
+                                                                            fontFamily: 'Cabin',
+                                                                            fontStyle: 'normal',
+                                                                            fontWeight: '600',
+                                                                            fontSize: '13px',
+                                                                            lineHeight: '16px',
+                                                                            color: '#000000',
+                                                                        }}>Xuất hóa đơn</b>
                                                                     </button>
                                                                 </Link>
                                                             )
                                                             : (
-                                                                <button disabled={true}>
-                                                                    <b>Xuất hóa đơn</b>
+                                                                <button disabled={true} style={{
+                                                                    backgroundColor: '#FCBC3A',
+                                                                    borderRadius: '10px',
+                                                                    height: '45px',
+                                                                    width: '100%'
+                                                                }}>
+                                                                    <b style={{
+                                                                        fontFamily: 'Cabin',
+                                                                        fontStyle: 'normal',
+                                                                        fontWeight: '600',
+                                                                        fontSize: '13px',
+                                                                        lineHeight: '16px',
+                                                                        color: '#000000',
+                                                                    }}>Xuất hóa đơn</b>
                                                                 </button>
                                                             )
                                                         }
@@ -345,7 +450,7 @@ function OrderList() {
                                     )}
                                     {(window.location.pathname == '/receptionist-home') ?
                                         (
-                                            <div style={{fontSize:'25px',color: 'lightcoral'}}>Hãy chọn 1 Order để xem
+                                            <div style={{fontSize: '20px'}}>Hãy chọn 1 Order để xem
                                                 chi
                                                 tiết</div>
                                         ) : (null)

@@ -217,6 +217,24 @@ const sendOrder = (state = sendOrderReducer, action) => {
     }
 };
 
+//view order
+const viewOrderReducer = {
+    allViewOrder: [],
+};
+
+const getViewOrder = (state = viewOrderReducer, action) => {
+    switch (action.type) {
+        case actionTypes.GET_VIEW_ORDER_REQUEST:
+            return { ...state };
+        case actionTypes.GET_VIEW_ORDER_SUCCESS:
+            state =  { ...state, allViewOrder: action.payload };
+        case actionTypes.GET_VIEW_ORDER_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
 export const Customer = combineReducers({
     getAllCategory,
     getAllMenu,
@@ -230,4 +248,5 @@ export const Customer = combineReducers({
     deleteFromCart,
     deleteAllFromCart,
     sendOrder,
+    getViewOrder,
 });

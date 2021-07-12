@@ -32,8 +32,8 @@ function CallWaiter(props) {
             <form align='center'
                   style={{marginTop: '50px', marginBottom: '60px', borderRadius: '20px'}}
                   onSubmit={handleSubmit(submit)}>
-                <div><b style={{fontSize: '20px'}}>Gọi phục vụ</b></div>
-                <div align='center' style={{paddingTop: '20px', marginBottom: '10px'}} className="note-item">
+                <div><b style={{fontSize: '20px', fontFamily : 'Cabin'}}>Gọi phục vụ</b></div>
+                <div align='center' style={{marginTop: '0px', marginBottom: '10px'}} className="note-item">
                     <Controller
                         control={control}
                         defaultValue={''}
@@ -41,7 +41,7 @@ function CallWaiter(props) {
                         rules={{ required: true }}
                         render={({ onChange, value, ref }) => (
                             <Input
-                                style={{width: '90%'}}
+                                style={{width: '90%', backgroundColor:'#FFEFCD', height:'90px'}}
                                 type="text"
                                 control={control}
                                 name="content"
@@ -55,8 +55,8 @@ function CallWaiter(props) {
                     />
                 </div>
                 <div style={{width: '100%', paddingBottom: '20px'}}>
-                    <Button style={{width: '80%'}}>
-                        <div>Gọi phục vụ</div>
+                    <Button style={{width: '80%', backgroundColor:'#FCBC3A'}}>
+                        <div style={{color: '#000000', fontWeight:'bold', fontFamily : 'Cabin'}}>Gọi phục vụ</div>
                     </Button>
                 </div>
             </form>

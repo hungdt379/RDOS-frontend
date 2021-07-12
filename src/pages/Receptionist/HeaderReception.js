@@ -13,6 +13,10 @@ import ProfileMenu from "./ProfileMenu";
 import { withNamespaces } from 'react-i18next';
 import imageItem from "../../assets/images/customer/logo-web.jpg";
 import NotificationFooter from "./NotificationFooter";
+import carousel from "../../assets/images/receptionist/carousel.png";
+import awards from "../../assets/images/receptionist/awards.png";
+import tableManage from "../../assets/images/receptionist/display-spacing.png";
+import profile from "../../assets/images/receptionist/profile.png";
 
 const Header = (props) => {
 
@@ -22,40 +26,77 @@ const Header = (props) => {
                 <div className="navbar-header top-header thanks-header">
                     <div className="d-flex">
                         <div className="navbar-brand-box">
-                            <Link to="/receptionist-home" className="logo logo-dark d-flex">
-                                <NotificationFooter/>
-                                <div style={{fontSize:'20px', color:'#000000'}}>
-                                    <b>RDOS</b>
-                                </div>
+                            <Link to="/receptionist-home" className="logo logo-dark d-flex menu-type-a-re">
+                                <button className="d-flex menu-type-re">
+                                    <NotificationFooter/>
+                                    <div style={{marginTop: 'auto', marginBottom: 'auto'}}
+                                         className="avatar-sm profile-user-wid mr-2">
+                                        <div align="center"
+                                             className="avatar-title rounded-circle header-re-icon">
+                                            <img src={carousel} className="icon-button-menu-re"/>
+                                        </div>
+                                    </div>
+                                    <div className="square-text-button-re"><b>Xem Order</b></div>
+                                </button>
                             </Link>
-
                         </div>
-
-                    </div>
-
-                    <div align="center">
-                        <Link to="/receptionist-home">
-                            <div>
-                                <div style={{color:'#000000'}}>(icon)</div>
-                                <div style={{color:'#000000'}}><b>Xem Order</b></div>
-                            </div>
-                        </Link>
-                    </div>
-
-                    <div align="center">
-                        <Link to="/receptionist-feedback">
-                            <div>
-                                <div style={{color:'#000000'}}>(icon)</div>
-                                <div style={{color:'#000000'}}><b>Xem Feedback</b></div>
-                            </div>
-                        </Link>
                     </div>
 
                     <div className="d-flex">
+                        <div className="navbar-brand-box">
+                            <Link to="/receptionist-feedback" className="logo logo-dark d-flex menu-type-a-re">
+                                <button className="d-flex menu-type-re">
+                                    <div style={{marginTop: 'auto', marginBottom: 'auto'}}
+                                         className="avatar-sm profile-user-wid mr-2">
+                                        <div align="center"
+                                             className="avatar-title rounded-circle header-re-icon">
+                                            <img src={awards} className="icon-button-menu"/>
+                                        </div>
+                                    </div>
+                                    <div className="square-text-button-re"><b>Xem Đánh giá</b></div>
+                                </button>
+                            </Link>
+                        </div>
+                    </div>
 
-                        <NotificationDropdown/>
-                        <ProfileMenu />
+                    <div className="d-flex">
+                        <div className="navbar-brand-box">
+                            <Link to="/receptionist-manage" className="logo logo-dark d-flex menu-type-a-re">
+                                <button className="d-flex menu-type-re">
+                                    <div style={{marginTop: 'auto', marginBottom: 'auto'}}
+                                         className="avatar-sm profile-user-wid mr-2">
+                                        <div align="center"
+                                             className="avatar-title rounded-circle header-re-icon">
+                                            <img src={tableManage} className="icon-button-menu"/>
+                                        </div>
+                                    </div>
+                                    <div className="square-text-button-re"><b>Quản lý bàn</b></div>
+                                </button>
+                            </Link>
+                        </div>
+                    </div>
 
+                    <div className="d-flex">
+                        <div className="navbar-brand-box">
+                            <div className="logo logo-dark d-flex menu-type-a-re">
+                                <div className="d-flex menu-type-re">
+                                    <div style={{marginTop: 'auto', marginBottom: 'auto'}}
+                                         className="avatar-sm profile-user-wid mr-2">
+                                        <div align="center"
+                                             className="avatar-title rounded-circle header-re-icon">
+                                            <NotificationDropdown/>
+                                        </div>
+                                    </div>
+                                    <div className="square-text-button-re"><b>Thông báo</b></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="d-flex">
+                        <div className="navbar-brand-box">
+                            <ProfileMenu />
+                        </div>
                     </div>
                 </div>
             </header>

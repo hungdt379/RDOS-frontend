@@ -14,7 +14,7 @@ import {AvForm, AvField} from 'availity-reactstrap-validation';
 import {customerLoginUser, apiErrorCus} from '../../store/auth/logincustomer/actions';
 
 // import images
-import profile from "../../assets/images/customer/logo-web.jpg";
+import profile from "../../assets/images/customer/logo-web-after-design.jpg";
 
 const LoginCustomer = (props) => {
 
@@ -36,22 +36,52 @@ const LoginCustomer = (props) => {
                         <Col md={8} lg={6} xl={5}>
                             <Card className="overflow-hidden">
                                 <div className="bg-soft-primary">
-                                    <Row style={{backgroundColor: 'lightcoral'}}>
-                                        <Col className="col-7">
-                                            <div className="text-primary p-4">
-                                                <h5 className="text-primary">Chào mừng bạn đến với Nhất Nướng !</h5>
-                                            </div>
-                                        </Col>
-                                        <Col className="col-5 align-self-end">
+                                    <Row style={{backgroundColor: '#ffffff'}}>
+                                        <Col align='center' className="col-12 mt-3">
                                             <img src={profile} alt="" className="img-fluid"/>
                                         </Col>
                                     </Row>
+                                    <Row style={{backgroundColor: '#ffffff'}}>
+                                        <Col align='center' className="col-12">
+                                            <div className="p-4">
+                                                <div style={{
+                                                    color: '#FCBC3A',
+                                                    fontStyle: 'normal',
+                                                    fontWeight: 'bold',
+                                                    fontSize: '22px',
+                                                    fontFamily: 'Cabin',
+                                                    lineHeight: '27px',
+                                                }}><b>Chào mừng bạn !</b></div>
+                                                <p style={{
+                                                    color: '#000000',
+                                                    fontStyle: 'normal',
+                                                    fontWeight: 'bold',
+                                                    fontSize: '14px',
+                                                    fontFamily: 'Cabin',
+                                                    lineHeight: '17px',
+                                                }}>Đến với Nhất nướng</p>
+                                            </div>
+                                        </Col>
+                                    </Row>
                                 </div>
-                                <CardBody className="pt-0">
-                                    <div>
-                                        <div className="avatar-md profile-user-wid mb-4">
-                                                <span className="avatar-title rounded-circle bg-light">
-                                                    <b style={{color: 'lightcoral', fontSize: '18px'}}>{query.get("username")}</b>
+                                <CardBody className="pt-0 mt-2">
+                                    <div align='center'>
+                                        <div className="mb-4">
+                                                <span style={{
+                                                    width: '120px',
+                                                    height: '34px',
+                                                    background: '#EEEEEE',
+                                                    borderRadius: '20px'
+                                                }} className="avatar-title bg-light">
+                                                    <div style={{
+                                                        fontStyle: 'normal',
+                                                        fontWeight: 'bold',
+                                                        fontSize: '14px',
+                                                        lineHeight: '17px',
+                                                        textAlign: 'center',
+                                                        color: '#1E1C19',
+                                                        fontFamily:'Cabin',
+                                                    }}>{query.get("username")}</div>
                                                 </span>
                                         </div>
                                     </div>
@@ -76,7 +106,15 @@ const LoginCustomer = (props) => {
                                             </div>
 
                                             <div className="mt-3">
-                                                <button className="btn btn-primary btn-block waves-effect waves-light"
+                                                <button style={{
+                                                    backgroundColor: '#FCBC3A',
+                                                    color: '#000000',
+                                                    borderRadius: '10px',
+                                                    fontSize: '13px',
+                                                    fontWeight: '600',
+                                                    fontFamily:'Cabin',
+                                                }}
+                                                        className="btn btn-primary btn-block waves-effect waves-light"
                                                         type="submit">Tiếp tục
                                                 </button>
                                             </div>
@@ -86,7 +124,8 @@ const LoginCustomer = (props) => {
                             </Card>
                             <div className="mt-5 text-center">
                                 <p>© {new Date().getFullYear()} RDOS. Crafted with
-                                    <i className="mdi mdi-heart text-danger"></i> by <b>SWP490_G49</b></p>
+                                    <i style={{color: '#FCBC3A'}} className="mdi mdi-heart"></i> by <b>SWP490_G49</b>
+                                </p>
                             </div>
                         </Col>
                     </Row>
