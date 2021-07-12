@@ -47,18 +47,19 @@ const Login = (props) => {
                                                     color: '#FCBC3A',
                                                     fontSize: '22px',
                                                     fontStyle: 'normal',
-                                                    fontWeight: 'bold'
+                                                    fontWeight: 'bold',
+                                                    fontFamily:'Cabin'
                                                 }}>
                                                     Welcome Back !
                                                 </div>
-                                                <p>Sign in to continue to RDOS.</p>
+                                                <p style={{fontFamily:'Cabin'}}>Sign in to continue to RDOS.</p>
                                             </div>
                                         </Col>
                                     </Row>
                                 </div>
                                 <CardBody className="pt-0">
                                     <div>
-                                        <h3 align='center' style={{color: 'black', fontSize: '15px'}}>Restaurant Digital
+                                        <h3 align='center' style={{color: 'black', fontSize: '15px', fontFamily:'Cabin'}}>Restaurant Digital
                                             Order
                                             System</h3>
                                     </div>
@@ -70,12 +71,12 @@ const Login = (props) => {
 
                                             {/*{props.error && props.error ? <Alert color="danger">{props.error}</Alert> : null}*/}
 
-                                            <div className="form-group">
+                                            <div className="form-group" style={{fontFamily:'Cabin'}}>
                                                 <AvField name="username" label="Username" className="form-control"
                                                          placeholder="Enter username" type="text" required/>
                                             </div>
 
-                                            <div className="form-group">
+                                            <div className="form-group" style={{fontFamily: 'Cabin'}}>
                                                 <AvField name="password" label="Password" type="password"
                                                          required placeholder="Enter Password"/>
                                             </div>
@@ -86,7 +87,8 @@ const Login = (props) => {
                                                     color: '#000000',
                                                     fontSize: '13px',
                                                     fontWeight: '600',
-                                                    borderRadius: '10px'
+                                                    borderRadius: '10px',
+                                                    fontFamily:'Cabin'
                                                 }} className="btn btn-primary btn-block waves-effect waves-light"
                                                         type="submit">Đăng nhập
                                                 </button>

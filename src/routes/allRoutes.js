@@ -39,6 +39,7 @@ import KitchenOrderList from "../pages/Kitchen/OrderList/index";
 import KitchenMenu from "../pages/Kitchen/MenuManagement";
 import Timeout from "../pages/Authentication/Timeout";
 import LoginCustomer from "../pages/Authentication/LoginCustomer";
+import ManageTable from "../pages/Receptionist/ManageTable";
 
 // Waiter Page;
 
@@ -61,6 +62,7 @@ export const userRoutes = [
     //Receptionist
     {path: "/receptionist-home", component: OrderList},
     {path: "/receptionist-feedback", component: ViewFeedback},
+    {path: "/receptionist-manage", component: ManageTable},
 
     //Waiter Page
     // {path: "/waiter-sign-in-waiter" , component: SignIn},

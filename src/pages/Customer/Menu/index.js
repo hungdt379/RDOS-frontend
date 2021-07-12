@@ -53,26 +53,24 @@ const CustomerMenu = (props) => {
         <React.Fragment>
             <div className="display-customer">
                 <div className="header-menu">
-                    <div className="d-flex">
+                    <div style={{height:'45px'}} className="d-flex">
                         <div className="home-icon col-2">
                             <Link to="/customer-home">
                                 <img src={home} className="icon-button"/>
                             </Link>
                         </div>
-                        <div style={{display: menuOpen}} align="center" className="menu-search col-8">
-                            <div className="mt-2 mb-2">
-                                <span className="avatar-title bg-light span-table">
-                                    <div className="div-table">Menu</div>
-                                </span>
-                            </div>
+                        <div style={{display: menuOpen, marginTop:'5px'}} align="center" className="menu-search col-8">
+                            <span style={{height:'35px'}} className="avatar-title bg-light span-table">
+                                <div className="div-table">Menu</div>
+                            </span>
                         </div>
                         <div style={{display: bsearch}} align="right" className="home-icon col-2">
                             <a onClick={openSearch}>
                                 <img src={searchImg} className="icon-button"/>
                             </a>
                         </div>
-                        <div style={{display: asearch, marginLeft: '12%'}} align="right" className="col-10">
-                            <div className="d-flex mt-2 mb-2">
+                        <div style={{display: asearch, marginLeft: '12%', marginTop:'5px'}} align="right" className="col-10">
+                            <div className="d-flex">
                                 <input className="search-bar" type="text" name="search" placeholder="Tìm kiếm..."
                                     // value={search}
                                        onChange={(e) => (
@@ -80,9 +78,9 @@ const CustomerMenu = (props) => {
                                                props.dispatch(actions.getAllSearchRequest(e.target.value))
                                        )}
                                 />
-                                <div style={{backgroundColor: '#FFEFCD',height:'34px'}} align="right" className="home-icon col-2">
+                                <div style={{backgroundColor: '#FFEFCD',height:'35px'}} align="right" className="home-icon col-2">
                                     <a onClick={closeSearch}>
-                                        <img style={{transform: 'matrix(-1,0,0,1,0,0)'}} src={searchImg} className="icon-button mt-2"/>
+                                        <img style={{transform: 'matrix(-1,0,0,1,0,0)', marginTop:'5px'}} src={searchImg} className="icon-button"/>
                                     </a>
                                 </div>
                             </div>

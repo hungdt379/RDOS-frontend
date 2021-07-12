@@ -187,21 +187,21 @@ const CustomerHome = (props) => {
                     {todoDataRe ? ((todoDataRe.filter((tr, index) => (tr.user_id === props.authCustomer.data.user.user_id)).length !== 0) ?
                             (<div align="center"><i style={{color: "lightcoral", fontSize: '20px'}}
                                                     className="bx bx-calendar-check bx-tada"></i><b
-                                style={{color: 'lightcoral', fontSize: '15px'}}>{notiPayment}</b></div>) : (<div></div>)
+                                style={{color: 'lightcoral', fontSize: '15px', fontFamily:'Cabin'}}>{notiPayment}</b></div>) : (<div></div>)
                         )
                         : ''}
                     {todoDataWa
                         ? ((todoDataWa.filter((tw, index) => (tw.title === "Gọi phục vụ")).length !== 0) ?
                                 (<div align="center"><i style={{color: "green", fontSize: '20px'}}
                                                         className="bx bx-calendar-check bx-tada"></i><b
-                                    style={{color: 'green', fontSize: '15px'}}>{notiWaiter}</b></div>) : (<div></div>)
+                                    style={{color: 'green', fontSize: '15px', fontFamily:'Cabin'}}>{notiWaiter}</b></div>) : (<div></div>)
                         )
                         : ''}
                     {todoDataWa
                         ? ((todoDataWa.filter((tw, index) => (tw.title === "Đặt món")).length !== 0) ?
                                 (<div align="center"><i style={{color: "blue", fontSize: '20px'}}
                                                         className="bx bx-calendar-check bx-tada"></i><b
-                                    style={{color: 'blue', fontSize: '15px'}}>{notiSendOrder}</b></div>) : (<div></div>)
+                                    style={{color: 'blue', fontSize: '15px', fontFamily:'Cabin'}}>{notiSendOrder}</b></div>) : (<div></div>)
                         )
                         : ''}
                 </div>

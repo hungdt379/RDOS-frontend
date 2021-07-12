@@ -95,7 +95,7 @@
 
 .search-bar{
   width: 70%;
-  height: 34px;
+  height: 35px;
   border-radius: 20px 0px 0px 20px;
   background-color: #FFEFCD;
   border-color: #FFEFCD;
@@ -266,4 +266,10 @@ input[type = 'radio'].check-fes:checked ~ div.form-check-label-fes{
   color: #1E1C19;
   padding-left: 15px;
   padding-top: 10px;
+}
+
+.table-th-manage-table{
+  margin-bottom: auto;
+  margin-top: auto;
+  padding-top: 8px;
 }

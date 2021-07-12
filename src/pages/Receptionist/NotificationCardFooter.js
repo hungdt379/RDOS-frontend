@@ -21,8 +21,8 @@ const NotificationCardFooter = (props) => {
                  style={{border: '2px solid #FCBC3A', borderRadius: '5px', width: '100%', backgroundColor: 'white'}}>
                 <div className="media-body">
                     <div className="menu-notification d-flex">
-                        <p className="ml-3 mt-0 mb-0 font-size-15"><b>{data.user_fullname}</b></p>
-                        <p className="mt-0 mb-0 mr-2 ml-2 pl-5 font-size-15">
+                        <p style={{fontFamily: 'Cabin'}} className="ml-3 mt-0 mb-0 font-size-15"><b>{data.user_fullname}</b></p>
+                        <p style={{fontFamily: 'Cabin'}} className="mt-0 mb-0 mr-2 ml-2 pl-5 font-size-15">
                             {"gọi thanh toán"}
                         </p>
                         <p className="mt-0 mb-0 mr-2 ml-2 pl-5 font-size-15">

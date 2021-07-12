@@ -129,8 +129,12 @@ const DetailCombo = (props) => {
                         </div>
                         <div align="center" className="menu-search col-8">
                             <div className="mt-2 mb-2">
-                                <span className="avatar-title bg-light span-table">
-                                    <div className="div-table">Món đã chọn</div>
+                                <span style={{width: '150px'}} className="avatar-title bg-light span-table">
+                                    <div className="div-table">
+                                        {props?.dataFoodInCombo?.data?.map((d, i) => (d.dish_in_combo.length !== 0) ? (
+                                                d.name)
+                                            :(d.name))}
+                                    </div>
                                 </span>
                             </div>
                         </div>
@@ -230,7 +234,8 @@ const DetailCombo = (props) => {
                                                         height: '60%',
                                                         backgroundColor: '#FFEFCD',
                                                         border: '2px solid #FCBC3A',
-                                                        borderRadius: '10px'
+                                                        borderRadius: '10px',
+                                                        fontFamily:'Cabin'
                                                     }}
                                                     className="introduce-profile note-input-item"
                                                     type="text"

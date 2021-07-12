@@ -313,7 +313,8 @@ function OrderList() {
                                                     </div>
                                                     <div align="center" className="col-4 detail-order-re">
                                                         <div className='detail-order-top-re'>Trạng thái</div>
-                                                        <div style={{color: d.status == "confirm" ? "lightcoral" : "green"}} className='detail-order-down-re'>
+                                                        <div style={{color: d.status == "confirm" ? "lightcoral" : "green"}}
+                                                             className='detail-order-down-re'>
                                                             {d.status}
                                                         </div>
                                                     </div>
@@ -329,31 +330,38 @@ function OrderList() {
                                                         <div align="left" className="col-2 card-detail-order-text">
                                                             <b>Giá tiền</b>
                                                         </div>
-                                                        <div style={{paddingLeft:'0px'}} align="center" className="col-2 card-detail-order-text">
+                                                        <div style={{paddingLeft: '0px'}} align="center"
+                                                             className="col-2 card-detail-order-text">
                                                             <b>Số lượng</b>
                                                         </div>
                                                         <div align="right" className="col-2 card-detail-order-text">
                                                             <b>Tổng tiền</b>
                                                         </div>
-                                                        <div style={{marginRight:'30px'}} align="right" className="col-3 card-detail-order-text">
-                                                             <b>Trạng thái</b>
+                                                        <div style={{marginRight: '30px'}} align="right"
+                                                             className="col-3 card-detail-order-text">
+                                                            <b>Trạng thái</b>
                                                         </div>
                                                     </div>
                                                     {itemState.map((it, i) => (it.order == d.order) ? (
                                                             <div className="card-order d-flex">
-                                                                <div align="left" className="col-3 card-detail-order-text-child">
+                                                                <div align="left"
+                                                                     className="col-3 card-detail-order-text-child">
                                                                     <div>{it.item}</div>
                                                                 </div>
-                                                                <div align="left" className="col-2 card-detail-order-text-child">
-                                                                    <div>{it.price}</div>
+                                                                <div align="left"
+                                                                     className="col-2 card-detail-order-text-child">
+                                                                    <div>{it.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
                                                                 </div>
-                                                                <div style={{paddingLeft:'0px'}} align="center" className="col-2 card-detail-order-text-child">
+                                                                <div style={{paddingLeft: '0px'}} align="center"
+                                                                     className="col-2 card-detail-order-text-child">
                                                                     <div>{it.number}</div>
                                                                 </div>
-                                                                <div align="right" className="col-2 card-detail-order-text-child">
-                                                                    <b>{it.number * it.price}</b>
+                                                                <div align="right"
+                                                                     className="col-2 card-detail-order-text-child">
+                                                                    <b>{(it.number * it.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</b>
                                                                 </div>
-                                                                <div style={{marginRight:'30px'}} align="right" className="col-3 card-detail-order-text-child"
+                                                                <div style={{marginRight: '30px'}} align="right"
+                                                                     className="col-3 card-detail-order-text-child"
                                                                      style={{color: it.status == "in process" ? "lightcoral" : "green"}}>
                                                                     {it.status}
                                                                 </div>
@@ -362,28 +370,75 @@ function OrderList() {
                                                         : (null)
                                                     )}
                                                 </PerfectScrollbar>
-                                                <div style={{height: '60px'}} className="d-flex">
-                                                    <div align="center" className="col-6">
-                                                        <div>Tổng
-                                                            tiền: {itemState.filter((it) => (it.order == d.order)).reduce((total, pr) => total + pr.price * pr.number, 0)}</div>
+                                                <div style={{height: '60px', width: '98%'}} className="d-flex">
+                                                    <div align="left" className="col-4">
+                                                        <div style={{
+                                                            fontFamily: 'Cabin',
+                                                            fontStyle: 'normal',
+                                                            fontWeight: 'normal',
+                                                            fontSize: '12px',
+                                                            lineHeight: '15px',
+                                                            color: '#000000',
+                                                        }}>Tổng tiền:
+                                                        </div>
+                                                        <div style={{
+                                                            fontFamily: 'Cabin',
+                                                            fontStyle: 'normal',
+                                                            fontWeight: 'bold',
+                                                            fontSize: '18px',
+                                                            lineHeight: '22px',
+                                                            color: '#000000',
+                                                        }}>
+                                                            {itemState.filter((it) => (it.order == d.order)).reduce((total, pr) => total + pr.price * pr.number, 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                                        </div>
+                                                    </div>
+                                                    <div align="left" className="col-5">
                                                         <div>
-                                                            <textarea style={{height: 50, width: 'auto'}}>
+                                                            <textarea style={{
+                                                                height: 50,
+                                                                width: '100%',
+                                                                borderRadius: '10px'
+                                                            }}>
                                                                 Khách còn để lại 2 coca
                                                             </textarea>
                                                         </div>
                                                     </div>
-                                                    <div align="center" className="col-6">
+                                                    <div align="right" className="col-3">
                                                         {(itemState.filter((it) => (it.order == d.order)).every(it => it.status == "complete" && d.status == "confirm") === true)
                                                             ? (
                                                                 <Link to="/receptionist-home">
-                                                                    <button style={{backgroundColor: 'green'}}>
-                                                                        <b>Xuất hóa đơn</b>
+                                                                    <button style={{
+                                                                        backgroundColor: '#FCBC3A',
+                                                                        borderRadius: '10px',
+                                                                        height: '45px',
+                                                                        width: '100%'
+                                                                    }}>
+                                                                        <b style={{
+                                                                            fontFamily: 'Cabin',
+                                                                            fontStyle: 'normal',
+                                                                            fontWeight: '600',
+                                                                            fontSize: '13px',
+                                                                            lineHeight: '16px',
+                                                                            color: '#000000',
+                                                                        }}>Xuất hóa đơn</b>
                                                                     </button>
                                                                 </Link>
                                                             )
                                                             : (
-                                                                <button disabled={true}>
-                                                                    <b>Xuất hóa đơn</b>
+                                                                <button disabled={true} style={{
+                                                                    backgroundColor: '#FCBC3A',
+                                                                    borderRadius: '10px',
+                                                                    height: '45px',
+                                                                    width: '100%'
+                                                                }}>
+                                                                    <b style={{
+                                                                        fontFamily: 'Cabin',
+                                                                        fontStyle: 'normal',
+                                                                        fontWeight: '600',
+                                                                        fontSize: '13px',
+                                                                        lineHeight: '16px',
+                                                                        color: '#000000',
+                                                                    }}>Xuất hóa đơn</b>
                                                                 </button>
                                                             )
                                                         }

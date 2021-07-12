@@ -93,12 +93,14 @@ const NotificationDropdown = (props) => {
                         <Row className="align-items-center">
                             <Col>
                                 <h6 style={{
-                                    fontSize:'12px'
+                                    fontSize:'12px',
+                                    fontFamily: 'Cabin'
                                 }} className="m-0"> Thông báo </h6>
                             </Col>
                             <div className="col-auto">
                                 <a style={{
-                                    fontSize:'12px'
+                                    fontSize:'12px',
+                                    fontFamily: 'Cabin'
                                 }} onClick={maskAsRead} className="small">
                                     {" "}
                                     Đánh dấu xem hết
