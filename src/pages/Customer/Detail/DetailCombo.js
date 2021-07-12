@@ -291,7 +291,7 @@ const DetailCombo = (props) => {
                                             backgroundColor: '#FFEFCD',
                                             border: '1px solid #FCBC3A'
                                         }} className="avatar-title span-table">
-                                            <div style={{backgroundColor: '#FFEFCD'}} className='d-flex'>
+                                            <div style={{backgroundColor: '#FFEFCD', borderRadius:'30px', width:'110px'}} className='d-flex'>
                                                 <div align="center" className="col-4">
                                                     <a onClick={() => {
                                                         countDown(quantity)

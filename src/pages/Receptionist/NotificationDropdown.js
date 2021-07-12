@@ -22,7 +22,7 @@ const NotificationDropdown = (props) => {
     const [page, setPage] = useState(1)
     // const [pageChange, setPageChange] = useState(1)
     const [pageSize] = useState(10)
-    const [totalCount,  setTotalCount] = useState(0)
+    const [totalCount, setTotalCount] = useState(0)
     const prevPage = () => {
         const pg = page === 1 ? 1 : page - 1
         setPage(pg)
@@ -50,7 +50,7 @@ const NotificationDropdown = (props) => {
             setTodoList(snapshot.numChildren());
         });
     }, []);
-    console.log("notiFirebase: "+ todoList);
+    console.log("notiFirebase: " + todoList);
     // console.log("page: "+ (props?.allNotificationReceptionist?.total % pageSize) )
 
     const maskAsRead = () => {
@@ -76,10 +76,22 @@ const NotificationDropdown = (props) => {
                     tag="button"
                     id="page-header-notifications-dropdown"
                 >
-                    <i style={{color: "#000000"}} className={(todoList !== 0) ? "bx bx-bell bx-tada" : "bx bx-bell"}></i>
-                    <span className="badge badge-danger badge-pill">
-                        {todoList}
-          </span>
+                    <div className="logo logo-dark d-flex menu-type-a-re">
+                        <div className="d-flex menu-type-re">
+                            <div style={{marginTop: 'auto', marginBottom: 'auto'}}
+                                 className="avatar-sm profile-user-wid mr-2">
+                                <div align="center"
+                                     className="avatar-title rounded-circle header-re-icon">
+                                    <i style={{color: "#000000"}}
+                                       className={(todoList !== 0) ? "bx bx-bell bx-tada" : "bx bx-bell"}></i>
+                                    <span className="badge badge-danger badge-pill">
+                                        {todoList}
+                                    </span>
+                                </div>
+                            </div>
+                            <div style={{marginTop: '-5px'}} className="square-text-button-re"><b>Thông báo</b></div>
+                        </div>
+                    </div>
                 </DropdownToggle>
 
                 <DropdownMenu
@@ -93,13 +105,13 @@ const NotificationDropdown = (props) => {
                         <Row className="align-items-center">
                             <Col>
                                 <h6 style={{
-                                    fontSize:'12px',
+                                    fontSize: '12px',
                                     fontFamily: 'Cabin'
                                 }} className="m-0"> Thông báo </h6>
                             </Col>
                             <div className="col-auto">
                                 <a style={{
-                                    fontSize:'12px',
+                                    fontSize: '12px',
                                     fontFamily: 'Cabin'
                                 }} onClick={maskAsRead} className="small">
                                     {" "}
@@ -118,12 +130,12 @@ const NotificationDropdown = (props) => {
                             />
                         ))}
                         <div align="center" className="p-2">
-                            <div style={{width:'100%'}} className="d-flex">
+                            <div style={{width: '100%'}} className="d-flex">
                                 <a
                                     align="center"
                                     onClick={prevPage}
                                     style={{
-                                        width:'50%',
+                                        width: '50%',
                                         marginRight: 'auto',
                                         marginLeft: 'auto'
                                     }}
@@ -138,7 +150,7 @@ const NotificationDropdown = (props) => {
                                 <a
                                     align="center"
                                     style={{
-                                        width:'50%',
+                                        width: '50%',
                                         marginRight: 'auto',
                                         marginLeft: 'auto'
                                     }}
@@ -157,7 +169,8 @@ const NotificationDropdown = (props) => {
                 </DropdownMenu>
             </Dropdown>
         </>
-    );
+    )
+        ;
 };
 
 const mapStateToProps = (state) => {

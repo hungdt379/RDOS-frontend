@@ -53,3 +53,93 @@ export const maskAsReadError = (error) => {
         payload: error,
     };
 };
+
+//all table re
+export const getAllTableReRequest = (payload) => ({
+    type: actionTypes.GET_ALL_TABLE_RECEPTIONIST_REQUEST,
+    payload: payload,
+});
+export const getAllTableReSuccess = (response) => {
+    return {
+        type: actionTypes.GET_ALL_TABLE_RECEPTIONIST_SUCCESS,
+        payload: response,
+    };
+};
+export const getAllTableReError = (error) => {
+    return {
+        type: actionTypes.GET_ALL_TABLE_RECEPTIONIST_ERROR,
+        payload: error,
+    };
+};
+
+//add table re
+export const addTableReRequest = (payload) => ({
+    type: actionTypes.ADD_TABLE_RECEPTIONIST_REQUEST,
+    payload: payload,
+});
+export const addTableReSuccess = (response) => {
+    return {
+        type: actionTypes.ADD_TABLE_RECEPTIONIST_SUCCESS,
+        payload: response,
+    };
+};
+export const addTableReError = (error) => {
+    return {
+        type: actionTypes.ADD_TABLE_RECEPTIONIST_ERROR,
+        payload: error,
+    };
+};
+
+//delete table re
+export const deleteTableReRequest = (payload) => ({
+    type: actionTypes.DELETE_TABLE_RECEPTIONIST_REQUEST,
+    payload: payload,
+});
+export const deleteTableReSuccess = (response) => {
+    return {
+        type: actionTypes.DELETE_TABLE_RECEPTIONIST_SUCCESS,
+        payload: response,
+    };
+};
+export const deleteTableReError = (error) => {
+    return {
+        type: actionTypes.DELETE_TABLE_RECEPTIONIST_ERROR,
+        payload: error,
+    };
+};
+
+//generate table re
+export const generateTableReRequest = (payload) => ({
+    type: actionTypes.GENERATE_TABLE_RECEPTIONIST_REQUEST,
+    payload: payload,
+});
+export const generateTableReSuccess = (response) => {
+    return {
+        type: actionTypes.GENERATE_TABLE_RECEPTIONIST_SUCCESS,
+        payload: response,
+    };
+};
+export const generateTableReError = (error) => {
+    return {
+        type: actionTypes.GENERATE_TABLE_RECEPTIONIST_ERROR,
+        payload: error,
+    };
+};
+
+//edit table re
+export const editTableReRequest = (payload) => ({
+    type: actionTypes.EDIT_TABLE_RECEPTIONIST_REQUEST,
+    payload: payload,
+});
+export const editTableReSuccess = (response) => {
+    return {
+        type: actionTypes.EDIT_TABLE_RECEPTIONIST_SUCCESS,
+        payload: response,
+    };
+};
+export const editTableReError = (error) => {
+    return {
+        type: actionTypes.EDIT_TABLE_RECEPTIONIST_ERROR,
+        payload: error,
+    };
+};

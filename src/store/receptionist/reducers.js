@@ -52,8 +52,98 @@ const maskAsReadReceptionist = (state = maskAsReadReReducer, action) => {
     }
 };
 
+//all table re
+const allTableReceptionistReducer = {
+    allTableReceptionist: [],
+};
+const getAllTableReceptionist = (state = allTableReceptionistReducer, action) => {
+    switch (action.type) {
+        case actionTypes.GET_ALL_TABLE_RECEPTIONIST_REQUEST:
+            return { ...state };
+        case actionTypes.GET_ALL_TABLE_RECEPTIONIST_SUCCESS:
+            return { ...state, allTableReceptionist: action.payload };
+        case actionTypes.GET_ALL_TABLE_RECEPTIONIST_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+//add table
+const postAddTableReceptionistReducer = {
+    addTableReceptionist: [],
+};
+const postAddTableReceptionist = (state = postAddTableReceptionistReducer, action) => {
+    switch (action.type) {
+        case actionTypes.ADD_TABLE_RECEPTIONIST_REQUEST:
+            return { ...state };
+        case actionTypes.ADD_TABLE_RECEPTIONIST_SUCCESS:
+            return { ...state, addTableReceptionist: action.payload };
+        case actionTypes.ADD_TABLE_RECEPTIONIST_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+//delete table
+const postDeleteTableReceptionistReducer = {
+    deleteTableReceptionist: [],
+};
+const postDeleteTableReceptionist = (state = postDeleteTableReceptionistReducer, action) => {
+    switch (action.type) {
+        case actionTypes.DELETE_TABLE_RECEPTIONIST_REQUEST:
+            return { ...state };
+        case actionTypes.DELETE_TABLE_RECEPTIONIST_SUCCESS:
+            return { ...state, deleteTableReceptionist: action.payload };
+        case actionTypes.DELETE_TABLE_RECEPTIONIST_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+//generate table
+const getGenerateTableReceptionistReducer = {
+    generateTableReceptionist: [],
+};
+const getGenerateTableReceptionist = (state = getGenerateTableReceptionistReducer, action) => {
+    switch (action.type) {
+        case actionTypes.GENERATE_TABLE_RECEPTIONIST_REQUEST:
+            return { ...state };
+        case actionTypes.GENERATE_TABLE_RECEPTIONIST_SUCCESS:
+            return { ...state, generateTableReceptionist: action.payload };
+        case actionTypes.GENERATE_TABLE_RECEPTIONIST_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+//edit table
+const postEditTableReceptionistReducer = {
+    editTableReceptionist: [],
+};
+const postEditTableReceptionist = (state = postEditTableReceptionistReducer, action) => {
+    switch (action.type) {
+        case actionTypes.EDIT_TABLE_RECEPTIONIST_REQUEST:
+            return { ...state };
+        case actionTypes.EDIT_TABLE_RECEPTIONIST_SUCCESS:
+            return { ...state, editTableReceptionist: action.payload };
+        case actionTypes.EDIT_TABLE_RECEPTIONIST_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
 export const Receptionist = combineReducers({
     getAllNotificationsReceptionist,
     getAllFeedback,
     maskAsReadReceptionist,
+    getAllTableReceptionist,
+    postAddTableReceptionist,
+    postDeleteTableReceptionist,
+    getGenerateTableReceptionist,
+    postEditTableReceptionist,
 });
