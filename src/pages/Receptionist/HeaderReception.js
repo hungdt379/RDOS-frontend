@@ -61,7 +61,7 @@ const Header = (props) => {
 
                     <div className="d-flex">
                         <div className="navbar-brand-box">
-                            <Link to="/receptionist-feedback" className="logo logo-dark d-flex menu-type-a-re">
+                            <Link to="/receptionist-manage" className="logo logo-dark d-flex menu-type-a-re">
                                 <button className="d-flex menu-type-re">
                                     <div style={{marginTop: 'auto', marginBottom: 'auto'}}
                                          className="avatar-sm profile-user-wid mr-2">

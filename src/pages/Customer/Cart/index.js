@@ -163,8 +163,7 @@ const Cart = (props) => {
                                 marginTop:'auto',
                                 marginBottom:'auto'
                             }} align="left" className="col-6">
-                                <b style={{color: '#000000'}}>Tổng
-                                    tiền: {props?.dataCart?.data?.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd</b>
+                                <b style={{color: '#000000'}}>{props?.dataCart?.data?.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd</b>
                             </div>
                             <div style={{
                                 fontFamily: 'Cabin',

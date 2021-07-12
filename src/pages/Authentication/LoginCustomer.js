@@ -80,6 +80,7 @@ const LoginCustomer = (props) => {
                                                         lineHeight: '17px',
                                                         textAlign: 'center',
                                                         color: '#1E1C19',
+                                                        fontFamily:'Cabin',
                                                     }}>{query.get("username")}</div>
                                                 </span>
                                         </div>
@@ -111,6 +112,7 @@ const LoginCustomer = (props) => {
                                                     borderRadius: '10px',
                                                     fontSize: '13px',
                                                     fontWeight: '600',
+                                                    fontFamily:'Cabin',
                                                 }}
                                                         className="btn btn-primary btn-block waves-effect waves-light"
                                                         type="submit">Tiếp tục

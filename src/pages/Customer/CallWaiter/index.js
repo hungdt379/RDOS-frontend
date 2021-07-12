@@ -32,7 +32,7 @@ function CallWaiter(props) {
             <form align='center'
                   style={{marginTop: '50px', marginBottom: '60px', borderRadius: '20px'}}
                   onSubmit={handleSubmit(submit)}>
-                <div><b style={{fontSize: '20px'}}>Gọi phục vụ</b></div>
+                <div><b style={{fontSize: '20px', fontFamily : 'Cabin'}}>Gọi phục vụ</b></div>
                 <div align='center' style={{marginTop: '0px', marginBottom: '10px'}} className="note-item">
                     <Controller
                         control={control}
@@ -56,7 +56,7 @@ function CallWaiter(props) {
                 </div>
                 <div style={{width: '100%', paddingBottom: '20px'}}>
                     <Button style={{width: '80%', backgroundColor:'#FCBC3A'}}>
-                        <div style={{color: '#000000', fontWeight:'bold'}}>Gọi phục vụ</div>
+                        <div style={{color: '#000000', fontWeight:'bold', fontFamily : 'Cabin'}}>Gọi phục vụ</div>
                     </Button>
                 </div>
             </form>
