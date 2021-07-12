@@ -4,9 +4,10 @@ import "../../../assets/scss/custom/pages/waiter/header.scss";
 import "../../../assets/scss/custom/pages/waiter/allTable.scss";
 import NotFound from "../../Authentication/Page401";
 import {getAllTableRequest} from "../../../store/notifications/actions";
-import {connect, useSelector} from "react-redux";
-import {apiError, loginUser} from "../../../store/auth/login/actions";
-import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField,Checkbox} from "@material-ui/core";
+import {connect} from "react-redux";
+import Header from "../home/myHeader";
+import {apiError} from "../../../store/auth/login/actions";
+import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField} from "@material-ui/core";
 import {Button} from "reactstrap";
 import firebase from 'firebase';
 import {postNumberCustomerRequest} from "../../../store/post/actions";
@@ -95,16 +96,7 @@ const  ViewAllTable = (props) => {
         <React.Fragment>
             {(role === 'w')?(
                 <div>
-                    <div className="MyContainer">
-                        <h3 style={{paddingLeft: "30px", paddingTop:'20px'}}>RDOS</h3>
-                        <div className="form-role">
-                            <Link to="/waiter-check-list" className="myButton">Check List</Link>
-                            <div className="role">
-                                <a>Nhân Viên</a>
-                                <p>UserName</p>
-                            </div>
-                        </div>
-                    </div>
+                    <Header/>
                     <div className="list">
                         {dataTable?.map((d, index) => (
                                 <div key={index} onClick={d?.is_active === false ? handleClickOpen : handleClose}>

@@ -80,10 +80,29 @@ export function* watchGetTableByID() {
 }
 
 
+//get Log Out
+function* LogOut({ payload }) {
+  try {
+    const response = yield call(Request.getApi,apiUrls.getLogOutApi,payload);
+    if(response){
+      yield put(actions.getLogOutSuccess(response.message));
+      localStorage.removeItem('authUser')
+      console.log(response.message);
+    }
+  } catch (error) {
+    yield put(actions.getLogOutError(error));
+  }
+}
+
+
+export function* watchGetLogOut() {
+  yield takeEvery(actionTypes.GET_LOG_OUT_REQUEST, LogOut);
+}
+
 //update table by id
 function* UpdateTableByID({ payload }) {
   try {
-    const response = yield call(Request.postApi,apiUrls.postUpdateTable,payload);
+    const response = yield call(Request.postApi,apiUrls.postUpdateTableApi,payload);
     if(response){
       yield put(actions.postUpdateTableSuccess(response));
     }
@@ -97,6 +116,13 @@ export function* watchPostUpdateTableByID() {
 }
 
 
-const sagaNotificatons = [watchTotalOfNotifications(), watchGetNotifications(),watchPostUpdateTableByID(), watchGetAllTable(),watchGetTableByID()];
+const sagaNotificatons = [
+  watchTotalOfNotifications(),
+  watchGetNotifications(),
+  watchPostUpdateTableByID(),
+  watchGetAllTable(),
+  watchGetTableByID(),
+  watchGetLogOut()
+];
 
 export default sagaNotificatons;

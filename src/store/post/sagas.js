@@ -9,52 +9,10 @@ import {
 
 import * as actionTypes from "./actionTypes";
 import * as actions from "./actions";
-
-import { getAllNewsfeed } from "./actions";
 import { apiUrls } from "../../apis/api";
 import Request from "../../apis/Request";
-import { getAnnouncementRequest } from "./actions";
-
-function* getPostDetail({ payload }) {
-  try {
-    const response = yield call(
-        Request.getApi,
-        apiUrls.getPostDetail(payload.id)
-    );
-    yield put(actions.getPostDetailSuccess(response));
-  } catch (error) {
-    yield put(actions.getPostDetailError(error));
-  }
-}
-function* watchGetPostDetail() {
-  yield takeEvery(actionTypes.GET_POST_DETAIL_REQUEST, getPostDetail);
-}
-
-function* postThanks({ payload }) {
-  try {
-    const response = yield call(
-        Request.postApi,
-        apiUrls.postThank,
-        payload.data
-    );
-    if (response.status) {
-      yield put(actions.postThankSuccess(response));
-      if (payload.paramNewfeed) {
-        yield put(getAllNewsfeed(payload.paramNewfeed));
-      } else if (payload.paramAnnouncement) {
-        yield put(getAnnouncementRequest(payload.paramAnnouncement));
-      }
-    }
-    return response;
-  } catch (error) {
-    yield put(actions.postThankError(error));
-  }
-}
-
-export function* watchPostThank() {
-  yield takeLatest(actionTypes.POST_THANK_REQUEST, postThanks);
-}
-
+import {POST_MARK_AS_READ_REQUEST} from "./actionTypes";
+import {getConfirmedOrderError} from "./actions";
 
 function* postNumberCustomer({ payload }) {
   try {
@@ -86,133 +44,125 @@ function* postCloseTable({ payload }) {
     if (response){
       yield  put(actions.postCloseTableSuccess(response));
     }
-    return response;
   } catch (error) {
     yield put(actions.postCloseTableError(error));
   }
 }
 
-
 export function* watchPostCloseTable() {
   yield takeLatest(actionTypes.POST_CLOSE_TABLE_REQUEST, postCloseTable);
 }
 
-function* getAnnouncement({ payload }) {
-  try {
-    const response = yield call(
-        Request.postApi,
-        apiUrls.getAnnouncement,
-        payload
-    );
-    yield put(actions.getAnnouncementSuccess(response));
-  } catch (error) {
-    yield put(actions.getAnnouncementError(error));
-  }
-}
-function* watchGetAnnouncement() {
-  yield takeLatest(actionTypes.GET_ANNOUNCEMENT, getAnnouncement);
-}
-
-function* getAllPostNewsfeed({ payload }) {
+function* postMarkAsRead({ payload }) {
   try {
     const response = yield call(
         Request.getApi,
-        apiUrls.getAllNewsfeed,
+        apiUrls.postMarkAsReadApi,
         payload
     );
-    yield put(actions.getAllNewsfeedSuccess(response.data));
+    if (response){
+      yield  put(actions.postMarkAsReadSuccess(response));
+    }
   } catch (error) {
-    yield put(actions.getAllNewsfeedError(error));
+    yield put(actions.postMarkAsReadError(error));
   }
 }
-export function* watchGetAllNewsfeed() {
-  yield takeEvery(actionTypes.GET_ALL_NEWSFEED, getAllPostNewsfeed);
+
+export function* watchPostMarkAsRead() {
+  yield takeLatest(actionTypes.POST_MARK_AS_READ_REQUEST, postMarkAsRead);
 }
 
-function* getDepartment() {
-  try {
-    const response = yield call(Request.postApi, apiUrls.getDepartment, {});
-    yield put(actions.getDepartmentSuccess(response));
-  } catch (error) {
-    yield put(actions.getDepartmentError(error));
-  }
-}
-function* watchGetDepartmentData() {
-  yield takeLatest(actionTypes.GET_DEPARTMENT_REQUEST, getDepartment);
-}
-
-function* postSeenUser({ payload }) {
+function* getQueueOrder({ payload }) {
   try {
     const response = yield call(
         Request.getApi,
-        apiUrls.postSeenUser(payload.thank_id)
+        apiUrls.getQueueOrderApi,
+        payload
     );
-    yield put(actions.postSeenSuccess(response));
+    if (response){
+      yield  put(actions.getQueueOrderSuccess(response.data));
+
+    }
   } catch (error) {
-    yield put(actions.postSeenError(error));
+    yield put(actions.getQueueOrderError(error));
   }
 }
-function* watchPostSeenUser() {
-  yield takeLatest(actionTypes.POST_SEEN_REQUEST, postSeenUser);
+
+export function* watchGetQueueOrder() {
+  yield takeLatest(actionTypes.GET_QUEUE_ORDER_REQUEST, getQueueOrder);
 }
 
-function* getReactionUser({ payload }) {
-  try {
-    const response = yield call(Request.getApi, apiUrls.reactionUser, payload);
-    yield put(actions.getReactionSuccess(response));
-  } catch (error) {
-    yield put(actions.getReactionError(error));
-  }
-}
-function* watchGetReactionUser() {
-  yield takeLatest(actionTypes.GET_REACTION_REQUEST, getReactionUser);
-}
 
-function* postReactionUser({ payload }) {
+function* postCancelQueueOrder({ payload }) {
   try {
     const response = yield call(
         Request.postApi,
-        apiUrls.reactionUser(payload.thank_id),
-        {
-          type: payload.type,
-        }
+        apiUrls.postCancelQueueOrderApi,
+        payload
     );
-    yield put(actions.postReactionSuccess(response));
+    if (response){
+      yield  put(actions.postCancelQueueOrderSuccess(response));
+      console.log(response)
+    }
   } catch (error) {
-    yield put(actions.postReactionError(error));
+    yield put(actions.postCancelQueueOrderError(error));
   }
-}
-function* watchPostReactionUser() {
-  yield takeLatest(actionTypes.POST_REACTION_REQUEST, postReactionUser);
 }
 
-function* deleteReactionUser({ payload }) {
+export function* watchPostCancelQueueOrder() {
+  yield takeLatest(actionTypes.POST_CANCEL_QUEUE_ORDER_REQUEST, postCancelQueueOrder);
+}
+
+
+function* postConfirmQueueOrder({ payload }) {
   try {
     const response = yield call(
-        Request.deleteApi,
-        apiUrls.reactionUser(payload.thank_id)
+        Request.postApi,
+        apiUrls.postConfirmQueueOrderApi,
+        payload
     );
-    yield put(actions.deleteReactionSuccess(response));
+    if (response){
+      yield  put(actions.postConfirmQueueOrderSuccess(response));
+      console.log(response)
+    }
   } catch (error) {
-    yield put(actions.deleteReactionError(error));
+    yield put(actions.postConfirmQueueOrderError(error));
   }
 }
-function* watchDeleteReactionUser() {
-  yield takeLatest(actionTypes.DELETE_REACTION_REQUEST, deleteReactionUser);
+
+export function* watchPostConfirmQueueOrder() {
+  yield takeLatest(actionTypes.POST_CONFIRM_QUEUE_ORDER_REQUEST, postConfirmQueueOrder);
+}
+
+
+function* getConfirmedOrder({ payload }) {
+  try {
+    const response = yield call(
+        Request.getApi,
+        apiUrls.getConfirmedOrderApi,
+        payload
+    );
+    if (response){
+      yield  put(actions.getConfirmedOrderSuccess(response));
+      console.log(response)
+    }
+  } catch (error) {
+    yield put(actions.getConfirmedOrderError(error));
+  }
+}
+
+export function* watchGetConfirmedQueueOrder() {
+  yield takeLatest(actionTypes.GET_CONFIRMED_ORDER_REQUEST, getConfirmedOrder);
 }
 
 const sagaPost = [
-  watchGetPostDetail(),
-  watchPostThank(),
-  watchGetAnnouncement(),
-  watchGetAllNewsfeed(),
-  watchGetDepartmentData(),
-  watchPostSeenUser(),
-  watchGetReactionUser(),
-  watchPostReactionUser(),
-  watchDeleteReactionUser(),
   watchPostNumberCustomer(),
   watchPostCloseTable(),
+  watchPostMarkAsRead(),
+  watchGetQueueOrder(),
+  watchPostCancelQueueOrder(),
+  watchPostConfirmQueueOrder(),
+  watchGetConfirmedQueueOrder()
 ];
 
 export default sagaPost;

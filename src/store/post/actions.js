@@ -1,43 +1,5 @@
 import * as actionTypes from "./actionTypes";
-
-export const getPostDetailRequest = (id) => {
-  return {
-    type: actionTypes.GET_POST_DETAIL_REQUEST,
-    payload: id,
-  };
-};
-export const getPostDetailSuccess = (response) => {
-  return {
-    type: actionTypes.GET_POST_DETAIL_SUCCESS,
-    payload: response,
-  };
-};
-export const getPostDetailError = (error) => {
-  return {
-    type: actionTypes.GET_POST_DETAIL_ERROR,
-    payload: error,
-  };
-};
-
-export const postThankRequest = (payload) => {
-  return {
-    type: actionTypes.POST_THANK_REQUEST,
-    payload: payload,
-  };
-};
-export const postThankSuccess = (response) => {
-  return {
-    type: actionTypes.POST_THANK_SUCCESS,
-    payload: response,
-  };
-};
-export const postThankError = (error) => {
-  return {
-    type: actionTypes.POST_THANK_ERROR,
-    payload: error,
-  };
-};
-
+import {POST_MARK_AS_READ_REQUEST} from "./actionTypes";
 
 export const postNumberCustomerRequest = (payload) => {
   return {
@@ -78,131 +40,104 @@ export const postCloseTableError = (error) => {
   };
 };
 
-
-export const getAnnouncementRequest = (payload) => ({
-  type: actionTypes.GET_ANNOUNCEMENT,
-  payload: payload,
-});
-export const getAnnouncementSuccess = (response) => {
+export const postMarkAsReadRequest = (payload) => {
   return {
-    type: actionTypes.GET_ANNOUNCEMENT_SUCCESS,
-    payload: response,
-  };
-};
-export const getAnnouncementError = (error) => {
-  return {
-    type: actionTypes.GET_ANNOUNCEMENT_ERROR,
-    payload: error,
-  };
-};
-
-export const getAllNewsfeed = (payload) => ({
-  type: actionTypes.GET_ALL_NEWSFEED,
-  payload: payload,
-});
-export const getAllNewsfeedSuccess = (response) => {
-  return {
-    type: actionTypes.GET_ALL_NEWSFEED_SUCCESS,
-    payload: response,
-  };
-};
-export const getAllNewsfeedError = (error) => {
-  return {
-    type: actionTypes.GET_ALL_NEWSFEED_ERROR,
-    payload: error,
-  };
-};
-
-export const getDepartment = () => {
-  return {
-    type: actionTypes.GET_DEPARTMENT_REQUEST,
-  };
-};
-export const getDepartmentSuccess = (response) => {
-  return {
-    type: actionTypes.GET_DEPARTMENT_SUCCESS,
-    payload: response,
-  };
-};
-export const getDepartmentError = (error) => {
-  return {
-    type: actionTypes.GET_DEPARTMENT_ERROR,
-    payload: error,
-  };
-};
-
-export const postSeenRequest = (payload) => {
-  return {
-    type: actionTypes.POST_SEEN_REQUEST,
+    type: actionTypes.POST_MARK_AS_READ_REQUEST,
     payload: payload,
   };
 };
-export const postSeenSuccess = (response) => {
+export const postMarkAsReadSuccess = (response) => {
   return {
-    type: actionTypes.POST_SEEN_SUCCESS,
+    type: actionTypes.POST_MARK_AS_READ_SUCCESS,
     payload: response,
   };
 };
-export const postSeenError = (error) => {
+export const postMarkAsReadError = (error) => {
   return {
-    type: actionTypes.POST_SEEN_ERROR,
+    type: actionTypes.POST_MARK_AS_READ_ERROR,
     payload: error,
   };
 };
 
-export const getReactionRequest = (payload) => {
+
+export const getQueueOrderRequest = (payload) => {
   return {
-    type: actionTypes.GET_REACTION_REQUEST,
+    type: actionTypes.GET_QUEUE_ORDER_REQUEST,
     payload: payload,
   };
 };
-export const getReactionSuccess = (response) => {
+export const getQueueOrderSuccess = (response) => {
   return {
-    type: actionTypes.GET_REACTION_SUCCESS,
+    type: actionTypes.GET_QUEUE_ORDER_SUCCESS,
     payload: response,
   };
 };
-export const getReactionError = (error) => {
+export const getQueueOrderError = (error) => {
   return {
-    type: actionTypes.GET_REACTION_ERROR,
+    type: actionTypes.GET_QUEUE_ORDER_ERROR,
     payload: error,
   };
 };
 
-export const postReactionRequest = (payload) => {
+
+export const postCancelQueueOrderRequest = (payload) => {
   return {
-    type: actionTypes.POST_REACTION_REQUEST,
+    type: actionTypes.POST_CANCEL_QUEUE_ORDER_REQUEST,
     payload: payload,
   };
 };
-export const postReactionSuccess = (response) => {
+export const postCancelQueueOrderSuccess = (response) => {
   return {
-    type: actionTypes.POST_REACTION_SUCCESS,
+    type: actionTypes.POST_CANCEL_QUEUE_ORDER_SUCCESS,
     payload: response,
   };
 };
-export const postReactionError = (error) => {
+export const postCancelQueueOrderError = (error) => {
   return {
-    type: actionTypes.POST_REACTION_ERROR,
+    type: actionTypes.POST_CANCEL_QUEUE_ORDER_ERROR,
     payload: error,
   };
 };
 
-export const deleteReactionRequest = (payload) => {
+
+export const postConfirmQueueOrderRequest = (payload) => {
   return {
-    type: actionTypes.DELETE_REACTION_REQUEST,
+    type: actionTypes.POST_CONFIRM_QUEUE_ORDER_REQUEST,
     payload: payload,
   };
 };
-export const deleteReactionSuccess = (response) => {
+export const postConfirmQueueOrderSuccess = (response) => {
   return {
-    type: actionTypes.DELETE_REACTION_SUCCESS,
+    type: actionTypes.POST_CONFIRM_QUEUE_ORDER_SUCCESS,
     payload: response,
   };
 };
-export const deleteReactionError = (error) => {
+export const postConfirmQueueOrderError = (error) => {
   return {
-    type: actionTypes.DELETE_REACTION_ERROR,
+    type: actionTypes.POST_CONFIRM_QUEUE_ORDER_ERROR,
     payload: error,
   };
 };
+
+
+export const getConfirmedOrderRequest = (payload) => {
+  return {
+    type: actionTypes.GET_CONFIRMED_ORDER_REQUEST,
+    payload: payload,
+  };
+};
+export const getConfirmedOrderSuccess = (response) => {
+  return {
+    type: actionTypes.GET_CONFIRMED_ORDER_SUCCESS,
+    payload: response,
+  };
+};
+export const getConfirmedOrderError = (error) => {
+  return {
+    type: actionTypes.GET_CONFIRMED_ORDER_ERROR,
+    payload: error,
+  };
+};
+
+
+

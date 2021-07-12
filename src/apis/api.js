@@ -29,7 +29,14 @@ export const apiUrls = {
   getAllNotifications: "api/waiter/table/notifications",
   postUpdateTable: "api/waiter/table/update",
   postCloseTableApi:"api/waiter/table/close",
-
+  postMarkAsReadApi: "api/waiter/table/notifications/read",
+  getLogOutApi: "api/auth/logout",
+  getQueueOrderApi: "api/waiter/table/order/queue/view",
+  postCancelQueueOrderApi: "api/waiter/table/order/queue/cancel",
+  postConfirmQueueOrderApi: "api/waiter/table/order/queue/confirm",
+  getConfirmedOrderApi: "api/table/order/confirm/detail",
+  postDeleteItemApi: "api/waiter/table/order/confirm/item/delete",
+  postNoteRemainApi: "api/waiter/table/order/confirm/note/add",
   //Bai cu
   getAllFriend: "api/profiles",
   getDepartment: "api/groups",
