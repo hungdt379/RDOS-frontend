@@ -426,7 +426,7 @@ function OrderList() {
                                                             )
                                                             : (
                                                                 <button disabled={true} style={{
-                                                                    backgroundColor: '#FCBC3A',
+                                                                    backgroundColor: '#F8F8FB',
                                                                     borderRadius: '10px',
                                                                     height: '45px',
                                                                     width: '100%'
@@ -437,7 +437,7 @@ function OrderList() {
                                                                         fontWeight: '600',
                                                                         fontSize: '13px',
                                                                         lineHeight: '16px',
-                                                                        color: '#000000',
+                                                                        color: '#1E1C19',
                                                                     }}>Xuất hóa đơn</b>
                                                                 </button>
                                                             )

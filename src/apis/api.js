@@ -21,6 +21,11 @@ export const apiUrls = {
   getNotificationsReceptionist: "api/receptionist/notifications",
   viewFeedbackApi: "api/receptionist/feedback",
   maskAsReadReceptionistApi: "api/receptionist/notifications/read",
+  getAllTablesReceptionist: "api/waiter/tables",
+  postAddTableReceptionistApi: "api/receptionist/table/new",
+  postDeleteTableReceptionistApi: "api/receptionist/table/delete",
+  getGenerateQrTableReceptionistApi: "api/receptionist/table/qrcode",
+  postEditTableReceptionistApi: "api/receptionist/table/update",
 
   //Waiter
   getAllTables: "api/waiter/tables?page=1&pageSize=15",
