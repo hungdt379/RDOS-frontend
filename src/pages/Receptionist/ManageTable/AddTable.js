@@ -49,6 +49,8 @@ const AddTable = (props) => {
                                             <Input
                                                 style={{width: '90%', backgroundColor:'#FFEFCD'}}
                                                 type="text"
+                                                title="Bạn chỉ được nhập số lớn hơn 0"
+                                                pattern="[0-9]+"
                                                 control={control}
                                                 name="table_number"
                                                 onChange={onChange}
@@ -83,6 +85,8 @@ const AddTable = (props) => {
                                             <Input
                                                 style={{width: '90%', backgroundColor:'#FFEFCD'}}
                                                 type="text"
+                                                title="Bạn chỉ được nhập số lớn hơn 0"
+                                                pattern="[0-9]+"
                                                 control={control}
                                                 name="max_customer"
                                                 onChange={onChange}
