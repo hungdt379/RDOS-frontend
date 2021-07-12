@@ -2,8 +2,10 @@ import React, {useState, Component, useEffect} from "react";
 import {Link, useLocation, withRouter} from "react-router-dom";
 import NotFound from "../../Authentication/Page401";
 import {connect} from "react-redux";
+import Header from  "../home/myHeader";
 import {getAllNotification} from "../../../store/notifications/actions";
 import {apiError} from "../../../store/auth/login/actions";
+import {postMarkAsReadRequest} from "../../../store/post/actions";
 
 const Notification = (props) => {
     const [role, setrole] = useState([]);
@@ -27,9 +29,10 @@ const Notification = (props) => {
             const obj = JSON.parse(localStorage.getItem("authUser"));
             setrole(obj.data.user.role);
         }
-
+        props.postMarkAsReadRequest(value);
         load()
         dataNotification.data = null;
+
     }, []);
 
 
@@ -37,20 +40,7 @@ const Notification = (props) => {
         <React.Fragment>
             {(role === 'w')?(
                 <div>
-                    <div className="MyContainer">
-                        <Link to="/waiter-view-all-table">
-                            <h3 style={{paddingLeft: "30px", paddingTop:'20px'}}>RDOS</h3>
-                        </Link>
-
-                        <div className="form-role">
-
-                            <div className="role">
-                                <a>{location.state.username}</a>
-                                <p>Mật khẩu</p>
-                            </div>
-                        </div>
-                    </div>
-
+                    <Header username={location.state.username} />
                     <div>
                         <ul className="nav-notification">
                             <li>
@@ -71,7 +61,6 @@ const Notification = (props) => {
                         <h2>Trang Thông Báo</h2>
                         <div className="list-Item">
                             <ul>
-
                                 {dataNotification.data == null ? x = false: x =true }
                                 {x == false ? <span>Loading...</span> : ''}
                                 {dataNotification.data?.map((d, index) => (
@@ -94,8 +83,9 @@ const Notification = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        dataNotification: state.Notification.getAllNotifications.allNotifications
+        dataNotification: state.Notification.getAllNotifications.allNotifications,
+        dataMarkAsRead: state.Posts.postMarkAsRead.dataPostMarkAsRead
     };
 };
 
-export default withRouter(connect(mapStateToProps,{getAllNotification,apiError}) (Notification));
+export default withRouter(connect(mapStateToProps,{postMarkAsReadRequest,getAllNotification,apiError}) (Notification));

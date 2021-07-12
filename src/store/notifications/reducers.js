@@ -69,6 +69,24 @@ const getTable = (state = TableReducer, action) => {
 };
 
 
+const LogOutReducer = {
+  dataLogOut: [],
+};
+
+const LogOut = (state = LogOutReducer, action) => {
+  switch (action.type) {
+    case actionTypes.GET_LOG_OUT_REQUEST:
+      return { ...state };
+    case actionTypes.GET_LOG_OUT_SUCCESS:
+      state =  { ...state, dataLogOut: action.payload };
+    case actionTypes.GET_LOG_OUT_ERROR:
+      return { ...state, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+
 const TableUpdateReducer = {
   UpdateTableByID: [],
 };
@@ -94,4 +112,5 @@ export const Notification = combineReducers({
   getAllTable,
   getTable,
   postUpdateTable,
+  LogOut,
 });

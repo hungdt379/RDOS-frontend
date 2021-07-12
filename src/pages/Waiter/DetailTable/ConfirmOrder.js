@@ -3,7 +3,13 @@ import "../../../assets/scss/custom/pages/waiter/detailTable.scss";
 import {Link, withRouter} from "react-router-dom";
 import { useLocation} from "react-router-dom";
 import NotFound from "../../Authentication/Page401";
-import {postCloseTableRequest} from "../../../store/post/actions";
+import Header from  "../home/myHeader";
+import {
+    getQueueOrderRequest,
+    postCancelQueueOrderRequest,
+    postCloseTableRequest,
+    postConfirmQueueOrderRequest
+} from "../../../store/post/actions";
 import {getTableRequest, postUpdateTableRequest} from "../../../store/notifications/actions";
 import {connect} from "react-redux";
 import {apiError} from "../../../store/auth/login/actions";
@@ -17,9 +23,10 @@ const ConfirmOrder = (props) => {
     const location  = useLocation();
 
     const {dataTableByID} = props;
-    console.log(dataTableByID);
 
-    const {dataCloseTable} = props;
+    const {dataUpdateTable} = props;
+
+    const {dataQueueOrder} = props;
 
     const [open,setOpen] = useState(false);
 
@@ -35,7 +42,7 @@ const ConfirmOrder = (props) => {
 
     const value = {
         table_id: location.state._id,
-        number_of_customer: 4,
+        number_of_customer: number,
     }
 
 
@@ -45,37 +52,43 @@ const ConfirmOrder = (props) => {
             setrole(obj.data.user.role);
         }
         props.getTableRequest(value);
-    }, [dataCloseTable]);
+        props.getQueueOrderRequest(value);
+
+    }, [dataUpdateTable]);
 
     function postUpdateNumberCustomer(){
         props.postUpdateTableRequest(value)
         setOpen(false);
     }
-
+    function redirect(){
+        props.history.push('/waiter-view-all-table');
+    }
 
     function postCloseTable(){
         props.postCloseTableRequest(value);
-        // props.getTableRequest(value);
+        setOpen(false);
+        setTimeout(() => {
+            redirect();
+        }, 500)
     }
 
+    const cancel = () =>{
+
+        let dataCancel = {
+            _id: dataQueueOrder._id
+        }
+        props.postCancelQueueOrderRequest(dataCancel);
+    }
+
+    const  confirm = () => {
+        props.postConfirmQueueOrderRequest(value)
+    }
 
     return(
         <React.Fragment>
             {(role === 'w')?(
                 <div>
-                    <div className="MyContainer">
-                        <Link to="/waiter-view-all-table">
-                            <h3 style={{paddingLeft: "30px", paddingTop:'20px'}}>RDOS</h3>
-                        </Link>
-
-                        <div className="form-role">
-
-                            <div className="role">
-                                <a>{dataTableByID.username}</a>
-                                <p>Mật khẩu</p>
-                            </div>
-                        </div>
-                    </div>
+                    <Header username={dataTableByID.username}/>
                     <div>
                         <ul className="nav-notification">
                             <li>
@@ -98,9 +111,9 @@ const ConfirmOrder = (props) => {
                         </ul>
                     </div>
                     <div style={{textAlign:"center"}}>
-                        <button style={{ display: dataTableByID.is_active === false ? "none" : "inline"}} onClick={postCloseTable}>CloseTable</button>
+                        <button onClick={postCloseTable}>CloseTable</button>
 
-                        <button style={{ display: dataTableByID.is_active === false ? "none" : "inline"}} onClick={handleClickOpen}>Update Number Customer</button>
+                        <button onClick={handleClickOpen}>Update Number Customer</button>
 
                         <p style={{marginRight: "40px"}}>Số Khách Tại Bàn: {dataTableByID.number_of_customer}</p>
                         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -124,7 +137,7 @@ const ConfirmOrder = (props) => {
                                 <Button onClick={handleClose} color="primary">
                                     Cancel
                                 </Button>
-                                <Button style={{ display: dataTableByID.is_active === false ? "none" : "inline"}} onClick={postUpdateNumberCustomer}  color="primary">
+                                <Button onClick={postUpdateNumberCustomer}  color="primary">
                                     Update
                                 </Button>
                             </DialogActions>
@@ -135,50 +148,22 @@ const ConfirmOrder = (props) => {
                         <h2>Trang Chi Tiết</h2>
                         <div className="list-Item">
                             <ul>
-                                <li>
-                            <span className="item">
-                                <span>Tên Món</span>
-                                <span>giá tiền</span>
-                            </span>
-                                    <span>số lượng</span>
-                                    <span>X</span>
+                                {dataQueueOrder.item?.map((d, index) => (
+                                        <li key={index} >
+                                            <span className="item">
+                                             <span>{d.detail_item.name}</span>
+                                            <span>số lượng: {d.quantity}</span>
+                                            </span>
 
-                                </li>
-
-                                <li>
-                            <span className="item" >
-                                <span>Tên Món</span>
-                                <span>giá tiền</span>
-                            </span>
-                                    <span>số lượng</span>
-                                    <span>X</span>
-
-                                </li>
-
-                                <li>
-                            <span className="item">
-                                <span>Tên Món</span>
-                                <span>giá tiền</span>
-                            </span>
-                                    <span>số lượng</span>
-                                    <span>X</span>
-
-                                </li>
-
-                                <li>
-                            <span className="item">
-                                <span>Tên Món</span>
-                                <span>giá tiền</span>
-                            </span>
-                                    <span>số lượng</span>
-                                    <span>X</span>
-
-                                </li>
-
+                                            <span>{d.total_cost}</span>
+                                            <span>X</span>
+                                        </li>
+                                    )
+                                )}
                             </ul>
                         </div>
-                        <button>Hủy</button>
-                        <button>Xác Nhận</button>
+                        <button onClick={cancel}>Hủy</button>
+                        <button onClick={confirm}>Xác Nhận</button>
                     </div>
                 </div>
             ):(<NotFound/>)}
@@ -189,9 +174,10 @@ const ConfirmOrder = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        dataCloseTable: state.Posts.postCloseTable.dataPostCloseTable,
+        dataUpdateTable: state.Notification.postUpdateTable.UpdateTableByID,
         dataTableByID: state.Notification.getTable.TableByID,
+        dataQueueOrder: state.Posts.getQueueOrder.dataGetQueueOrder,
     };
 };
 
-export default withRouter(connect(mapStateToProps, {getTableRequest,postUpdateTableRequest,postCloseTableRequest,apiError})(ConfirmOrder));
+export default withRouter(connect(mapStateToProps, {postConfirmQueueOrderRequest,postCancelQueueOrderRequest,getQueueOrderRequest,getTableRequest,postUpdateTableRequest,postCloseTableRequest,apiError})(ConfirmOrder));

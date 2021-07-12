@@ -21,19 +21,7 @@ const ConfirmedOrder = (props) => {
         <React.Fragment>
             {(role === 'w')?(
                 <div>
-                    <div className="MyContainer">
-                        <Link to="/waiter-view-all-table">
-                            <h3 style={{paddingLeft: "30px", paddingTop:'20px'}}>RDOS</h3>
-                        </Link>
 
-                        <div className="form-role">
-
-                            <div className="role">
-                                <a>MB01</a>
-                                <p>Mật khẩu</p>
-                            </div>
-                        </div>
-                    </div>
                     <div>
                         <ul className="nav-notification">
                             <li>

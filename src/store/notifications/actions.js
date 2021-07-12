@@ -39,6 +39,25 @@ export const getAllNotificationError = (error) => {
 };
 
 
+//Log out
+export const getLogOutRequest = (payload) => ({
+  type: actionTypes.GET_LOG_OUT_REQUEST,
+  payload: payload,
+});
+export const getLogOutSuccess = (response) => {
+  return {
+    type: actionTypes.GET_LOG_OUT_SUCCESS,
+    payload: response,
+  };
+};
+export const getLogOutError = (error) => {
+  return {
+    type: actionTypes.GET_LOG_OUT_ERROR,
+    payload: error,
+  };
+};
+
+
 //all table
 export const getAllTableRequest = (payload) => ({
   type: actionTypes.GET_ALL_TABLE_REQUEST,
