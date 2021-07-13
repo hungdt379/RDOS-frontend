@@ -77,9 +77,9 @@ const Cart = (props) => {
                             <div className="side-list-menu">
                                 <PerfectScrollbar className="list-menu">
                                     {props?.dataCart?.data?.item_in_cart?.map((iic, index) => (
-                                        <Link key={index}>
                                             <div className="item-menu d-flex">
                                                 <div className="col-11 d-flex menu-item-bar">
+                                                    <Link style={{width : '100%'}} to={`/customer-detail-combo/${iic?._id}`}>
                                                     <div align="left" className="col-11 d-flex">
                                                         <div className="col-10">
                                                             <div className="item-name"><b>{iic?.name}</b></div>
@@ -99,6 +99,7 @@ const Cart = (props) => {
                                                             marginBottom:'auto'
                                                         }}>{iic.quantity}</div>
                                                     </div>
+                                                    </Link>
                                                 </div>
                                                 <div className="add-button col-1">
                                                     <a onClick={() => {
@@ -133,7 +134,6 @@ const Cart = (props) => {
                                                     </a>
                                                 </div>
                                             </div>
-                                        </Link>
                                     ))}
                                 </PerfectScrollbar>
                             </div>
