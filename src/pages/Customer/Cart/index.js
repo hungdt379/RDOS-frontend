@@ -15,17 +15,27 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import close from "../../../assets/images/customer/close.png";
 import shoppingCart from "../../../assets/images/customer/shopping-cart.png";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
+import {Modal} from "reactstrap";
 
 const Cart = (props) => {
 
+    const [openLoadDe, setOpenLoadDe] = useState(false);
+    const [openSendOrder, setOpenSendOrder] = useState(false);
+    const [openLoadCheck, setOpenLoadCheck] = useState(false);
+
     useEffect(() => {
         props.dispatch(actions.getCartRequest());
+        props.dispatch(actions.checkQueueOrderRequest(props.authCustomer.data.user.user_id));
     }, []);
 
     const backPage = () => {
         props.history.push("/customer-menu");
         props.dispatch(actions.getFoodInComboRequest());
     }
+
+    console.log("test :" + props?.dataSendOrder)
+    console.log("test1 :" + props?.allQueueOrder)
+    console.log("test2 :" + props?.allQueueOrder?.message)
 
     return (
         <React.Fragment>
@@ -47,10 +57,12 @@ const Cart = (props) => {
                         <div align="right" className="home-icon col-2">
                             <a onClick={() => {
                                 props.dispatch(actions.deleteAllFromCartRequest())
+                                setOpenLoadDe(true);
                                 setTimeout(() => {
                                     props.history.push('/customer-menu')
                                     props.dispatch(actions.getFoodInComboRequest())
-                                }, 600)
+                                    setOpenLoadDe(false)
+                                }, 1000)
                             }}>
                                 <img src={trash} className="icon-button"/>
                             </a>
@@ -116,9 +128,13 @@ const Cart = (props) => {
                                                             })
                                                             .then(data => console.log(data))
                                                             .catch(error => console.log('ERROR'))
+                                                        setOpenLoadDe(true);
                                                         setTimeout(() => {
                                                             props.dispatch(actions.getCartRequest())
-                                                        }, 500)
+                                                        }, 600)
+                                                        setTimeout(() => {
+                                                            setOpenLoadDe(false);
+                                                        }, 1000)
                                                     }}>
                                                         <div style={{
                                                             marginRight: 'auto',
@@ -150,8 +166,35 @@ const Cart = (props) => {
                                 }}
                             onClick={() => {
                                 props.dispatch(actions.sendOrderRequest())
-                                alert("Bạn đã đặt món thành công vui lòng chờ nhà bếp ra món!")
-                                props.history.push('/customer-menu')
+                                setTimeout(() => {
+                                    if(props?.dataSendOrder === true){
+                                        setOpenSendOrder(true);
+                                            setTimeout(() => {
+                                                setOpenSendOrder(false);
+                                                props.history.push('/customer-menu')
+                                            }, 2000)
+                                    }else{
+                                        setOpenLoadCheck(true);
+                                        setTimeout(() => {
+                                            setOpenLoadCheck(false);
+                                        }, 2000)
+                                    }
+                                }, 1000)
+
+                                // if(props?.allQueueOrder?.message !== undefined){
+                                //     setOpenLoadCheck(true);
+                                //     setTimeout(() => {
+                                //         setOpenLoadCheck(false);
+                                //         window.location.reload();
+                                //     }, 2500)
+                                // }else{
+                                //     props.dispatch(actions.sendOrderRequest())
+                                //     setOpenSendOrder(true);
+                                //     setTimeout(() => {
+                                //         setOpenSendOrder(false);
+                                //         window.location.reload();
+                                //     }, 2500)
+                                // }
                             }}>
                             <div style={{
                                 fontFamily: 'Cabin',
@@ -180,6 +223,60 @@ const Cart = (props) => {
                         </button>
                     ) : (<Footer/>)}
                 </div>
+                <Modal align="center" style={{
+                    width: '150px',
+                    marginRight: 'auto',
+                    marginLeft: 'auto',
+                    height: '100px',
+                    marginTop: '200px',
+                    marginBottom: "auto",
+                }} isOpen={openLoadDe}>
+                    <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                        <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                           className="bx bx-loader bx-spin"></i>
+                        <div style={{
+                            fontFamily: 'Cabin',
+                            fontSize: '15px',
+                        }}><b>Đang xóa!!!</b>
+                        </div>
+                    </div>
+                </Modal>
+                <Modal align="center" style={{
+                    width: '350px',
+                    marginRight: 'auto',
+                    marginLeft: 'auto',
+                    height: '100px',
+                    marginTop: '200px',
+                    marginBottom: "auto",
+                }} isOpen={openSendOrder}>
+                    <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                        <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                           className="bx bx-calendar-check bx-tada"></i>
+                        <div style={{
+                            fontFamily: 'Cabin',
+                            fontSize: '15px',
+                        }}><b>Đặt món thành công bạn vui lòng đợi một chút !</b>
+                        </div>
+                    </div>
+                </Modal>
+                <Modal align="center" style={{
+                    width: '350px',
+                    marginRight: 'auto',
+                    marginLeft: 'auto',
+                    height: '100px',
+                    marginTop: '200px',
+                    marginBottom: "auto",
+                }} isOpen={openLoadCheck}>
+                    <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                        <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                           className="bx bx-calendar-exclamation bx-tada"></i>
+                        <div style={{
+                            fontFamily: 'Cabin',
+                            fontSize: '15px',
+                        }}><b>Phục vụ đang xử order trước đó, hãy đợi một chút !</b>
+                        </div>
+                    </div>
+                </Modal>
             </div>
             <div className="none-display-customer">
                 <Invalid/>
@@ -199,6 +296,7 @@ const mapStateToProps = (state) => {
         dataDeleteFromCart: state.Customer.deleteFromCart.dataDeleteFromCart,
         dataDeleteAllFromCart: state.Customer.deleteAllFromCart.dataDeleteAllFromCart,
         dataSendOrder: state.Customer.sendOrder.dataSendOrder,
+        allQueueOrder: state.Customer.getCheckQueueOrder.allQueueOrder,
     };
 };
 

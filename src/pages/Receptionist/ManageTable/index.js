@@ -34,13 +34,16 @@ const ManageTable = (props) => {
 
     const [openAdd, setOpenAdd] = useState(false);
 
+    const [openAddTable, setOpenAddTable] = useState(false);
+
     const handleSubmitAddTable = (data) => {
         props.dispatch(actions.addTableReRequest({data}));
         setOpenAdd(false);
-        alert("Đã thêm bàn!");
+        setOpenAddTable(true);
         setTimeout(() => {
-            props.dispatch(actions.getAllTableReRequest(page));
-        }, 600)
+            props.dispatch(actions.getAllTableReRequest(Math.ceil(props?.allTableReceptionist?.total / pageSize)));
+            setOpenAddTable(false);
+        }, 1000)
     };
 
     const [openEdit, setOpenEdit] = useState(false);
@@ -58,10 +61,11 @@ const ManageTable = (props) => {
     const handleSubmitEditTable = () => {
         props.dispatch(actions.editTableReRequest({data}));
         setOpenEdit(false);
-        alert("Đã sửa thông tin bàn!");
+        setOpenAddTable(true);
         setTimeout(() => {
             props.dispatch(actions.getAllTableReRequest(page));
-        }, 600)
+            setOpenAddTable(false);
+        }, 1000)
     };
 
     const prevPage = () => {
@@ -466,6 +470,25 @@ const ManageTable = (props) => {
                             </form>) : (null)
                         )}
                     </Modal>
+                    <Modal align="center" style={{
+                        width: '350px',
+                        marginRight: 'auto',
+                        marginLeft: 'auto',
+                        height: '100px',
+                        marginTop: '200px',
+                        marginBottom: "auto",
+                    }} isOpen={openAddTable}>
+                        <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                            <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                               className="bx bx-calendar-check bx-tada"></i>
+                            <div style={{
+                                fontFamily: 'Cabin',
+                                fontSize: '15px',
+                            }}><b>Yêu cầu được thực hiện !</b>
+                            </div>
+                        </div>
+                    </Modal>
+                    <Footer/>
                 </div>
             ) : (<NotFound/>)}
         </div>

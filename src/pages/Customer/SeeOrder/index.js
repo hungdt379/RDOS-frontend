@@ -19,7 +19,6 @@ import Footer from "../../../components/RdosCustomerLayout/Footer";
 const SeeOrder = props => {
 
     useEffect(() => {
-        props.dispatch(actions.getCartRequest());
         props.dispatch(actions.getViewOrderRequest(props.authCustomer.data.user.user_id));
     }, []);
 
@@ -38,7 +37,7 @@ const SeeOrder = props => {
                         <div align="center" className="menu-search col-8">
                             <div className="mt-2 mb-2">
                                 <span className="avatar-title bg-light span-table">
-                                    <div className="div-table">Món đã order</div>
+                                    <div className="div-table">Món đã gọi</div>
                                 </span>
                             </div>
                         </div>
@@ -65,15 +64,15 @@ const SeeOrder = props => {
                         <div style={{marginTop: '20px'}} className="cover-list">
                             <div className="side-list-menu">
                                 <PerfectScrollbar className="list-menu">
-                                    {props?.dataCart?.data?.item_in_cart?.map((iic, index) => (
-                                        <Link key={index}>
+                                    {props?.allViewOrder?.data?.item?.map((so, index) => (
+                                        <Link to={`/customer-detail-confirm-order/${so?._id}`}>
                                             <div style={{width:'96%'}} className="item-menu d-flex">
                                                 <div className="col-12 d-flex menu-item-bar">
                                                     <div align="left" className="col-12 d-flex">
                                                         <div className="col-10">
-                                                            <div className="item-name"><b>{iic?.name}</b></div>
+                                                            <div className="item-name"><b>{so?.detail_item?.name}</b></div>
                                                             <div
-                                                                className="item-cost ">{(iic?.total_cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                                                className="item-cost ">{(so?.total_cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
                                                             </div>
                                                         </div>
                                                         <div align='right' className="col-2" style={{
@@ -86,7 +85,7 @@ const SeeOrder = props => {
                                                             color: '#1E1C19',
                                                             marginTop:'auto',
                                                             marginBottom:'auto'
-                                                        }}>{iic.quantity}</div>
+                                                        }}>{so?.quantity}</div>
                                                     </div>
                                                 </div>
                                             </div>

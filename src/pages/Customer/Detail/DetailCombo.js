@@ -22,6 +22,7 @@ import mathPlus from "../../../assets/images/customer/math-plus.png";
 import check from "../../../assets/images/customer/play-list-check.png";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
 import shoppingCart from "../../../assets/images/customer/shopping-cart.png";
+import {Modal} from "reactstrap";
 
 // const addMinus = [
 //     {data_attr: 1},
@@ -32,11 +33,18 @@ const DetailCombo = (props) => {
     const {_id} = useParams();
 
     console.log("comboId: " + _id);
+    console.log("comboId detail: " + props?.dataFoodInCombo?.data);
+
+    const [openLoadDetail, setOpenLoadDetail] = useState(false);
 
     useEffect(() => {
         dispatch(getFoodInComboRequest({_id}));
         dispatch(getCartRequest());
         dispatch(getAllCategoryRequest());
+        setOpenLoadDetail(true);
+        setTimeout(() => {
+            setOpenLoadDetail(false);
+        }, 2000)
     }, []);
 
     // const [minusAdd, setMinusAdd] = useState(1);
@@ -619,6 +627,24 @@ const DetailCombo = (props) => {
                         ) : (<Footer/>)}
                     </div>
                 ))}
+                <Modal align="center" style={{
+                    width: '150px',
+                    marginRight: 'auto',
+                    marginLeft: 'auto',
+                    height: '100px',
+                    marginTop: '200px',
+                    marginBottom: "auto",
+                }} isOpen={openLoadDetail}>
+                    <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                        <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                           className="bx bx-loader bx-spin"></i>
+                        <div style={{
+                            fontFamily: 'Cabin',
+                            fontSize: '15px',
+                        }}><b>Chờ chút ...</b>
+                        </div>
+                    </div>
+                </Modal>
             </div>
             <div className="none-display-customer">
                 <Invalid/>

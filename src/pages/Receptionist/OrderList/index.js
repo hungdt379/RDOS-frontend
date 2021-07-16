@@ -10,6 +10,7 @@ import {Col, Container, Row} from "reactstrap/es";
 import Invalid from "../../Customer/Invalid";
 import NotFound from "../../Authentication/Page401";
 import chevonRight from "../../../assets/images/receptionist/chevron-down.png";
+import Footer from "../../../components/RdosCustomerLayout/Footer";
 
 // Import menuDropdown
 
@@ -459,6 +460,7 @@ function OrderList() {
                             </div>
                         </div>
                     </div>
+                    <Footer/>
                 </div>
             ) : (<NotFound/>)}
         </React.Fragment>
