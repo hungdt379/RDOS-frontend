@@ -40,6 +40,7 @@ import KitchenMenu from "../pages/Kitchen/MenuManagement";
 import Timeout from "../pages/Authentication/Timeout";
 import LoginCustomer from "../pages/Authentication/LoginCustomer";
 import ManageTable from "../pages/Receptionist/ManageTable";
+import DetailOrder from "../pages/Customer/SeeOrder/DetailOrder";
 
 // Waiter Page;
 
@@ -51,6 +52,7 @@ export const customerRoutes = [
     {path: "/customer-menu", component: CustomerMenu},
     {path: "/customer-home", component: CustomerHome},
     {path: "/customer-detail-combo/:_id", component: DetailCombo},
+    {path: "/customer-detail-confirm-order/:_id", component: DetailOrder},
     {path: "/customer-cart", component: Cart},
     {path: "/customer-see-order", component: SeeOrder},
     {path: "/customer-detail-item", component: DetailItemOrder},

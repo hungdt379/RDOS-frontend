@@ -12,9 +12,12 @@ import {useDispatch} from "react-redux";
 import * as actions from "../../../store/customer/actions";
 import left from "../../../assets/images/customer/chevron-left-o.png";
 import note from "../../../assets/images/customer/notes.png";
+import {Modal} from "reactstrap";
 
 const Feedback = (props) => {
     const dispatch = useDispatch();
+
+    const [openSendFeedback, setOpenSendFeedback] = useState(false);
 
     const [rateService, setRateService] = useState('Rất hài lòng');
     const [rateDish, setRateDish] = useState('Rất hài lòng');
@@ -27,8 +30,11 @@ const Feedback = (props) => {
 
     const handleSubmit = () => {
         dispatch(sendFeedbackRequest(data));
-        alert("Đã gửi feedback đến nhà hàng!");
-        setNotiFeedback('Đã gửi feedback đến nhà hàng!');
+        setOpenSendFeedback(true);
+        setTimeout(() => {
+            props.history.push('/customer-home')
+            setOpenSendFeedback(true);
+        }, 2500)
     };
 
     return (
@@ -52,11 +58,6 @@ const Feedback = (props) => {
                         </div>
                     </div>
                 </div>
-
-                <div style={{display: (notiFeedback === '') ? 'none' : 'block', marginBottom: '0px',paddingTop: '50px'}}
-                     align="center"><i style={{color: "green", fontSize: '20px'}}
-                                       className="bx bx-calendar-check bx-tada"></i><b
-                    style={{color: 'green', fontSize: '15px'}}>{notiFeedback}</b></div>
                 <form>
                     <div style={{paddingTop: '60px'}}>
                         <div className="col-12">
@@ -241,6 +242,24 @@ const Feedback = (props) => {
                         </div>
                     </button>
                 </div>
+                <Modal align="center" style={{
+                    width: '350px',
+                    marginRight: 'auto',
+                    marginLeft: 'auto',
+                    height: '100px',
+                    marginTop: '200px',
+                    marginBottom: "auto",
+                }} isOpen={openSendFeedback}>
+                    <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                        <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                           className="bx bx-calendar-check bx-tada"></i>
+                        <div style={{
+                            fontFamily: 'Cabin',
+                            fontSize: '15px',
+                        }}><b>Cảm ơn góp ý của bạn !</b>
+                        </div>
+                    </div>
+                </Modal>
             </div>
             <div className="none-display-customer">
                 <Invalid/>

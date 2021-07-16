@@ -12,6 +12,7 @@ export const apiUrls = {
   getCartApi: "api/customer/cart",
   deleteFromCartApi: "api/customer/cart/item/delete",
   sendOrderApi: "api/customer/order/send",
+  checkQueueOrderApi: "api/waiter/table/order/queue/view",
   viewOrderApi: "api/table/order/confirm/detail",
   callWaiter: "api/customer/call/waiter",
   callPayment: "api/customer/call/payment",

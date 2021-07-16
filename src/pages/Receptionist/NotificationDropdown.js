@@ -14,6 +14,7 @@ import NotificationCard from "./NotificationCard";
 //i18n
 import {withNamespaces} from "react-i18next";
 import chevonRight from "../../assets/images/receptionist/chevron-down.png";
+import vector from "../../assets/images/receptionist/VectorStroke.png";
 
 const NotificationDropdown = (props) => {
     // Declare a new state variable, which we'll call "menu"
@@ -96,7 +97,7 @@ const NotificationDropdown = (props) => {
 
                 <DropdownMenu
                     style={{
-                        border: '2px solid #FCBC3A'
+                        borderRadius: '10px'
                     }}
                     className="dropdown-menu dropdown-menu-lg dropdown-thanks-notification p-0"
                     right
@@ -111,11 +112,39 @@ const NotificationDropdown = (props) => {
                             </Col>
                             <div className="col-auto">
                                 <a style={{
+                                    fontFamily: 'Cabin',
+                                    fontStyle: 'normal',
+                                    fontWeight: 'normal',
                                     fontSize: '12px',
-                                    fontFamily: 'Cabin'
-                                }} onClick={maskAsRead} className="small">
+                                    lineHeight: '15px',
+                                    textAlign: 'right',
+                                    color: '#1E1C19',
+                                }} onClick={maskAsRead} className="small d-flex">
                                     {" "}
-                                    Đánh dấu xem hết
+                                    <div style={{textAlign:'right'}} className="inline-flex d-flex">
+                                        <a
+                                            style={{
+                                                marginRight: 'auto',
+                                                marginLeft: 'auto',
+                                            }}
+                                            className="mr-1 plus-icon-background-re-view-all">
+                                            <div
+                                                className="plus-icon-button-re-view-all avatar-title rounded-circle">
+                                                <img src={vector}/>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div style={{
+                                        fontFamily: 'Cabin',
+                                        fontStyle: 'normal',
+                                        fontWeight: 'normal',
+                                        fontSize: '15px',
+                                        lineHeight: '18px',
+                                        textAlign: 'right',
+                                        color: '#1E1C19',
+                                    }}>
+                                        Đánh dấu xem hết
+                                    </div>
                                 </a>
                             </div>
                         </Row>
@@ -129,18 +158,18 @@ const NotificationDropdown = (props) => {
                                 menu={handleChangeMenu}
                             />
                         ))}
-                        <div align="center" className="p-2">
-                            <div style={{width: '100%'}} className="d-flex">
+                    </PerfectScrollbar>
+                    <div align="right" className="p-2">
+                        <div style={{width: '100%'}} className="d-flex">
+                            <div className="col-6"></div>
+                            <div style={{textAlign:'right'}} className="inline-flex mt-2 mt-0 d-flex col-6">
                                 <a
-                                    align="center"
                                     onClick={prevPage}
                                     style={{
-                                        width: '50%',
                                         marginRight: 'auto',
-                                        marginLeft: 'auto'
+                                        marginLeft: 'auto',
                                     }}
-                                    className="avatar-xs"
-                                >
+                                    className="avatar-xs mr-5">
                                     <div
                                         className="plus-background-color-re-noti avatar-title rounded-circle">
                                         <img src={chevonRight}
@@ -148,15 +177,12 @@ const NotificationDropdown = (props) => {
                                     </div>
                                 </a>
                                 <a
-                                    align="center"
-                                    style={{
-                                        width: '50%',
-                                        marginRight: 'auto',
-                                        marginLeft: 'auto'
-                                    }}
-                                    className="avatar-xs"
                                     onClick={nextPage}
-                                >
+                                    style={{
+                                        marginRight: 'auto',
+                                        marginLeft: 'auto',
+                                    }}
+                                    className="avatar-xs">
                                     <div
                                         className="plus-background-color-re-noti avatar-title rounded-circle">
                                         <img src={chevonRight}
@@ -165,7 +191,7 @@ const NotificationDropdown = (props) => {
                                 </a>
                             </div>
                         </div>
-                    </PerfectScrollbar>
+                    </div>
                 </DropdownMenu>
             </Dropdown>
         </>

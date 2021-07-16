@@ -251,3 +251,21 @@ export const getViewOrderError = (error) => {
         payload: error,
     };
 };
+
+// check queue order
+export const checkQueueOrderRequest = (payload) => ({
+    type: actionTypes.CHECK_QUEUE_ORDER_REQUEST,
+    payload: payload,
+});
+export const checkQueueOrderSuccess = (response) => {
+    return {
+        type: actionTypes.CHECK_QUEUE_ORDER_SUCCESS,
+        payload: response,
+    };
+};
+export const checkQueueOrderError = (error) => {
+    return {
+        type: actionTypes.CHECK_QUEUE_ORDER_ERROR,
+        payload: error,
+    };
+};

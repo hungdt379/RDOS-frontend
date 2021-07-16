@@ -19,7 +19,7 @@ import desktop from "../../../assets/images/customer/desktop.png";
 import bell from "../../../assets/images/customer/bell.png";
 import awards from "../../../assets/images/customer/awards.png";
 
-import {Col, Row} from "reactstrap";
+import {Col, Modal, Row} from "reactstrap";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
 
 const CustomerHome = (props) => {
@@ -31,10 +31,18 @@ const CustomerHome = (props) => {
     const [notiWaiter, setNotiWaiter] = useState('Đã gửi yêu cầu đến phục vụ, hãy đợi giây lát!');
     const [notiSendOrder, setNotiSendOrder] = useState('Đã gửi yêu cầu đặt món, hãy đợi giây lát!');
 
+    const [openLoadPa, setOpenLoadPa] = useState(false);
+    const [openLoadCa, setOpenLoadCa] = useState(false);
+
+    const [openLoadCheck, setOpenLoadCheck] = useState(false);
+
     const handleSubmitCallWaiters = (data) => {
         dispatch(postCallWaiterRequest({data}));
         setOpenCall(false);
-        alert("Đã gửi yêu cầu đến phục vụ bàn!");
+        setOpenLoadCa(true);
+        setTimeout(() => {
+            setOpenLoadCa(false);
+        }, 2800)
     };
 
     const [todoListRe, setTodoListRe] = useState(0);
@@ -67,11 +75,15 @@ const CustomerHome = (props) => {
             }
             setTodoDataWa(todoDataWa);
         });
+
+        props.dispatch(actions.getViewOrderRequest(props.authCustomer.data.user.user_id));
     }, []);
 
     console.log("notiFirebase notire true: " + todoDataRe);
     console.log("notiFirebase notiwa true: " + todoDataWa);
     console.log("auCus: " + props.authCustomer.data.token);
+
+    console.log("checkView Order: " + props?.allViewOrder?.data);
 
     return (
         <React.Fragment>
@@ -119,9 +131,15 @@ const CustomerHome = (props) => {
                                     if ((todoDataRe.filter((tr, index) => (tr.user_id === props.authCustomer.data.user.user_id)).length === 0) &&
                                         (todoDataWa.filter((tw, index) => (tw.title === "Gọi thanh toán")).length === 0)) {
                                         props.dispatch(actions.postCallPaymentRequest());
-                                        alert("Đã gửi yêu cầu thanh toán đến nhà hàng!");
+                                        setOpenLoadPa(true);
+                                        setTimeout(() => {
+                                            setOpenLoadPa(false);
+                                        }, 1000)
                                     } else {
-                                        alert("Bạn đã gửi đi yêu cầu trước đó, vui lòng đợi trong giây lát!");
+                                        setOpenLoadCheck(true);
+                                        setTimeout(() => {
+                                            setOpenLoadCheck(false);
+                                        }, 2800)
                                     }
                                 }}
                                    style={{backgroundColor: '#50a5f1', borderRadius: '10px', width: '100%'}}>
@@ -139,7 +157,10 @@ const CustomerHome = (props) => {
                                         if (todoDataWa.filter((tw, index) => (tw.title === "Gọi phục vụ")).length === 0) {
                                             setOpenCall(true)
                                         } else {
-                                            alert("Bạn đã gửi đi yêu cầu trước đó, vui lòng đợi trong giây lát!");
+                                            setOpenLoadCheck(true);
+                                            setTimeout(() => {
+                                                setOpenLoadCheck(false);
+                                            }, 2800)
                                         }
                                     }}
                                     style={{backgroundColor: '#50a5f1', borderRadius: '10px', width: '100%'}}>
@@ -166,7 +187,8 @@ const CustomerHome = (props) => {
                         <div align='center' className='pt-3'>
                             <button onClick={() => {
                                 props.history.push('/customer-see-order')
-                            }} className='menu-button-disable' disabled={false}>
+                            }} className={(props?.allViewOrder?.data !== undefined)?'menu-button-disable-none':'menu-button-disable'}
+                                    disabled={(props?.allViewOrder?.data !== undefined)? false : true}>
                                 <div align='center' className="text-button">
                                     <img style={{
                                         width: '25px',
@@ -206,6 +228,60 @@ const CustomerHome = (props) => {
                         : ''}
                 </div>
                 <Footer/>
+                <Modal align="center" style={{
+                    width: '350px',
+                    marginRight: 'auto',
+                    marginLeft: 'auto',
+                    height: '100px',
+                    marginTop: '200px',
+                    marginBottom: "auto",
+                }} isOpen={openLoadPa}>
+                    <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                        <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                           className="bx bx-calendar-check bx-tada"></i>
+                        <div style={{
+                            fontFamily: 'Cabin',
+                            fontSize: '15px',
+                        }}><b>Đã gửi yêu cầu thanh toán !</b>
+                        </div>
+                    </div>
+                </Modal>
+                <Modal align="center" style={{
+                    width: '350px',
+                    marginRight: 'auto',
+                    marginLeft: 'auto',
+                    height: '100px',
+                    marginTop: '200px',
+                    marginBottom: "auto",
+                }} isOpen={openLoadCheck}>
+                    <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                        <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                           className="bx bx-calendar-exclamation bx-tada"></i>
+                        <div style={{
+                            fontFamily: 'Cabin',
+                            fontSize: '15px',
+                        }}><b>Bạn đã gửi đi yêu cầu trước đó, vui lòng đợi trong giây lát !</b>
+                        </div>
+                    </div>
+                </Modal>
+                <Modal align="center" style={{
+                    width: '350px',
+                    marginRight: 'auto',
+                    marginLeft: 'auto',
+                    height: '100px',
+                    marginTop: '200px',
+                    marginBottom: "auto",
+                }} isOpen={openLoadCa}>
+                    <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                        <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                           className="bx bx-calendar-check bx-tada"></i>
+                        <div style={{
+                            fontFamily: 'Cabin',
+                            fontSize: '15px',
+                        }}><b>Đã gửi yêu cầu đến phục vụ !</b>
+                        </div>
+                    </div>
+                </Modal>
             </div>
             <div className="none-display-customer">
                 <Invalid/>
@@ -218,7 +294,9 @@ const CustomerHome = (props) => {
 const mapStatetoProps = (state) => {
     const {error, success} = state.Profile;
     const {authCustomer} = state.LoginCustomer;
-    return {error, success, authCustomer};
+    return {error, success, authCustomer,
+        allViewOrder: state.Customer.getViewOrder.allViewOrder
+    };
 };
 export default withRouter(
     connect(mapStatetoProps)((CustomerHome))
