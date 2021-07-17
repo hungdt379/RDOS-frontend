@@ -446,6 +446,7 @@ const mapStateToProps = (state) => {
         dataMenu: state.Customer.getAllMenu.allMenu,
         dataSearch: state.Customer.getAllSearch.allSearch,
         dataCart: state.Customer.getCart.dataCart,
+        allQueueOrder: state.Customer.getCheckQueueOrder.allQueueOrder,
     };
 };
 

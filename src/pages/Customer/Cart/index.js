@@ -25,7 +25,6 @@ const Cart = (props) => {
 
     useEffect(() => {
         props.dispatch(actions.getCartRequest());
-        props.dispatch(actions.checkQueueOrderRequest(props.authCustomer.data.user.user_id));
     }, []);
 
     const backPage = () => {
@@ -34,8 +33,6 @@ const Cart = (props) => {
     }
 
     console.log("test :" + props?.dataSendOrder)
-    console.log("test1 :" + props?.allQueueOrder)
-    console.log("test2 :" + props?.allQueueOrder?.message)
 
     return (
         <React.Fragment>
@@ -134,7 +131,7 @@ const Cart = (props) => {
                                                         }, 600)
                                                         setTimeout(() => {
                                                             setOpenLoadDe(false);
-                                                        }, 1000)
+                                                        }, 1800)
                                                     }}>
                                                         <div style={{
                                                             marginRight: 'auto',
@@ -165,36 +162,28 @@ const Cart = (props) => {
                                     marginBottom: 'auto',
                                 }}
                             onClick={() => {
-                                props.dispatch(actions.sendOrderRequest())
-                                setTimeout(() => {
-                                    if(props?.dataSendOrder === true){
-                                        setOpenSendOrder(true);
+                                fetch('http://165.227.99.160/api/customer/order/send', {
+                                    method: 'POST',
+                                    headers: authHeaderGetApiCus(),
+                                })
+                                    .then(res => {
+                                        if (res.status === 200) {
+                                            setOpenSendOrder(true);
                                             setTimeout(() => {
                                                 setOpenSendOrder(false);
                                                 props.history.push('/customer-menu')
                                             }, 2000)
-                                    }else{
-                                        setOpenLoadCheck(true);
-                                        setTimeout(() => {
-                                            setOpenLoadCheck(false);
-                                        }, 2000)
-                                    }
-                                }, 1000)
-
-                                // if(props?.allQueueOrder?.message !== undefined){
-                                //     setOpenLoadCheck(true);
-                                //     setTimeout(() => {
-                                //         setOpenLoadCheck(false);
-                                //         window.location.reload();
-                                //     }, 2500)
-                                // }else{
-                                //     props.dispatch(actions.sendOrderRequest())
-                                //     setOpenSendOrder(true);
-                                //     setTimeout(() => {
-                                //         setOpenSendOrder(false);
-                                //         window.location.reload();
-                                //     }, 2500)
-                                // }
+                                            console.log(res)
+                                        } else {
+                                            setOpenLoadCheck(true);
+                                            setTimeout(() => {
+                                                setOpenLoadCheck(false);
+                                            }, 2000)
+                                            console.log(res)
+                                        }
+                                    })
+                                    .then(data => console.log(data))
+                                    .catch(error => console.log('ERROR'))
                             }}>
                             <div style={{
                                 fontFamily: 'Cabin',
@@ -218,7 +207,7 @@ const Cart = (props) => {
                                 marginTop:'auto',
                                 marginBottom:'auto'
                             }} align="right" className="col-6">
-                                Gửi yêu câu đặt món
+                                Gửi yêu cầu đặt món
                             </div>
                         </button>
                     ) : (<Footer/>)}
@@ -300,4 +289,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default withNamespaces()(connect(mapStateToProps)(Cart));
+export default withNamespaces()(connect(mapStateToProps)(Cart))

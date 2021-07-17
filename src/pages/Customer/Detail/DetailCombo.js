@@ -35,6 +35,8 @@ const DetailCombo = (props) => {
     console.log("comboId: " + _id);
     console.log("comboId detail: " + props?.dataFoodInCombo?.data);
 
+    const [openNoti, setOpenNoti] = useState(false);
+
     const [openLoadDetail, setOpenLoadDetail] = useState(false);
 
     useEffect(() => {
@@ -107,13 +109,16 @@ const DetailCombo = (props) => {
     const handleSubmit = () => {
         if (props?.dataCart?.data?.item_in_cart?.filter((iic) => (iic._id !== _id &&
             iic.category_id === props?.dataCategory?.map((cat, i) => cat._id)[0])).length !== 0 && props?.dataFoodInCombo?.data?.filter((dfic) => dfic.category_id === props?.dataCategory?.map((cat, i) => cat._id)[0]).length !== 0) {
-            alert("Bạn đã chọn một Combo trước đó, vào giỏ hàng xóa và chọn lại bạn nhé!")
+            setOpenNoti(true);
+            setTimeout(() => {
+                setOpenNoti(false)
+            }, 2800)
         } else {
             dispatch(addToCartRequest(data));
             setTimeout(() => {
                 props.history.push('/customer-cart');
                 dispatch(getFoodInComboRequest());
-            }, 800)
+            }, 650)
         }
     };
 
@@ -642,6 +647,24 @@ const DetailCombo = (props) => {
                             fontFamily: 'Cabin',
                             fontSize: '15px',
                         }}><b>Chờ chút ...</b>
+                        </div>
+                    </div>
+                </Modal>
+                <Modal align="center" style={{
+                    width: '350px',
+                    marginRight: 'auto',
+                    marginLeft: 'auto',
+                    height: '100px',
+                    marginTop: '200px',
+                    marginBottom: "auto",
+                }} isOpen={openNoti}>
+                    <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                        <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                           className="bx bx-calendar-exclamation bx-tada"></i>
+                        <div style={{
+                            fontFamily: 'Cabin',
+                            fontSize: '15px',
+                        }}><b>Bạn đã chọn một Combo trước đó, vào giỏ hàng xóa và chọn lại !</b>
                         </div>
                     </div>
                 </Modal>

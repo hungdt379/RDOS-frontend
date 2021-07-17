@@ -189,8 +189,8 @@ export function* watchPostDeleteAllFromCart() {
 function* postSendOrder() {
     try {
         const response = yield call(Request.postApiCus, apiUrls.sendOrderApi, {});
-        yield put(actions.sendOrderSuccess(response.data));
-        console.log("send order: " + response.data)
+        yield put(actions.sendOrderSuccess(response));
+        console.log("send order: " + response)
         // return response;
     } catch (error) {
         yield put(actions.sendOrdertError(error));
