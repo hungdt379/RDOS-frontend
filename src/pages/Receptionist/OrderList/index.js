@@ -319,7 +319,7 @@ const OrderList = (props) => {
                                                             {props?.detailConfirmOrderReceptionist?.data?.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                                         </div>
                                                     </div>
-                                                    <div align="center" className="col-4">
+                                                    <div align="center" className="col-4 d-flex">
                                                         <div>
                                                             <input style={{
                                                                 height: 50,
@@ -335,10 +335,13 @@ const OrderList = (props) => {
                                                         <button
                                                             onClick={handleEnterVoucher}
                                                             style={{
-                                                                height: 30,
-                                                                width: '50%',
+                                                                height: 50,
+                                                                width: 50,
                                                                 borderRadius: '10px',
-                                                                backgroundColor: '#FCBC3A'
+                                                                backgroundColor: '#FCBC3A',
+                                                                fontFamily: 'Cabin',
+                                                                fontStyle: 'normal',
+                                                                fontWeight: 'bold',
                                                             }}
                                                         >
                                                             Xác nhận
