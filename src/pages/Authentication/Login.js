@@ -14,7 +14,7 @@ import {AvForm, AvField} from 'availity-reactstrap-validation';
 import {loginUser, apiError, logoutUser} from '../../store/auth/login/actions';
 
 // import images
-import profile from "../../assets/images/customer/logo-web-after-design.jpg";
+import profile from "../../assets/images/customer/logo-after-design.png";
 
 
 const Login = (props) => {
@@ -37,7 +37,7 @@ const Login = (props) => {
                                 <div className="bg-soft-primary">
                                     <Row style={{backgroundColor: '#ffffff'}}>
                                         <Col align='center' className="col-12 mt-3">
-                                            <img src={profile} alt="" className="img-fluid"/>
+                                            <img style={{width:'138px', height: '120px'}} src={profile} alt="" className="img-fluid"/>
                                         </Col>
                                     </Row>
                                     <Row style={{backgroundColor: '#ffffff'}}>
