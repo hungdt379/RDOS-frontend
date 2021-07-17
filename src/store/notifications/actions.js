@@ -112,3 +112,40 @@ export const postUpdateTableError = (error) => {
     payload: error,
   };
 };
+
+
+// get check list
+export const getCheckListRequest = (payload) => ({
+  type: actionTypes.GET_CHECK_LIST_REQUEST,
+  payload: payload,
+});
+export const getCheckListSuccess = (response) => {
+  return {
+    type: actionTypes.GET_CHECK_LIST_SUCCESS,
+    payload: response,
+  };
+};
+export const getCheckListError = (error) => {
+  return {
+    type: actionTypes.GET_CHECK_LIST_ERROR,
+    payload: error,
+  };
+};
+
+// post check list
+export const postDeleteItemRequest = (payload) => ({
+  type: actionTypes.POST_DELETE_ITEM_REQUEST,
+  payload: payload,
+});
+export const postDeleteItemSuccess = (response) => {
+  return {
+    type: actionTypes.POST_DELETE_ITEM_SUCCESS,
+    payload: response,
+  };
+};
+export const postDeleteItemError = (error) => {
+  return {
+    type: actionTypes.POST_DELETE_ITEM_ERROR,
+    payload: error,
+  };
+};

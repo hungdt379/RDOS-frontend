@@ -37,6 +37,8 @@ export const apiUrls = {
   getConfirmedOrderApi: "api/table/order/confirm/detail",
   postDeleteItemApi: "api/waiter/table/order/confirm/item/delete",
   postNoteRemainApi: "api/waiter/table/order/confirm/note/add",
+  getCheckListApi: "api/waiter/order/drink",
+  postDeleteItem: "api/waiter/table/order/confirm/item/delete",
   //Bai cu
   getAllFriend: "api/profiles",
   getDepartment: "api/groups",

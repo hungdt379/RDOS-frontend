@@ -139,5 +139,25 @@ export const getConfirmedOrderError = (error) => {
   };
 };
 
+export const postDeleteItemRequest = (payload) => {
+  return {
+    type: actionTypes.POST_DELETE_ITEM_REQUEST,
+    payload: payload,
+  };
+};
+export const postDeleteItemSuccess = (response) => {
+  return {
+    type: actionTypes.POST_DELETE_ITEM_SUCCESS,
+    payload: response,
+  };
+};
+export const postDeleteItemError = (error) => {
+  return {
+    type: actionTypes.POST_DELETE_ITEM_ERROR,
+    payload: error,
+  };
+};
+
+
 
 

@@ -125,6 +125,23 @@ const getConfirmedOrder= (state = dataGetConfirmedOrderReducer, action) => {
   }
 };
 
+const dataPostDeleteItemReducer = {
+  dataPostDeleteItem: [],
+};
+
+const postDeleteItem= (state = dataPostDeleteItemReducer, action) => {
+  switch (action.type) {
+    case actionTypes.POST_DELETE_ITEM_REQUEST:
+      return { ...state };
+    case actionTypes.POST_DELETE_ITEM_SUCCESS:
+      return { ...state, dataPostDeleteItem: action.payload };
+    case actionTypes.POST_DELETE_ITEM_ERROR:
+      return { ...state, error: action.payload };
+    default:
+      return state;
+  }
+};
+
 
 export const Posts = combineReducers({
   postNumberCustomer,
@@ -133,5 +150,6 @@ export const Posts = combineReducers({
   getQueueOrder,
   postCancelQueueOrder,
   postConfirmQueueOrder,
-  getConfirmedOrder
+  getConfirmedOrder,
+  postDeleteItem,
 });

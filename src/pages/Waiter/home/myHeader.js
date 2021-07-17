@@ -4,6 +4,11 @@ import {connect} from "react-redux";
 import {getLogOutRequest} from "../../../store/notifications/actions";
 import {apiError} from "../../../store/auth/login/actions";
 
+// scss
+import "../../../assets/scss/custom/pages/waiter/header.scss";
+//image
+import toggle from "../../../assets/images/receptionist/profile.png";
+import home from  "../../../assets/images/customer/home.png";
 
 const myHeader = (props) => {
 
@@ -12,20 +17,19 @@ const myHeader = (props) => {
     }
 
     return(
-        <div className="MyContainer">
-            <Link to="/waiter-view-all-table">
-                <h3 style={{paddingLeft: "30px", paddingTop:'20px'}}>RDOS</h3>
+        <div className="MyHeader">
+            <Link to="/waiter-view-all-table" className="div-table-code">
+                <img src={home}/>
             </Link>
-
-            <div className="form-role">
-                <Link to="/waiter-check-list" className="myButton">Check List</Link>
-                <div className="role">
-                    <a>{(props.username) ? props.username : "nhân viên" }</a>
-                    <p>UserName</p>
-
+                <div className="title_header">
+                  <p>{(props.username) ? props.username : "ALL Tables" }</p>
                 </div>
-                <Link to="/login" onClick={logout}>Log Out</Link>
-            </div>
+                <div className="toggle">
+                    <img src={toggle}/>
+                    <div className="dropdown-content">
+                            <Link to="/login" onClick={logout}>Log Out</Link>
+                    </div>
+                </div>
         </div>
     );
 }
