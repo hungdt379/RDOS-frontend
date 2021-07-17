@@ -118,7 +118,7 @@ const CustomerHome = (props) => {
                             <Link to="/customer-menu">
                                 <button className="menu-button">
                                     <div align='center' className="text-button">
-                                        <img src={ereader} className="icon-button mr-2 mb-1"/>
+                                        <img style={{width: '24px', height: '18px'}} src={ereader} className="icon-button mr-2 mb-1"/>
                                         Xem Menu - Gọi món
                                     </div>
                                 </button>
@@ -145,7 +145,7 @@ const CustomerHome = (props) => {
                                    style={{backgroundColor: '#50a5f1', borderRadius: '10px', width: '100%'}}>
                                     <div style={{marginRight : 'auto', marginLeft: 'auto'}} className="avatar-sm profile-user-wid mb-2">
                                         <div align="center" style={{backgroundColor:'#FFEFCD'}} className="avatar-title rounded-circle">
-                                            <img src={desktop} className="icon-button"/>
+                                            <img style={{width: '23px', height: '18px'}} src={desktop} className="icon-button"/>
                                         </div>
                                     </div>
                                     <div className="square-text-button">Gọi thanh toán</div>
@@ -166,7 +166,7 @@ const CustomerHome = (props) => {
                                     style={{backgroundColor: '#50a5f1', borderRadius: '10px', width: '100%'}}>
                                     <div style={{marginRight : 'auto', marginLeft: 'auto'}} className="avatar-sm profile-user-wid mb-2">
                                         <div align="center" style={{backgroundColor:'#FFEFCD'}} className="avatar-title rounded-circle">
-                                            <img src={bell} className="icon-button"/>
+                                            <img style={{width: '16px', height: '23px'}} src={bell} className="icon-button"/>
                                         </div>
                                     </div>
                                     <div className="square-text-button">Gọi phục vụ</div>
@@ -176,7 +176,7 @@ const CustomerHome = (props) => {
                                 <a style={{backgroundColor: '#50a5f1', borderRadius: '10px', width: '100%'}}>
                                     <div style={{marginRight : 'auto', marginLeft: 'auto'}} className="avatar-sm profile-user-wid mb-2">
                                         <div align="center" style={{backgroundColor:'#FFEFCD'}} className="avatar-title rounded-circle">
-                                            <img src={awards} className="icon-button"/>
+                                            <img style={{width: '16px', height: '23px'}} src={awards} className="icon-button"/>
                                         </div>
                                     </div>
                                     <div className="square-text-button">Đánh giá</div>

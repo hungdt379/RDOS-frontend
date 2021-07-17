@@ -55,7 +55,7 @@ function DetailTable (){
                         <button>Change</button>
                     </div>
 
-                    <div className="form">
+                    <div className="form-detail">
                         <h2>Trang Chi Tiết</h2>
                         <div className="list-Item">
                             <ul>

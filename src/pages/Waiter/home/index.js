@@ -108,7 +108,7 @@ const  ViewAllTable = (props) => {
                 <div className="container">
                     <div className="MyHeader">
                         <Link to="/waiter-check-list" className="div-table-code">
-                            <img src={listCheck}/>
+                            <img style={{width: '21px', height:'15px'}} src={listCheck}/>
                         </Link>
                         <div className="title_header">
                             <p>ALL Tables</p>

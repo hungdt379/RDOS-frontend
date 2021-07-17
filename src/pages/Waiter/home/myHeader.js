@@ -19,7 +19,7 @@ const myHeader = (props) => {
     return(
         <div className="MyHeader">
             <Link to="/waiter-view-all-table" className="div-table-code">
-                <img src={home}/>
+                <img style={{width: '18px', height: '20px'}} src={home}/>
             </Link>
                 <div className="title_header">
                   <p>{(props.username) ? props.username : "ALL Tables" }</p>

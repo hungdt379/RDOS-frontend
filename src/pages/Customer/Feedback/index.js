@@ -44,7 +44,7 @@ const Feedback = (props) => {
                     <div className="d-flex">
                         <div className="home-icon col-2">
                             <Link to="/customer-home">
-                                <img src={left} className="icon-button"/>
+                                <img style={{width: '22px', height: '22px'}} src={left} className="icon-button"/>
                             </Link>
                         </div>
                         <div align="center" className="menu-search col-8">
@@ -238,7 +238,7 @@ const Feedback = (props) => {
                 <div className="cart">
                     <button onClick={handleSubmit} className="cart-button">
                         <div className="text-cart-button">
-                            <img src={note} className="icon-button mr-2"/>Gửi đánh giá
+                            <img style={{width: '20px', height:'22px'}} src={note} className="icon-button mr-2"/>Gửi đánh giá
                         </div>
                     </button>
                 </div>
