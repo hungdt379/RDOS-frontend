@@ -141,7 +141,7 @@
       }
     }
     .mh-55{
-      height: calc(100% - 250px) !important;
+      height: 500px !important;
       width: 100%;
       margin-top: 25px;
       margin-bottom: 15px;
@@ -161,8 +161,8 @@
           .item-name-re{
             font-style: normal;
             font-weight: bold;
-            font-size: 20px;
-            line-height: 20px;
+            font-size: 15px;
+            line-height: 15px;
             font-family: Cabin;
             color: #000000;
           }
@@ -194,7 +194,6 @@
       }
     }
     .gop-hoa-don{
-      margin-right: calc(100% - 90%);
       .button-gop-hoa-don{
         background: #FCBC3A;
         border-radius: 10px;
@@ -313,4 +312,10 @@
     height: 25px;
     width: 25px;
   }
+}
+
+.mh-56{
+  height: 350px !important;
+  width: 100%;
+  margin-bottom: 35px;
 }
