@@ -111,11 +111,6 @@ const mapStateToProps = (state) => {
         authCustomer,
         dataCategory: state.Customer.getAllCategory.allCategories,
         dataMenu: state.Customer.getAllMenu.allMenu,
-        dataSearch: state.Customer.getAllSearch.allSearch,
-        dataCart: state.Customer.getCart.dataCart,
-        dataDeleteFromCart: state.Customer.deleteFromCart.dataDeleteFromCart,
-        dataDeleteAllFromCart: state.Customer.deleteAllFromCart.dataDeleteAllFromCart,
-        dataSendOrder: state.Customer.sendOrder.dataSendOrder,
         allViewOrder: state.Customer.getViewOrder.allViewOrder
     };
 };
