@@ -39,7 +39,7 @@ const ChangeTable = (props) =>{
                                         _id: location.state._id,
                                         username:location.state.username
                                     }
-                                }}><img src={bell}/>
+                                }}><img style={{width: '16px', height: '23px'}} src={bell}/>
                                 </Link>
                             </div>
                             <p>Thông báo</p>
@@ -53,7 +53,7 @@ const ChangeTable = (props) =>{
                                         username:location.state.username
                                     }
                                 }}>
-                                    <img src={a}/>
+                                    <img style={{width: '24px', height:'24px'}} src={a}/>
                                 </Link>
                             </div>
                             <p>Confirm Order</p>
@@ -67,7 +67,7 @@ const ChangeTable = (props) =>{
                                         username:location.state.username
                                     }
                                 }}>
-                                    <img src={b}/>
+                                    <img style={{width: '24px', height: '24px'}} src={b}/>
                                 </Link>
                             </div>
                             <p>Đổi Bàn</p>

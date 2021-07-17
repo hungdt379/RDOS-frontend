@@ -155,7 +155,7 @@ const DetailCombo = (props) => {
                     <div className="d-flex">
                         <div className="home-icon col-2">
                             <a onClick={backPage}>
-                                <img src={left} className="icon-button"/>
+                                <img style={{width: '22px', height: '22px'}} src={left} className="icon-button"/>
                             </a>
                         </div>
                         <div align="center" className="menu-search col-8">
@@ -319,7 +319,7 @@ const DetailCombo = (props) => {
                                         marginTop: 'auto',
                                         marginBottom: 'auto'
                                     }}>
-                                        <img src={shoppingCart} className="icon-button mr-2 mb-1"/>Bạn đã có sản phẩm trong
+                                        <img style={{width: '19px', height:'18px'}} src={shoppingCart} className="icon-button mr-2 mb-1"/>Bạn đã có sản phẩm trong
                                         giỏ hàng
                                     </div>
                                     <div align="center" style={{display: hide}}>
@@ -526,7 +526,7 @@ const DetailCombo = (props) => {
                                         marginTop: 'auto',
                                         marginBottom: 'auto'
                                     }}>
-                                        <img src={shoppingCart} className="icon-button mr-2 mb-1"/>Bạn đã
+                                        <img style={{width: '19px', height:'18px'}} src={shoppingCart} className="icon-button mr-2 mb-1"/>Bạn đã
                                         có <b>{props?.dataCart?.data?.item_in_cart?.filter((dc, i) => (dc._id === _id))[0].quantity}</b> sản
                                         phẩm trong giỏ hàng
                                     </div>
@@ -611,7 +611,7 @@ const DetailCombo = (props) => {
                             <div className="cart">
                                 <button onClick={handleSubmit} className="cart-button">
                                     <div className="text-cart-button">
-                                        <img src={check} className="icon-button mr-2"/>
+                                        <img style={{width: '21px', height:'15px'}} src={check} className="icon-button mr-2"/>
                                         Thêm vào danh sách gọi món
                                     </div>
                                 </button>
@@ -624,7 +624,7 @@ const DetailCombo = (props) => {
                             <div className="cart">
                                 <button onClick={handleSubmit} className="cart-button">
                                     <div className="text-cart-button">
-                                        <img src={check} className="icon-button mr-2"/>
+                                        <img style={{width: '21px', height:'15px'}} src={check} className="icon-button mr-2"/>
                                         Thêm vào danh sách gọi món
                                     </div>
                                 </button>

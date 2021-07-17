@@ -41,7 +41,7 @@ const Cart = (props) => {
                     <div className="d-flex">
                         <div className="home-icon col-2">
                             <a onClick={backPage}>
-                                <img src={left} className="icon-button"/>
+                                <img style={{width: '22px', height: '22px'}} src={left} className="icon-button"/>
                             </a>
                         </div>
                         <div align="center" className="menu-search col-8">
@@ -61,7 +61,7 @@ const Cart = (props) => {
                                     setOpenLoadDe(false)
                                 }, 1000)
                             }}>
-                                <img src={trash} className="icon-button"/>
+                                <img style={{width:'19px', height:'21px'}} src={trash} className="icon-button"/>
                             </a>
                         </div>
                     </div>

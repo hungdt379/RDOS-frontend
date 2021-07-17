@@ -17,7 +17,7 @@ import bowl from "../../../assets/images/customer/bowl.png";
 import coffee from "../../../assets/images/customer/coffee.png";
 import shoppingCart from "../../../assets/images/customer/shopping-cart.png";
 import mathPlus from "../../../assets/images/customer/math-plus.png";
-import beers from "../../../assets/images/customer/Group.png";
+import beers from "../../../assets/images/customer/beer.png";
 import wine from "../../../assets/images/customer/wine.png";
 import chicken from "../../../assets/images/customer/chicken.png";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
@@ -72,7 +72,7 @@ const CustomerMenu = (props) => {
                     <div style={{height: '45px'}} className="d-flex">
                         <div className="home-icon col-2">
                             <Link to="/customer-home">
-                                <img src={home} className="icon-button"/>
+                                <img style={{width: '18px', height: '20px'}} src={home} className="icon-button"/>
                             </Link>
                         </div>
                         <div style={{display: menuOpen, marginTop: '5px'}} align="center" className="menu-search col-8">
@@ -407,7 +407,7 @@ const CustomerMenu = (props) => {
                     <div className="cart">
                         <Link to="/customer-cart">
                             <button className="cart-button">
-                                <div className="text-cart-button"><img src={shoppingCart} className="icon-button mr-2"/>Xem
+                                <div className="text-cart-button"><img style={{width: '22px', height:'19px'}} src={shoppingCart} className="icon-button mr-2"/>Xem
                                     danh sách món đã chọn
                                 </div>
                             </button>

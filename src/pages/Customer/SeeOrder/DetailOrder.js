@@ -35,7 +35,7 @@ const DetailItemOrder = (props) => {
                 <div className="d-flex">
                     <div className="home-icon col-2">
                         <a onClick={backPage}>
-                            <img src={left} className="icon-button"/>
+                            <img style={{width: '22px', height: '22px'}} src={left} className="icon-button"/>
                         </a>
                     </div>
                     <div align="center" className="menu-search col-8">
