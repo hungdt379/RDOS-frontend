@@ -13,6 +13,7 @@ import * as actions from "../../../store/receptionist/actions";
 import {withNamespaces} from "react-i18next";
 import moment from "moment";
 import chevonRight from "../../../assets/images/receptionist/chevron-down.png";
+import Footer from "../../../components/RdosCustomerLayout/Footer";
 
 // Import menuDropdown
 
@@ -141,6 +142,7 @@ const ViewFeedback = (props) => {
                             </div>
                         </div>
                     </div>
+                    <Footer/>
                 </div>
             ) : (<NotFound/>)}
         </div>

@@ -189,8 +189,8 @@ export function* watchPostDeleteAllFromCart() {
 function* postSendOrder() {
     try {
         const response = yield call(Request.postApiCus, apiUrls.sendOrderApi, {});
-        yield put(actions.sendOrderSuccess(response.data));
-        console.log("call payment: " + response.data)
+        yield put(actions.sendOrderSuccess(response));
+        console.log("send order: " + response)
         // return response;
     } catch (error) {
         yield put(actions.sendOrdertError(error));
@@ -218,6 +218,23 @@ export function* watchGetAllViewOrder() {
     yield takeEvery(actionTypes.GET_VIEW_ORDER_REQUEST, allViewOrder);
 }
 
+//check queue Order
+function* getCheckQueueOrder({payload: a}) {
+    try {
+        const response = yield call(Request.getApiCus, apiUrls.checkQueueOrderApi, {table_id: a});
+        if (response) {
+            yield put(actions.checkQueueOrderSuccess(response));
+        }
+        console.log("queue order: " + response)
+    } catch (error) {
+        yield put(actions.checkQueueOrderError(error));
+    }
+}
+
+export function* watchCheckQueueOrder() {
+    yield takeEvery(actionTypes.CHECK_QUEUE_ORDER_REQUEST, getCheckQueueOrder);
+}
+
 const sagaCustomer = [
     watchGetAllCategory(),
     watchGetAllMenu(),
@@ -232,6 +249,7 @@ const sagaCustomer = [
     watchPostDeleteAllFromCart(),
     watchPostSendOrder(),
     watchGetAllViewOrder(),
+    watchCheckQueueOrder(),
 ];
 
 export default sagaCustomer;

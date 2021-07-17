@@ -14,6 +14,7 @@ import NotificationCard from "./NotificationCard";
 //i18n
 import {withNamespaces} from "react-i18next";
 import chevonRight from "../../assets/images/receptionist/chevron-down.png";
+import vector from "../../assets/images/receptionist/VectorStroke.png";
 
 const NotificationDropdown = (props) => {
     // Declare a new state variable, which we'll call "menu"
@@ -22,7 +23,7 @@ const NotificationDropdown = (props) => {
     const [page, setPage] = useState(1)
     // const [pageChange, setPageChange] = useState(1)
     const [pageSize] = useState(10)
-    const [totalCount,  setTotalCount] = useState(0)
+    const [totalCount, setTotalCount] = useState(0)
     const prevPage = () => {
         const pg = page === 1 ? 1 : page - 1
         setPage(pg)
@@ -50,7 +51,7 @@ const NotificationDropdown = (props) => {
             setTodoList(snapshot.numChildren());
         });
     }, []);
-    console.log("notiFirebase: "+ todoList);
+    console.log("notiFirebase: " + todoList);
     // console.log("page: "+ (props?.allNotificationReceptionist?.total % pageSize) )
 
     const maskAsRead = () => {
@@ -76,15 +77,27 @@ const NotificationDropdown = (props) => {
                     tag="button"
                     id="page-header-notifications-dropdown"
                 >
-                    <i style={{color: "#000000"}} className={(todoList !== 0) ? "bx bx-bell bx-tada" : "bx bx-bell"}></i>
-                    <span className="badge badge-danger badge-pill">
-                        {todoList}
-          </span>
+                    <div className="logo logo-dark d-flex menu-type-a-re">
+                        <div className="d-flex menu-type-re">
+                            <div style={{marginTop: 'auto', marginBottom: 'auto'}}
+                                 className="avatar-sm profile-user-wid mr-2">
+                                <div align="center"
+                                     className="avatar-title rounded-circle header-re-icon">
+                                    <i style={{color: "#000000"}}
+                                       className={(todoList !== 0) ? "bx bx-bell bx-tada" : "bx bx-bell"}></i>
+                                    <span className="badge badge-danger badge-pill">
+                                        {todoList}
+                                    </span>
+                                </div>
+                            </div>
+                            <div style={{marginTop: '-5px'}} className="square-text-button-re"><b>Thông báo</b></div>
+                        </div>
+                    </div>
                 </DropdownToggle>
 
                 <DropdownMenu
                     style={{
-                        border: '2px solid #FCBC3A'
+                        borderRadius: '10px'
                     }}
                     className="dropdown-menu dropdown-menu-lg dropdown-thanks-notification p-0"
                     right
@@ -93,17 +106,45 @@ const NotificationDropdown = (props) => {
                         <Row className="align-items-center">
                             <Col>
                                 <h6 style={{
-                                    fontSize:'12px',
+                                    fontSize: '12px',
                                     fontFamily: 'Cabin'
                                 }} className="m-0"> Thông báo </h6>
                             </Col>
                             <div className="col-auto">
                                 <a style={{
-                                    fontSize:'12px',
-                                    fontFamily: 'Cabin'
-                                }} onClick={maskAsRead} className="small">
+                                    fontFamily: 'Cabin',
+                                    fontStyle: 'normal',
+                                    fontWeight: 'normal',
+                                    fontSize: '12px',
+                                    lineHeight: '15px',
+                                    textAlign: 'right',
+                                    color: '#1E1C19',
+                                }} onClick={maskAsRead} className="small d-flex">
                                     {" "}
-                                    Đánh dấu xem hết
+                                    <div style={{textAlign:'right'}} className="inline-flex d-flex">
+                                        <a
+                                            style={{
+                                                marginRight: 'auto',
+                                                marginLeft: 'auto',
+                                            }}
+                                            className="mr-1 plus-icon-background-re-view-all">
+                                            <div
+                                                className="plus-icon-button-re-view-all avatar-title rounded-circle">
+                                                <img src={vector}/>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div style={{
+                                        fontFamily: 'Cabin',
+                                        fontStyle: 'normal',
+                                        fontWeight: 'normal',
+                                        fontSize: '15px',
+                                        lineHeight: '18px',
+                                        textAlign: 'right',
+                                        color: '#1E1C19',
+                                    }}>
+                                        Đánh dấu xem hết
+                                    </div>
                                 </a>
                             </div>
                         </Row>
@@ -117,18 +158,18 @@ const NotificationDropdown = (props) => {
                                 menu={handleChangeMenu}
                             />
                         ))}
-                        <div align="center" className="p-2">
-                            <div style={{width:'100%'}} className="d-flex">
+                    </PerfectScrollbar>
+                    <div align="right" className="p-2">
+                        <div style={{width: '100%'}} className="d-flex">
+                            <div className="col-6"></div>
+                            <div style={{textAlign:'right'}} className="inline-flex mt-2 mt-0 d-flex col-6">
                                 <a
-                                    align="center"
                                     onClick={prevPage}
                                     style={{
-                                        width:'50%',
                                         marginRight: 'auto',
-                                        marginLeft: 'auto'
+                                        marginLeft: 'auto',
                                     }}
-                                    className="avatar-xs"
-                                >
+                                    className="avatar-xs mr-5">
                                     <div
                                         className="plus-background-color-re-noti avatar-title rounded-circle">
                                         <img src={chevonRight}
@@ -136,15 +177,12 @@ const NotificationDropdown = (props) => {
                                     </div>
                                 </a>
                                 <a
-                                    align="center"
-                                    style={{
-                                        width:'50%',
-                                        marginRight: 'auto',
-                                        marginLeft: 'auto'
-                                    }}
-                                    className="avatar-xs"
                                     onClick={nextPage}
-                                >
+                                    style={{
+                                        marginRight: 'auto',
+                                        marginLeft: 'auto',
+                                    }}
+                                    className="avatar-xs">
                                     <div
                                         className="plus-background-color-re-noti avatar-title rounded-circle">
                                         <img src={chevonRight}
@@ -153,11 +191,12 @@ const NotificationDropdown = (props) => {
                                 </a>
                             </div>
                         </div>
-                    </PerfectScrollbar>
+                    </div>
                 </DropdownMenu>
             </Dropdown>
         </>
-    );
+    )
+        ;
 };
 
 const mapStateToProps = (state) => {

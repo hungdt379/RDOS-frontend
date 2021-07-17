@@ -78,18 +78,7 @@ const Header = (props) => {
 
                     <div className="d-flex">
                         <div className="navbar-brand-box">
-                            <div className="logo logo-dark d-flex menu-type-a-re">
-                                <div className="d-flex menu-type-re">
-                                    <div style={{marginTop: 'auto', marginBottom: 'auto'}}
-                                         className="avatar-sm profile-user-wid mr-2">
-                                        <div align="center"
-                                             className="avatar-title rounded-circle header-re-icon">
-                                            <NotificationDropdown/>
-                                        </div>
-                                    </div>
-                                    <div className="square-text-button-re"><b>Thông báo</b></div>
-                                </div>
-                            </div>
+                            <NotificationDropdown/>
                         </div>
                     </div>
 

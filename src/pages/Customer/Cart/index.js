@@ -15,8 +15,13 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import close from "../../../assets/images/customer/close.png";
 import shoppingCart from "../../../assets/images/customer/shopping-cart.png";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
+import {Modal} from "reactstrap";
 
 const Cart = (props) => {
+
+    const [openLoadDe, setOpenLoadDe] = useState(false);
+    const [openSendOrder, setOpenSendOrder] = useState(false);
+    const [openLoadCheck, setOpenLoadCheck] = useState(false);
 
     useEffect(() => {
         props.dispatch(actions.getCartRequest());
@@ -26,6 +31,8 @@ const Cart = (props) => {
         props.history.push("/customer-menu");
         props.dispatch(actions.getFoodInComboRequest());
     }
+
+    console.log("test :" + props?.dataSendOrder)
 
     return (
         <React.Fragment>
@@ -47,10 +54,12 @@ const Cart = (props) => {
                         <div align="right" className="home-icon col-2">
                             <a onClick={() => {
                                 props.dispatch(actions.deleteAllFromCartRequest())
+                                setOpenLoadDe(true);
                                 setTimeout(() => {
                                     props.history.push('/customer-menu')
                                     props.dispatch(actions.getFoodInComboRequest())
-                                }, 600)
+                                    setOpenLoadDe(false)
+                                }, 1000)
                             }}>
                                 <img src={trash} className="icon-button"/>
                             </a>
@@ -77,9 +86,9 @@ const Cart = (props) => {
                             <div className="side-list-menu">
                                 <PerfectScrollbar className="list-menu">
                                     {props?.dataCart?.data?.item_in_cart?.map((iic, index) => (
-                                        <Link key={index}>
                                             <div className="item-menu d-flex">
                                                 <div className="col-11 d-flex menu-item-bar">
+                                                    <Link style={{width : '100%'}} to={`/customer-detail-combo/${iic?._id}`}>
                                                     <div align="left" className="col-11 d-flex">
                                                         <div className="col-10">
                                                             <div className="item-name"><b>{iic?.name}</b></div>
@@ -99,6 +108,7 @@ const Cart = (props) => {
                                                             marginBottom:'auto'
                                                         }}>{iic.quantity}</div>
                                                     </div>
+                                                    </Link>
                                                 </div>
                                                 <div className="add-button col-1">
                                                     <a onClick={() => {
@@ -115,9 +125,13 @@ const Cart = (props) => {
                                                             })
                                                             .then(data => console.log(data))
                                                             .catch(error => console.log('ERROR'))
+                                                        setOpenLoadDe(true);
                                                         setTimeout(() => {
                                                             props.dispatch(actions.getCartRequest())
-                                                        }, 500)
+                                                        }, 600)
+                                                        setTimeout(() => {
+                                                            setOpenLoadDe(false);
+                                                        }, 1800)
                                                     }}>
                                                         <div style={{
                                                             marginRight: 'auto',
@@ -133,7 +147,6 @@ const Cart = (props) => {
                                                     </a>
                                                 </div>
                                             </div>
-                                        </Link>
                                     ))}
                                 </PerfectScrollbar>
                             </div>
@@ -149,9 +162,28 @@ const Cart = (props) => {
                                     marginBottom: 'auto',
                                 }}
                             onClick={() => {
-                                props.dispatch(actions.sendOrderRequest())
-                                alert("Bạn đã đặt món thành công vui lòng chờ nhà bếp ra món!")
-                                props.history.push('/customer-menu')
+                                fetch('http://165.227.99.160/api/customer/order/send', {
+                                    method: 'POST',
+                                    headers: authHeaderGetApiCus(),
+                                })
+                                    .then(res => {
+                                        if (res.status === 200) {
+                                            setOpenSendOrder(true);
+                                            setTimeout(() => {
+                                                setOpenSendOrder(false);
+                                                props.history.push('/customer-menu')
+                                            }, 2000)
+                                            console.log(res)
+                                        } else {
+                                            setOpenLoadCheck(true);
+                                            setTimeout(() => {
+                                                setOpenLoadCheck(false);
+                                            }, 2000)
+                                            console.log(res)
+                                        }
+                                    })
+                                    .then(data => console.log(data))
+                                    .catch(error => console.log('ERROR'))
                             }}>
                             <div style={{
                                 fontFamily: 'Cabin',
@@ -175,11 +207,65 @@ const Cart = (props) => {
                                 marginTop:'auto',
                                 marginBottom:'auto'
                             }} align="right" className="col-6">
-                                Gửi yêu câu đặt món
+                                Gửi yêu cầu đặt món
                             </div>
                         </button>
                     ) : (<Footer/>)}
                 </div>
+                <Modal align="center" style={{
+                    width: '150px',
+                    marginRight: 'auto',
+                    marginLeft: 'auto',
+                    height: '100px',
+                    marginTop: '200px',
+                    marginBottom: "auto",
+                }} isOpen={openLoadDe}>
+                    <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                        <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                           className="bx bx-loader bx-spin"></i>
+                        <div style={{
+                            fontFamily: 'Cabin',
+                            fontSize: '15px',
+                        }}><b>Đang xóa!!!</b>
+                        </div>
+                    </div>
+                </Modal>
+                <Modal align="center" style={{
+                    width: '350px',
+                    marginRight: 'auto',
+                    marginLeft: 'auto',
+                    height: '100px',
+                    marginTop: '200px',
+                    marginBottom: "auto",
+                }} isOpen={openSendOrder}>
+                    <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                        <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                           className="bx bx-calendar-check bx-tada"></i>
+                        <div style={{
+                            fontFamily: 'Cabin',
+                            fontSize: '15px',
+                        }}><b>Đặt món thành công bạn vui lòng đợi một chút !</b>
+                        </div>
+                    </div>
+                </Modal>
+                <Modal align="center" style={{
+                    width: '350px',
+                    marginRight: 'auto',
+                    marginLeft: 'auto',
+                    height: '100px',
+                    marginTop: '200px',
+                    marginBottom: "auto",
+                }} isOpen={openLoadCheck}>
+                    <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                        <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                           className="bx bx-calendar-exclamation bx-tada"></i>
+                        <div style={{
+                            fontFamily: 'Cabin',
+                            fontSize: '15px',
+                        }}><b>Phục vụ đang xử order trước đó, hãy đợi một chút !</b>
+                        </div>
+                    </div>
+                </Modal>
             </div>
             <div className="none-display-customer">
                 <Invalid/>
@@ -199,7 +285,8 @@ const mapStateToProps = (state) => {
         dataDeleteFromCart: state.Customer.deleteFromCart.dataDeleteFromCart,
         dataDeleteAllFromCart: state.Customer.deleteAllFromCart.dataDeleteAllFromCart,
         dataSendOrder: state.Customer.sendOrder.dataSendOrder,
+        allQueueOrder: state.Customer.getCheckQueueOrder.allQueueOrder,
     };
 };
 
-export default withNamespaces()(connect(mapStateToProps)(Cart));
+export default withNamespaces()(connect(mapStateToProps)(Cart))

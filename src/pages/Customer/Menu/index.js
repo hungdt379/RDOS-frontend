@@ -21,6 +21,8 @@ import beers from "../../../assets/images/customer/Group.png";
 import wine from "../../../assets/images/customer/wine.png";
 import chicken from "../../../assets/images/customer/chicken.png";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
+import profile from "../../../assets/images/customer/logo-web-after-design.jpg";
+import {Modal} from "reactstrap";
 
 const CustomerMenu = (props) => {
 
@@ -28,6 +30,7 @@ const CustomerMenu = (props) => {
     const [menuOpen, setMenuOpen] = useState("block");
     const [bsearch, setBsearch] = useState("block");
     const [asearch, setAsearch] = useState("none");
+    const [openLoad, setOpenLoad] = useState(false);
 
     const openSearch = () => {
         setMenuOpen("none");
@@ -45,22 +48,35 @@ const CustomerMenu = (props) => {
         props.dispatch(actions.getAllCategoryRequest());
         props.dispatch(actions.getAllMenuRequest());
         props.dispatch(actions.getCartRequest());
+        // setOpenLoad(true);
+        // setTimeout(() => {
+        //     setOpenLoad(false);
+        // }, 1000)
+        if(props?.dataMenu?.combo !== undefined){
+            setOpenLoad(false)
+        }else{
+            setOpenLoad(true)
+            setTimeout(() => {
+                setOpenLoad(false);
+            }, 1000)
+        }
     }, []);
 
     console.log("combo : " + props?.dataMenu?.combo);
+    console.log("menu : " + props?.dataMenu?.combo);
 
     return (
         <React.Fragment>
             <div className="display-customer">
                 <div className="header-menu">
-                    <div style={{height:'45px'}} className="d-flex">
+                    <div style={{height: '45px'}} className="d-flex">
                         <div className="home-icon col-2">
                             <Link to="/customer-home">
                                 <img src={home} className="icon-button"/>
                             </Link>
                         </div>
-                        <div style={{display: menuOpen, marginTop:'5px'}} align="center" className="menu-search col-8">
-                            <span style={{height:'35px'}} className="avatar-title bg-light span-table">
+                        <div style={{display: menuOpen, marginTop: '5px'}} align="center" className="menu-search col-8">
+                            <span style={{height: '35px'}} className="avatar-title bg-light span-table">
                                 <div className="div-table">Menu</div>
                             </span>
                         </div>
@@ -69,7 +85,8 @@ const CustomerMenu = (props) => {
                                 <img src={searchImg} className="icon-button"/>
                             </a>
                         </div>
-                        <div style={{display: asearch, marginLeft: '12%', marginTop:'5px'}} align="right" className="col-10">
+                        <div style={{display: asearch, marginLeft: '12%', marginTop: '5px'}} align="right"
+                             className="col-10">
                             <div className="d-flex">
                                 <input className="search-bar" type="text" name="search" placeholder="Tìm kiếm..."
                                     // value={search}
@@ -78,9 +95,11 @@ const CustomerMenu = (props) => {
                                                props.dispatch(actions.getAllSearchRequest(e.target.value))
                                        )}
                                 />
-                                <div style={{backgroundColor: '#FFEFCD',height:'35px'}} align="right" className="home-icon col-2">
+                                <div style={{backgroundColor: '#FFEFCD', height: '35px'}} align="right"
+                                     className="home-icon col-2">
                                     <a onClick={closeSearch}>
-                                        <img style={{transform: 'matrix(-1,0,0,1,0,0)', marginTop:'5px'}} src={searchImg} className="icon-button"/>
+                                        <img style={{transform: 'matrix(-1,0,0,1,0,0)', marginTop: '5px'}}
+                                             src={searchImg} className="icon-button"/>
                                     </a>
                                 </div>
                             </div>
@@ -160,7 +179,8 @@ const CustomerMenu = (props) => {
                                                                          className="avatar-sm profile-user-wid">
                                                                         <div align="center"
                                                                              className="cate-background-color avatar-title rounded-circle">
-                                                                            <img src={beers} className="icon-button-menu"/>
+                                                                            <img src={beers}
+                                                                                 className="icon-button-menu"/>
                                                                         </div>
                                                                     </div>
                                                                     <div className="square-text-button">Bia</div>
@@ -394,6 +414,24 @@ const CustomerMenu = (props) => {
                         </Link>
                     </div>
                 ) : (<Footer/>)}
+                <Modal align="center" style={{
+                    width: '100px',
+                    marginRight: 'auto',
+                    marginLeft: 'auto',
+                    height: '100px',
+                    marginTop: '200px',
+                    marginBottom: "auto",
+                }} isOpen={openLoad}>
+                    <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                        <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                           className="bx bx-loader bx-spin"></i>
+                        <div style={{
+                            fontFamily: 'Cabin',
+                            fontSize: '15px',
+                        }}><b>Chờ chút ...</b>
+                        </div>
+                    </div>
+                </Modal>
             </div>
             <div className="none-display-customer">
                 <Invalid/>
@@ -408,6 +446,7 @@ const mapStateToProps = (state) => {
         dataMenu: state.Customer.getAllMenu.allMenu,
         dataSearch: state.Customer.getAllSearch.allSearch,
         dataCart: state.Customer.getCart.dataCart,
+        allQueueOrder: state.Customer.getCheckQueueOrder.allQueueOrder,
     };
 };
 

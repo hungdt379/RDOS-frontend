@@ -235,6 +235,24 @@ const getViewOrder = (state = viewOrderReducer, action) => {
     }
 };
 
+//check queue order
+const checkQueueOrderReducer = {
+    allQueueOrder: [],
+};
+
+const getCheckQueueOrder = (state = checkQueueOrderReducer, action) => {
+    switch (action.type) {
+        case actionTypes.CHECK_QUEUE_ORDER_REQUEST:
+            return { ...state };
+        case actionTypes.CHECK_QUEUE_ORDER_SUCCESS:
+            state =  { ...state, allQueueOrder: action.payload };
+        case actionTypes.CHECK_QUEUE_ORDER_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
 export const Customer = combineReducers({
     getAllCategory,
     getAllMenu,
@@ -249,4 +267,5 @@ export const Customer = combineReducers({
     deleteAllFromCart,
     sendOrder,
     getViewOrder,
+    getCheckQueueOrder,
 });
