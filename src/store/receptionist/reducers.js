@@ -137,6 +137,74 @@ const postEditTableReceptionist = (state = postEditTableReceptionistReducer, act
     }
 };
 
+//list confirm order re
+const listConfirmOrderReceptionistReducer = {
+    listConfirmOrderReceptionist: [],
+};
+const getListConfirmOrderReceptionist = (state = listConfirmOrderReceptionistReducer, action) => {
+    switch (action.type) {
+        case actionTypes.GET_LIST_CONFIRM_ORDER_RECEPTIONIST_REQUEST:
+            return { ...state };
+        case actionTypes.GET_LIST_CONFIRM_ORDER_RECEPTIONIST_SUCCESS:
+            return { ...state, listConfirmOrderReceptionist: action.payload };
+        case actionTypes.GET_LIST_CONFIRM_ORDER_RECEPTIONIST_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+//detail confirm order re
+const detailConfirmOrderReceptionistReducer = {
+    detailConfirmOrderReceptionist: [],
+};
+const getDetailConfirmOrderReceptionist = (state = detailConfirmOrderReceptionistReducer, action) => {
+    switch (action.type) {
+        case actionTypes.GET_DETAIL_CONFIRM_ORDER_RECEPTIONIST_REQUEST:
+            return { ...state };
+        case actionTypes.GET_DETAIL_CONFIRM_ORDER_RECEPTIONIST_SUCCESS:
+            return { ...state, detailConfirmOrderReceptionist: action.payload };
+        case actionTypes.GET_DETAIL_CONFIRM_ORDER_RECEPTIONIST_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+//enter voucher
+const enterVoucherReceptionistReducer = {
+    enterVoucherReceptionist: [],
+};
+const postEnterVoucherReceptionist = (state = enterVoucherReceptionistReducer, action) => {
+    switch (action.type) {
+        case actionTypes.POST_ENTER_VOUCHER_RECEPTIONIST_REQUEST:
+            return { ...state };
+        case actionTypes.POST_ENTER_VOUCHER_RECEPTIONIST_SUCCESS:
+            return { ...state, enterVoucherReceptionist: action.payload };
+        case actionTypes.POST_ENTER_VOUCHER_RECEPTIONIST_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+//invoice completed order
+const invoiceCompletedReceptionistReducer = {
+    invoiceCompletedReceptionist: [],
+};
+const getInvoiceCompletedReceptionist = (state = invoiceCompletedReceptionistReducer, action) => {
+    switch (action.type) {
+        case actionTypes.GET_INVOICE_COMPLETED_RECEPTIONIST_REQUEST:
+            return { ...state };
+        case actionTypes.GET_INVOICE_COMPLETED_RECEPTIONIST_SUCCESS:
+            return { ...state, invoiceCompletedReceptionist: action.payload };
+        case actionTypes.GET_INVOICE_COMPLETED_RECEPTIONIST_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
 export const Receptionist = combineReducers({
     getAllNotificationsReceptionist,
     getAllFeedback,
@@ -146,4 +214,8 @@ export const Receptionist = combineReducers({
     postDeleteTableReceptionist,
     getGenerateTableReceptionist,
     postEditTableReceptionist,
+    getListConfirmOrderReceptionist,
+    getDetailConfirmOrderReceptionist,
+    postEnterVoucherReceptionist,
+    getInvoiceCompletedReceptionist,
 });

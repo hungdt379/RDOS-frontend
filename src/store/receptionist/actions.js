@@ -143,3 +143,75 @@ export const editTableReError = (error) => {
         payload: error,
     };
 };
+
+//get list confirm order recep
+export const getListConfirmOrderReRequest = (payload) => ({
+    type: actionTypes.GET_LIST_CONFIRM_ORDER_RECEPTIONIST_REQUEST,
+    payload: payload,
+});
+export const getListConfirmOrderReSuccess = (response) => {
+    return {
+        type: actionTypes.GET_LIST_CONFIRM_ORDER_RECEPTIONIST_SUCCESS,
+        payload: response,
+    };
+};
+export const getListConfirmOrderReError = (error) => {
+    return {
+        type: actionTypes.GET_LIST_CONFIRM_ORDER_RECEPTIONIST_ERROR,
+        payload: error,
+    };
+};
+
+//get detail confirm order recep
+export const getDetailConfirmOrderReRequest = (payload) => ({
+    type: actionTypes.GET_DETAIL_CONFIRM_ORDER_RECEPTIONIST_REQUEST,
+    payload: payload,
+});
+export const getDetailConfirmOrderReSuccess = (response) => {
+    return {
+        type: actionTypes.GET_DETAIL_CONFIRM_ORDER_RECEPTIONIST_SUCCESS,
+        payload: response,
+    };
+};
+export const getDetailConfirmOrderReError = (error) => {
+    return {
+        type: actionTypes.GET_DETAIL_CONFIRM_ORDER_RECEPTIONIST_ERROR,
+        payload: error,
+    };
+};
+
+//enter voucher
+export const postEnterVoucherReRequest = (payload) => ({
+    type: actionTypes.POST_ENTER_VOUCHER_RECEPTIONIST_REQUEST,
+    payload: payload,
+});
+export const postEnterVoucherReSuccess = (response) => {
+    return {
+        type: actionTypes.POST_ENTER_VOUCHER_RECEPTIONIST_SUCCESS,
+        payload: response,
+    };
+};
+export const postEnterVoucherReError = (error) => {
+    return {
+        type: actionTypes.POST_ENTER_VOUCHER_RECEPTIONIST_ERROR,
+        payload: error,
+    };
+};
+
+// invoice the complete order
+export const getInvoiceCompletedOrderReRequest = (payload) => ({
+    type: actionTypes.GET_INVOICE_COMPLETED_RECEPTIONIST_REQUEST,
+    payload: payload,
+});
+export const getInvoiceCompletedOrderReSuccess = (response) => {
+    return {
+        type: actionTypes.GET_INVOICE_COMPLETED_RECEPTIONIST_SUCCESS,
+        payload: response,
+    };
+};
+export const getInvoiceCompletedOrderReError = (error) => {
+    return {
+        type: actionTypes.GET_INVOICE_COMPLETED_RECEPTIONIST_ERROR,
+        payload: error,
+    };
+};

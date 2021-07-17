@@ -149,6 +149,78 @@ export function* watchEditTableReception() {
     yield takeEvery(actionTypes.EDIT_TABLE_RECEPTIONIST_REQUEST, editTableReception);
 }
 
+//list conrfirm order re
+function* listConfirmOrderReception({payload: p}) {
+    try {
+        const response = yield call(
+            Request.getApi,
+            apiUrls.viewListConfirmOrderReceptionistApi,
+            {page: p, pageSize: 10}
+        );
+        yield put(actions.getListConfirmOrderReSuccess(response));
+        console.log("list confirm order re : "+ response.data)
+    } catch (error) {
+        yield put(actions.getListConfirmOrderReError(error));
+    }
+}
+export function* watchListConfirmOrderReception() {
+    yield takeEvery(actionTypes.GET_LIST_CONFIRM_ORDER_RECEPTIONIST_REQUEST, listConfirmOrderReception);
+}
+
+//list detail order re
+function* detailConfirmOrderReception({payload: tbi}) {
+    try {
+        const response = yield call(
+            Request.getApi,
+            apiUrls.viewDetailConfirmOrderReceptionistApi,
+            {table_id: tbi}
+        );
+        yield put(actions.getDetailConfirmOrderReSuccess(response));
+        console.log("detail confirm order re : "+ response.data)
+    } catch (error) {
+        yield put(actions.getDetailConfirmOrderReError(error));
+    }
+}
+export function* watchDetailConfirmOrderReception() {
+    yield takeEvery(actionTypes.GET_DETAIL_CONFIRM_ORDER_RECEPTIONIST_REQUEST, detailConfirmOrderReception);
+}
+
+//enter voucher
+function* enterVoucherReception({payload}) {
+    try {
+        const response = yield call(
+            Request.postApi,
+            apiUrls.enterVoucherApi,
+            payload.data
+        );
+        yield put(actions.postEnterVoucherReSuccess(response.data));
+        console.log("enter voucher re : "+ response.data)
+    } catch (error) {
+        yield put(actions.postEnterVoucherReError(error));
+    }
+}
+export function* watchEnterVoucherReception() {
+    yield takeEvery(actionTypes.POST_ENTER_VOUCHER_RECEPTIONIST_REQUEST, enterVoucherReception);
+}
+
+//invoice completed order
+function* invoiceCompletedReception({payload: tbi}) {
+    try {
+        const response = yield call(
+            Request.getApi,
+            apiUrls.invoiceCompletedOrderApi,
+            {table_id: tbi}
+        );
+        yield put(actions.getInvoiceCompletedOrderReSuccess(response));
+        console.log("invoice completed order : "+ response.data)
+    } catch (error) {
+        yield put(actions.getInvoiceCompletedOrderReError(error));
+    }
+}
+export function* watchInvoiceCompletedReception() {
+    yield takeEvery(actionTypes.GET_INVOICE_COMPLETED_RECEPTIONIST_REQUEST, invoiceCompletedReception);
+}
+
 const sagaReceptionist = [
     watchGetNotificationsReceptionist(),
     watchGetFeedback(),
@@ -158,6 +230,10 @@ const sagaReceptionist = [
     watchDeleteTableReception(),
     watchGenerateTableReception(),
     watchEditTableReception(),
+    watchListConfirmOrderReception(),
+    watchDetailConfirmOrderReception(),
+    watchEnterVoucherReception(),
+    watchInvoiceCompletedReception(),
 ];
 
 export default sagaReceptionist;
