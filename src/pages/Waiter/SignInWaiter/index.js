@@ -1,7 +1,7 @@
 import React, {useState, Component, useEffect} from "react";
 import {Link} from 'react-router-dom';
 //Import scss
-import "../../../assets/scss/custom/pages/waiter/login.scss"
+
 function SignIn() {
     return(
         <React.Fragment>

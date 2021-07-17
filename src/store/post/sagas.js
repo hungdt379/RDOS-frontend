@@ -81,7 +81,7 @@ function* getQueueOrder({ payload }) {
     );
     if (response){
       yield  put(actions.getQueueOrderSuccess(response.data));
-
+      console.log(response);
     }
   } catch (error) {
     yield put(actions.getQueueOrderError(error));
@@ -143,8 +143,7 @@ function* getConfirmedOrder({ payload }) {
         payload
     );
     if (response){
-      yield  put(actions.getConfirmedOrderSuccess(response));
-      console.log(response)
+      yield  put(actions.getConfirmedOrderSuccess(response.data));
     }
   } catch (error) {
     yield put(actions.getConfirmedOrderError(error));
@@ -155,6 +154,27 @@ export function* watchGetConfirmedQueueOrder() {
   yield takeLatest(actionTypes.GET_CONFIRMED_ORDER_REQUEST, getConfirmedOrder);
 }
 
+function* postDeleteItem({ payload }) {
+  try {
+    const response = yield call(
+        Request.postApi,
+        apiUrls.postDeleteItemApi,
+        payload
+    );
+    if (response){
+      yield  put(actions.postDeleteItemSuccess(response));
+      console.log(response)
+    }
+  } catch (error) {
+    yield put(actions.postDeleteItemError(error));
+  }
+}
+
+export function* watchPostDeleteItem() {
+  yield takeLatest(actionTypes.POST_DELETE_ITEM_REQUEST, postDeleteItem);
+}
+
+
 const sagaPost = [
   watchPostNumberCustomer(),
   watchPostCloseTable(),
@@ -162,7 +182,8 @@ const sagaPost = [
   watchGetQueueOrder(),
   watchPostCancelQueueOrder(),
   watchPostConfirmQueueOrder(),
-  watchGetConfirmedQueueOrder()
+  watchGetConfirmedQueueOrder(),
+  watchPostDeleteItem(),
 ];
 
 export default sagaPost;

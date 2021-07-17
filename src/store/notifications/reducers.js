@@ -105,12 +105,48 @@ const postUpdateTable = (state = TableUpdateReducer, action) => {
 };
 
 
+const CheckListReducer = {
+  dataCheckList: [],
+};
+
+const getCheckList = (state = CheckListReducer, action) => {
+  switch (action.type) {
+    case actionTypes.GET_CHECK_LIST_REQUEST:
+      return { ...state };
+    case actionTypes.GET_CHECK_LIST_SUCCESS:
+      state =  { ...state, dataCheckList: action.payload };
+    case actionTypes.GET_CHECK_LIST_ERROR:
+      return { ...state,dataCheckList: action.payload };
+    default:
+      return state;
+  }
+};
+
+const DeleteItemReducer = {
+  dataDeleteItem: [],
+};
+
+const postDeleteItem = (state = DeleteItemReducer, action) => {
+  switch (action.type) {
+    case actionTypes.POST_DELETE_ITEM_REQUEST:
+      return { ...state };
+    case actionTypes.POST_DELETE_ITEM_SUCCESS:
+      state =  { ...state, dataDeleteItem: action.payload };
+    case actionTypes.POST_DELETE_ITEM_ERROR:
+      return { ...state,error: action.payload };
+    default:
+      return state;
+  }
+};
+
 
 export const Notification = combineReducers({
   totalOfNotifications,
   getAllNotifications,
   getAllTable,
   getTable,
+  getCheckList,
   postUpdateTable,
   LogOut,
+  postDeleteItem,
 });

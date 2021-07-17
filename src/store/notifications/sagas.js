@@ -4,6 +4,7 @@ import * as actions from "./actions";
 import { apiUrls } from "../../apis/api";
 import Request from "../../apis/Request";
 import {postUpdateTableSuccess} from "./actions";
+import {clearState} from "../localStorage";
 
 function* totalOfNotification() {
   try {
@@ -49,7 +50,6 @@ function* allTable({ payload }) {
   try {
     const response = yield call(Request.getApi,apiUrls.getAllTables,payload);
     if(response){
-      // localStorage.setItem("allTable", JSON.stringify(response));
       yield put(actions.getAllTableSuccess(response.data));
     }
   } catch (error) {
@@ -86,8 +86,7 @@ function* LogOut({ payload }) {
     const response = yield call(Request.getApi,apiUrls.getLogOutApi,payload);
     if(response){
       yield put(actions.getLogOutSuccess(response.message));
-      localStorage.removeItem('authUser')
-      console.log(response.message);
+      clearState();
     }
   } catch (error) {
     yield put(actions.getLogOutError(error));
@@ -114,6 +113,41 @@ function* UpdateTableByID({ payload }) {
 export function* watchPostUpdateTableByID() {
   yield takeEvery(actionTypes.POST_UPDATE_TABLE_REQUEST, UpdateTableByID);
 }
+// get check list
+function* getCheckList({ payload }) {
+  try {
+    const response = yield call(Request.getApi,apiUrls.getCheckListApi,payload);
+    if(response){
+      yield put(actions.getCheckListSuccess(response.data));
+      console.log(response);
+    }
+  } catch (error) {
+    yield put(actions.getCheckListError(error));
+  }
+}
+
+
+export function* watchGetCheckList() {
+  yield takeEvery(actionTypes.GET_CHECK_LIST_REQUEST, getCheckList);
+}
+// post delete item
+function* postDeleteItem({ payload }) {
+  try {
+    const response = yield call(Request.getApi,apiUrls.postDeleteItem,payload);
+    if(response){
+      yield put(actions.postDeleteItemSuccess(response));
+      console.log(response);
+    }
+  } catch (error) {
+    yield put(actions.postDeleteItemError(error));
+  }
+}
+
+
+export function* watchPostDeleteItem() {
+  yield takeEvery(actionTypes.POST_DELETE_ITEM_REQUEST, postDeleteItem);
+}
+
 
 
 const sagaNotificatons = [
@@ -122,7 +156,9 @@ const sagaNotificatons = [
   watchPostUpdateTableByID(),
   watchGetAllTable(),
   watchGetTableByID(),
-  watchGetLogOut()
+  watchGetLogOut(),
+  watchGetCheckList(),
+    watchPostDeleteItem(),
 ];
 
 export default sagaNotificatons;

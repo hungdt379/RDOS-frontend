@@ -1,62 +1,22 @@
 
+
+
 @media only screen and (max-width: 750px) {
   .container_checkList {
     width: 100%;
-    font-style: normal;
-    background: #FFFFFF;
-  }
-  *{
     font-family: Cabin;
     font-style: normal;
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 17px;
-    /* identical to box height */
+    background: #FFFFFF;
+    margin-bottom: 30px;
+  }
 
-    text-align: center;
-
-    color: #1E1C19;
-  }
-  .nav-confirmed{
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    padding: 5% 0%;
-    text-align: center;
-  }
-  .nav-confirmed .nav_form{
-    display: flex;
-    flex-direction: column;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-  .link_form{
-    margin-left: 15%;
-    width: 38px;
-    height: 38px;
-    left: 25px;
-    top: 69px;
-    border-radius: 50%;
-    background: #FFEFCD;
-
-  }
-  .link_form img{
-    margin-top: 15%;
-  }
-  .link_form p{
-
-    font-weight: 500;
-    font-size: 11px;
-    line-height: 13px;
-    text-align: center;
-
-    color: #1E1C19;
-  }
-  .list-Item{
+  .list-Item_checkList{
     margin-top: 20px;
     display: flex;
     justify-items: center;
     flex-direction: column;
+    height: 440px;
+
   }
   .item-form-checkList{
     position: relative;
@@ -69,12 +29,15 @@
     width: 90%;
     padding: 15px 0;
   }
-  .list-Item .item-form-checkList span:nth-child(1){
+  .list-Item_checkList .item-form-checkList span:nth-child(1){
     width: 50%;
     text-align: left;
     padding-left: 5%;
   }
-
+  .list-Item_checkList .item-form-checkList span:nth-child(2){
+    width: 30%;
+    text-align: left;
+  }
   .contain_button {
     position: absolute;
     top: 15px;
@@ -102,17 +65,6 @@
     border: 1px solid #FCBC3A;
     box-sizing: border-box;
     border-radius: 17px;
-  }
-  .save-button span{
-    padding: 0 8px;
-  }
-  .note-form{
-    background: #FFEFCD;
-    border-radius: 10px;
-    width: 90%;
-    height: 100px;
-    border:none;
-    text-align: left;
   }
 
 }

@@ -6,6 +6,15 @@ import Header from  "../home/myHeader";
 import {getAllNotification} from "../../../store/notifications/actions";
 import {apiError} from "../../../store/auth/login/actions";
 import {postMarkAsReadRequest} from "../../../store/post/actions";
+//scss
+import "../../../assets/scss/custom/pages/waiter/notification.scss";
+//image
+import bell from "../../../assets/images/customer/bell.png";
+import a from "../../../assets/images/customer/wine.png";
+import b from "../../../assets/images/customer/chicken.png";
+import confirmed from "../../../assets/images/receptionist/carousel.png";
+import Invalid from "../../Customer/Invalid";
+import Footer from "../../../components/RdosCustomerLayout/Footer";
 
 const Notification = (props) => {
     const [role, setrole] = useState([]);
@@ -13,6 +22,8 @@ const Notification = (props) => {
     const location  = useLocation();
 
     const {dataNotification} = props;
+
+    console.log(dataNotification.data);
 
     const value = {
         table_id:location.state._id,
@@ -38,44 +49,90 @@ const Notification = (props) => {
 
     return(
         <React.Fragment>
+            <div className="display-customer">
+
+
             {(role === 'w')?(
-                <div>
+                <div className="container_detail">
                     <Header username={location.state.username} />
-                    <div>
-                        <ul className="nav-notification">
-                            <li>
-                                <Link to="/waiter-detail-table-notification">Thông báo</Link>
-                            </li>
-                            <li>
-                                <Link to="/waiter-detail-table-confirm-order">Confirm order</Link>
-                            </li>
-                            <li>
-                                <Link to="/waiter-detail-table-change-table">Đổi Bàn</Link>
-                            </li>
-                            <li>
-                                <Link to="/waiter-detail-table-confirmed-order">Confirmed order</Link>
-                            </li>
-                        </ul>
+                    <div className="nav-notification">
+                        <div className="nav_form">
+                            <div className="link_form">
+                                <Link to= {{ pathname:'/waiter-detail-table-notification',
+                                    state:{
+                                        _id: location.state._id,
+                                        username:location.state.username
+                                    }
+                                }}><img src={bell}/>
+                                </Link>
+                            </div>
+                            <p>Thông báo</p>
+                        </div>
+
+                        <div className="nav_form">
+                            <div className="link_form">
+                                <Link to= {{ pathname:'/waiter-detail-table-confirm-order',
+                                    state:{
+                                        _id: location.state._id,
+                                        username:location.state.username
+                                    }
+                                }}>
+                                    <img src={a}/>
+                                </Link>
+                            </div>
+                            <p>Confirm Order</p>
+                        </div>
+
+                        <div className="nav_form">
+                            <div className="link_form">
+                                <Link to= {{ pathname:'/waiter-detail-table-change-table',
+                                    state:{
+                                        _id: location.state._id,
+                                        username:location.state.username
+                                    }
+                                }}>
+                                    <img src={b}/>
+                                </Link>
+                            </div>
+                            <p>Đổi Bàn</p>
+                        </div>
+
+                        <div className="nav_form">
+                            <div className="link_form">
+                                <Link to= {{ pathname:'/waiter-detail-table-confirmed-order',
+                                    state:{
+                                        _id: location.state._id,
+                                        username:location.state.username
+                                    }
+                                }}>
+                                    <img src={confirmed}/>
+                                </Link>
+                            </div>
+                            <p>Confirmed Order</p>
+                        </div>
                     </div>
                     <div style={{textAlign: "center", justifyContent: "center"}}>
-                        <h2>Trang Thông Báo</h2>
+
                         <div className="list-Item">
-                            <ul>
-                                {dataNotification.data == null ? x = false: x =true }
-                                {x == false ? <span>Loading...</span> : ''}
+
                                 {dataNotification.data?.map((d, index) => (
-                                        <li key={index}>
+                                        <div className="item-form" style={d.read == false ? {backgroundColor: "#EEEEEE"} : {backgroundColor: "#FFEFCD"} } key={index}>
                                             <span>{d.title}</span>
                                             <span>{d.content}</span>
-                                            {d.read === false ?  <span></span> : ''}
-                                        </li>
+                                            {/*{d.read === false ?  <span></span> : ''}*/}
+                                        </div>
                                     )
                                 )}
-                            </ul>
                         </div>
                     </div>
                 </div>
             ):(<NotFound/>)}
+                <Footer/>
+            </div>
+            <div className="none-display-customer">
+                <Invalid/>
+            </div>
+
         </React.Fragment>
     );
 }
