@@ -7,7 +7,6 @@ import "../../../assets/scss/custom/pages/receptionist/receptionist.scss";
 import {Link} from "react-router-dom";
 import Header from "../HeaderReception";
 import {Col, Container, Row, Table} from "reactstrap/es";
-import Invalid from "../../Customer/Invalid";
 import NotFound from "../../Authentication/Page401";
 import * as actions from "../../../store/receptionist/actions";
 import {withNamespaces} from "react-i18next";
@@ -102,7 +101,7 @@ const ViewFeedback = (props) => {
                                         fontSize: '14px',
                                         lineHeight: '17px',
                                     }}>
-                                        <th>{moment(fe.created_at).format("DD/ MM/ YYYY")}</th>
+                                        <th>{moment(fe.ts*1000).format("DD/ MM/ YYYY")}</th>
                                         <th>{fe.rate_dish}</th>
                                         <th>{fe.rate_service}</th>
                                         <th>{fe.content}</th>

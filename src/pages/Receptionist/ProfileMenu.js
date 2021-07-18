@@ -5,7 +5,6 @@ import {
     DropdownMenu,
     DropdownItem,
 } from "reactstrap";
-import imageItem from "../../assets/images/customer/logo-web.jpg";
 import {logoutUser} from "../../store/auth/login/actions";
 import {Link, withRouter} from "react-router-dom";
 import {withNamespaces} from "react-i18next";

@@ -4,7 +4,6 @@ import React, {useState, Component, useEffect} from "react";
 import "../../../assets/scss/custom/pages/customer/detail.scss";
 import {Link} from "react-router-dom";
 
-import imageItem from "../../../assets/images/customer/logo-web.jpg";
 import Invalid from "../Invalid";
 import {withNamespaces} from "react-i18next";
 import {connect, useDispatch} from "react-redux";
@@ -15,18 +14,12 @@ import {
 import {useParams} from "react-router";
 import * as actions from "../../../store/customer/actions";
 import left from "../../../assets/images/customer/chevron-left-o.png";
-import trash from "../../../assets/images/customer/trash.png";
-import PerfectScrollbar from "react-perfect-scrollbar";
 import mathMinus from "../../../assets/images/customer/math-minus.png";
 import mathPlus from "../../../assets/images/customer/math-plus.png";
 import check from "../../../assets/images/customer/play-list-check.png";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
 import shoppingCart from "../../../assets/images/customer/shopping-cart.png";
 import {Modal} from "reactstrap";
-
-// const addMinus = [
-//     {data_attr: 1},
-// ];
 
 const DetailCombo = (props) => {
     const dispatch = useDispatch();
@@ -659,7 +652,7 @@ const DetailCombo = (props) => {
                     marginBottom: "auto",
                 }} isOpen={openNoti}>
                     <div style={{backgroundColor: '#FFEFCD'}} align="center">
-                        <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                        <i style={{color: "red", fontSize: '50px'}}
                            className="bx bx-calendar-exclamation bx-tada"></i>
                         <div style={{
                             fontFamily: 'Cabin',

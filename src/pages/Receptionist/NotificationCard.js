@@ -10,11 +10,6 @@ const NotificationCard = (props) => {
 
     const table = dataTable.find((item) => item._id === userId);
 
-    // const handleChangeMenu = (value) =>{
-    //     if(!menu) return;
-    //     menu(value);
-    // }
-
     const getYoutubeLikeToDisplay = (millisec) => {
         var seconds = (millisec / 1000).toFixed(0);
         var minutes = Math.floor(seconds / 60);
@@ -39,8 +34,7 @@ const NotificationCard = (props) => {
 
     return (
         <SimpleBar key={data._id}>
-            <Link
-                to=""
+            <div
                 className="text-reset notification-item"
             >
                 <div className="media" style={{backgroundColor: (data.read === false) ? "#FFEFCD" : "white"}}>
@@ -61,7 +55,7 @@ const NotificationCard = (props) => {
                         </div>
                     </div>
                 </div>
-            </Link>
+            </div>
         </SimpleBar>
     );
 };

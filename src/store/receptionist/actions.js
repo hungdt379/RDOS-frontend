@@ -215,3 +215,39 @@ export const getInvoiceCompletedOrderReError = (error) => {
         payload: error,
     };
 };
+
+//get list paid order recep
+export const getListPaidOrderReRequest = (payload) => ({
+    type: actionTypes.GET_LIST_PAID_ORDER_RECEPTIONIST_REQUEST,
+    payload: payload,
+});
+export const getListPaidOrderReSuccess = (response) => {
+    return {
+        type: actionTypes.GET_LIST_PAID_ORDER_RECEPTIONIST_SUCCESS,
+        payload: response,
+    };
+};
+export const getListPaidOrderReError = (error) => {
+    return {
+        type: actionTypes.GET_LIST_PAID_ORDER_RECEPTIONIST_ERROR,
+        payload: error,
+    };
+};
+
+//customize number of item in order
+export const postCustomizeNumberItemReRequest = (id, itemId, s) => ({
+    type: actionTypes.POST_CUSTOMIZE_NUMBER_ITEM_RECEPTIONIST_REQUEST,
+    payload: {id, itemId, s},
+});
+export const postCustomizeNumberItemReSuccess = (response) => {
+    return {
+        type: actionTypes.POST_CUSTOMIZE_NUMBER_ITEM_RECEPTIONIST_SUCCESS,
+        payload: response,
+    };
+};
+export const postCustomizeNumberItemReError = (error) => {
+    return {
+        type: actionTypes.POST_CUSTOMIZE_NUMBER_ITEM_RECEPTIONIST_ERROR,
+        payload: error,
+    };
+};

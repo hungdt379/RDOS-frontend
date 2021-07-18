@@ -6,14 +6,13 @@ import "../../../assets/scss/custom/pages/receptionist/receptionist.scss";
 
 import {Link, useParams} from "react-router-dom";
 import Header from "../HeaderReception";
-import {Col, Container, Row} from "reactstrap/es";
-import Invalid from "../../Customer/Invalid";
 import NotFound from "../../Authentication/Page401";
 import chevonRight from "../../../assets/images/receptionist/chevron-down.png";
+import mathMinus from "../../../assets/images/receptionist/math-minus.png";
+import mathPlus from "../../../assets/images/receptionist/math-plus.png";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
 import * as actions from "../../../store/receptionist/actions";
 import {withNamespaces} from "react-i18next";
-import {addToCartRequest, getFoodInComboRequest} from "../../../store/customer/actions";
 
 // Import menuDropdown
 
@@ -29,6 +28,7 @@ const OrderList = (props) => {
     const [voucher, setVoucher] = useState(0);
     const [_id, setOrderId] = useState('');
 
+    console.log("status: " + displayStatus)
     console.log("id: " + _id)
     console.log("voucher: " + voucher)
 
@@ -40,19 +40,33 @@ const OrderList = (props) => {
     const [itemState, setItemState] = useState([]);
 
     const [page, setPage] = useState(1)
+    const [pageComplete, setPageComplete] = useState(1)
 
     const [pageSize] = useState(10)
 
     const prevPage = () => {
         const pg = page === 1 ? 1 : page - 1
         setPage(pg)
-        props.dispatch(actions.getAllFeedbackRequest(pg));
+        props.dispatch(actions.getListConfirmOrderReRequest(pg));
     }
 
     const nextPage = () => {
-        const pg = page < Math.ceil(props?.allFeedback?.total / pageSize) ? page + 1 : page
+        const pg = page < Math.ceil(props?.listConfirmOrderReceptionist?.total / pageSize) ? page + 1 : page
         setPage(pg)
-        props.dispatch(actions.getAllFeedbackRequest(pg));
+        props.dispatch(actions.getListConfirmOrderReRequest(pg));
+        // props.dispatch(actions.getAllNotificationReceptionist({ page, pageSize, receiver }));
+    }
+
+    const prevPageComplete = () => {
+        const pg = pageComplete === 1 ? 1 : pageComplete - 1
+        setPageComplete(pg)
+        props.dispatch(actions.getListPaidOrderReRequest(pg));
+    }
+
+    const nextPageComplete = () => {
+        const pg = pageComplete < Math.ceil(props?.listPaidOrderReceptionist?.total / pageSize) ? pageComplete + 1 : pageComplete
+        setPageComplete(pg)
+        props.dispatch(actions.getListPaidOrderReRequest(pg));
         // props.dispatch(actions.getAllNotificationReceptionist({ page, pageSize, receiver }));
     }
 
@@ -64,6 +78,7 @@ const OrderList = (props) => {
             setrole(obj.data.user.role);
         }
         props.dispatch(actions.getListConfirmOrderReRequest(page));
+        props.dispatch(actions.getListPaidOrderReRequest(page));
         //props.dispatch(actions.getDetailConfirmOrderReRequest(table_id));
     }, []);
 
@@ -72,7 +87,7 @@ const OrderList = (props) => {
     const handleEnterVoucher = () => {
         props.dispatch(actions.postEnterVoucherReRequest({data}))
         setTimeout(() => {
-            props.dispatch(actions.getDetailConfirmOrderReRequest(props?.detailConfirmOrderReceptionist?.data?.table_id))
+            props.dispatch(actions.getDetailConfirmOrderReRequest(props?.detailConfirmOrderReceptionist?.data?._id))
         }, 1000)
     };
 
@@ -104,7 +119,11 @@ const OrderList = (props) => {
                                                             value={result.code}
                                                             name="statusValue"
                                                             checked={displayStatus === result.code}
-                                                            onChange={(e) => setStatus(e.target.value)}
+                                                            onChange={(e) => {
+                                                                setStatus(e.target.value)
+                                                                props.dispatch(actions.getListConfirmOrderReRequest(page));
+                                                                props.dispatch(actions.getListPaidOrderReRequest(page));
+                                                            }}
                                                         /> <b className="input-status-re">{result.name}</b>
                                                         <div for={result.id} className="line-color"></div>
                                                     </label>
@@ -113,102 +132,203 @@ const OrderList = (props) => {
                                         </div>
                                         <div className="col-2"></div>
                                     </div>
-                                    <PerfectScrollbar className="mh-55">
-                                        {props?.listConfirmOrderReceptionist?.data?.map((lco, i) => (lco.status === displayStatus) ? (
-                                                <div>
-                                                    <label className="item-menu-re d-flex">
-                                                        <input
-                                                            // onChange={event => {
-                                                            //     let checked = event.target.checked;
-                                                            //     setOrderState(
-                                                            //         orderState.map(data => {
-                                                            //             if (d.order === data.order) {
-                                                            //                 data.select = checked;
-                                                            //             }
-                                                            //             return data;
-                                                            //         })
-                                                            //     );
-                                                            // }}
-                                                            type="checkbox"
-                                                            // checked={d.select}
-                                                            id={lco._id}
-                                                            name={lco._id}
-                                                            style={{display: 'none'}}
-                                                            className="check-re-order"
-                                                        />
-                                                        <div htmlFor={lco._id}
-                                                             className="col-11 d-flex menu-item-bar-re">
-                                                            <div style={{marginTop: 'auto', marginBottom: 'auto'}}
-                                                                 align="left" className="col-11 d-flex">
-                                                                <div align="center" className="col-6 item-cost-re">
-                                                                    <b>{lco._id}</b>
-                                                                </div>
-                                                                <div align="center" className="col-3 item-cost-re">
-                                                                    <b>{lco.table_name}</b>
-                                                                </div>
-                                                                <div align="center" className="col-3 item-name-re"
-                                                                     style={{color: lco.status == "confirmed" ? "lightcoral" : "green"}}>
-                                                                    {lco.status}
+                                    {(displayStatus === 'confirmed') ? (
+                                        <div>
+                                            <PerfectScrollbar className="mh-55">
+                                                {props?.listConfirmOrderReceptionist?.data?.map((lco, i) => (
+                                                    <div>
+                                                        <label className="item-menu-re d-flex">
+                                                            <input
+                                                                // onChange={event => {
+                                                                //     let checked = event.target.checked;
+                                                                //     setOrderState(
+                                                                //         orderState.map(data => {
+                                                                //             if (d.order === data.order) {
+                                                                //                 data.select = checked;
+                                                                //             }
+                                                                //             return data;
+                                                                //         })
+                                                                //     );
+                                                                // }}
+                                                                type="checkbox"
+                                                                // checked={d.select}
+                                                                id={lco._id}
+                                                                name={lco._id}
+                                                                style={{display: 'none'}}
+                                                                className="check-re-order"
+                                                            />
+                                                            <div htmlFor={lco._id}
+                                                                 className="col-11 d-flex menu-item-bar-re">
+                                                                <div style={{marginTop: 'auto', marginBottom: 'auto'}}
+                                                                     align="left" className="col-11 d-flex">
+                                                                    <div align="center" className="col-6 item-cost-re">
+                                                                        <b>{lco._id}</b>
+                                                                    </div>
+                                                                    <div align="center" className="col-3 item-cost-re">
+                                                                        <b>{lco.table_name}</b>
+                                                                    </div>
+                                                                    <div align="center" className="col-3 item-name-re"
+                                                                         style={{color: lco.status == "confirmed" ? "lightcoral" : "green"}}>
+                                                                        {lco.status}
+                                                                    </div>
                                                                 </div>
                                                             </div>
+                                                            <div className="add-button-re col-1">
+                                                                <Link onClick={(e) => {
+                                                                    // window.location.pathname = '/receptionist-home/' + lco.table_id
+                                                                    props.dispatch(actions.getDetailConfirmOrderReRequest(lco._id))
+                                                                    setOrderId(lco._id)
+                                                                }}>
+                                                                    <a
+                                                                        style={{
+                                                                            marginRight: 'auto',
+                                                                            marginLeft: 'auto'
+                                                                        }}
+                                                                        className="avatar-xs">
+                                                                        <div
+                                                                            className="plus-background-color-re avatar-title rounded-circle">
+                                                                            <img src={chevonRight}
+                                                                                 className="plus-icon-button-re"/>
+                                                                        </div>
+                                                                    </a>
+                                                                </Link>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                ))
+                                                }
+                                            </PerfectScrollbar>
+                                            <div className="d-flex">
+                                                <div className="gop-hoa-don col-6 d-flex" align="left">
+                                                    <a
+                                                        onClick={prevPage}
+                                                        style={{
+                                                            marginRight: '20px',
+                                                        }}
+                                                        className="avatar-xs">
+                                                        <div
+                                                            className="plus-background-color-re-noti avatar-title rounded-circle">
+                                                            <img src={chevonRight}
+                                                                 className="plus-icon-button-re-left"/>
                                                         </div>
-                                                        <div className="add-button-re col-1">
-                                                            <Link onClick={(e) => {
-                                                                // window.location.pathname = '/receptionist-home/' + lco.table_id
-                                                                props.dispatch(actions.getDetailConfirmOrderReRequest(lco.table_id))
-                                                                setOrderId(lco._id)
-                                                            }}>
-                                                                <a
-                                                                    style={{
-                                                                        marginRight: 'auto',
-                                                                        marginLeft: 'auto'
-                                                                    }}
-                                                                    className="avatar-xs">
-                                                                    <div
-                                                                        className="plus-background-color-re avatar-title rounded-circle">
-                                                                        <img src={chevonRight}
-                                                                             className="plus-icon-button-re"/>
+                                                    </a>
+                                                    <a
+                                                        onClick={nextPage}
+                                                        className="avatar-xs">
+                                                        <div
+                                                            className="plus-background-color-re-noti avatar-title rounded-circle">
+                                                            <img src={chevonRight}
+                                                                 className="plus-icon-button-re-right"/>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div className="gop-hoa-don col-6" align="right"
+                                                     style={{height: '60px', alignItems: 'center'}}>
+                                                    <button className="button-gop-hoa-don">
+                                                        <b className="text-gop-hoa-don">Gộp hóa đơn</b>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            <PerfectScrollbar className="mh-55">
+                                                {props?.listPaidOrderReceptionist?.data?.map((lpo, i) => (
+                                                    <div>
+                                                        <label className="item-menu-re d-flex">
+                                                            <input
+                                                                // onChange={event => {
+                                                                //     let checked = event.target.checked;
+                                                                //     setOrderState(
+                                                                //         orderState.map(data => {
+                                                                //             if (d.order === data.order) {
+                                                                //                 data.select = checked;
+                                                                //             }
+                                                                //             return data;
+                                                                //         })
+                                                                //     );
+                                                                // }}
+                                                                type="checkbox"
+                                                                // checked={d.select}
+                                                                id={lpo._id}
+                                                                name={lpo._id}
+                                                                style={{display: 'none'}}
+                                                                className="check-re-order"
+                                                            />
+                                                            <div htmlFor={lpo._id}
+                                                                 className="col-11 d-flex menu-item-bar-re">
+                                                                <div style={{marginTop: 'auto', marginBottom: 'auto'}}
+                                                                     align="left" className="col-11 d-flex">
+                                                                    <div align="center" className="col-6 item-cost-re">
+                                                                        <b>{lpo._id}</b>
                                                                     </div>
-                                                                </a>
-                                                            </Link>
+                                                                    <div align="center" className="col-3 item-cost-re">
+                                                                        <b>{lpo.table_name}</b>
+                                                                    </div>
+                                                                    <div align="center" className="col-3 item-name-re"
+                                                                         style={{color: lpo.status == "confirmed" ? "lightcoral" : "green"}}>
+                                                                        {lpo.status}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="add-button-re col-1">
+                                                                <Link onClick={(e) => {
+                                                                    // window.location.pathname = '/receptionist-home/' + lco.table_id
+                                                                    props.dispatch(actions.getDetailConfirmOrderReRequest(lpo._id))
+                                                                    setOrderId(lpo._id)
+                                                                }}>
+                                                                    <a
+                                                                        style={{
+                                                                            marginRight: 'auto',
+                                                                            marginLeft: 'auto'
+                                                                        }}
+                                                                        className="avatar-xs">
+                                                                        <div
+                                                                            className="plus-background-color-re avatar-title rounded-circle">
+                                                                            <img src={chevonRight}
+                                                                                 className="plus-icon-button-re"/>
+                                                                        </div>
+                                                                    </a>
+                                                                </Link>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                ))
+                                                }
+                                            </PerfectScrollbar>
+                                            <div className="d-flex">
+                                                <div className="gop-hoa-don col-6 d-flex" align="left">
+                                                    <a
+                                                        onClick={prevPageComplete}
+                                                        style={{
+                                                            marginRight: '20px',
+                                                        }}
+                                                        className="avatar-xs">
+                                                        <div
+                                                            className="plus-background-color-re-noti avatar-title rounded-circle">
+                                                            <img src={chevonRight}
+                                                                 className="plus-icon-button-re-left"/>
                                                         </div>
-                                                    </label>
+                                                    </a>
+                                                    <a
+                                                        onClick={nextPageComplete}
+                                                        className="avatar-xs">
+                                                        <div
+                                                            className="plus-background-color-re-noti avatar-title rounded-circle">
+                                                            <img src={chevonRight}
+                                                                 className="plus-icon-button-re-right"/>
+                                                        </div>
+                                                    </a>
                                                 </div>
-                                            )
-                                            : (null)
-                                        )}
-                                    </PerfectScrollbar>
-                                    <div className="d-flex">
-                                        <div className="gop-hoa-don col-6 d-flex" align="left">
-                                            <a
-                                                onClick={prevPage}
-                                                style={{
-                                                    marginRight: '20px',
-                                                }}
-                                                className="avatar-xs">
-                                                <div
-                                                    className="plus-background-color-re-noti avatar-title rounded-circle">
-                                                    <img src={chevonRight}
-                                                         className="plus-icon-button-re-left"/>
+                                                <div className="gop-hoa-don col-6" align="right"
+                                                     style={{height: '60px', alignItems: 'center'}}>
+                                                    <button style={{backgroundColor: '#6a7187'}}
+                                                            className="button-gop-hoa-don" disabled={true}>
+                                                        <b className="text-gop-hoa-don">Gộp hóa đơn</b>
+                                                    </button>
                                                 </div>
-                                            </a>
-                                            <a
-                                                onClick={nextPage}
-                                                className="avatar-xs">
-                                                <div
-                                                    className="plus-background-color-re-noti avatar-title rounded-circle">
-                                                    <img src={chevonRight}
-                                                         className="plus-icon-button-re-right"/>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div className="gop-hoa-don col-6" align="right"
-                                             style={{height: '60px', alignItems: 'center'}}>
-                                            <button className="button-gop-hoa-don">
-                                                <b className="text-gop-hoa-don">Gộp hóa đơn</b>
-                                            </button>
-                                        </div>
-                                    </div>
+                                            </div>
+                                        </div>)}
                                 </div>
                             </div>
                             <div align="center" className="col-xl-6">
@@ -278,7 +398,41 @@ const OrderList = (props) => {
                                                                     </div>
                                                                     <div style={{paddingLeft: '0px'}} align="center"
                                                                          className="col-2 card-detail-order-text-child">
-                                                                        <div>{it?.quantity}</div>
+                                                                        {(props?.detailConfirmOrderReceptionist?.data?.status === 'confirmed') ? (
+                                                                            <div style={{
+                                                                                backgroundColor: '#ffffff',
+                                                                                borderRadius: '30px'
+                                                                            }}
+                                                                            className="d-flex">
+                                                                                <div align="center" className="col-4">
+                                                                                    <a onClick={() => {
+                                                                                        props.dispatch(actions.postCustomizeNumberItemReRequest(props?.detailConfirmOrderReceptionist?.data?._id, it?.item_id,0))
+                                                                                        setTimeout(() => {
+                                                                                            props.dispatch(actions.getDetailConfirmOrderReRequest(props?.detailConfirmOrderReceptionist?.data?._id))
+                                                                                            setOrderId(props?.detailConfirmOrderReceptionist?.data?._id)
+                                                                                        }, 1000)
+                                                                                    }}>
+                                                                                        <img src={mathMinus}/>
+                                                                                    </a>
+                                                                                </div>
+                                                                                <div align="center" className="col-4">
+                                                                                    {it?.quantity}
+                                                                                </div>
+                                                                                <div align="center" className="col-4">
+                                                                                    <a onClick={() => {
+                                                                                        props.dispatch(actions.postCustomizeNumberItemReRequest(props?.detailConfirmOrderReceptionist?.data?._id, it?.item_id, 1))
+                                                                                        setTimeout(() => {
+                                                                                            props.dispatch(actions.getDetailConfirmOrderReRequest(props?.detailConfirmOrderReceptionist?.data?._id))
+                                                                                            setOrderId(props?.detailConfirmOrderReceptionist?.data?._id)
+                                                                                        }, 1000)
+                                                                                    }}>
+                                                                                        <img src={mathPlus}/>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        ) : (
+                                                                            <div>{it?.quantity}</div>
+                                                                        )}
                                                                     </div>
                                                                     <div align="right"
                                                                          className="col-2 card-detail-order-text-child">
@@ -319,33 +473,54 @@ const OrderList = (props) => {
                                                             {props?.detailConfirmOrderReceptionist?.data?.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                                         </div>
                                                     </div>
-                                                    <div align="center" className="col-4 d-flex">
-                                                        <div>
-                                                            <input style={{
-                                                                height: 50,
-                                                                width: '100%',
-                                                                borderRadius: '10px'
-                                                            }} type="text" name="voucher" placeholder="Mã giảm giá..."
-                                                                //value={search}
-                                                                   onChange={(e) => (
-                                                                       setVoucher(e.target.value)
-                                                                   )}
-                                                            />
-                                                        </div>
-                                                        <button
-                                                            onClick={handleEnterVoucher}
-                                                            style={{
-                                                                height: 50,
-                                                                width: 50,
-                                                                borderRadius: '10px',
-                                                                backgroundColor: '#FCBC3A',
-                                                                fontFamily: 'Cabin',
-                                                                fontStyle: 'normal',
-                                                                fontWeight: 'bold',
-                                                            }}
-                                                        >
-                                                            Xác nhận
-                                                        </button>
+                                                    <div align="center" className="col-4">
+                                                        {props?.detailConfirmOrderReceptionist?.data?.status === "confirmed" ? (
+                                                            <div className="d-flex">
+                                                                <div>
+                                                                    <input style={{
+                                                                        height: 50,
+                                                                        width: '100%',
+                                                                        borderRadius: '10px'
+                                                                    }} type="text" name="voucher"
+                                                                           placeholder="Mã giảm giá..."
+                                                                        //value={search}
+                                                                           onChange={(e) => (
+                                                                               setVoucher(e.target.value)
+                                                                           )}
+                                                                    />
+                                                                </div>
+                                                                <button
+                                                                    onClick={handleEnterVoucher}
+                                                                    style={{
+                                                                        height: 50,
+                                                                        width: 50,
+                                                                        borderRadius: '10px',
+                                                                        backgroundColor: '#FCBC3A',
+                                                                        fontFamily: 'Cabin',
+                                                                        fontStyle: 'normal',
+                                                                        fontWeight: 'bold',
+                                                                    }}
+                                                                >
+                                                                    Xác nhận
+                                                                </button>
+                                                            </div>
+                                                        ) : (
+                                                            <div
+                                                                style={{
+                                                                    height: 50,
+                                                                    width: 100,
+                                                                    borderRadius: '10px',
+                                                                    border: '2px solid #FCBC3A',
+                                                                    fontFamily: 'Cabin',
+                                                                    fontStyle: 'normal',
+                                                                    fontWeight: 'bold',
+                                                                    fontSize: '16px',
+                                                                    backgroundColor: '#FFEFCD',
+                                                                }}
+                                                            >
+                                                                Voucher: {props?.detailConfirmOrderReceptionist?.data?.voucher} %
+                                                            </div>
+                                                        )}
                                                     </div>
                                                     <div align="left" className="col-4">
                                                         <div>
@@ -354,7 +529,7 @@ const OrderList = (props) => {
                                                                 width: '100%',
                                                                 borderRadius: '10px'
                                                             }}>
-                                                                Khách còn để lại 2 coca
+                                                                abc
                                                             </textarea>
                                                         </div>
                                                     </div>
@@ -362,7 +537,7 @@ const OrderList = (props) => {
                                                         {(props?.detailConfirmOrderReceptionist?.data?.status === "confirmed")
                                                             ? (
                                                                 <button
-                                                                    onClick={()=>{
+                                                                    onClick={() => {
                                                                         props.dispatch(actions.getInvoiceCompletedOrderReRequest(props?.detailConfirmOrderReceptionist?.data?.table_id))
                                                                         setTimeout(() => {
                                                                             props.history.push('/receptionist-home')
@@ -386,7 +561,7 @@ const OrderList = (props) => {
                                                             )
                                                             : (
                                                                 <button disabled={true} style={{
-                                                                    backgroundColor: '#F8F8FB',
+                                                                    backgroundColor: '#6a7187',
                                                                     borderRadius: '10px',
                                                                     height: '45px',
                                                                     width: '100%'
@@ -416,7 +591,7 @@ const OrderList = (props) => {
                             </div>
                         </div>
                     </div>
-                    <Footer/>
+                    {/*<Footer/>*/}
                 </div>
             ) : (<NotFound/>)}
         </React.Fragment>
@@ -429,7 +604,9 @@ const mapStateToProps = (state) => {
         listConfirmOrderReceptionist: state.Receptionist.getListConfirmOrderReceptionist.listConfirmOrderReceptionist,
         detailConfirmOrderReceptionist: state.Receptionist.getDetailConfirmOrderReceptionist.detailConfirmOrderReceptionist,
         enterVoucherReceptionist: state.Receptionist.postEnterVoucherReceptionist.enterVoucherReceptionist,
-        invoiceCompletedReceptionist: state.Receptionist.getInvoiceCompletedReceptionist.invoiceCompletedReceptionist
+        invoiceCompletedReceptionist: state.Receptionist.getInvoiceCompletedReceptionist.invoiceCompletedReceptionist,
+        listPaidOrderReceptionist: state.Receptionist.getListPaidOrderReceptionist.listPaidOrderReceptionist,
+        listCustomizeNumberOfItemReceptionist: state.Receptionist.postCustomizeNumberOfItemReceptionist.listCustomizeNumberOfItemReceptionist,
     };
 };
 

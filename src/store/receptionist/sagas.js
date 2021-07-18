@@ -173,7 +173,7 @@ function* detailConfirmOrderReception({payload: tbi}) {
         const response = yield call(
             Request.getApi,
             apiUrls.viewDetailConfirmOrderReceptionistApi,
-            {table_id: tbi}
+            {_id: tbi}
         );
         yield put(actions.getDetailConfirmOrderReSuccess(response));
         console.log("detail confirm order re : "+ response.data)
@@ -221,6 +221,42 @@ export function* watchInvoiceCompletedReception() {
     yield takeEvery(actionTypes.GET_INVOICE_COMPLETED_RECEPTIONIST_REQUEST, invoiceCompletedReception);
 }
 
+//list paid order re
+function* listPaidOrderReception({payload: p}) {
+    try {
+        const response = yield call(
+            Request.getApi,
+            apiUrls.viewListPaidOrderReceptionistApi,
+            {page: p, pageSize: 10}
+        );
+        yield put(actions.getListPaidOrderReSuccess(response));
+        console.log("list paid order re : "+ response.data)
+    } catch (error) {
+        yield put(actions.getListPaidOrderReError(error));
+    }
+}
+export function* watchListPaidOrderReception() {
+    yield takeEvery(actionTypes.GET_LIST_PAID_ORDER_RECEPTIONIST_REQUEST, listPaidOrderReception);
+}
+
+//customize number of item
+function* customizeNumberOfItemReception({payload:{id, itemId, s}}) {
+    try {
+        const response = yield call(
+            Request.postApi,
+            apiUrls.customizeNumberOfItemApi,
+            {_id: id, item_id: itemId, status: s}
+        );
+        yield put(actions.postCustomizeNumberItemReSuccess(response.data));
+        console.log("customize number of item : "+ response.data)
+    } catch (error) {
+        yield put(actions.postCustomizeNumberItemReError(error));
+    }
+}
+export function* watchCustomizeNumberOfItemReception() {
+    yield takeEvery(actionTypes.POST_CUSTOMIZE_NUMBER_ITEM_RECEPTIONIST_REQUEST, customizeNumberOfItemReception);
+}
+
 const sagaReceptionist = [
     watchGetNotificationsReceptionist(),
     watchGetFeedback(),
@@ -234,6 +270,8 @@ const sagaReceptionist = [
     watchDetailConfirmOrderReception(),
     watchEnterVoucherReception(),
     watchInvoiceCompletedReception(),
+    watchListPaidOrderReception(),
+    watchCustomizeNumberOfItemReception(),
 ];
 
 export default sagaReceptionist;

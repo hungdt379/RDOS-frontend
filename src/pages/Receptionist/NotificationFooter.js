@@ -9,7 +9,6 @@ import {connect} from "react-redux";
 import * as actions from "../../store/receptionist/actions";
 import firebase from '../../helpers/firebase';
 
-import NotificationCard from "./NotificationCard";
 
 //i18n
 import {withNamespaces} from "react-i18next";

@@ -10,13 +10,10 @@ import NotificationDropdown from "./NotificationDropdown";
 import ProfileMenu from "./ProfileMenu";
 
 //i18n
-import { withNamespaces } from 'react-i18next';
-import imageItem from "../../assets/images/customer/logo-web.jpg";
 import NotificationFooter from "./NotificationFooter";
 import carousel from "../../assets/images/receptionist/carousel.png";
 import awards from "../../assets/images/receptionist/awards.png";
 import tableManage from "../../assets/images/receptionist/display-spacing.png";
-import profile from "../../assets/images/receptionist/profile.png";
 
 const Header = (props) => {
 

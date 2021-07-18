@@ -205,6 +205,40 @@ const getInvoiceCompletedReceptionist = (state = invoiceCompletedReceptionistRed
     }
 };
 
+//list paid order re
+const listPaidOrderReceptionistReducer = {
+    listPaidOrderReceptionist: [],
+};
+const getListPaidOrderReceptionist = (state = listPaidOrderReceptionistReducer, action) => {
+    switch (action.type) {
+        case actionTypes.GET_LIST_PAID_ORDER_RECEPTIONIST_REQUEST:
+            return { ...state };
+        case actionTypes.GET_LIST_PAID_ORDER_RECEPTIONIST_SUCCESS:
+            return { ...state, listPaidOrderReceptionist: action.payload };
+        case actionTypes.GET_LIST_PAID_ORDER_RECEPTIONIST_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+//customize number of item
+const customizeNumberOfItemReceptionistReducer = {
+    listCustomizeNumberOfItemReceptionist: [],
+};
+const postCustomizeNumberOfItemReceptionist = (state = customizeNumberOfItemReceptionistReducer, action) => {
+    switch (action.type) {
+        case actionTypes.POST_CUSTOMIZE_NUMBER_ITEM_RECEPTIONIST_REQUEST:
+            return { ...state };
+        case actionTypes.POST_CUSTOMIZE_NUMBER_ITEM_RECEPTIONIST_SUCCESS:
+            return { ...state, listCustomizeNumberOfItemReceptionist: action.payload };
+        case actionTypes.POST_CUSTOMIZE_NUMBER_ITEM_RECEPTIONIST_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
 export const Receptionist = combineReducers({
     getAllNotificationsReceptionist,
     getAllFeedback,
@@ -218,4 +252,6 @@ export const Receptionist = combineReducers({
     getDetailConfirmOrderReceptionist,
     postEnterVoucherReceptionist,
     getInvoiceCompletedReceptionist,
+    getListPaidOrderReceptionist,
+    postCustomizeNumberOfItemReceptionist,
 });
