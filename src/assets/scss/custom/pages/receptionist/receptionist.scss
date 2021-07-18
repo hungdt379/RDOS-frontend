@@ -319,3 +319,28 @@
   width: 100%;
   margin-bottom: 35px;
 }
+
+.check-all-button-matching{
+  display: none;
+}
+.choose-all-matching{
+  background: #FFEFCD;
+  border-radius: 30px;
+  height: 25px;
+  width: 80%;
+  text-align: center;
+  border: 2px solid #FCBC3A;
+  .choose-text-matching{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+    padding-top: 3px;
+    color: #1E1C19;
+  }
+}
+
+input[type='checkbox'].check-all-button-matching:checked ~ div.choose-all-matching{
+  background-color: #FCBC3A;
+}

@@ -30,6 +30,8 @@ const ManageTable = (props) => {
     const [openAdd, setOpenAdd] = useState(false);
 
     const [openAddTable, setOpenAddTable] = useState(false);
+    const [openDelTableSuccess, setOpenDelTableSuccess] = useState(false);
+    const [openDelTableFail, setOpenDelTableFail] = useState(false);
 
     const handleSubmitAddTable = (data) => {
         props.dispatch(actions.addTableReRequest({data}));
@@ -282,11 +284,16 @@ const ManageTable = (props) => {
                                                        onClick={() => {
                                                            if(tabre.is_active === false){
                                                                props.dispatch(actions.deleteTableReRequest(tabre._id))
+                                                               setOpenDelTableSuccess(true)
                                                                setTimeout(() => {
                                                                    props.dispatch(actions.getAllTableReRequest(page));
-                                                               }, 800)
+                                                                   setOpenDelTableSuccess(false)
+                                                               }, 1500)
                                                            }else {
-                                                               alert("Bàn đang mở bạn không thể xóa!")
+                                                               setOpenDelTableFail(true)
+                                                               setTimeout(() => {
+                                                                   setOpenDelTableFail(false)
+                                                               }, 1500)
                                                            }
                                                        }}
                                                     >
@@ -480,6 +487,42 @@ const ManageTable = (props) => {
                                 fontFamily: 'Cabin',
                                 fontSize: '15px',
                             }}><b>Yêu cầu được thực hiện !</b>
+                            </div>
+                        </div>
+                    </Modal>
+                    <Modal align="center" style={{
+                        width: '350px',
+                        marginRight: 'auto',
+                        marginLeft: 'auto',
+                        height: '100px',
+                        marginTop: '200px',
+                        marginBottom: "auto",
+                    }} isOpen={openDelTableSuccess}>
+                        <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                            <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                               className="bx bx-calendar-check bx-tada"></i>
+                            <div style={{
+                                fontFamily: 'Cabin',
+                                fontSize: '15px',
+                            }}><b>Đã xóa bàn thành công !</b>
+                            </div>
+                        </div>
+                    </Modal>
+                    <Modal align="center" style={{
+                        width: '350px',
+                        marginRight: 'auto',
+                        marginLeft: 'auto',
+                        height: '100px',
+                        marginTop: '200px',
+                        marginBottom: "auto",
+                    }} isOpen={openDelTableFail}>
+                        <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                            <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                               className="bx bx-calendar-check bx-tada"></i>
+                            <div style={{
+                                fontFamily: 'Cabin',
+                                fontSize: '15px',
+                            }}><b>Bàn đang mở không được xóa !</b>
                             </div>
                         </div>
                     </Modal>

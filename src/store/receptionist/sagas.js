@@ -207,12 +207,13 @@ export function* watchEnterVoucherReception() {
 function* invoiceCompletedReception({payload: tbi}) {
     try {
         const response = yield call(
-            Request.getApi,
+            Request.postApi,
             apiUrls.invoiceCompletedOrderApi,
-            {table_id: tbi}
+            {_id: tbi}
         );
         yield put(actions.getInvoiceCompletedOrderReSuccess(response));
         console.log("invoice completed order : "+ response.data)
+        window.open(response.data)
     } catch (error) {
         yield put(actions.getInvoiceCompletedOrderReError(error));
     }

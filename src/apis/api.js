@@ -30,7 +30,7 @@ export const apiUrls = {
   viewListConfirmOrderReceptionistApi: 'api/order/confirm/list',
   viewDetailConfirmOrderReceptionistApi: 'api/table/order/detail',
   enterVoucherApi: 'api/receptionist/order/confirm/voucher/add',
-  invoiceCompletedOrderApi: 'api/receptionist/order/completed/view',
+  invoiceCompletedOrderApi: 'api/receptionist/order/export/bill',
   viewListPaidOrderReceptionistApi: 'api/receptionist/order/completed/list',
   customizeNumberOfItemApi: 'api/receptionist/order/confirm/item/quantity/update',
 

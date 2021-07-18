@@ -128,7 +128,7 @@ const CustomerHome = (props) => {
                         <div className="d-flex three-button pt-2 pb-2">
                             <Link align="center" className="square-button">
                                 <a onClick={() => {
-                                    if (props?.allViewOrder?.data !== undefined){
+                                    if (props?.allViewOrder?.data !== undefined && props?.allViewOrder?.data?.item?.length !== 0){
                                         if ((todoDataRe.filter((tr, index) => (tr.user_id === props.authCustomer.data.user.user_id)).length === 0) &&
                                             (todoDataWa.filter((tw, index) => (tw.title === "Gọi thanh toán")).length === 0)) {
                                             props.dispatch(actions.postCallPaymentRequest());
@@ -194,8 +194,8 @@ const CustomerHome = (props) => {
                         <div align='center' className='pt-3'>
                             <button onClick={() => {
                                 props.history.push('/customer-see-order')
-                            }} className={(props?.allViewOrder?.data !== undefined)?'menu-button-disable-none':'menu-button-disable'}
-                                    disabled={(props?.allViewOrder?.data !== undefined)? false : true}>
+                            }} className={(props?.allViewOrder?.data !== undefined && props?.allViewOrder?.data?.item?.length !== 0)?'menu-button-disable-none':'menu-button-disable'}
+                                    disabled={(props?.allViewOrder?.data !== undefined && props?.allViewOrder?.data?.item?.length !== 0)? false : true}>
                                 <div align='center' className="text-button">
                                     <img style={{
                                         width: '25px',

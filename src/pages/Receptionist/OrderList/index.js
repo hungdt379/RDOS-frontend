@@ -13,6 +13,8 @@ import mathPlus from "../../../assets/images/receptionist/math-plus.png";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
 import * as actions from "../../../store/receptionist/actions";
 import {withNamespaces} from "react-i18next";
+import {authHeaderGetApiCus} from "../../../helpers/jwt-token-access/auth-token-header";
+import {Modal} from "reactstrap";
 
 // Import menuDropdown
 
@@ -91,6 +93,38 @@ const OrderList = (props) => {
         }, 1000)
     };
 
+    const [matchTable, setMatchTable] = useState([]);
+    const [checkedState, setCheckedState] = useState([]);
+
+    console.log("checkedStateTestOrder: " + checkedState);
+
+    const handleOnChange = (position) => {
+        const updatedCheckedState = checkedState.map((item, index) =>
+            index === position ? !item : item
+        );
+
+        setCheckedState(updatedCheckedState);
+
+        const testMatchTable = updatedCheckedState.map(
+            (currentState, index) => {
+                if (currentState === true) {
+                    return "table_id["+index+"]="+(props?.listConfirmOrderReceptionist?.data[index].table_id);
+                }
+            },
+        );
+        setMatchTable(testMatchTable.filter(function (el) {
+            return el != null;
+        }));
+    };
+
+    console.log("matchTable: " + 'http://165.227.99.160/api/receptionist/order/confirm/match?'+matchTable.join("&"));
+    const [toggleSwitch, settoggleSwitch] = useState(false);
+    console.log("toggleSwitch: " + toggleSwitch);
+
+    const [openMatchingSuccess, setOpenMatchingSuccess] = useState(false);
+    const [openInvoiceSuccess, setOpenInvoiceSuccess] = useState(false);
+    const [openMatchingFail, setOpenMatchingFail] = useState(false);
+
     return (
         <React.Fragment>
             {(role === 'r') ? (
@@ -139,23 +173,17 @@ const OrderList = (props) => {
                                                     <div>
                                                         <label className="item-menu-re d-flex">
                                                             <input
-                                                                // onChange={event => {
-                                                                //     let checked = event.target.checked;
-                                                                //     setOrderState(
-                                                                //         orderState.map(data => {
-                                                                //             if (d.order === data.order) {
-                                                                //                 data.select = checked;
-                                                                //             }
-                                                                //             return data;
-                                                                //         })
-                                                                //     );
-                                                                // }}
+                                                                onChange={() => {
+                                                                    handleOnChange(i);
+                                                                }}
+                                                                checked={checkedState[i]}
                                                                 type="checkbox"
-                                                                // checked={d.select}
-                                                                id={lco._id}
-                                                                name={lco._id}
+                                                                id={lco.table_id}
+                                                                value={lco.table_id}
+                                                                name={lco.table_id}
                                                                 style={{display: 'none'}}
                                                                 className="check-re-order"
+                                                                disabled={(toggleSwitch === true) ? false : true}
                                                             />
                                                             <div htmlFor={lco._id}
                                                                  className="col-11 d-flex menu-item-bar-re">
@@ -199,7 +227,7 @@ const OrderList = (props) => {
                                                 }
                                             </PerfectScrollbar>
                                             <div className="d-flex">
-                                                <div className="gop-hoa-don col-6 d-flex" align="left">
+                                                <div className="gop-hoa-don col-4 d-flex" align="left">
                                                     <a
                                                         onClick={prevPage}
                                                         style={{
@@ -222,11 +250,61 @@ const OrderList = (props) => {
                                                         </div>
                                                     </a>
                                                 </div>
-                                                <div className="gop-hoa-don col-6" align="right"
+                                                <div className="gop-hoa-don col-4" align="right">
+                                                    <label style={{width: '100%'}}>
+                                                        <input
+                                                            className="check-all-button-matching"
+                                                            type="checkbox"
+                                                            onChange={() => {
+                                                                settoggleSwitch(!toggleSwitch)
+                                                                setCheckedState(new Array(props?.listConfirmOrderReceptionist?.data?.length).fill(false))
+                                                            }}
+                                                            checked={(toggleSwitch === true) ? true : false}
+                                                        />
+                                                        <div className="choose-all-matching">
+                                                            <div className="choose-text-matching">Chọn nhiều hóa đơn
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                <div className="gop-hoa-don col-4" align="right"
                                                      style={{height: '60px', alignItems: 'center'}}>
-                                                    <button className="button-gop-hoa-don">
-                                                        <b className="text-gop-hoa-don">Gộp hóa đơn</b>
-                                                    </button>
+                                                    {(toggleSwitch === true) ? (
+                                                        <button
+                                                            onClick={() => {
+                                                                if(matchTable.length > 1){
+                                                                    fetch('http://165.227.99.160/api/receptionist/order/confirm/match?'+matchTable.join("&"), {
+                                                                        method: 'POST',
+                                                                        headers: authHeaderGetApiCus(),
+                                                                    })
+                                                                        .then(res => res.json())
+                                                                        .then(data => {
+                                                                            props.dispatch(actions.getDetailConfirmOrderReRequest(data.data._id))
+                                                                            setOrderId(data.data._id)
+                                                                            setOpenMatchingSuccess(true)
+                                                                            setTimeout(() => {
+                                                                                setOpenMatchingSuccess(false)
+                                                                                settoggleSwitch(false)
+                                                                                setCheckedState(new Array(props?.listConfirmOrderReceptionist?.data?.length).fill(false))
+                                                                            }, 1500)
+                                                                        })
+                                                                        .catch(error => console.log('ERROR'))
+                                                                }else{
+                                                                    setOpenMatchingFail(true)
+                                                                    setTimeout(() => {
+                                                                        setOpenMatchingFail(false)
+                                                                    }, 1500)
+                                                                }
+                                                            }}
+                                                            className="button-gop-hoa-don">
+                                                            <b className="text-gop-hoa-don">Gộp hóa đơn</b>
+                                                        </button>
+                                                    ) : (
+                                                        <button style={{backgroundColor: '#6a7187'}}
+                                                                className="button-gop-hoa-don" disabled={true}>
+                                                            <b className="text-gop-hoa-don">Gộp hóa đơn</b>
+                                                        </button>
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
@@ -237,23 +315,13 @@ const OrderList = (props) => {
                                                     <div>
                                                         <label className="item-menu-re d-flex">
                                                             <input
-                                                                // onChange={event => {
-                                                                //     let checked = event.target.checked;
-                                                                //     setOrderState(
-                                                                //         orderState.map(data => {
-                                                                //             if (d.order === data.order) {
-                                                                //                 data.select = checked;
-                                                                //             }
-                                                                //             return data;
-                                                                //         })
-                                                                //     );
-                                                                // }}
                                                                 type="checkbox"
                                                                 // checked={d.select}
                                                                 id={lpo._id}
                                                                 name={lpo._id}
                                                                 style={{display: 'none'}}
                                                                 className="check-re-order"
+                                                                disabled={true}
                                                             />
                                                             <div htmlFor={lpo._id}
                                                                  className="col-11 d-flex menu-item-bar-re">
@@ -328,7 +396,8 @@ const OrderList = (props) => {
                                                     </button>
                                                 </div>
                                             </div>
-                                        </div>)}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                             <div align="center" className="col-xl-6">
@@ -356,7 +425,7 @@ const OrderList = (props) => {
                                                         <div align="center" className="col-4 detail-order-re">
                                                             <div className='detail-order-top-re'>Trạng thái</div>
                                                             <div
-                                                                style={{color: props?.detailConfirmOrderReceptionist?.data?.status == "confirmed" ? "lightcoral" : "green"}}
+                                                                style={{color: (props?.detailConfirmOrderReceptionist?.data?.status == "confirmed" || props?.detailConfirmOrderReceptionist?.data?.status === "matching") ? "lightcoral" : "green"}}
                                                                 className='detail-order-down-re'>
                                                                 {props?.detailConfirmOrderReceptionist?.data?.status}
                                                             </div>
@@ -403,10 +472,10 @@ const OrderList = (props) => {
                                                                                 backgroundColor: '#ffffff',
                                                                                 borderRadius: '30px'
                                                                             }}
-                                                                            className="d-flex">
+                                                                                 className="d-flex">
                                                                                 <div align="center" className="col-4">
                                                                                     <a onClick={() => {
-                                                                                        props.dispatch(actions.postCustomizeNumberItemReRequest(props?.detailConfirmOrderReceptionist?.data?._id, it?.item_id,0))
+                                                                                        props.dispatch(actions.postCustomizeNumberItemReRequest(props?.detailConfirmOrderReceptionist?.data?._id, it?.item_id, 0))
                                                                                         setTimeout(() => {
                                                                                             props.dispatch(actions.getDetailConfirmOrderReRequest(props?.detailConfirmOrderReceptionist?.data?._id))
                                                                                             setOrderId(props?.detailConfirmOrderReceptionist?.data?._id)
@@ -441,7 +510,7 @@ const OrderList = (props) => {
                                                                     <div align="right"
                                                                          className="col-3 card-detail-order-text-child"
                                                                          style={{
-                                                                             color: props?.detailConfirmOrderReceptionist?.data?.status == "confirmed" ? "lightcoral" : "green",
+                                                                             color: (props?.detailConfirmOrderReceptionist?.data?.status == "confirmed" || props?.detailConfirmOrderReceptionist?.data?.status === "matching") ? "lightcoral" : "green",
                                                                              marginRight: '30px'
                                                                          }}>
                                                                         {props?.detailConfirmOrderReceptionist?.data?.status}
@@ -474,7 +543,7 @@ const OrderList = (props) => {
                                                         </div>
                                                     </div>
                                                     <div align="center" className="col-4">
-                                                        {props?.detailConfirmOrderReceptionist?.data?.status === "confirmed" ? (
+                                                        {(props?.detailConfirmOrderReceptionist?.data?.status === "confirmed" || props?.detailConfirmOrderReceptionist?.data?.status === "matching") ? (
                                                             <div className="d-flex">
                                                                 <div>
                                                                     <input style={{
@@ -534,14 +603,18 @@ const OrderList = (props) => {
                                                         </div>
                                                     </div>
                                                     <div align="right" className="col-2">
-                                                        {(props?.detailConfirmOrderReceptionist?.data?.status === "confirmed")
+                                                        {(props?.detailConfirmOrderReceptionist?.data?.status === "confirmed" || props?.detailConfirmOrderReceptionist?.data?.status === "matching")
                                                             ? (
                                                                 <button
                                                                     onClick={() => {
-                                                                        props.dispatch(actions.getInvoiceCompletedOrderReRequest(props?.detailConfirmOrderReceptionist?.data?.table_id))
+                                                                        props.dispatch(actions.getInvoiceCompletedOrderReRequest(_id))
+                                                                        setOpenInvoiceSuccess(true)
                                                                         setTimeout(() => {
                                                                             props.history.push('/receptionist-home')
-                                                                        }, 1000)
+                                                                            setOpenInvoiceSuccess(false)
+                                                                            props.dispatch(actions.getListConfirmOrderReRequest(page));
+                                                                            props.dispatch(actions.getListPaidOrderReRequest(page));
+                                                                        }, 1500)
                                                                     }}
                                                                     style={{
                                                                         backgroundColor: '#FCBC3A',
@@ -591,6 +664,60 @@ const OrderList = (props) => {
                             </div>
                         </div>
                     </div>
+                    <Modal align="center" style={{
+                        width: '350px',
+                        marginRight: 'auto',
+                        marginLeft: 'auto',
+                        height: '100px',
+                        marginTop: '200px',
+                        marginBottom: "auto",
+                    }} isOpen={openMatchingSuccess}>
+                        <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                            <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                               className="bx bx-calendar-check bx-tada"></i>
+                            <div style={{
+                                fontFamily: 'Cabin',
+                                fontSize: '15px',
+                            }}><b>Gộp Order thành công !</b>
+                            </div>
+                        </div>
+                    </Modal>
+                    <Modal align="center" style={{
+                        width: '350px',
+                        marginRight: 'auto',
+                        marginLeft: 'auto',
+                        height: '100px',
+                        marginTop: '200px',
+                        marginBottom: "auto",
+                    }} isOpen={openInvoiceSuccess}>
+                        <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                            <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                               className="bx bx-calendar-check bx-tada"></i>
+                            <div style={{
+                                fontFamily: 'Cabin',
+                                fontSize: '15px',
+                            }}><b>Xuất hóa đơn thành công !</b>
+                            </div>
+                        </div>
+                    </Modal>
+                    <Modal align="center" style={{
+                        width: '350px',
+                        marginRight: 'auto',
+                        marginLeft: 'auto',
+                        height: '100px',
+                        marginTop: '200px',
+                        marginBottom: "auto",
+                    }} isOpen={openMatchingFail}>
+                        <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                            <i style={{color: "red", fontSize: '50px'}}
+                               className="bx bx-calendar-exclamation bx-tada"></i>
+                            <div style={{
+                                fontFamily: 'Cabin',
+                                fontSize: '15px',
+                            }}><b>Bạn phải chọn nhiều hơn 1 Order để gộp !</b>
+                            </div>
+                        </div>
+                    </Modal>
                     {/*<Footer/>*/}
                 </div>
             ) : (<NotFound/>)}
