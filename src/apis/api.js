@@ -28,9 +28,11 @@ export const apiUrls = {
   getGenerateQrTableReceptionistApi: "api/receptionist/table/qrcode",
   postEditTableReceptionistApi: "api/receptionist/table/update",
   viewListConfirmOrderReceptionistApi: 'api/order/confirm/list',
-  viewDetailConfirmOrderReceptionistApi: 'api/table/order/confirm/detail',
+  viewDetailConfirmOrderReceptionistApi: 'api/table/order/detail',
   enterVoucherApi: 'api/receptionist/order/confirm/voucher/add',
   invoiceCompletedOrderApi: 'api/receptionist/order/completed/view',
+  viewListPaidOrderReceptionistApi: 'api/receptionist/order/completed/list',
+  customizeNumberOfItemApi: 'api/receptionist/order/confirm/item/quantity/update',
 
   //Waiter
   getAllTables: "api/waiter/tables?page=1&pageSize=15",

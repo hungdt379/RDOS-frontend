@@ -8,7 +8,6 @@ import "../../../assets/scss/custom/pages/customer/screen.scss";
 import * as actions from "../../../store/customer/actions";
 import CallWaiter from "../CallWaiter";
 import Invalid from "../Invalid";
-import {withNamespaces} from "react-i18next";
 import {postCallWaiterRequest} from "../../../store/customer/actions";
 import firebase from "../../../helpers/firebase";
 // import images
@@ -32,6 +31,7 @@ const CustomerHome = (props) => {
     const [notiSendOrder, setNotiSendOrder] = useState('Đã gửi yêu cầu đặt món, hãy đợi giây lát!');
 
     const [openLoadPa, setOpenLoadPa] = useState(false);
+    const [openLoadNoOrder, setOpenLoadNoOrder] = useState(false);
     const [openLoadCa, setOpenLoadCa] = useState(false);
 
     const [openLoadCheck, setOpenLoadCheck] = useState(false);
@@ -128,17 +128,24 @@ const CustomerHome = (props) => {
                         <div className="d-flex three-button pt-2 pb-2">
                             <Link align="center" className="square-button">
                                 <a onClick={() => {
-                                    if ((todoDataRe.filter((tr, index) => (tr.user_id === props.authCustomer.data.user.user_id)).length === 0) &&
-                                        (todoDataWa.filter((tw, index) => (tw.title === "Gọi thanh toán")).length === 0)) {
-                                        props.dispatch(actions.postCallPaymentRequest());
-                                        setOpenLoadPa(true);
+                                    if (props?.allViewOrder?.data !== undefined){
+                                        if ((todoDataRe.filter((tr, index) => (tr.user_id === props.authCustomer.data.user.user_id)).length === 0) &&
+                                            (todoDataWa.filter((tw, index) => (tw.title === "Gọi thanh toán")).length === 0)) {
+                                            props.dispatch(actions.postCallPaymentRequest());
+                                            setOpenLoadPa(true);
+                                            setTimeout(() => {
+                                                setOpenLoadPa(false);
+                                            }, 1000)
+                                        } else {
+                                            setOpenLoadCheck(true);
+                                            setTimeout(() => {
+                                                setOpenLoadCheck(false);
+                                            }, 2800)
+                                        }
+                                    }else{
+                                        setOpenLoadNoOrder(true);
                                         setTimeout(() => {
-                                            setOpenLoadPa(false);
-                                        }, 1000)
-                                    } else {
-                                        setOpenLoadCheck(true);
-                                        setTimeout(() => {
-                                            setOpenLoadCheck(false);
+                                            setOpenLoadNoOrder(false);
                                         }, 2800)
                                     }
                                 }}
@@ -253,9 +260,27 @@ const CustomerHome = (props) => {
                     height: '100px',
                     marginTop: '200px',
                     marginBottom: "auto",
+                }} isOpen={openLoadNoOrder}>
+                    <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                        <i style={{color: "red", fontSize: '50px'}}
+                           className="bx bx-calendar-exclamation bx-tada"></i>
+                        <div style={{
+                            fontFamily: 'Cabin',
+                            fontSize: '15px',
+                        }}><b>Bạn chưa thể thanh toán khi không có Order nào !</b>
+                        </div>
+                    </div>
+                </Modal>
+                <Modal align="center" style={{
+                    width: '350px',
+                    marginRight: 'auto',
+                    marginLeft: 'auto',
+                    height: '100px',
+                    marginTop: '200px',
+                    marginBottom: "auto",
                 }} isOpen={openLoadCheck}>
                     <div style={{backgroundColor: '#FFEFCD'}} align="center">
-                        <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                        <i style={{color: "red", fontSize: '50px'}}
                            className="bx bx-calendar-exclamation bx-tada"></i>
                         <div style={{
                             fontFamily: 'Cabin',

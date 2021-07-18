@@ -4,14 +4,10 @@ import React, {useState, Component, useEffect} from "react";
 import "../../../assets/scss/custom/pages/customer/detail.scss";
 import {Link} from "react-router-dom";
 
-import imageItem from "../../../assets/images/customer/logo-web.jpg";
 import Invalid from "../Invalid";
 import left from "../../../assets/images/customer/chevron-left-o.png";
 import * as actions from "../../../store/customer/actions";
-import trash from "../../../assets/images/customer/trash.png";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import {authHeaderGetApiCus} from "../../../helpers/jwt-token-access/auth-token-header";
-import close from "../../../assets/images/customer/close.png";
 import {withNamespaces} from "react-i18next";
 import {connect} from "react-redux";
 import Footer from "../../../components/RdosCustomerLayout/Footer";

@@ -12,9 +12,6 @@ import {withNamespaces} from "react-i18next";
 
 function HeaderMenu(props){
 
-    // useEffect(() => {
-    //     props.dispatch(actions.getAllMenuRequest());
-    // }, []);
     const { control } = useForm();
     // const item = useSelector((state) => state?.Customer?.getAllMenu?.allMenu);
     const optionReceiver = useMemo(() => {

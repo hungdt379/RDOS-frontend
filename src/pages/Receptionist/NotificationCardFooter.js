@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from "react";
 import SimpleBar from "simplebar-react";
-import moment from "moment";
-import {Link, Switch} from "react-router-dom";
 import {connect} from "react-redux";
 
 const NotificationCardFooter = (props) => {

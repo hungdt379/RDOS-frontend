@@ -4,9 +4,7 @@ import React, {useState, Component, useEffect} from "react";
 import "../../../assets/scss/custom/pages/customer/detail.scss";
 import {Link} from "react-router-dom";
 
-import imageItem from "../../../assets/images/customer/logo-web.jpg";
 import Invalid from "../Invalid";
-import {Button, Input, Label} from "reactstrap/es";
 import {sendFeedbackRequest} from "../../../store/customer/actions";
 import {useDispatch} from "react-redux";
 import * as actions from "../../../store/customer/actions";

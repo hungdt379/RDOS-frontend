@@ -7,7 +7,6 @@ import "../../../assets/scss/custom/pages/receptionist/receptionist.scss";
 import {Link} from "react-router-dom";
 import Header from "../HeaderReception";
 import {Button, Col, Container, Input, Row, Table} from "reactstrap/es";
-import Invalid from "../../Customer/Invalid";
 import NotFound from "../../Authentication/Page401";
 import * as actions from "../../../store/receptionist/actions";
 import {withNamespaces} from "react-i18next";
@@ -16,12 +15,8 @@ import chevonRight from "../../../assets/images/receptionist/chevron-down.png";
 import vector from "../../../assets/images/receptionist/Vector.png";
 import trash from "../../../assets/images/receptionist/trashre.png";
 import searchImg from "../../../assets/images/customer/search.png";
-import CallWaiter from "../../Customer/CallWaiter";
 import AddTable from "./AddTable";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
-import {postCallWaiterRequest} from "../../../store/customer/actions";
-import EditTable from "./EditTable";
-import {Controller} from "react-hook-form";
 import {Modal} from "reactstrap";
 
 // Import menuDropdown
@@ -124,31 +119,31 @@ const ManageTable = (props) => {
                                 <div className="col-1"></div>
                                 <div className="col-4 d-flex">
                                     <div className="col-8 d-flex">
-                                        <input style={{
-                                            height: '35px',
-                                            border: '1px solid #000000',
-                                            backgroundColor: '#ffffff',
-                                            borderRight: '0px',
-                                            width: '100%'
-                                        }} className="search-bar" type="text" name="search" placeholder="Tìm kiếm..."
-                                            // value={search}
-                                            //    onChange={(e) => (
-                                            //        setSearch(e.target.value),
-                                            //            props.dispatch(actions.getAllSearchRequest(e.target.value))
-                                            //    )}
-                                        />
-                                        <div style={{
-                                            height: '35px',
-                                            border: '1px solid #000000',
-                                            borderLeft: '0px',
-                                            borderRadius: '0px 20px 20px 0px',
-                                            width: '100%'
-                                        }} align="right" className="home-icon col-2">
-                                            <a>
-                                                <img style={{transform: 'matrix(-1,0,0,1,0,0)', marginTop: '5px'}}
-                                                     src={searchImg} className="icon-button"/>
-                                            </a>
-                                        </div>
+                                        {/*<input style={{*/}
+                                        {/*    height: '35px',*/}
+                                        {/*    border: '1px solid #000000',*/}
+                                        {/*    backgroundColor: '#ffffff',*/}
+                                        {/*    borderRight: '0px',*/}
+                                        {/*    width: '100%'*/}
+                                        {/*}} className="search-bar" type="text" name="search" placeholder="Tìm kiếm..."*/}
+                                        {/*    // value={search}*/}
+                                        {/*    //    onChange={(e) => (*/}
+                                        {/*    //        setSearch(e.target.value),*/}
+                                        {/*    //            props.dispatch(actions.getAllSearchRequest(e.target.value))*/}
+                                        {/*    //    )}*/}
+                                        {/*/>*/}
+                                        {/*<div style={{*/}
+                                        {/*    height: '35px',*/}
+                                        {/*    border: '1px solid #000000',*/}
+                                        {/*    borderLeft: '0px',*/}
+                                        {/*    borderRadius: '0px 20px 20px 0px',*/}
+                                        {/*    width: '100%'*/}
+                                        {/*}} align="right" className="home-icon col-2">*/}
+                                        {/*    <a>*/}
+                                        {/*        <img style={{transform: 'matrix(-1,0,0,1,0,0)', marginTop: '5px'}}*/}
+                                        {/*             src={searchImg} className="icon-button"/>*/}
+                                        {/*    </a>*/}
+                                        {/*</div>*/}
                                     </div>
                                     <div className="col-4">
                                         <button style={{

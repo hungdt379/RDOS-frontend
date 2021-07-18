@@ -13,7 +13,6 @@ import left from "../../../assets/images/customer/chevron-left-o.png";
 import trash from "../../../assets/images/customer/trash.png";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import close from "../../../assets/images/customer/close.png";
-import shoppingCart from "../../../assets/images/customer/shopping-cart.png";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
 import {Modal} from "reactstrap";
 
@@ -257,7 +256,7 @@ const Cart = (props) => {
                     marginBottom: "auto",
                 }} isOpen={openLoadCheck}>
                     <div style={{backgroundColor: '#FFEFCD'}} align="center">
-                        <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                        <i style={{color: "red", fontSize: '50px'}}
                            className="bx bx-calendar-exclamation bx-tada"></i>
                         <div style={{
                             fontFamily: 'Cabin',

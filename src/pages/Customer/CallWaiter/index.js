@@ -2,16 +2,14 @@ import React, {useMemo, useState} from "react";
 
 //Import scss
 import "../../../assets/scss/custom/pages/customer/detail.scss";
-import {Link} from "react-router-dom";
 
-import imageItem from "../../../assets/images/customer/logo-web.jpg";
 import {
     Modal,
     Input,
     Button
 } from "reactstrap/es";
 import * as actions from "../../../store/customer/actions";
-import {useSelector} from "react-redux";
+
 import {useForm, Controller} from "react-hook-form";
 
 function CallWaiter(props) {

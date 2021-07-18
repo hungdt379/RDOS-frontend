@@ -4,15 +4,10 @@ import React, {useState, Component, useEffect} from "react";
 import "../../../assets/scss/custom/pages/customer/detail.scss";
 import {Link, useParams} from "react-router-dom";
 
-import imageItem from "../../../assets/images/customer/logo-web.jpg";
-import shoppingCart from "../../../assets/images/customer/shopping-cart.png";
-import mathMinus from "../../../assets/images/customer/math-minus.png";
-import mathPlus from "../../../assets/images/customer/math-plus.png";
 import {connect, useDispatch} from "react-redux";
 import * as actions from "../../../store/customer/actions";
 import {withNamespaces} from "react-i18next";
 import left from "../../../assets/images/customer/chevron-left-o.png";
-import {getFoodInComboRequest} from "../../../store/customer/actions";
 
 const DetailItemOrder = (props) => {
 

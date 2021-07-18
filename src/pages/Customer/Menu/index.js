@@ -3,7 +3,6 @@ import React, {useState, Component, useEffect} from "react";
 //Import scss
 import "../../../assets/scss/custom/pages/customer/menu.scss";
 import {BrowserRouter as Router, Link, Route, Switch, withRouter} from "react-router-dom";
-import NonAuthLayout from "../../../components/NonAuthLayout";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import * as actions from "../../../store/customer/actions";
 import Invalid from "../Invalid";
@@ -11,7 +10,6 @@ import {withNamespaces} from "react-i18next";
 import {connect} from "react-redux";
 import home from "../../../assets/images/customer/home.png";
 import searchImg from "../../../assets/images/customer/search.png";
-import desktop from "../../../assets/images/customer/desktop.png";
 import food from "../../../assets/images/customer/food.png";
 import bowl from "../../../assets/images/customer/bowl.png";
 import coffee from "../../../assets/images/customer/coffee.png";
@@ -21,7 +19,6 @@ import beers from "../../../assets/images/customer/beer.png";
 import wine from "../../../assets/images/customer/wine.png";
 import chicken from "../../../assets/images/customer/chicken.png";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
-import profile from "../../../assets/images/customer/logo-web-after-design.jpg";
 import {Modal} from "reactstrap";
 
 const CustomerMenu = (props) => {
