@@ -85,7 +85,7 @@ const NotificationDropdown = (props) => {
                                      className="avatar-title rounded-circle header-re-icon">
                                     <i style={{color: "#000000"}}
                                        className={(todoList !== 0) ? "bx bx-bell bx-tada" : "bx bx-bell"}></i>
-                                    <span className="badge badge-danger badge-pill">
+                                    <span className="badge badge-danger badge-pill ml-3">
                                         {todoList}
                                     </span>
                                 </div>

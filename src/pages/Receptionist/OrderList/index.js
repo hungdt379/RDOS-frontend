@@ -240,8 +240,18 @@ const OrderList = (props) => {
                                                                  className="plus-icon-button-re-left"/>
                                                         </div>
                                                     </a>
+                                                    <div style={{
+                                                        fontFamily: 'Cabin',
+                                                        fontSize: '20px',
+                                                        fontWeight: 'normal',
+                                                        fontStyle: 'normal',
+                                                        color: '#FCBC3A'
+                                                    }}>{page}</div>
                                                     <a
                                                         onClick={nextPage}
+                                                        style={{
+                                                            marginLeft: '20px',
+                                                        }}
                                                         className="avatar-xs">
                                                         <div
                                                             className="plus-background-color-re-noti avatar-title rounded-circle">
@@ -251,7 +261,7 @@ const OrderList = (props) => {
                                                     </a>
                                                 </div>
                                                 <div className="gop-hoa-don col-4" align="right">
-                                                    <label style={{width: '100%'}}>
+                                                    <label style={{width: '50%'}}>
                                                         <input
                                                             className="check-all-button-matching"
                                                             type="checkbox"
@@ -378,8 +388,18 @@ const OrderList = (props) => {
                                                                  className="plus-icon-button-re-left"/>
                                                         </div>
                                                     </a>
+                                                    <div style={{
+                                                        fontFamily: 'Cabin',
+                                                        fontSize: '20px',
+                                                        fontWeight: 'normal',
+                                                        fontStyle: 'normal',
+                                                        color: '#FCBC3A'
+                                                    }}>{pageComplete}</div>
                                                     <a
                                                         onClick={nextPageComplete}
+                                                        style={{
+                                                            marginLeft: '20px',
+                                                        }}
                                                         className="avatar-xs">
                                                         <div
                                                             className="plus-background-color-re-noti avatar-title rounded-circle">
@@ -407,31 +427,30 @@ const OrderList = (props) => {
                                             Chi tiết Order
                                         </b>
                                     </div>
+                                    <div style={{height: '75px', backgroundColor: '#F8F8FB'}}
+                                         className="ra-button-re d-flex">
+                                        <div align="center" className="col-4 detail-order-re">
+                                            <div className='detail-order-top-re'>Mã Order</div>
+                                            <div
+                                                className='detail-order-down-re'>{props?.detailConfirmOrderReceptionist?.data?._id}</div>
+                                        </div>
+                                        <div align="center" className="col-4 detail-order-re">
+                                            <div className='detail-order-top-re'>Mã Bàn</div>
+                                            <div
+                                                className='detail-order-down-re'>{props?.detailConfirmOrderReceptionist?.data?.table_name}</div>
+                                        </div>
+                                        <div align="center" className="col-4 detail-order-re">
+                                            <div className='detail-order-top-re'>Trạng thái</div>
+                                            <div
+                                                style={{color: (props?.detailConfirmOrderReceptionist?.data?.status == "confirmed" || props?.detailConfirmOrderReceptionist?.data?.status === "matching") ? "lightcoral" : "green"}}
+                                                className='detail-order-down-re'>
+                                                {props?.detailConfirmOrderReceptionist?.data?.status}
+                                            </div>
+                                        </div>
+                                    </div>
                                     {(props?.detailConfirmOrderReceptionist?.data !== undefined) ? (
                                             <div>
                                                 <PerfectScrollbar className="mh-55">
-                                                    <div style={{height: '80px', backgroundColor: '#F8F8FB'}}
-                                                         className="ra-button-re d-flex">
-                                                        <div align="center" className="col-4 detail-order-re">
-                                                            <div className='detail-order-top-re'>Mã Order</div>
-                                                            <div
-                                                                className='detail-order-down-re'>{props?.detailConfirmOrderReceptionist?.data?._id}</div>
-                                                        </div>
-                                                        <div align="center" className="col-4 detail-order-re">
-                                                            <div className='detail-order-top-re'>Mã Bàn</div>
-                                                            <div
-                                                                className='detail-order-down-re'>{props?.detailConfirmOrderReceptionist?.data?.table_name}</div>
-                                                        </div>
-                                                        <div align="center" className="col-4 detail-order-re">
-                                                            <div className='detail-order-top-re'>Trạng thái</div>
-                                                            <div
-                                                                style={{color: (props?.detailConfirmOrderReceptionist?.data?.status == "confirmed" || props?.detailConfirmOrderReceptionist?.data?.status === "matching") ? "lightcoral" : "green"}}
-                                                                className='detail-order-down-re'>
-                                                                {props?.detailConfirmOrderReceptionist?.data?.status}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
                                                     <div style={{
                                                         backgroundColor: '#ffffff',
                                                         border: '0px solid #ffffff',
@@ -454,71 +473,69 @@ const OrderList = (props) => {
                                                             <b>Trạng thái</b>
                                                         </div>
                                                     </div>
-                                                    <PerfectScrollbar className="mh-56">
-                                                        {props?.detailConfirmOrderReceptionist?.data?.item.map((it, i) => (
-                                                                <div className="card-order d-flex">
-                                                                    <div align="left"
-                                                                         className="col-3 card-detail-order-text-child">
-                                                                        <div>{it?.detail_item?.name}</div>
-                                                                    </div>
-                                                                    <div align="left"
-                                                                         className="col-2 card-detail-order-text-child">
-                                                                        <div>{it?.detail_item?.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
-                                                                    </div>
-                                                                    <div style={{paddingLeft: '0px'}} align="center"
-                                                                         className="col-2 card-detail-order-text-child">
-                                                                        {(props?.detailConfirmOrderReceptionist?.data?.status === 'confirmed') ? (
-                                                                            <div style={{
-                                                                                backgroundColor: '#ffffff',
-                                                                                borderRadius: '30px'
-                                                                            }}
-                                                                                 className="d-flex">
-                                                                                <div align="center" className="col-4">
-                                                                                    <a onClick={() => {
-                                                                                        props.dispatch(actions.postCustomizeNumberItemReRequest(props?.detailConfirmOrderReceptionist?.data?._id, it?.item_id, 0))
-                                                                                        setTimeout(() => {
-                                                                                            props.dispatch(actions.getDetailConfirmOrderReRequest(props?.detailConfirmOrderReceptionist?.data?._id))
-                                                                                            setOrderId(props?.detailConfirmOrderReceptionist?.data?._id)
-                                                                                        }, 1000)
-                                                                                    }}>
-                                                                                        <img src={mathMinus}/>
-                                                                                    </a>
-                                                                                </div>
-                                                                                <div align="center" className="col-4">
-                                                                                    {it?.quantity}
-                                                                                </div>
-                                                                                <div align="center" className="col-4">
-                                                                                    <a onClick={() => {
-                                                                                        props.dispatch(actions.postCustomizeNumberItemReRequest(props?.detailConfirmOrderReceptionist?.data?._id, it?.item_id, 1))
-                                                                                        setTimeout(() => {
-                                                                                            props.dispatch(actions.getDetailConfirmOrderReRequest(props?.detailConfirmOrderReceptionist?.data?._id))
-                                                                                            setOrderId(props?.detailConfirmOrderReceptionist?.data?._id)
-                                                                                        }, 1000)
-                                                                                    }}>
-                                                                                        <img src={mathPlus}/>
-                                                                                    </a>
-                                                                                </div>
-                                                                            </div>
-                                                                        ) : (
-                                                                            <div>{it?.quantity}</div>
-                                                                        )}
-                                                                    </div>
-                                                                    <div align="right"
-                                                                         className="col-2 card-detail-order-text-child">
-                                                                        <b>{it?.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</b>
-                                                                    </div>
-                                                                    <div align="right"
-                                                                         className="col-3 card-detail-order-text-child"
-                                                                         style={{
-                                                                             color: (props?.detailConfirmOrderReceptionist?.data?.status == "confirmed" || props?.detailConfirmOrderReceptionist?.data?.status === "matching") ? "lightcoral" : "green",
-                                                                             marginRight: '30px'
-                                                                         }}>
-                                                                        {props?.detailConfirmOrderReceptionist?.data?.status}
-                                                                    </div>
+                                                    {props?.detailConfirmOrderReceptionist?.data?.item.map((it, i) => (
+                                                            <div className="card-order d-flex">
+                                                                <div align="left"
+                                                                     className="col-3 card-detail-order-text-child">
+                                                                    <div>{it?.detail_item?.name}</div>
                                                                 </div>
-                                                            )
-                                                        )}
-                                                    </PerfectScrollbar>
+                                                                <div align="left"
+                                                                     className="col-2 card-detail-order-text-child">
+                                                                    <div>{it?.detail_item?.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
+                                                                </div>
+                                                                <div style={{paddingLeft: '0px'}} align="center"
+                                                                     className="col-2 card-detail-order-text-child">
+                                                                    {(props?.detailConfirmOrderReceptionist?.data?.status === 'confirmed') ? (
+                                                                        <div style={{
+                                                                            backgroundColor: '#ffffff',
+                                                                            borderRadius: '30px'
+                                                                        }}
+                                                                             className="d-flex">
+                                                                            <div align="center" className="col-4">
+                                                                                <a onClick={() => {
+                                                                                    props.dispatch(actions.postCustomizeNumberItemReRequest(props?.detailConfirmOrderReceptionist?.data?._id, it?.item_id, 0))
+                                                                                    setTimeout(() => {
+                                                                                        props.dispatch(actions.getDetailConfirmOrderReRequest(props?.detailConfirmOrderReceptionist?.data?._id))
+                                                                                        setOrderId(props?.detailConfirmOrderReceptionist?.data?._id)
+                                                                                    }, 1000)
+                                                                                }}>
+                                                                                    <img src={mathMinus}/>
+                                                                                </a>
+                                                                            </div>
+                                                                            <div align="center" className="col-4">
+                                                                                {it?.quantity}
+                                                                            </div>
+                                                                            <div align="center" className="col-4">
+                                                                                <a onClick={() => {
+                                                                                    props.dispatch(actions.postCustomizeNumberItemReRequest(props?.detailConfirmOrderReceptionist?.data?._id, it?.item_id, 1))
+                                                                                    setTimeout(() => {
+                                                                                        props.dispatch(actions.getDetailConfirmOrderReRequest(props?.detailConfirmOrderReceptionist?.data?._id))
+                                                                                        setOrderId(props?.detailConfirmOrderReceptionist?.data?._id)
+                                                                                    }, 1000)
+                                                                                }}>
+                                                                                    <img src={mathPlus}/>
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    ) : (
+                                                                        <div>{it?.quantity}</div>
+                                                                    )}
+                                                                </div>
+                                                                <div align="right"
+                                                                     className="col-2 card-detail-order-text-child">
+                                                                    <b>{it?.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</b>
+                                                                </div>
+                                                                <div align="right"
+                                                                     className="col-3 card-detail-order-text-child"
+                                                                     style={{
+                                                                         color: (props?.detailConfirmOrderReceptionist?.data?.status == "confirmed" || props?.detailConfirmOrderReceptionist?.data?.status === "matching") ? "lightcoral" : "green",
+                                                                         marginRight: '30px'
+                                                                     }}>
+                                                                    {props?.detailConfirmOrderReceptionist?.data?.status}
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    )}
                                                 </PerfectScrollbar>
                                                 <div style={{height: '60px', width: '98%'}} className="d-flex">
                                                     <div align="left" className="col-2">
