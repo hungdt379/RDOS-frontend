@@ -109,13 +109,11 @@ const ViewFeedback = (props) => {
                                 ))}
                                 </tbody>
                             </Table>
-                            <div className="inline-flex mt-2 mt-0 d-flex" style={{width:'5%'}}>
+                            <div className="inline-flex mt-2 mt-0 d-flex" style={{marginLeft: 'calc(100% - 55%)'}}>
                                 <a
                                     onClick={prevPage}
                                     style={{
-                                        marginRight: 'auto',
-                                        marginLeft: 'auto',
-                                        textAlign: 'right'
+                                        marginRight: '15px',
                                     }}
                                     className="avatar-xs">
                                     <div
@@ -124,12 +122,17 @@ const ViewFeedback = (props) => {
                                              className="plus-icon-button-re-left"/>
                                     </div>
                                 </a>
+                                <div style={{
+                                    fontFamily: 'Cabin',
+                                    fontSize: '20px',
+                                    fontWeight: 'normal',
+                                    fontStyle: 'normal',
+                                    color: '#FCBC3A',
+                                }}>{page}</div>
                                 <a
                                     onClick={nextPage}
                                     style={{
-                                        marginRight: 'auto',
-                                        marginLeft: 'auto',
-                                        textAlign: 'left'
+                                        marginLeft: '15px',
                                     }}
                                     className="avatar-xs">
                                     <div

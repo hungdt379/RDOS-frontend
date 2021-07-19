@@ -307,12 +307,11 @@ const ManageTable = (props) => {
                                 ))}
                                 </tbody>
                             </Table>
-                            <div className="inline-flex mt-2 mt-0 d-flex" style={{width: '5%'}}>
+                            <div className="inline-flex mt-2 mt-0 d-flex" style={{marginLeft: 'calc(100% - 55%)'}}>
                                 <a
                                     onClick={prevPage}
                                     style={{
-                                        marginRight: 'auto',
-                                        marginLeft: 'auto',
+                                        marginRight: '15px',
                                         textAlign: 'right'
                                     }}
                                     className="avatar-xs">
@@ -322,11 +321,17 @@ const ManageTable = (props) => {
                                              className="plus-icon-button-re-left"/>
                                     </div>
                                 </a>
+                                <div style={{
+                                    fontFamily: 'Cabin',
+                                    fontSize: '20px',
+                                    fontWeight: 'normal',
+                                    fontStyle: 'normal',
+                                    color: '#FCBC3A',
+                                }}>{page}</div>
                                 <a
                                     onClick={nextPage}
                                     style={{
-                                        marginRight: 'auto',
-                                        marginLeft: 'auto',
+                                        marginLeft: '15px',
                                         textAlign: 'left'
                                     }}
                                     className="avatar-xs">
