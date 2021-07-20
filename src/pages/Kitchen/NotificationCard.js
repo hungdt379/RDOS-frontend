@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from "react";
 import SimpleBar from "simplebar-react";
 import {Link, Switch} from "react-router-dom";
+import {connect} from "react-redux";
 
 
 const NotificationCard = (props) => {
 
-    const {data} = props;
+    const {data, dataTable, userId} = props;
 
     const getYoutubeLikeToDisplay = (millisec) => {
         var seconds = (millisec / 1000).toFixed(0);
@@ -21,36 +22,38 @@ const NotificationCard = (props) => {
         seconds = Math.floor(seconds % 60);
         seconds = (seconds >= 10) ? seconds : "0" + seconds;
         if (hours != "") {
-            return hours + "h" + minutes + "p trước";
+            return hours + "h" + minutes + "p";
         }
         if (minutes != "") {
-            return minutes + "p trước";
+            return minutes + "p";
         }
         return "vừa xong";
     }
 
     return (
         <SimpleBar key={data._id}>
-            <Link
-                to=""
+            <div
                 className="text-reset notification-item"
             >
-                <div className="media">
+                <div className="media" style={{backgroundColor: (data.read === false) ? "#FFEFCD" : "white"}}>
                     <div className="media-body">
                         <div className="menu-notification d-flex">
                             {(data.read === false) ? (
-                                <p className="mr-2"><i style={{color: "green"}} className="bx bx-up-arrow-circle bx-tada"></i></p>) : (null)}
-                            <p style={{fontFamily: 'Cabin'}} className="mt-0 mb-0 font-size-15"><b>{data.user_fulname}</b></p>
-                            <p style={{fontFamily: 'Cabin'}} className="mt-0 mb-0 mr-2 ml-2 pl-2 font-size-15">
-                                {"thanh toán"}
+                                    <p className="col-1"><i style={{color: "green"}}
+                                                            className="bx bx-up-arrow-circle bx-tada"></i></p>) :
+                                (null)}
+                            <p style={{fontFamily: 'Cabin'}} className="mt-0 mb-0 col-3 font-size-15">
+                                <b>{data.user_fulname}</b></p>
+                            <p style={{fontFamily: 'Cabin'}} className="mt-0 mb-0 col-4 font-size-15">
+                                {"Thanh toán"}
                             </p>
-                            <p style={{fontFamily: 'Cabin'}} className="mt-0 mb-0 mr-2 ml-2 pl-2 font-size-15" style={{color: 'blue'}}>
+                            <p style={{fontFamily: 'Cabin', color: '#DC4040', textAlign: 'right'}} className="mt-0 mb-0 mr-0 col-4 font-size-15">
                                 {getYoutubeLikeToDisplay(Date.now() - Date.parse(data.created_at))}
                             </p>
                         </div>
                     </div>
                 </div>
-            </Link>
+            </div>
         </SimpleBar>
     );
 };
@@ -62,4 +65,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default NotificationCard;
+export default connect(mapStateToProps)(NotificationCard);

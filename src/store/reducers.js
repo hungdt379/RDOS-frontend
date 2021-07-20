@@ -16,6 +16,7 @@ import { Statistics } from "./statistics/reducers";
 import { Notification } from "./notifications/reducers";
 import { Customer } from "./customer/reducers";
 import { Receptionist } from "./receptionist/reducers";
+import { Kitchen } from "./kitchen/reducers";
 import {CUSTOMER_LOGOUT_USER} from "./auth/logincustomer/actionTypes";
 
 const appReducer = combineReducers({
@@ -27,6 +28,8 @@ const appReducer = combineReducers({
   ForgetPassword,
 
   Customer,
+
+  Kitchen,
 
   Receptionist,
 

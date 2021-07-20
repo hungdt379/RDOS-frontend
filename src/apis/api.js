@@ -34,6 +34,12 @@ export const apiUrls = {
   viewListPaidOrderReceptionistApi: 'api/receptionist/order/completed/list',
   customizeNumberOfItemApi: 'api/receptionist/order/confirm/item/quantity/update',
 
+  //Kitchen Manager
+  getNotificationsKitchen: "api/kitchen/notifications",
+  maskAsReadKitchenApi: "api/kitchen/notifications/read",
+  viewAllDishOfConfirmOrderApi: "api/kitchen/order/dish",
+  updateStatusOfDishApi: "api/order/dish/status/update",
+
   //Waiter
   getAllTables: "api/waiter/tables?page=1&pageSize=15",
   postOpenTable: "api/waiter/table/open",

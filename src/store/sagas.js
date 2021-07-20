@@ -13,6 +13,7 @@ import sagaStatistics from "./statistics/sagas";
 import sagaNotificatons from "./notifications/sagas";
 import sagaCustomer from "./customer/sagas";
 import sagaReceptionist from "./receptionist/sagas";
+import sagaKitchen from "./kitchen/sagas";
 
 export default function* rootSaga() {
     yield all([
@@ -29,5 +30,6 @@ export default function* rootSaga() {
         ...sagaNotificatons,
         ...sagaCustomer,
         ...sagaReceptionist,
+        ...sagaKitchen,
     ]);
 }

@@ -171,23 +171,32 @@ const NotificationDropdown = (props) => {
                         <div style={{width: '100%'}} className="d-flex">
                             <div className="col-6"></div>
                             <div style={{textAlign:'right'}} className="inline-flex mt-2 mt-0 d-flex col-6">
-                                <ReactPaginate
-                                    previousLabel={
+                                <a
+                                    onClick={prevPage}
+                                    style={{
+                                        marginRight: 'auto',
+                                        marginLeft: 'auto',
+                                    }}
+                                    className="avatar-xs mr-3">
+                                    <div
+                                        className="plus-background-color-re-noti avatar-title rounded-circle">
                                         <img src={chevonRight}
                                              className="plus-icon-button-re-left"/>
-                                    }
-                                    nextLabel={
+                                    </div>
+                                </a>
+                                <a
+                                    onClick={nextPage}
+                                    style={{
+                                        marginRight: 'auto',
+                                        marginLeft: 'auto',
+                                    }}
+                                    className="avatar-xs">
+                                    <div
+                                        className="plus-background-color-re-noti avatar-title rounded-circle">
                                         <img src={chevonRight}
                                              className="plus-icon-button-re-right"/>
-                                    }
-                                    pageCount={pageCount}
-                                    onPageChange={changePage}
-                                    containerClassName={"paginationBttns"}
-                                    previousLinkClassName={"previousBttn"}
-                                    nextLinkClassName={"nextBttn"}
-                                    disabledClassName={"paginationDisabled"}
-                                    activeClassName={"paginationActive"}
-                                />
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>
