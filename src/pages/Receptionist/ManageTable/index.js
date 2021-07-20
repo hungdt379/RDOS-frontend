@@ -18,6 +18,7 @@ import searchImg from "../../../assets/images/customer/search.png";
 import AddTable from "./AddTable";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
 import {Modal} from "reactstrap";
+import ReactPaginate from "react-paginate";
 
 // Import menuDropdown
 
@@ -26,6 +27,14 @@ const ManageTable = (props) => {
     const [page, setPage] = useState(1)
 
     const [pageSize] = useState(10)
+
+    const pageCount = Math.ceil(props?.allTableReceptionist?.total / pageSize);
+    const changePage = ({ selected }) => {
+        setPage(selected+1);
+        props.dispatch(actions.getAllTableReRequest(selected+1));
+    };
+
+    console.log("pageCurrrent: "+ page)
 
     const [openAdd, setOpenAdd] = useState(false);
 
@@ -307,40 +316,24 @@ const ManageTable = (props) => {
                                 ))}
                                 </tbody>
                             </Table>
-                            <div className="inline-flex mt-2 mt-0 d-flex" style={{marginLeft: 'calc(100% - 55%)'}}>
-                                <a
-                                    onClick={prevPage}
-                                    style={{
-                                        marginRight: '15px',
-                                        textAlign: 'right'
-                                    }}
-                                    className="avatar-xs">
-                                    <div
-                                        className="plus-background-color-re-noti avatar-title rounded-circle">
+                            <div className="mt-3">
+                                <ReactPaginate
+                                    previousLabel={
                                         <img src={chevonRight}
                                              className="plus-icon-button-re-left"/>
-                                    </div>
-                                </a>
-                                <div style={{
-                                    fontFamily: 'Cabin',
-                                    fontSize: '20px',
-                                    fontWeight: 'normal',
-                                    fontStyle: 'normal',
-                                    color: '#FCBC3A',
-                                }}>{page}</div>
-                                <a
-                                    onClick={nextPage}
-                                    style={{
-                                        marginLeft: '15px',
-                                        textAlign: 'left'
-                                    }}
-                                    className="avatar-xs">
-                                    <div
-                                        className="plus-background-color-re-noti avatar-title rounded-circle">
+                                    }
+                                    nextLabel={
                                         <img src={chevonRight}
                                              className="plus-icon-button-re-right"/>
-                                    </div>
-                                </a>
+                                    }
+                                    pageCount={pageCount}
+                                    onPageChange={changePage}
+                                    containerClassName={"paginationBttns"}
+                                    previousLinkClassName={"previousBttn"}
+                                    nextLinkClassName={"nextBttn"}
+                                    disabledClassName={"paginationDisabled"}
+                                    activeClassName={"paginationActive"}
+                                />
                             </div>
                         </div>
                     </div>

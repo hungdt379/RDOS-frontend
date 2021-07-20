@@ -194,6 +194,8 @@
       }
     }
     .gop-hoa-don{
+      margin-top: auto;
+      margin-bottom: auto;
       .button-gop-hoa-don{
         background: #FCBC3A;
         border-radius: 10px;
@@ -328,7 +330,7 @@
   margin-top: auto;
   background: #FFEFCD;
   border-radius: 30px;
-  height: 45px;
+  height: 35px;
   width: 100%;
   text-align: center;
   border: 2px solid #FCBC3A;
@@ -345,4 +347,60 @@
 
 input[type='checkbox'].check-all-button-matching:checked ~ div.choose-all-matching{
   background-color: #FCBC3A;
+}
+
+.previousBttn{
+  background-color: #FCBC3A;
+}
+
+.nextBttn{
+  background-color: #FCBC3A;
+}
+
+.plus-icon-button-re-left{
+  height: 25px;
+  width: 25px;
+  transform: matrix(0,1,-1,0,0,0);
+}
+
+.plus-icon-button-re-right{
+  height: 25px;
+  width: 25px;
+  transform: matrix(0,-1,1,0,0,0);
+}
+
+.paginationBttns {
+  height: 100%;
+  width: 100%;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.paginationBttns a {
+  padding: 5px;
+  margin: 8px;
+  border-radius: 100%;
+  color: #000000;
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.paginationBttns a:hover {
+  color: #FCBC3A;
+  border: 2px solid #FCBC3A;
+}
+
+.paginationActive a {
+  color: #FCBC3A;
+  border: 2px solid #FCBC3A;
+}
+
+.paginationDisabled a {
+  color: #000000;
 }

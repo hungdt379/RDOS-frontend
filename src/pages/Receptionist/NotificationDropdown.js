@@ -15,6 +15,7 @@ import NotificationCard from "./NotificationCard";
 import {withNamespaces} from "react-i18next";
 import chevonRight from "../../assets/images/receptionist/chevron-down.png";
 import vector from "../../assets/images/receptionist/VectorStroke.png";
+import ReactPaginate from "react-paginate";
 
 const NotificationDropdown = (props) => {
     // Declare a new state variable, which we'll call "menu"
@@ -23,6 +24,13 @@ const NotificationDropdown = (props) => {
     const [page, setPage] = useState(1)
     // const [pageChange, setPageChange] = useState(1)
     const [pageSize] = useState(10)
+
+    const pageCount = Math.ceil(props?.allNotificationReceptionist?.total / pageSize);
+    const changePage = ({ selected }) => {
+        setPage(selected+1);
+        props.dispatch(actions.getAllNotificationReceptionist(selected+1));
+    };
+
     const [totalCount, setTotalCount] = useState(0)
     const prevPage = () => {
         const pg = page === 1 ? 1 : page - 1
@@ -163,32 +171,23 @@ const NotificationDropdown = (props) => {
                         <div style={{width: '100%'}} className="d-flex">
                             <div className="col-6"></div>
                             <div style={{textAlign:'right'}} className="inline-flex mt-2 mt-0 d-flex col-6">
-                                <a
-                                    onClick={prevPage}
-                                    style={{
-                                        marginRight: 'auto',
-                                        marginLeft: 'auto',
-                                    }}
-                                    className="avatar-xs mr-5">
-                                    <div
-                                        className="plus-background-color-re-noti avatar-title rounded-circle">
+                                <ReactPaginate
+                                    previousLabel={
                                         <img src={chevonRight}
                                              className="plus-icon-button-re-left"/>
-                                    </div>
-                                </a>
-                                <a
-                                    onClick={nextPage}
-                                    style={{
-                                        marginRight: 'auto',
-                                        marginLeft: 'auto',
-                                    }}
-                                    className="avatar-xs">
-                                    <div
-                                        className="plus-background-color-re-noti avatar-title rounded-circle">
+                                    }
+                                    nextLabel={
                                         <img src={chevonRight}
                                              className="plus-icon-button-re-right"/>
-                                    </div>
-                                </a>
+                                    }
+                                    pageCount={pageCount}
+                                    onPageChange={changePage}
+                                    containerClassName={"paginationBttns"}
+                                    previousLinkClassName={"previousBttn"}
+                                    nextLinkClassName={"nextBttn"}
+                                    disabledClassName={"paginationDisabled"}
+                                    activeClassName={"paginationActive"}
+                                />
                             </div>
                         </div>
                     </div>
