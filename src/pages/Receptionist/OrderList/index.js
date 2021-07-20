@@ -15,6 +15,7 @@ import * as actions from "../../../store/receptionist/actions";
 import {withNamespaces} from "react-i18next";
 import {authHeaderGetApiCus} from "../../../helpers/jwt-token-access/auth-token-header";
 import {Modal} from "reactstrap";
+import ReactPaginate from "react-paginate";
 
 // Import menuDropdown
 
@@ -41,10 +42,21 @@ const OrderList = (props) => {
     const [orderState, setOrderState] = useState([]);
     const [itemState, setItemState] = useState([]);
 
-    const [page, setPage] = useState(1)
-    const [pageComplete, setPageComplete] = useState(1)
-
     const [pageSize] = useState(10)
+
+    const [page, setPage] = useState(1)
+    const pageCount = Math.ceil(props?.listConfirmOrderReceptionist?.total / pageSize);
+    const changePage = ({ selected }) => {
+        setPage(selected+1);
+        props.dispatch(actions.getListConfirmOrderReRequest(selected+1));
+    };
+
+    const [pageComplete, setPageComplete] = useState(1)
+    const pageCountComplete = Math.ceil(props?.listPaidOrderReceptionist?.total / pageSize);
+    const changePageComplete = ({ selectedComplete }) => {
+        setPageComplete(selectedComplete+1);
+        props.dispatch(actions.getListPaidOrderReRequest(selectedComplete+1));
+    };
 
     const prevPage = () => {
         const pg = page === 1 ? 1 : page - 1
@@ -228,37 +240,23 @@ const OrderList = (props) => {
                                             </PerfectScrollbar>
                                             <div className="d-flex">
                                                 <div className="gop-hoa-don col-4 d-flex" align="left">
-                                                    <a
-                                                        onClick={prevPage}
-                                                        style={{
-                                                            marginRight: '20px',
-                                                        }}
-                                                        className="avatar-xs">
-                                                        <div
-                                                            className="plus-background-color-re-noti avatar-title rounded-circle">
+                                                    <ReactPaginate
+                                                        previousLabel={
                                                             <img src={chevonRight}
                                                                  className="plus-icon-button-re-left"/>
-                                                        </div>
-                                                    </a>
-                                                    <div style={{
-                                                        fontFamily: 'Cabin',
-                                                        fontSize: '20px',
-                                                        fontWeight: 'normal',
-                                                        fontStyle: 'normal',
-                                                        color: '#FCBC3A'
-                                                    }}>{page}</div>
-                                                    <a
-                                                        onClick={nextPage}
-                                                        style={{
-                                                            marginLeft: '20px',
-                                                        }}
-                                                        className="avatar-xs">
-                                                        <div
-                                                            className="plus-background-color-re-noti avatar-title rounded-circle">
+                                                        }
+                                                        nextLabel={
                                                             <img src={chevonRight}
                                                                  className="plus-icon-button-re-right"/>
-                                                        </div>
-                                                    </a>
+                                                        }
+                                                        pageCount={pageCount}
+                                                        onPageChange={changePage}
+                                                        containerClassName={"paginationBttns"}
+                                                        previousLinkClassName={"previousBttn"}
+                                                        nextLinkClassName={"nextBttn"}
+                                                        disabledClassName={"paginationDisabled"}
+                                                        activeClassName={"paginationActive"}
+                                                    />
                                                 </div>
                                                 <div className="gop-hoa-don col-4" align="right">
                                                     <label style={{width: '50%'}}>
@@ -376,37 +374,23 @@ const OrderList = (props) => {
                                             </PerfectScrollbar>
                                             <div className="d-flex">
                                                 <div className="gop-hoa-don col-6 d-flex" align="left">
-                                                    <a
-                                                        onClick={prevPageComplete}
-                                                        style={{
-                                                            marginRight: '20px',
-                                                        }}
-                                                        className="avatar-xs">
-                                                        <div
-                                                            className="plus-background-color-re-noti avatar-title rounded-circle">
+                                                    <ReactPaginate
+                                                        previousLabel={
                                                             <img src={chevonRight}
                                                                  className="plus-icon-button-re-left"/>
-                                                        </div>
-                                                    </a>
-                                                    <div style={{
-                                                        fontFamily: 'Cabin',
-                                                        fontSize: '20px',
-                                                        fontWeight: 'normal',
-                                                        fontStyle: 'normal',
-                                                        color: '#FCBC3A'
-                                                    }}>{pageComplete}</div>
-                                                    <a
-                                                        onClick={nextPageComplete}
-                                                        style={{
-                                                            marginLeft: '20px',
-                                                        }}
-                                                        className="avatar-xs">
-                                                        <div
-                                                            className="plus-background-color-re-noti avatar-title rounded-circle">
+                                                        }
+                                                        nextLabel={
                                                             <img src={chevonRight}
                                                                  className="plus-icon-button-re-right"/>
-                                                        </div>
-                                                    </a>
+                                                        }
+                                                        pageCount={pageCountComplete}
+                                                        onPageChange={changePageComplete}
+                                                        containerClassName={"paginationBttns"}
+                                                        previousLinkClassName={"previousBttn"}
+                                                        nextLinkClassName={"nextBttn"}
+                                                        disabledClassName={"paginationDisabled"}
+                                                        activeClassName={"paginationActive"}
+                                                    />
                                                 </div>
                                                 <div className="gop-hoa-don col-6" align="right"
                                                      style={{height: '60px', alignItems: 'center'}}>

@@ -13,6 +13,7 @@ import {withNamespaces} from "react-i18next";
 import moment from "moment";
 import chevonRight from "../../../assets/images/receptionist/chevron-down.png";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
+import ReactPaginate from "react-paginate";
 
 // Import menuDropdown
 
@@ -21,6 +22,14 @@ const ViewFeedback = (props) => {
     const [page, setPage] = useState(1)
 
     const [pageSize] = useState(12)
+
+    const pageCount = Math.ceil(props?.allFeedback?.total / pageSize);
+    const changePage = ({ selected }) => {
+        setPage(selected+1);
+        props.dispatch(actions.getAllFeedbackRequest(selected+1));
+    };
+
+    console.log("pageCurrrent: "+ page)
 
     const prevPage = () => {
         const pg = page === 1 ? 1 : page - 1
@@ -71,7 +80,7 @@ const ViewFeedback = (props) => {
                                 lineHeight: '25px',
                                 color: 'black',
                             }}>Danh sách đánh giá cho nhà hàng</h1>
-                            <Table style={{width: '90%', marginTop:'20px'}} align="center"
+                            <Table style={{width: '90%', marginTop: '20px'}} align="center"
                                    className="table mb-0">
 
                                 <thead align="left" style={{
@@ -101,7 +110,7 @@ const ViewFeedback = (props) => {
                                         fontSize: '14px',
                                         lineHeight: '17px',
                                     }}>
-                                        <th>{moment(fe.ts*1000).format("DD/ MM/ YYYY")}</th>
+                                        <th>{moment(fe.ts * 1000).format("DD/ MM/ YYYY")}</th>
                                         <th>{fe.rate_dish}</th>
                                         <th>{fe.rate_service}</th>
                                         <th>{fe.content}</th>
@@ -109,38 +118,24 @@ const ViewFeedback = (props) => {
                                 ))}
                                 </tbody>
                             </Table>
-                            <div className="inline-flex mt-2 mt-0 d-flex" style={{marginLeft: 'calc(100% - 55%)'}}>
-                                <a
-                                    onClick={prevPage}
-                                    style={{
-                                        marginRight: '15px',
-                                    }}
-                                    className="avatar-xs">
-                                    <div
-                                        className="plus-background-color-re-noti avatar-title rounded-circle">
+                            <div className="mt-3">
+                                <ReactPaginate
+                                    previousLabel={
                                         <img src={chevonRight}
                                              className="plus-icon-button-re-left"/>
-                                    </div>
-                                </a>
-                                <div style={{
-                                    fontFamily: 'Cabin',
-                                    fontSize: '20px',
-                                    fontWeight: 'normal',
-                                    fontStyle: 'normal',
-                                    color: '#FCBC3A',
-                                }}>{page}</div>
-                                <a
-                                    onClick={nextPage}
-                                    style={{
-                                        marginLeft: '15px',
-                                    }}
-                                    className="avatar-xs">
-                                    <div
-                                        className="plus-background-color-re-noti avatar-title rounded-circle">
+                                    }
+                                    nextLabel={
                                         <img src={chevonRight}
                                              className="plus-icon-button-re-right"/>
-                                    </div>
-                                </a>
+                                    }
+                                    pageCount={pageCount}
+                                    onPageChange={changePage}
+                                    containerClassName={"paginationBttns"}
+                                    previousLinkClassName={"previousBttn"}
+                                    nextLinkClassName={"nextBttn"}
+                                    disabledClassName={"paginationDisabled"}
+                                    activeClassName={"paginationActive"}
+                                />
                             </div>
                         </div>
                     </div>
