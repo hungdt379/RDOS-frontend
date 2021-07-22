@@ -71,3 +71,39 @@ export const updateStatusOfDishError = (error) => {
         payload: error,
     };
 };
+
+//view list item
+export const getAllListItemRequest = (q, page, pageSize) => ({
+    type: actionTypes.GET_ALL_LIST_ITEM_REQUEST,
+    payload: {q, page, pageSize},
+});
+export const getAllListItemSuccess = (response) => {
+    return {
+        type: actionTypes.GET_ALL_LIST_ITEM_SUCCESS,
+        payload: response,
+    };
+};
+export const getAllListItemError = (error) => {
+    return {
+        type: actionTypes.GET_ALL_LIST_ITEM_ERROR,
+        payload: error,
+    };
+};
+
+// update item can serve
+export const updateItemCanServeRequest = (it, isSoldOut) => ({
+    type: actionTypes.UPDATE_ITEM_CAN_SERVE_REQUEST,
+    payload: {it, isSoldOut},
+});
+export const updateItemCanServeSuccess = (response) => {
+    return {
+        type: actionTypes.UPDATE_ITEM_CAN_SERVE_SUCCESS,
+        payload: response,
+    };
+};
+export const updateItemCanServeError = (error) => {
+    return {
+        type: actionTypes.UPDATE_ITEM_CAN_SERVE_ERROR,
+        payload: error,
+    };
+};

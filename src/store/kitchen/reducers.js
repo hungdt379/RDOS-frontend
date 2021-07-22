@@ -69,9 +69,45 @@ const updateStatusOfDishKitchen = (state = updateStatusOfDishReducer, action) =>
     }
 };
 
+//all list item
+const viewAllItemReducer = {
+    allViewAllItem: [],
+};
+const viewAllItemKitchen = (state = viewAllItemReducer, action) => {
+    switch (action.type) {
+        case actionTypes.GET_ALL_LIST_ITEM_REQUEST:
+            return { ...state };
+        case actionTypes.GET_ALL_LIST_ITEM_SUCCESS:
+            return { ...state, allViewAllItem: action.payload };
+        case actionTypes.GET_ALL_LIST_ITEM_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+//update item can be serve
+const updateItemCanBeServeReducer = {
+    allUpdateItemCanBeServe: [],
+};
+const updateItemCanBeServeKitchen = (state = updateItemCanBeServeReducer, action) => {
+    switch (action.type) {
+        case actionTypes.UPDATE_ITEM_CAN_SERVE_REQUEST:
+            return { ...state };
+        case actionTypes.UPDATE_ITEM_CAN_SERVE_SUCCESS:
+            return { ...state, allUpdateItemCanBeServe: action.payload };
+        case actionTypes.UPDATE_ITEM_CAN_SERVE_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
 export const Kitchen = combineReducers({
     getAllNotificationsKitchen,
     maskAsReadKitchen,
     allDishInConfirmKitchen,
     updateStatusOfDishKitchen,
+    viewAllItemKitchen,
+    updateItemCanBeServeKitchen,
 });

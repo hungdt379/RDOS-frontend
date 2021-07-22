@@ -77,11 +77,49 @@ export function* watchUpdateStatusOfDishKit() {
     yield takeEvery(actionTypes.UPDATE_STATUS_OF_DISH_REQUEST, updateStatusOfDishKit);
 }
 
+//all list item
+function* allListItemKit({payload: {q, page, pageSize}}) {
+    try {
+        const response = yield call(
+            Request.getApi,
+            apiUrls.viewListItemApi,
+            {q: q, page: page, pageSize: pageSize}
+        );
+        yield put(actions.getAllListItemSuccess(response));
+        console.log("all list item: "+ response.data)
+    } catch (error) {
+        yield put(actions.getAllListItemError(error));
+    }
+}
+export function* watchAllListItemKit() {
+    yield takeEvery(actionTypes.GET_ALL_LIST_ITEM_REQUEST, allListItemKit);
+}
+
+//update item can be serve
+function* updateItemCanBeServeKit({payload: {it, isSoldOut}}) {
+    try {
+        const response = yield call(
+            Request.getApi,
+            apiUrls.updateItemCanBeServeApi,
+            {item_id: it, is_sold_out: isSoldOut}
+        );
+        yield put(actions.updateItemCanServeSuccess(response.data));
+        console.log("update item Can Serve: "+ response.data)
+    } catch (error) {
+        yield put(actions.updateItemCanServeError(error));
+    }
+}
+export function* watchUpdateItemCanBeServeKit() {
+    yield takeEvery(actionTypes.UPDATE_ITEM_CAN_SERVE_REQUEST, updateItemCanBeServeKit);
+}
+
 const sagaKitchen = [
     watchGetNotificationsKitchen(),
     watchMaskAsReadKit(),
     watchAllDishInConfirmKit(),
     watchUpdateStatusOfDishKit(),
+    watchAllListItemKit(),
+    watchUpdateItemCanBeServeKit(),
 ];
 
 export default sagaKitchen;

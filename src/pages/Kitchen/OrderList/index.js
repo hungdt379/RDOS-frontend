@@ -125,11 +125,11 @@ const OrderList = (props) => {
                                                     </div>
                                                     <div align="left"
                                                          className="col-2 card-detail-order-text-child">
-                                                        <div>{it?.table_name}</div>
+                                                        <b>{it?.table_name}</b>
                                                     </div>
                                                     <div align="left"
                                                          className="col-2 card-detail-order-text-child">
-                                                        <div>{it?.item_name}</div>
+                                                        <b>{it?.item_name}</b>
                                                     </div>
                                                     <div align="center"
                                                          className="col-1 card-detail-order-text-child">
