@@ -522,7 +522,7 @@ const OrderList = (props) => {
                                                     )}
                                                 </PerfectScrollbar>
                                                 <div style={{height: '60px', width: '98%'}} className="d-flex">
-                                                    <div align="left" className="col-2">
+                                                    <div align="left" className="col-3">
                                                         <div style={{
                                                             fontFamily: 'Cabin',
                                                             fontStyle: 'normal',
@@ -540,8 +540,22 @@ const OrderList = (props) => {
                                                             lineHeight: '22px',
                                                             color: '#000000',
                                                         }}>
-                                                            {props?.detailConfirmOrderReceptionist?.data?.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                                            {(props?.detailConfirmOrderReceptionist?.data?.new_total_cost !== undefined) ?
+                                                                (props?.detailConfirmOrderReceptionist?.data?.new_total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')) :
+                                                                (props?.detailConfirmOrderReceptionist?.data?.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','))}
                                                         </div>
+                                                        {(props?.detailConfirmOrderReceptionist?.data?.new_total_cost !== undefined) ?
+                                                            (<div
+                                                                style={{
+                                                                    fontFamily: 'Cabin',
+                                                                    fontStyle: 'normal',
+                                                                    fontWeight: 'bold',
+                                                                    fontSize: '12px',
+                                                                    lineHeight: '15px',
+                                                                    color: '#000000',
+                                                                }}
+                                                            ><div>Giá gốc: {props?.detailConfirmOrderReceptionist?.data?.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
+                                                            <div>Voucher: {props?.detailConfirmOrderReceptionist?.data?.voucher} %</div></div>) : (null)}
                                                     </div>
                                                     <div align="center" className="col-4">
                                                         {(props?.detailConfirmOrderReceptionist?.data?.status === "confirmed" || props?.detailConfirmOrderReceptionist?.data?.status === "matching") ? (
@@ -551,7 +565,9 @@ const OrderList = (props) => {
                                                                         height: 50,
                                                                         width: '100%',
                                                                         borderRadius: '10px'
-                                                                    }} type="text" name="voucher"
+                                                                    }}
+                                                                           type="text"
+                                                                           name="voucher"
                                                                            placeholder="Mã giảm giá..."
                                                                         //value={search}
                                                                            onChange={(e) => (
@@ -592,7 +608,7 @@ const OrderList = (props) => {
                                                             </div>
                                                         )}
                                                     </div>
-                                                    <div align="left" className="col-4">
+                                                    <div align="left" className="col-3">
                                                         <div>
                                                             <textarea style={{
                                                                 height: 50,
