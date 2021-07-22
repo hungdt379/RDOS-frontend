@@ -477,11 +477,13 @@ const OrderList = (props) => {
                                                                              className="d-flex">
                                                                             <div align="center" className="col-4">
                                                                                 <a onClick={() => {
-                                                                                    props.dispatch(actions.postCustomizeNumberItemReRequest(props?.detailConfirmOrderReceptionist?.data?._id, it?.item_id, 0))
-                                                                                    setTimeout(() => {
-                                                                                        props.dispatch(actions.getDetailConfirmOrderReRequest(props?.detailConfirmOrderReceptionist?.data?._id))
-                                                                                        setOrderId(props?.detailConfirmOrderReceptionist?.data?._id)
-                                                                                    }, 1000)
+                                                                                    if(it?.quantity > 0){
+                                                                                        props.dispatch(actions.postCustomizeNumberItemReRequest(props?.detailConfirmOrderReceptionist?.data?._id, it?.item_id, 0))
+                                                                                        setTimeout(() => {
+                                                                                            props.dispatch(actions.getDetailConfirmOrderReRequest(props?.detailConfirmOrderReceptionist?.data?._id))
+                                                                                            setOrderId(props?.detailConfirmOrderReceptionist?.data?._id)
+                                                                                        }, 1000)
+                                                                                    }
                                                                                 }}>
                                                                                     <img src={mathMinus}/>
                                                                                 </a>

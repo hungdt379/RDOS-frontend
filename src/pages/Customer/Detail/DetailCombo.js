@@ -123,7 +123,7 @@ const DetailCombo = (props) => {
         setHide("none");
         setCost(props?.dataFoodInCombo?.data?.find((cb) => (cb._id === _id)).cost);
         setQuantity(props.authCustomer.data.user.number_of_customer);
-        setCheckedState(new Array(props?.dataFoodInCombo?.data?.find((cb, i) => cb).dish_in_combo.length).fill(false));
+        setCheckedState(props?.dataFoodInCombo?.data?.find((cb, i) => cb).dish_in_combo.map((diccb, indexcb) => (diccb.is_sold_out === false) ? false : null));
     };
 
     const handleDetailEditOtherCombo = () => {
@@ -138,7 +138,7 @@ const DetailCombo = (props) => {
         setHide("none");
         setCost(props?.dataFoodInCombo?.data?.find((cb) => (cb._id === _id)).cost);
         setQuantity(props.authCustomer.data.user.number_of_customer);
-        setCheckedState(props?.dataFoodInCombo?.data?.find((cb) => cb).dish_in_combo.map((diccb, indexcb) => ((props?.dataCart?.data?.item_in_cart?.filter((dc, i) => (dc._id === _id))[0].dish_in_combo.filter((dicc, i) => (dicc === diccb.name)).length !== 0) ? true : false)));
+        setCheckedState(props?.dataFoodInCombo?.data?.find((cb) => cb).dish_in_combo.map((diccb, indexcb) => ((props?.dataCart?.data?.item_in_cart?.filter((dc, i) => (dc._id === _id))[0].dish_in_combo.filter((dicc, i) => (dicc === diccb.name)).length !== 0 && diccb.is_sold_out === false) ? true : (diccb.is_sold_out === false) ? false : null)));
     };
 
     return (
@@ -203,7 +203,7 @@ const DetailCombo = (props) => {
                                         <div className="list-item">
                                             <div className="d-flex">
                                                 <div align="left" className="checkbox-dish">
-                                                    {d?.dish_in_combo?.map((dic, index) => (
+                                                    {d?.dish_in_combo?.map((dic, index) => (dic.is_sold_out === false) ? (
                                                         <div>
                                                             <label className='check-one d-flex' key={index}>
                                                                 <input
@@ -222,6 +222,27 @@ const DetailCombo = (props) => {
                                                                 <div className="check-once-text">{dic.name}</div>
                                                             </label>
                                                         </div>
+                                                    ) : (
+                                                        <div>
+                                                            <label className='check-one d-flex' key={index}>
+                                                                <input
+                                                                    id={dic._id}
+                                                                    name={dic.name}
+                                                                    value={dic.name}
+                                                                    // onChange={() => {
+                                                                    //     handleOnChange(index);
+                                                                    // }}
+                                                                    type="checkbox"
+                                                                    className="check-once-input"
+                                                                    checked={false}
+                                                                    disabled={true}
+                                                                />
+                                                                <label for={dic._id}
+                                                                       style={{opacity : '0'}}
+                                                                       className="check-once-label mr-2"></label>
+                                                                <div style={{opacity: '0.5'}} className="check-once-text">{dic.name}</div>
+                                                            </label>
+                                                        </div>
                                                     ))}
                                                 </div>
                                                 <div className="note-item" style={{width: '50%', marginTop: '0px'}}>
@@ -232,7 +253,7 @@ const DetailCombo = (props) => {
                                                             onChange={e => {
                                                                 if (checkedState.filter((cs, i) => cs === false).length !== 0) {
                                                                     // setCheckedState(new Array(props?.dataFoodInCombo?.data?.find((cb) => (cb._id === _id)).dish_in_combo.length).fill(true));
-                                                                    const updatedCheckedState = new Array(props?.dataFoodInCombo?.data?.find((cb) => (cb._id === _id)).dish_in_combo.length).fill(true);
+                                                                    const updatedCheckedState = props?.dataFoodInCombo?.data?.find((cb, i) => cb).dish_in_combo.map((diccb, indexcb) => (diccb.is_sold_out === false) ? true : null);
                                                                     setCheckedState(updatedCheckedState);
                                                                     const testDish = updatedCheckedState.map(
                                                                         (currentState, index) => {
@@ -245,7 +266,7 @@ const DetailCombo = (props) => {
                                                                         return el != null;
                                                                     }));
                                                                 } else {
-                                                                    setCheckedState(new Array(props?.dataFoodInCombo?.data?.find((cb) => (cb._id === _id)).dish_in_combo.length).fill(false));
+                                                                    setCheckedState(props?.dataFoodInCombo?.data?.find((cb, i) => cb).dish_in_combo.map((diccb, indexcb) => (diccb.is_sold_out === false) ? false : null));
                                                                     setDish([]);
                                                                 }
                                                             }}
@@ -329,7 +350,7 @@ const DetailCombo = (props) => {
                                             <div className="list-item">
                                                 <div className="d-flex">
                                                     <div align="left" className="checkbox-dish">
-                                                        {d?.dish_in_combo?.map((dic, index) => (
+                                                        {d?.dish_in_combo?.map((dic, index) => (dic.is_sold_out === false) ? (
                                                             <div>
                                                                 <label className='check-one d-flex' key={index}>
                                                                     <input
@@ -348,6 +369,27 @@ const DetailCombo = (props) => {
                                                                     <div className="check-once-text">{dic.name}</div>
                                                                 </label>
                                                             </div>
+                                                        ) : (
+                                                            <div>
+                                                                <label className='check-one d-flex' key={index}>
+                                                                    <input
+                                                                        id={dic._id}
+                                                                        name={dic.name}
+                                                                        value={dic.name}
+                                                                        // onChange={() => {
+                                                                        //     handleOnChange(index);
+                                                                        // }}
+                                                                        type="checkbox"
+                                                                        className="check-once-input"
+                                                                        checked={false}
+                                                                        disabled={true}
+                                                                    />
+                                                                    <label htmlFor={dic._id}
+                                                                           style={{opacity : '0'}}
+                                                                           className="check-once-label mr-2"></label>
+                                                                    <div style={{opacity: '0.5'}} className="check-once-text">{dic.name}</div>
+                                                                </label>
+                                                            </div>
                                                         ))}
                                                     </div>
                                                     <div className="note-item" style={{width: '50%', marginTop: '0px'}}>
@@ -358,7 +400,7 @@ const DetailCombo = (props) => {
                                                                 onChange={e => {
                                                                     if (checkedState.filter((cs, i) => cs === false).length !== 0) {
                                                                         // setCheckedState(new Array(props?.dataFoodInCombo?.data?.find((cb) => (cb._id === _id)).dish_in_combo.length).fill(true));
-                                                                        const updatedCheckedState = new Array(props?.dataFoodInCombo?.data?.find((cb) => (cb._id === _id)).dish_in_combo.length).fill(true);
+                                                                        const updatedCheckedState = props?.dataFoodInCombo?.data?.find((cb, i) => cb).dish_in_combo.map((diccb, indexcb) => (diccb.is_sold_out === false) ? true : null);
                                                                         setCheckedState(updatedCheckedState);
                                                                         const testDish = updatedCheckedState.map(
                                                                             (currentState, index) => {
@@ -371,7 +413,7 @@ const DetailCombo = (props) => {
                                                                             return el != null;
                                                                         }));
                                                                     } else {
-                                                                        setCheckedState(new Array(props?.dataFoodInCombo?.data?.find((cb) => (cb._id === _id)).dish_in_combo.length).fill(false));
+                                                                        setCheckedState(props?.dataFoodInCombo?.data?.find((cb, i) => cb).dish_in_combo.map((diccb, indexcb) => (diccb.is_sold_out === false) ? false : null));
                                                                         setDish([]);
                                                                     }
                                                                 }}
