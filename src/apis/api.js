@@ -39,6 +39,8 @@ export const apiUrls = {
   maskAsReadKitchenApi: "api/kitchen/notifications/read",
   viewAllDishOfConfirmOrderApi: "api/kitchen/order/dish",
   updateStatusOfDishApi: "api/order/dish/status/update",
+  viewListItemApi: 'api/kitchen/items/all',
+  updateItemCanBeServeApi: 'api/kitchen/items/update/sold',
 
   //Waiter
   getAllTables: "api/waiter/tables?page=1&pageSize=15",

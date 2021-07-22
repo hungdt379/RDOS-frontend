@@ -23,7 +23,7 @@ const HeaderKitchen = (props) => {
                 <div className="navbar-header top-header thanks-header">
                     <div className="d-flex">
                         <div className="navbar-brand-box">
-                            <Link to="/receptionist-home" className="logo logo-dark d-flex menu-type-a-re">
+                            <Link to="/kitchen-home" className="logo logo-dark d-flex menu-type-a-re">
                                 <button className="d-flex menu-type-re">
                                     {/*<NotificationFooter/>*/}
                                     <div style={{marginTop: 'auto', marginBottom: 'auto'}}
@@ -41,7 +41,7 @@ const HeaderKitchen = (props) => {
 
                     <div className="d-flex">
                         <div className="navbar-brand-box">
-                            <Link to="/receptionist-feedback" className="logo logo-dark d-flex menu-type-a-re">
+                            <Link to="/kitchen-menu" className="logo logo-dark d-flex menu-type-a-re">
                                 <button className="d-flex menu-type-re">
                                     <div style={{marginTop: 'auto', marginBottom: 'auto'}}
                                          className="avatar-sm profile-user-wid mr-2">
