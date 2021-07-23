@@ -46,7 +46,7 @@ function* allDishInConfirmKit({payload: p}) {
         const response = yield call(
             Request.getApi,
             apiUrls.viewAllDishOfConfirmOrderApi,
-            {page: p, pageSize: 10}
+            {page: p, pageSize: 10, status: "prepare"}
         );
         yield put(actions.getAllDishInConfirmSuccess(response));
         console.log("all dish in confirm: "+ response.data)
@@ -56,6 +56,24 @@ function* allDishInConfirmKit({payload: p}) {
 }
 export function* watchAllDishInConfirmKit() {
     yield takeEvery(actionTypes.GET_ALL_DISH_IN_CONFIRM_REQUEST, allDishInConfirmKit);
+}
+
+//all dish in confirm
+function* allDishInCompletedKit({payload: p}) {
+    try {
+        const response = yield call(
+            Request.getApi,
+            apiUrls.viewAllDishOfConfirmOrderApi,
+            {page: p, pageSize: 10, status: "completed"}
+        );
+        yield put(actions.getAllDishInCompletedSuccess(response));
+        console.log("all dish in Completed: "+ response.data)
+    } catch (error) {
+        yield put(actions.getAllDishInCompletedError(error));
+    }
+}
+export function* watchAllDishInCompletedKit() {
+    yield takeEvery(actionTypes.GET_ALL_DISH_IN_COMPLETED_REQUEST, allDishInCompletedKit);
 }
 
 //update status of dish
@@ -117,6 +135,7 @@ const sagaKitchen = [
     watchGetNotificationsKitchen(),
     watchMaskAsReadKit(),
     watchAllDishInConfirmKit(),
+    watchAllDishInCompletedKit(),
     watchUpdateStatusOfDishKit(),
     watchAllListItemKit(),
     watchUpdateItemCanBeServeKit(),

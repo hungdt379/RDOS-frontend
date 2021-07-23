@@ -167,8 +167,10 @@ const OrderList = (props) => {
                                                             checked={displayStatus === result.code}
                                                             onChange={(e) => {
                                                                 setStatus(e.target.value)
-                                                                props.dispatch(actions.getListConfirmOrderReRequest(page));
-                                                                props.dispatch(actions.getListPaidOrderReRequest(page));
+                                                                setPage(1);
+                                                                setPageComplete(1);
+                                                                props.dispatch(actions.getListConfirmOrderReRequest(1));
+                                                                props.dispatch(actions.getListPaidOrderReRequest(1));
                                                             }}
                                                         /> <b className="input-status-re">{result.name}</b>
                                                         <div for={result.id} className="line-color"></div>

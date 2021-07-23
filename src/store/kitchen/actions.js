@@ -54,6 +54,24 @@ export const getAllDishInConfirmError = (error) => {
     };
 };
 
+//all dish in completed order
+export const getAllDishInCompletedRequest = (payload) => ({
+    type: actionTypes.GET_ALL_DISH_IN_COMPLETED_REQUEST,
+    payload: payload,
+});
+export const getAllDishInCompletedSuccess = (response) => {
+    return {
+        type: actionTypes.GET_ALL_DISH_IN_COMPLETED_SUCCESS,
+        payload: response,
+    };
+};
+export const getAllDishInCompletedError = (error) => {
+    return {
+        type: actionTypes.GET_ALL_DISH_IN_COMPLETED_ERROR,
+        payload: error,
+    };
+};
+
 //update status of dish
 export const updateStatusOfDishRequest = (payload) => ({
     type: actionTypes.UPDATE_STATUS_OF_DISH_REQUEST,
