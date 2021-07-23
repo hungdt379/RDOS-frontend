@@ -35,7 +35,7 @@ const maskAsReadKitchen = (state = maskAsReadKitReducer, action) => {
     }
 };
 
-//maskAsReadRe
+//all Dish in confirm
 const allDishInConfirmReducer = {
     allDishInConfirm: [],
 };
@@ -46,6 +46,23 @@ const allDishInConfirmKitchen = (state = allDishInConfirmReducer, action) => {
         case actionTypes.GET_ALL_DISH_IN_CONFIRM_SUCCESS:
             return { ...state, allDishInConfirm: action.payload };
         case actionTypes.GET_ALL_DISH_IN_CONFIRM_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+//all Dish in complete
+const allDishInCompleteReducer = {
+    allDishInComplete: [],
+};
+const allDishInCompleteKitchen = (state = allDishInCompleteReducer, action) => {
+    switch (action.type) {
+        case actionTypes.GET_ALL_DISH_IN_COMPLETED_REQUEST:
+            return { ...state };
+        case actionTypes.GET_ALL_DISH_IN_COMPLETED_SUCCESS:
+            return { ...state, allDishInComplete: action.payload };
+        case actionTypes.GET_ALL_DISH_IN_COMPLETED_ERROR:
             return { ...state, error: action.payload };
         default:
             return state;
@@ -107,6 +124,7 @@ export const Kitchen = combineReducers({
     getAllNotificationsKitchen,
     maskAsReadKitchen,
     allDishInConfirmKitchen,
+    allDishInCompleteKitchen,
     updateStatusOfDishKitchen,
     viewAllItemKitchen,
     updateItemCanBeServeKitchen,
