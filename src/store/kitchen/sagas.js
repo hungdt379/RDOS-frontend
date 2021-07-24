@@ -131,6 +131,24 @@ export function* watchUpdateItemCanBeServeKit() {
     yield takeEvery(actionTypes.UPDATE_ITEM_CAN_SERVE_REQUEST, updateItemCanBeServeKit);
 }
 
+//delete item confirm
+function* deleteItemConfirmKit({payload: {id, oId, caId, itId}}) {
+    try {
+        const response = yield call(
+            Request.postApi,
+            apiUrls.deleteItemInConfirmListApi,
+            {_id: id, order_id: oId, category_id: caId, item_id: itId}
+        );
+        yield put(actions.deleteItemConfirmSuccess(response.data));
+        console.log("delete item Confirm: "+ response.data)
+    } catch (error) {
+        yield put(actions.deleteItemConfirmError(error));
+    }
+}
+export function* watchDeleteItemConfirmKit() {
+    yield takeEvery(actionTypes.DELETE_ITEM_CONFIRM_REQUEST, deleteItemConfirmKit);
+}
+
 const sagaKitchen = [
     watchGetNotificationsKitchen(),
     watchMaskAsReadKit(),
@@ -139,6 +157,7 @@ const sagaKitchen = [
     watchUpdateStatusOfDishKit(),
     watchAllListItemKit(),
     watchUpdateItemCanBeServeKit(),
+    watchDeleteItemConfirmKit(),
 ];
 
 export default sagaKitchen;
