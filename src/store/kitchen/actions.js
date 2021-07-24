@@ -125,3 +125,21 @@ export const updateItemCanServeError = (error) => {
         payload: error,
     };
 };
+
+// delete item in confirm list
+export const deleteItemConfirmRequest = (id, oId, caId, itId) => ({
+    type: actionTypes.DELETE_ITEM_CONFIRM_REQUEST,
+    payload: {id, oId, caId, itId},
+});
+export const deleteItemConfirmSuccess = (response) => {
+    return {
+        type: actionTypes.DELETE_ITEM_CONFIRM_SUCCESS,
+        payload: response,
+    };
+};
+export const deleteItemConfirmError = (error) => {
+    return {
+        type: actionTypes.DELETE_ITEM_CONFIRM_ERROR,
+        payload: error,
+    };
+};

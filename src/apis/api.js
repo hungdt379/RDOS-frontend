@@ -41,6 +41,7 @@ export const apiUrls = {
   updateStatusOfDishApi: "api/order/dish/status/update",
   viewListItemApi: 'api/kitchen/items/all',
   updateItemCanBeServeApi: 'api/kitchen/items/update/sold',
+  deleteItemInConfirmListApi: 'api/order/dish/delete',
 
   //Waiter
   getAllTables: "api/waiter/tables?page=1&pageSize=15",
