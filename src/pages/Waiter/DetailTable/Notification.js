@@ -9,10 +9,10 @@ import {postMarkAsReadRequest} from "../../../store/post/actions";
 //scss
 import "../../../assets/scss/custom/pages/waiter/notification.scss";
 //image
-import bell from "../../../assets/images/customer/bell.png";
-import a from "../../../assets/images/customer/wine.png";
-import b from "../../../assets/images/customer/chicken.png";
-import confirmed from "../../../assets/images/receptionist/carousel.png";
+import bell from  "../../../assets/images/customer/bell.png";
+import confirmed from  "../../../assets/images/receptionist/carousel.png";
+import a from  "../../../assets/images/waiter/sand-clock.png";
+import b from  "../../../assets/images/waiter/arrows-exchange.png";
 import Invalid from "../../Customer/Invalid";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
 
@@ -52,68 +52,68 @@ const Notification = (props) => {
             <div className="display-customer">
 
 
-            {(role === 'w')?(
-                <div className="container_detail">
-                    <Header username={location.state.username} />
-                    <div className="nav-notification">
-                        <div className="nav_form">
-                            <div className="link_form">
-                                <Link to= {{ pathname:'/waiter-detail-table-notification',
-                                    state:{
-                                        _id: location.state._id,
-                                        username:location.state.username
-                                    }
-                                }}><img style={{width: '16px', height: '23px'}} src={bell}/>
-                                </Link>
+                {(role === 'w')?(
+                    <div className="container_detail">
+                        <Header username={location.state.username} />
+                        <div className="nav-notification">
+                            <div className="nav_form">
+                                <div className="link_form">
+                                    <Link to= {{ pathname:'/waiter-detail-table-notification',
+                                        state:{
+                                            _id: location.state._id,
+                                            username:location.state.username
+                                        }
+                                    }}><img style={{width: '16px', height: '23px'}} src={bell}/>
+                                    </Link>
+                                </div>
+                                <p>Thông báo</p>
                             </div>
-                            <p>Thông báo</p>
-                        </div>
 
-                        <div className="nav_form">
-                            <div className="link_form">
-                                <Link to= {{ pathname:'/waiter-detail-table-confirm-order',
-                                    state:{
-                                        _id: location.state._id,
-                                        username:location.state.username
-                                    }
-                                }}>
-                                    <img style={{width: '24px', height:'24px'}} src={a}/>
-                                </Link>
+                            <div className="nav_form">
+                                <div className="link_form">
+                                    <Link to= {{ pathname:'/waiter-detail-table-confirm-order',
+                                        state:{
+                                            _id: location.state._id,
+                                            username:location.state.username
+                                        }
+                                    }}>
+                                        <img style={{width: '11px', height:'20px'}} src={a}/>
+                                    </Link>
+                                </div>
+                                <p>Confirm Order</p>
                             </div>
-                            <p>Confirm Order</p>
-                        </div>
 
-                        <div className="nav_form">
-                            <div className="link_form">
-                                <Link to= {{ pathname:'/waiter-detail-table-change-table',
-                                    state:{
-                                        _id: location.state._id,
-                                        username:location.state.username
-                                    }
-                                }}>
-                                    <img style={{width: '24px', height: '24px'}} src={b}/>
-                                </Link>
+                            <div className="nav_form">
+                                <div className="link_form">
+                                    <Link to= {{ pathname:'/waiter-detail-table-change-table',
+                                        state:{
+                                            _id: location.state._id,
+                                            username:location.state.username
+                                        }
+                                    }}>
+                                        <img style={{width: '19px', height:'13px'}} src={b}/>
+                                    </Link>
+                                </div>
+                                <p>Đổi Bàn</p>
                             </div>
-                            <p>Đổi Bàn</p>
-                        </div>
 
-                        <div className="nav_form">
-                            <div className="link_form">
-                                <Link to= {{ pathname:'/waiter-detail-table-confirmed-order',
-                                    state:{
-                                        _id: location.state._id,
-                                        username:location.state.username
-                                    }
-                                }}>
-                                    <img src={confirmed}/>
-                                </Link>
+                            <div className="nav_form">
+                                <div className="link_form">
+                                    <Link to= {{ pathname:'/waiter-detail-table-confirmed-order',
+                                        state:{
+                                            _id: location.state._id,
+                                            username:location.state.username
+                                        }
+                                    }}>
+                                        <img src={confirmed}/>
+                                    </Link>
+                                </div>
+                                <p>Confirmed Order</p>
                             </div>
-                            <p>Confirmed Order</p>
                         </div>
-                    </div>
-                    <div style={{textAlign: "center", justifyContent: "center"}}>
+                        <div style={{textAlign: "center", justifyContent: "center"}}>
 
-                        <div className="list-Item">
+                            <div className="list-Item">
 
                                 {dataNotification.data?.map((d, index) => (
                                         <div className="item-form" style={d.read == false ? {backgroundColor: "#EEEEEE"} : {backgroundColor: "#FFEFCD"} } key={index}>
@@ -123,10 +123,10 @@ const Notification = (props) => {
                                         </div>
                                     )
                                 )}
+                            </div>
                         </div>
                     </div>
-                </div>
-            ):(<NotFound/>)}
+                ):(<NotFound/>)}
                 <Footer/>
             </div>
             <div className="none-display-customer">

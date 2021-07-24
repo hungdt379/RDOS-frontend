@@ -132,7 +132,26 @@ export const getCheckListError = (error) => {
   };
 };
 
-// post check list
+
+// get close table
+export const getCloseTableRequest = (payload) => ({
+  type: actionTypes.GET_CLOSE_TABLE_REQUEST,
+  payload: payload,
+});
+export const getCloseTableSuccess = (response) => {
+  return {
+    type: actionTypes.GET_CLOSE_TABLE_SUCCESS,
+    payload: response,
+  };
+};
+export const getCloseTableError = (error) => {
+  return {
+    type: actionTypes.GET_CLOSE_TABLE_ERROR,
+    payload: error,
+  };
+};
+
+// post delete item
 export const postDeleteItemRequest = (payload) => ({
   type: actionTypes.POST_DELETE_ITEM_REQUEST,
   payload: payload,

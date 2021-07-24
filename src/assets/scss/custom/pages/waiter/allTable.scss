@@ -21,6 +21,11 @@
     border-radius: 10px;
   }
 
+  input[type = 'radio'].check-table:checked ~ div.page{
+    background-color: #FFEFCD;
+    border: 2px solid green;
+  }
+
   .contain_button_all {
     position: absolute;
     top: -7px;
