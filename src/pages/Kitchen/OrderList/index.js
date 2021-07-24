@@ -17,6 +17,7 @@ import {Modal} from "reactstrap";
 
 const OrderList = (props) => {
     const [openUpdateStatus, setOpenUpdateStatus] = useState(false);
+    const [openDeleteStatus, setOpenDeleteStatus] = useState(false);
     let statusState = [
         {id: 's1', code: "prepare", name: "Chuẩn bị"},
         {id: 's2', code: "completed", name: "Hoàn thành"}
@@ -82,10 +83,8 @@ const OrderList = (props) => {
                                                         checked={displayStatus === result.code}
                                                         onChange={(e) => {
                                                             setStatus(e.target.value)
-                                                            setPage(1);
-                                                            setPageCompleted(1);
-                                                            props.dispatch(actions.getAllDishInConfirmRequest(1));
-                                                            props.dispatch(actions.getAllDishInCompletedRequest(1));
+                                                            props.dispatch(actions.getAllDishInConfirmRequest(page));
+                                                            props.dispatch(actions.getAllDishInCompletedRequest(pageCompleted));
                                                         }}
                                                     /> <b className="input-status-re">{result.name}</b>
                                                     <div htmlFor={result.id} className="line-color"></div>
@@ -193,6 +192,15 @@ const OrderList = (props) => {
                                                                            backgroundColor: '#FFD1D1',
                                                                            border: '1px solid red'
                                                                        }}
+                                                                       onClick={() => {
+                                                                           props.dispatch(actions.deleteItemConfirmRequest(it?._id, it?.order_id, it?.category_id, it?.item_id))
+                                                                           setOpenDeleteStatus(true)
+                                                                           setTimeout(() => {
+                                                                               setOpenDeleteStatus(false)
+                                                                               props.dispatch(actions.getAllDishInConfirmRequest(page));
+                                                                               props.dispatch(actions.getAllDishInCompletedRequest(pageCompleted));
+                                                                           }, 1500)
+                                                                       }}
                                                                     >
                                                                         <img src={trash}
                                                                              className="icon-button-menu-manage-table"/>
@@ -255,9 +263,53 @@ const OrderList = (props) => {
                                                             </div>
                                                             <div align="center"
                                                                  className="col-1 card-detail-order-text-child">
+                                                                <div style={{marginTop: 'auto', marginBottom: 'auto'}}
+                                                                     className="avatar-xs profile-user-wid mr-3">
+                                                                    <a align="center"
+                                                                       className="avatar-title rounded-circle"
+                                                                       style={{
+                                                                           backgroundColor: '#FFEFCD',
+                                                                           border: '1px solid #FCBC3A'
+                                                                       }}
+                                                                       onClick={(e) => {
+                                                                           props.dispatch(actions.updateStatusOfDishRequest(it?._id))
+                                                                           setOpenUpdateStatus(true)
+                                                                           setTimeout(() => {
+                                                                               setOpenUpdateStatus(false)
+                                                                               props.dispatch(actions.getAllDishInConfirmRequest(page));
+                                                                               props.dispatch(actions.getAllDishInCompletedRequest(pageCompleted));
+                                                                           }, 1500)
+                                                                       }}
+                                                                    >
+                                                                        <img src={moveRight}
+                                                                             className="icon-button-menu-manage-table"/>
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                             <div align="center"
                                                                  className="col-1 card-detail-order-text-child">
+                                                                <div style={{marginTop: 'auto', marginBottom: 'auto'}}
+                                                                     className="avatar-xs profile-user-wid mr-3">
+                                                                    <a align="center"
+                                                                       className="avatar-title rounded-circle"
+                                                                       style={{
+                                                                           backgroundColor: '#FFD1D1',
+                                                                           border: '1px solid red'
+                                                                       }}
+                                                                       onClick={() => {
+                                                                           props.dispatch(actions.deleteItemConfirmRequest(it?._id, it?.order_id, it?.category_id, it?.item_id))
+                                                                           setOpenDeleteStatus(true)
+                                                                           setTimeout(() => {
+                                                                               setOpenDeleteStatus(false)
+                                                                               props.dispatch(actions.getAllDishInConfirmRequest(page));
+                                                                               props.dispatch(actions.getAllDishInCompletedRequest(pageCompleted));
+                                                                           }, 1500)
+                                                                       }}
+                                                                    >
+                                                                        <img src={trash}
+                                                                             className="icon-button-menu-manage-table"/>
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     )
@@ -303,6 +355,24 @@ const OrderList = (props) => {
                                 fontFamily: 'Cabin',
                                 fontSize: '15px',
                             }}><b>Xuất phiếu thành công !</b>
+                            </div>
+                        </div>
+                    </Modal>
+                    <Modal align="center" style={{
+                        width: '350px',
+                        marginRight: 'auto',
+                        marginLeft: 'auto',
+                        height: '100px',
+                        marginTop: '200px',
+                        marginBottom: "auto",
+                    }} isOpen={openDeleteStatus}>
+                        <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                            <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                               className="bx bx-calendar-check bx-tada"></i>
+                            <div style={{
+                                fontFamily: 'Cabin',
+                                fontSize: '15px',
+                            }}><b>Xóa món thành công !</b>
                             </div>
                         </div>
                     </Modal>

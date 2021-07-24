@@ -120,6 +120,23 @@ const updateItemCanBeServeKitchen = (state = updateItemCanBeServeReducer, action
     }
 };
 
+//delete item confirm
+const deleteItemConfirmReducer = {
+    allDeleteItemConfirm: [],
+};
+const deleteItemConfirmKitchen = (state = deleteItemConfirmReducer, action) => {
+    switch (action.type) {
+        case actionTypes.DELETE_ITEM_CONFIRM_REQUEST:
+            return { ...state };
+        case actionTypes.DELETE_ITEM_CONFIRM_SUCCESS:
+            return { ...state, allDeleteItemConfirm: action.payload };
+        case actionTypes.DELETE_ITEM_CONFIRM_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
 export const Kitchen = combineReducers({
     getAllNotificationsKitchen,
     maskAsReadKitchen,
@@ -128,4 +145,5 @@ export const Kitchen = combineReducers({
     updateStatusOfDishKitchen,
     viewAllItemKitchen,
     updateItemCanBeServeKitchen,
+    deleteItemConfirmKitchen,
 });
