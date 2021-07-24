@@ -142,6 +142,92 @@ const postDeleteItem= (state = dataPostDeleteItemReducer, action) => {
   }
 };
 
+const dataPostDeleteQueueItemReducer = {
+  dataPostDeleteQueueItem: [],
+};
+
+const postDeleteQueueItem= (state = dataPostDeleteQueueItemReducer, action) => {
+  switch (action.type) {
+    case actionTypes.POST_DELETE_QUEUE_ITEM_REQUEST:
+      return { ...state };
+    case actionTypes.POST_DELETE_QUEUE_ITEM_SUCCESS:
+      return { ...state, dataPostDeleteQueueItem: action.payload };
+    case actionTypes.POST_DELETE_QUEUE_ITEM_ERROR:
+      return { ...state, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+
+const dataPostChangeTableReducer = {
+  dataPostChangeTable: [],
+};
+
+const postChangeTable= (state = dataPostChangeTableReducer, action) => {
+  switch (action.type) {
+    case actionTypes.POST_CHANGE_TABLE_REQUEST:
+      return { ...state };
+    case actionTypes.POST_CHANGE_TABLE_SUCCESS:
+      return { ...state, dataPostChangeTable: action.payload };
+    case actionTypes.POST_CHANGE_TABLE_ERROR:
+      return { ...state, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+
+const dataPostUpdateDrinkReducer = {
+  dataPostUpdateDrink: [],
+};
+
+const postUpdateDrink= (state = dataPostUpdateDrinkReducer, action) => {
+  switch (action.type) {
+    case actionTypes.POST_UPDATE_DRINK_REQUEST:
+      return { ...state };
+    case actionTypes.POST_UPDATE_DRINK_SUCCESS:
+      return { ...state, dataPostUpdateDrink: action.payload };
+    case actionTypes.POST_UPDATE_DRINK_ERROR:
+      return { ...state, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+
+const dataPostDeleteDrinkReducer = {
+  dataPostDeleteDrink: [],
+};
+
+const postDeleteDrink= (state = dataPostDeleteDrinkReducer, action) => {
+  switch (action.type) {
+    case actionTypes.POST_DELETE_DRINK_REQUEST:
+      return { ...state };
+    case actionTypes.POST_DELETE_DRINK_SUCCESS:
+      return { ...state, dataPostDeleteDrink: action.payload };
+    case actionTypes.POST_DELETE_DRINK_ERROR:
+      return { ...state, error: action.payload };
+    default:
+      return state;
+  }
+};
+const dataPostCustomizeNumberReducer = {
+  dataPostCustomizeNumber: [],
+};
+
+const postCustomizeNumber= (state = dataPostCustomizeNumberReducer, action) => {
+  switch (action.type) {
+    case actionTypes.POST_CUSTOMIZE_NUMBER_REQUEST:
+      return { ...state };
+    case actionTypes.POST_CUSTOMIZE_NUMBER_SUCCESS:
+      return { ...state, dataPostCustomizeNumber: action.payload };
+    case actionTypes.POST_CUSTOMIZE_NUMBER_ERROR:
+      return { ...state, error: action.payload };
+    default:
+      return state;
+  }
+};
 
 export const Posts = combineReducers({
   postNumberCustomer,
@@ -152,4 +238,9 @@ export const Posts = combineReducers({
   postConfirmQueueOrder,
   getConfirmedOrder,
   postDeleteItem,
+  postChangeTable,
+  postDeleteQueueItem,
+  postUpdateDrink,
+  postDeleteDrink,
+  postCustomizeNumber
 });

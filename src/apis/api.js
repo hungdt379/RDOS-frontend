@@ -59,7 +59,12 @@ export const apiUrls = {
   postDeleteItemApi: "api/waiter/table/order/confirm/item/delete",
   postNoteRemainApi: "api/waiter/table/order/confirm/note/add",
   getCheckListApi: "api/waiter/order/drink",
-  postDeleteItem: "api/waiter/table/order/confirm/item/delete",
+  getCloseTableApi: "api/waiter/table/active/false",
+  postChangeTableApi: "api/waiter/table/change",
+  postDeleteQueueItemApi: "api/waiter/table/order/queue/item/delete",
+  postUpdateDrinkApi: "api/order/drink/status/update",
+  postDeleteItemCheckList: "api/order/dish/delete",
+  postCustomizeOrder: "api/receptionist/order/confirm/item/quantity/update",
   //Bai cu
   // getAllFriend: "api/profiles",
   // getDepartment: "api/groups",

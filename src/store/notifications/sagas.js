@@ -118,8 +118,8 @@ function* getCheckList({ payload }) {
   try {
     const response = yield call(Request.getApi,apiUrls.getCheckListApi,payload);
     if(response){
-      yield put(actions.getCheckListSuccess(response.data));
-      console.log(response);
+      yield put(actions.getCheckListSuccess(response));
+
     }
   } catch (error) {
     yield put(actions.getCheckListError(error));
@@ -130,10 +130,26 @@ function* getCheckList({ payload }) {
 export function* watchGetCheckList() {
   yield takeEvery(actionTypes.GET_CHECK_LIST_REQUEST, getCheckList);
 }
+// get close table
+function* getCloseTable({ payload }) {
+  try {
+    const response = yield call(Request.getApi,apiUrls.getCloseTableApi,payload);
+    if(response){
+      yield put(actions.getCloseTableSuccess(response.data));
+    }
+  } catch (error) {
+    yield put(actions.getCloseTableError(error));
+  }
+}
+
+
+export function* watchGetCloseTable() {
+  yield takeEvery(actionTypes.GET_CLOSE_TABLE_REQUEST, getCloseTable);
+}
 // post delete item
 function* postDeleteItem({ payload }) {
   try {
-    const response = yield call(Request.getApi,apiUrls.postDeleteItem,payload);
+    const response = yield call(Request.postApi,apiUrls.postDeleteItem,payload);
     if(response){
       yield put(actions.postDeleteItemSuccess(response));
       console.log(response);
@@ -158,7 +174,8 @@ const sagaNotificatons = [
   watchGetTableByID(),
   watchGetLogOut(),
   watchGetCheckList(),
-    watchPostDeleteItem(),
+  watchPostDeleteItem(),
+  watchGetCloseTable(),
 ];
 
 export default sagaNotificatons;

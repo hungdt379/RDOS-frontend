@@ -175,6 +175,107 @@ export function* watchPostDeleteItem() {
 }
 
 
+function* postDeleteQueueItem({ payload }) {
+  try {
+    const response = yield call(
+        Request.postApi,
+        apiUrls.postDeleteQueueItemApi,
+        payload
+    );
+    if (response){
+      yield  put(actions.postDeleteQueueItemSuccess(response));
+      console.log(response)
+    }
+  } catch (error) {
+    yield put(actions.postDeleteQueueItemError(error));
+  }
+}
+
+export function* watchPostDeleteQueueItem() {
+  yield takeLatest(actionTypes.POST_DELETE_QUEUE_ITEM_REQUEST, postDeleteQueueItem);
+}
+
+function* postChangeTable({ payload }) {
+  try {
+    const response = yield call(
+        Request.postApi,
+        apiUrls.postChangeTableApi,
+        payload
+    );
+    if (response){
+      yield  put(actions.postChangeTableSuccess(response));
+      console.log(response)
+    }
+  } catch (error) {
+    yield put(actions.postChangeTableError(error));
+  }
+}
+
+export function* watchPostChangeTable() {
+  yield takeLatest(actionTypes.POST_CHANGE_TABLE_REQUEST, postChangeTable);
+}
+
+function* postUpdateDrink({ payload }) {
+  try {
+    const response = yield call(
+        Request.postApi,
+        apiUrls.postUpdateDrinkApi,
+        payload
+    );
+    if (response){
+      yield  put(actions.postUpdateDrinkSuccess(response));
+      console.log(response)
+    }
+  } catch (error) {
+    yield put(actions.postUpdateDrinkError(error));
+  }
+}
+
+export function* watchPostUpdateDrink() {
+  yield takeLatest(actionTypes.POST_UPDATE_DRINK_REQUEST, postUpdateDrink);
+}
+
+function* postDeleteDrink({ payload }) {
+  try {
+    const response = yield call(
+        Request.postApi,
+        apiUrls.postDeleteItemCheckList,
+        payload
+    );
+    if (response){
+      yield  put(actions.postDeleteDrinkSuccess(response));
+      console.log(response)
+    }
+  } catch (error) {
+    yield put(actions.postDeleteDrinkError(error));
+  }
+}
+
+export function* watchPostDeleteDrink() {
+  yield takeLatest(actionTypes.POST_DELETE_DRINK_REQUEST, postDeleteDrink);
+}
+
+function* postCustomizeNumber({ payload }) {
+  try {
+    const response = yield call(
+        Request.postApi,
+        apiUrls.postCustomizeOrder,
+        payload
+    );
+    if (response){
+      yield  put(actions.postCustomizeNumberSuccess(response));
+      console.log(response)
+    }
+  } catch (error) {
+    yield put(actions.postCustomizeNumberError(error));
+  }
+}
+
+export function* watchPostCustomizeNumber() {
+  yield takeLatest(actionTypes.POST_CUSTOMIZE_NUMBER_REQUEST, postCustomizeNumber);
+}
+
+
 const sagaPost = [
   watchPostNumberCustomer(),
   watchPostCloseTable(),
@@ -184,6 +285,11 @@ const sagaPost = [
   watchPostConfirmQueueOrder(),
   watchGetConfirmedQueueOrder(),
   watchPostDeleteItem(),
+  watchPostChangeTable(),
+  watchPostDeleteQueueItem(),
+  watchPostUpdateDrink(),
+  watchPostDeleteDrink(),
+  watchPostCustomizeNumber()
 ];
 
 export default sagaPost;

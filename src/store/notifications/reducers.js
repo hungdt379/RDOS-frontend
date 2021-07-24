@@ -122,6 +122,24 @@ const getCheckList = (state = CheckListReducer, action) => {
   }
 };
 
+const CloseTableReducer = {
+  dataCloseTable: [],
+};
+
+const getCloseTable = (state = CloseTableReducer, action) => {
+  switch (action.type) {
+    case actionTypes.GET_CLOSE_TABLE_REQUEST:
+      return { ...state };
+    case actionTypes.GET_CLOSE_TABLE_SUCCESS:
+      state =  { ...state, dataCloseTable: action.payload };
+    case actionTypes.GET_CLOSE_TABLE_ERROR:
+      return { ...state,error: action.payload };
+    default:
+      return state;
+  }
+};
+
+
 const DeleteItemReducer = {
   dataDeleteItem: [],
 };
@@ -149,4 +167,5 @@ export const Notification = combineReducers({
   postUpdateTable,
   LogOut,
   postDeleteItem,
+  getCloseTable
 });
