@@ -11,7 +11,7 @@ import {Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/co
 import {Button} from "reactstrap";
 import firebase from 'firebase';
 import {postNumberCustomerRequest} from "../../../store/post/actions";
-import listCheck from "../../../assets/images/waiter/play-list-check.png";
+import listCheck from "../../../assets/images/customer/play-list-check.png";
 import Profile from "../../../assets/images/waiter/profile.png";
 import Invalid from "../../Customer/Invalid";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
