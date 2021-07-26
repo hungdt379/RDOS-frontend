@@ -21,9 +21,36 @@
     border-radius: 10px;
   }
 
-  input[type = 'radio'].check-table:checked ~ div.page{
+  input[type = 'checkbox'].check-table:checked ~ div.page{
     background-color: #FFEFCD;
-    border: 2px solid green;
+    border: 3px solid #FCBC3A;
+  }
+  .paginationHome{
+    margin-top: 10px;
+    height: 100%;
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+  }
+  .paginationHome a{
+    padding: 5px;
+    margin: 8px;
+    border-radius: 100%;
+    color: #000000;
+    font-family: Cabin;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 20px;
+    text-align: center;
+    cursor: pointer;
+    padding: 2px 0;
+  }
+  .paginationActiveHome{
+    background-color: #FCBC3A;
+
+
   }
 
   .contain_button_all {
@@ -53,7 +80,6 @@
     grid-template-columns: 41% 41%;
   }
   .content_all{
-
     display: flex;
     justify-content: space-between;
     padding: 0 10px;

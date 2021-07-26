@@ -1,20 +1,22 @@
 import React, {useState, Component, useEffect, useCallback} from "react";
 import {Link, withRouter} from 'react-router-dom';
+import PerfectScrollbar from "react-perfect-scrollbar";
 import "../../../assets/scss/custom/pages/waiter/header.scss";
 import "../../../assets/scss/custom/pages/waiter/allTable.scss";
 import NotFound from "../../Authentication/Page401";
 import {getAllTableRequest, getLogOutRequest} from "../../../store/notifications/actions";
 import {connect} from "react-redux";
-import Header from "../home/myHeader";
 import {apiError} from "../../../store/auth/login/actions";
-import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField} from "@material-ui/core";
+import {Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
 import {Button} from "reactstrap";
 import firebase from 'firebase';
 import {postNumberCustomerRequest} from "../../../store/post/actions";
-import listCheck from "../../../assets/images/customer/play-list-check.png";
-import toggle from "../../../assets/images/receptionist/profile.png";
+import listCheck from "../../../assets/images/waiter/play-list-check.png";
+import Profile from "../../../assets/images/waiter/profile.png";
 import Invalid from "../../Customer/Invalid";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
+import ReactPaginate from "react-paginate";
+import chevonRight from "../../../assets/images/receptionist/chevron-down.png";
 
 
 const  ViewAllTable = (props) => {
@@ -22,13 +24,28 @@ const  ViewAllTable = (props) => {
 
     let [Length,setLength] = useState([]);
 
+    const {dataTable} = props;
+
     const [number, setNumber] = useState();
+
+    const [page, setPage] = useState(1);
+
+    const [pageSize] = useState(15);
 
     const  database =   firebase.database();
 
     const [id, setID] = useState();
 
     const [open,setOpen] = useState(false);
+
+    const totalPage = dataTable.total;
+
+    const pageCount = Math.ceil(totalPage/pageSize);
+
+    const changePage = ({ selected }) => {
+        setPage(selected+1);
+        props.getAllTableRequest(selected+1);
+    };
 
     const handleClickOpen = () => {
 
@@ -42,7 +59,7 @@ const  ViewAllTable = (props) => {
     const handleClose = () => {
         setOpen(false);
     }
-    const {dataTable} = props;
+
 
     function postNumberCustomer(){
         if(number == null){
@@ -67,12 +84,14 @@ const  ViewAllTable = (props) => {
 
     let list = [];
 
-    dataTable.forEach(function(item, index){
-        database.ref('waiter/' + item._id).on('value', (snapshot) => {
-                list[index] = snapshot.numChildren();
-            }
-        )
-    });
+    // console.log(dataTable.data)
+    //
+    // dataTable.data.forEach(function(item, index){
+    //     database.ref('waiter/' + item._id).on('value', (snapshot) => {
+    //             list[index] = snapshot.numChildren();
+    //         }
+    //     )
+    // });
     const [isChecked, setIsChecked] = React.useState(
         false
     );
@@ -83,7 +102,8 @@ const  ViewAllTable = (props) => {
             const obj = JSON.parse(localStorage.getItem("authUser"));
             setRole(obj.data.user.role);
         }
-        props.getAllTableRequest();
+        props.getAllTableRequest(page);
+
 
         database.ref('waiter').orderByValue().on('value', (snapshot) => {
                 let l = [1,2,3];
@@ -98,30 +118,33 @@ const  ViewAllTable = (props) => {
     const logout = () => {
         props.getLogOutRequest();
     }
+    const [toggle,setToggle] = useState(false);
 
+    const toggleBtn = () =>{
+        setToggle(!toggle);
+    }
     return(
         <React.Fragment>
             <div className="display-customer">
-
-
             {(role === 'w')?(
                 <div className="container">
                     <div className="MyHeader">
                         <Link to="/waiter-check-list" className="div-table-code">
-                            <img style={{width: '21px', height:'15px'}} src={listCheck}/>
+                            <img style={{width: '26px', height:'21px'}} src={listCheck}/>
                         </Link>
                         <div className="title_header">
-                            <p>ALL Tables</p>
+                            <p>Trang Chủ</p>
                         </div>
                         <div className="toggle">
-                            <img src={toggle}/>
-                            <div className="dropdown-content">
-                                <Link to="/login" onClick={logout}>Log Out</Link>
+                            <img onClick={toggleBtn} style={{width: '25px', height: '26px'}} src={Profile}/>
+                            <div className="dropdown-content" style={{display: toggle == true? "block" : "none"  }}>
+                                <Link to="/login" onClick={logout}>Đăng xuất</Link>
                             </div>
                         </div>
                     </div>
-                    <div className="list">
-                        {dataTable?.map((d, index) => (
+                    <PerfectScrollbar>
+                    <div className="list" style={{margin: "40px 0",height:"400px"}}>
+                        { dataTable.data?.map((d, index) => (
                                 <div key={index} onClick={d?.is_active === false ? handleClickOpen : handleClose}>
                                     <Link  onClick={event => setID(d._id)} to= {{ pathname: d.is_active == true ? '/waiter-detail-table-confirm-order' : '',
                                         state:{
@@ -141,15 +164,32 @@ const  ViewAllTable = (props) => {
                                 </div>
                             )
                         )}
-
                     </div>
-                    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                        <DialogTitle className="dia_title">Số Khách Tại Bàn</DialogTitle>
+                    </PerfectScrollbar>
+                    <ReactPaginate
+                        previousLabel={
+                            <img style={{width:"20px",height:"20px"}} src={chevonRight}
+                                 className="plus-icon-button-re-left"/>
+                        }
+                        nextLabel={
+                            <img style={{width:"20px",height:"20px"}} src={chevonRight}
+                                 className="plus-icon-button-re-right"/>
+                        }
+                        pageCount={pageCount}
+                        onPageChange={changePage}
+                        containerClassName={"paginationHome"}
+                        previousLinkClassName={"previousBtnHome"}
+                        nextLinkClassName={"nextBtnHome"}
+                        disabledClassName={"paginationDisabledHome"}
+                        activeClassName={"paginationActiveHome"}
+                    />
+                    <Dialog open={open}  onClose={handleClose} aria-labelledby="form-dialog-title">
+                        <DialogTitle id="form-dialog-title" className="dia_title">Số Khách Tại Bàn</DialogTitle>
                         <DialogContent>
                             <input
                                className="text_field"
                                 type="number"
-                                fullWidth
+
                                 onChange={event => setNumber(event.target.value)}
                                 required
                             />
@@ -159,7 +199,6 @@ const  ViewAllTable = (props) => {
                             <Button style={{backgroundColor: "#E5E5E5",color:"#1E1C19"}} onClick={handleClose} color="primary">
                                 Hủy
                             </Button>
-
 
                             <Button style={{backgroundColor: "#FCBC3A",color:"#1E1C19"}} onClick={postNumberCustomer} color="primary">
                                 Xác Nhận

@@ -105,22 +105,40 @@ const postUpdateTable = (state = TableUpdateReducer, action) => {
 };
 
 
-const CheckListReducer = {
-  dataCheckList: [],
+const CheckListPrepareReducer = {
+  dataCheckListPrepare: [],
 };
 
-const getCheckList = (state = CheckListReducer, action) => {
+const getCheckListPrepare = (state = CheckListPrepareReducer, action) => {
   switch (action.type) {
-    case actionTypes.GET_CHECK_LIST_REQUEST:
+    case actionTypes.GET_CHECK_LIST_PREPARE_REQUEST:
       return { ...state };
-    case actionTypes.GET_CHECK_LIST_SUCCESS:
-      state =  { ...state, dataCheckList: action.payload };
-    case actionTypes.GET_CHECK_LIST_ERROR:
+    case actionTypes.GET_CHECK_LIST_PREPARE_SUCCESS:
+      state =  { ...state, dataCheckListPrepare: action.payload };
+    case actionTypes.GET_CHECK_LIST_PREPARE_ERROR:
+      return { ...state,error: action.payload };
+    default:
+      return state;
+  }
+};
+
+const CheckListCompleteReducer = {
+  dataCheckListComplete: [],
+};
+
+const getCheckListComplete = (state = CheckListCompleteReducer, action) => {
+  switch (action.type) {
+    case actionTypes.GET_CHECK_LIST_COMPLETE_REQUEST:
+      return { ...state };
+    case actionTypes.GET_CHECK_LIST_COMPLETE_SUCCESS:
+      state =  { ...state, dataCheckListComplete: action.payload };
+    case actionTypes.GET_CHECK_LIST_COMPLETE_ERROR:
       return { ...state,dataCheckList: action.payload };
     default:
       return state;
   }
 };
+
 
 const CloseTableReducer = {
   dataCloseTable: [],
@@ -163,7 +181,8 @@ export const Notification = combineReducers({
   getAllNotifications,
   getAllTable,
   getTable,
-  getCheckList,
+  getCheckListPrepare,
+  getCheckListComplete,
   postUpdateTable,
   LogOut,
   postDeleteItem,

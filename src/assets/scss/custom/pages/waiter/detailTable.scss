@@ -20,42 +20,6 @@
     background: #FFFFFF;
   }
 
-  .nav-notification{
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    padding: 5% 0%;
-    text-align: center;
-  }
-  .nav-notification .nav_form{
-    display: flex;
-    flex-direction: column;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-  .link_form{
-    margin-left: 15%;
-    width: 38px;
-    height: 38px;
-    left: 25px;
-    top: 69px;
-    border-radius: 50%;
-    background: #FFEFCD;
-
-  }
-  .link_form img{
-    margin-top: 15%;
-  }
-  .link_form p{
-
-    font-weight: 500;
-    font-size: 11px;
-    line-height: 13px;
-    text-align: center;
-
-    color: #1E1C19;
-  }
-
   .number_customer_form{
     width: 100%;
     text-align: center;
@@ -101,7 +65,7 @@
     display: flex;
     justify-items: center;
     flex-direction: column;
-    height: 330px;
+    height: 300px;
   }
   .item-form-detail{
     position: relative;

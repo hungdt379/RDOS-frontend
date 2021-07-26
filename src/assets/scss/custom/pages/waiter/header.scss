@@ -6,6 +6,7 @@
     display: flex;
     color: #1E1C19;
     width: 100%;
+    font-family: 'Cabin';
     justify-content: space-between;
     padding: 5% 5%;
   }
@@ -25,7 +26,7 @@
     horiz-align: center;
   }
 
-  .toggle img{
+  .toggle-logout img{
     position: relative;
     max-width: 40px;
     cursor: pointer;
@@ -37,16 +38,12 @@
     display: block;
     overflow: auto;
   }
-  .dropdown-content a:hover {background-color: #f1f1f1}
   .dropdown-content{
-    display: none;
     position: absolute;
+    right: 30px;
     background-color: #f9f9f9;
     min-width: 100px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  }
 
-  }
-  .toggle:hover .dropdown-content{
-    display: block;
-  }
 }

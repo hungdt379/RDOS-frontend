@@ -44,7 +44,7 @@ export const apiUrls = {
   deleteItemInConfirmListApi: 'api/order/dish/delete',
 
   //Waiter
-  getAllTables: "api/waiter/tables?page=1&pageSize=15",
+  getAllTables: "api/waiter/tables",
   postOpenTable: "api/waiter/table/open",
   getTableByID: "api/waiter/table/id",
   getAllNotifications: "api/waiter/table/notifications",
@@ -65,6 +65,7 @@ export const apiUrls = {
   postUpdateDrinkApi: "api/order/drink/status/update",
   postDeleteItemCheckList: "api/order/dish/delete",
   postCustomizeOrder: "api/receptionist/order/confirm/item/quantity/update",
+  postCustomizeQueue: "api/waiter/order/queue/item/quantity/update",
   //Bai cu
   // getAllFriend: "api/profiles",
   // getDepartment: "api/groups",

@@ -257,3 +257,24 @@ export const postCustomizeNumberError = (error) => {
     payload: error,
   };
 };
+
+
+
+export const postCustomizeQueueRequest = (payload) => {
+  return {
+    type: actionTypes.POST_CUSTOMIZE_QUEUE_REQUEST,
+    payload: payload,
+  };
+};
+export const postCustomizeQueueSuccess = (response) => {
+  return {
+    type: actionTypes.POST_CUSTOMIZE_QUEUE_SUCCESS,
+    payload: response,
+  };
+};
+export const postCustomizeQueueError = (error) => {
+  return {
+    type: actionTypes.POST_CUSTOMIZE_QUEUE_ERROR,
+    payload: error,
+  };
+};
