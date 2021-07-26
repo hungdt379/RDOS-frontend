@@ -229,6 +229,23 @@ const postCustomizeNumber= (state = dataPostCustomizeNumberReducer, action) => {
   }
 };
 
+const dataPostCustomizeQueueReducer = {
+  dataPostCustomizeNumber: [],
+};
+
+const postCustomizeQueue= (state = dataPostCustomizeQueueReducer, action) => {
+  switch (action.type) {
+    case actionTypes.POST_CUSTOMIZE_QUEUE_REQUEST:
+      return { ...state };
+    case actionTypes.POST_CUSTOMIZE_QUEUE_SUCCESS:
+      return { ...state, dataPostCustomizeQueue: action.payload };
+    case actionTypes.POST_CUSTOMIZE_QUEUE_ERROR:
+      return { ...state, error: action.payload };
+    default:
+      return state;
+  }
+};
+
 export const Posts = combineReducers({
   postNumberCustomer,
   postCloseTable,
@@ -242,5 +259,6 @@ export const Posts = combineReducers({
   postDeleteQueueItem,
   postUpdateDrink,
   postDeleteDrink,
-  postCustomizeNumber
+  postCustomizeNumber,
+  postCustomizeQueue
 });

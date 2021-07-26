@@ -1,27 +1,24 @@
 import React, {useState, useEffect} from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import {Link, withRouter} from "react-router-dom";
+import { withRouter} from "react-router-dom";
 import { useLocation} from "react-router-dom";
 import NotFound from "../../Authentication/Page401";
 import Header from  "../home/myHeader";
+import TableNav from "./TableNav";
 import {
     getQueueOrderRequest,
     postCancelQueueOrderRequest,
     postCloseTableRequest,
-    postConfirmQueueOrderRequest, postDeleteQueueItemRequest
+    postConfirmQueueOrderRequest, postCustomizeQueueRequest, postDeleteQueueItemRequest
 } from "../../../store/post/actions";
 import {getTableRequest, postUpdateTableRequest} from "../../../store/notifications/actions";
 import {connect} from "react-redux";
 import {apiError} from "../../../store/auth/login/actions";
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField} from "@material-ui/core";
-import {Button} from "reactstrap";
+import {Button, Modal} from "reactstrap";
 //scss
 import "../../../assets/scss/custom/pages/waiter/detailTable.scss";
 //image
-import bell from  "../../../assets/images/customer/bell.png";
-import confirmed from  "../../../assets/images/receptionist/carousel.png";
-import a from  "../../../assets/images/waiter/sand-clock.png";
-import b from  "../../../assets/images/waiter/arrows-exchange.png";
 import Invalid from "../../Customer/Invalid";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
 
@@ -36,9 +33,7 @@ const ConfirmOrder = (props) => {
 
     const {dataQueueOrder} = props;
 
-    const {dataConfirm} = props;
-
-    const {dataCancel} = props;
+    const [openLoadPa, setOpenLoadPa] = useState(false);
 
     const [open,setOpen] = useState(false);
 
@@ -51,6 +46,29 @@ const ConfirmOrder = (props) => {
     }
 
     const [number, setNumber] = useState();
+    const customizeNumberSub = (item) =>{
+        const aItem = {
+            _id: dataQueueOrder._id,
+            item_id: item.item_id,
+            status: 0
+        }
+        props.postCustomizeQueueRequest(aItem);
+        setTimeout(() => {
+            props.getQueueOrderRequest(value);
+        }, 500)
+    }
+
+    const customizeNumberAdd = (item) =>{
+        const aItem = {
+            _id: dataQueueOrder._id,
+            item_id: item.item_id,
+            status: 1
+        }
+        props.postCustomizeQueueRequest(aItem);
+        setTimeout(() => {
+            props.getQueueOrderRequest(value);
+        }, 500)
+    }
 
     const value = {
         table_id: location.state._id,
@@ -65,7 +83,7 @@ const ConfirmOrder = (props) => {
         }
         props.getTableRequest(value);
         props.getQueueOrderRequest(value);
-        dataQueueOrder.item = [];
+
     }, [dataUpdateTable]);
 
     function postUpdateNumberCustomer(){
@@ -85,12 +103,10 @@ const ConfirmOrder = (props) => {
     }
 
     const cancel = () =>{
-
         let dataCancel = {
             _id: dataQueueOrder._id
         }
         props.postCancelQueueOrderRequest(dataCancel);
-        props.getQueueOrderRequest(value);
 
     }
 
@@ -100,13 +116,21 @@ const ConfirmOrder = (props) => {
             item_id: id
         }
         props.postDeleteQueueItemRequest(itemDelete);
-        props.getQueueOrderRequest(value);
+        setTimeout(() => {
+            props.getQueueOrderRequest(value);
+        }, 500)
     }
 
     const  confirm = () => {
         props.postConfirmQueueOrderRequest(value)
-        props.getQueueOrderRequest(value);
     }
+
+    const table = {
+        _id: location.state._id,
+        username: dataTableByID.username,
+        navChoose: '2',
+    }
+
     return(
         <React.Fragment>
             <div className="display-customer">
@@ -115,63 +139,7 @@ const ConfirmOrder = (props) => {
                 {(role === 'w')?(
                     <div className="container_detail">
                         <Header username={dataTableByID.username}/>
-                        <div className="nav-notification">
-                            <div className="nav_form">
-                                <div className="link_form">
-                                    <Link to= {{ pathname:'/waiter-detail-table-notification',
-                                        state:{
-                                            _id: location.state._id,
-                                            username: dataTableByID.username,
-                                        }
-                                    }}><img style={{width: '16px', height: '23px'}} src={bell}/>
-                                    </Link>
-                                </div>
-                                <p>Thông báo</p>
-                            </div>
-
-                            <div className="nav_form">
-                                <div className="link_form">
-                                    <Link to= {{ pathname:'/waiter-detail-table-confirm-order',
-                                        state:{
-                                            _id: location.state._id,
-                                            username: dataTableByID.username,
-                                        }
-                                    }}>
-                                        <img style={{width: '11px', height:'20px'}} src={a}/>
-                                    </Link>
-                                </div>
-                                <p>Confirm Order</p>
-                            </div>
-
-                            <div className="nav_form">
-                                <div className="link_form">
-                                    <Link to= {{ pathname:'/waiter-detail-table-change-table',
-                                        state:{
-                                            _id: location.state._id,
-                                            username: dataTableByID.username,
-                                        }
-                                    }}>
-                                        <img style={{width: '19px', height:'13px'}} src={b}/>
-                                    </Link>
-                                </div>
-                                <p>Đổi Bàn</p>
-                            </div>
-
-                            <div className="nav_form">
-                                <div className="link_form">
-                                    <Link to= {{ pathname:'/waiter-detail-table-confirmed-order',
-                                        state:{
-                                            _id: location.state._id,
-                                            username: dataTableByID.username,
-                                        }
-                                    }}>
-                                        <img src={confirmed}/>
-                                    </Link>
-                                </div>
-                                <p>Confirmed Order</p>
-                            </div>
-
-                        </div>
+                        <TableNav item={table}/>
                         <div className= "number_customer_form" >
                             <p style={{marginRight: "40px"}}>Số Khách Tại Bàn: {dataTableByID.number_of_customer}</p>
 
@@ -182,27 +150,20 @@ const ConfirmOrder = (props) => {
                         </div>
 
                         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                            <DialogTitle id="form-dialog-title">Mở Bàn</DialogTitle>
+                            <DialogTitle id="form-dialog-title" className="dia_title">Mở Bàn</DialogTitle>
                             <DialogContent>
-                                <DialogContentText>
-                                    Nhập Số Lượng Khách Của Bàn.
-                                </DialogContentText>
-                                <TextField
-                                    autoFocus
-                                    margin="dense"
-                                    id="name"
-                                    label="Số Lượng Khách"
+                                <input
+                                    className="text_field"
                                     type="number"
-                                    fullWidth
                                     onChange={event => setNumber(event.target.value)}
                                     required
                                 />
                             </DialogContent>
                             <DialogActions>
-                                <Button onClick={handleClose} color="primary">
+                                <Button style={{backgroundColor: "#E5E5E5",color:"#1E1C19"}} onClick={handleClose} color="primary">
                                     Cancel
                                 </Button>
-                                <Button onClick={postUpdateNumberCustomer}  color="primary">
+                                <Button style={{backgroundColor: "#FCBC3A",color:"#1E1C19"}}  onClick={postUpdateNumberCustomer}  color="primary">
                                     Update
                                 </Button>
                             </DialogActions>
@@ -217,9 +178,17 @@ const ConfirmOrder = (props) => {
                                                 <div className="item-form-one">
                                                     <span>{d.detail_item.name}</span>
                                                     <span style={{fontSize: "12px",fontWeight: "normal",
-                                                        lineHeight: "15px"}}>{d.total_cost}</span>
+                                                        lineHeight: "15px"}}>{d.total_cost}VNĐ</span>
                                                 </div>
-                                                <span>{d.quantity}</span>
+                                                <div className="save-button">
+                                                <span onClick={() => {
+                                                    customizeNumberSub(d)
+                                                }}>-</span>
+                                                    <span>{d.quantity}</span>
+                                                    <span onClick={() => {
+                                                        customizeNumberAdd(d)
+                                                    }}>+</span>
+                                                </div>
                                                 <span className="contain_button_detail" onClick={() => {
                                                     deleteQueueItem(d.item_id)
                                                 }
@@ -229,15 +198,48 @@ const ConfirmOrder = (props) => {
                                     )}
                                 </div>
                             </PerfectScrollbar>
+
                             <div className="btn-form">
-                                <p className="btn_1" onClick={cancel}>Hủy</p>
-                                <p className="btn_2" onClick={confirm}>Xác Nhận</p>
+                                <p className="btn_1" onClick={()=>{
+                                    cancel();
+                                    setOpenLoadPa(true);
+                                    setTimeout(() => {
+                                        setOpenLoadPa(false);
+                                        window.location.reload();
+                                    }, 1000)
+                                }}>Hủy</p>
+                                <p className="btn_2" onClick={() =>{
+                                    confirm();
+                                    setOpenLoadPa(true);
+                                    setTimeout(() => {
+                                        setOpenLoadPa(false);
+                                        window.location.reload();
+                                    }, 1000)
+                                }}>Xác Nhận</p>
                             </div>
 
                         </div>
                     </div>
                 ):(<NotFound/>)}
                 <Footer/>
+                <Modal align="center" style={{
+                    width: '350px',
+                    marginRight: 'auto',
+                    marginLeft: 'auto',
+                    height: '100px',
+                    marginTop: '200px',
+                    marginBottom: "auto",
+                }} isOpen={openLoadPa}>
+                    <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                        <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                           className="bx bx-calendar-check bx-tada"></i>
+                        <div style={{
+                            fontFamily: 'Cabin',
+                            fontSize: '15px',
+                        }}><b>Đổi bàn thành công</b>
+                        </div>
+                    </div>
+                </Modal>
             </div>
             <div className="none-display-customer">
                 <Invalid/>
@@ -253,9 +255,7 @@ const mapStateToProps = (state) => {
         dataUpdateTable: state.Notification.postUpdateTable.UpdateTableByID,
         dataTableByID: state.Notification.getTable.TableByID,
         dataQueueOrder: state.Posts.getQueueOrder.dataGetQueueOrder,
-        dataCancel: state.Posts.postCancelQueueOrder.dataPostCancelQueueOrder,
-        dataConfirm: state.Posts.postConfirmQueueOrder.dataPostConfirmQueueOrder,
     };
 };
 
-export default withRouter(connect(mapStateToProps, {postDeleteQueueItemRequest,postConfirmQueueOrderRequest,postCancelQueueOrderRequest,getQueueOrderRequest,getTableRequest,postUpdateTableRequest,postCloseTableRequest,apiError})(ConfirmOrder));
+export default withRouter(connect(mapStateToProps, {postCustomizeQueueRequest,postDeleteQueueItemRequest,postConfirmQueueOrderRequest,postCancelQueueOrderRequest,getQueueOrderRequest,getTableRequest,postUpdateTableRequest,postCloseTableRequest,apiError})(ConfirmOrder));

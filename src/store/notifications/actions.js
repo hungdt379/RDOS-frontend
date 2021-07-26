@@ -115,19 +115,38 @@ export const postUpdateTableError = (error) => {
 
 
 // get check list
-export const getCheckListRequest = (payload) => ({
-  type: actionTypes.GET_CHECK_LIST_REQUEST,
+export const getCheckListPrepareRequest = (payload) => ({
+  type: actionTypes.GET_CHECK_LIST_PREPARE_REQUEST,
   payload: payload,
 });
-export const getCheckListSuccess = (response) => {
+export const getCheckListPrepareSuccess = (response) => {
   return {
-    type: actionTypes.GET_CHECK_LIST_SUCCESS,
+    type: actionTypes.GET_CHECK_LIST_PREPARE_SUCCESS,
     payload: response,
   };
 };
-export const getCheckListError = (error) => {
+export const getCheckListPrepareError = (error) => {
   return {
-    type: actionTypes.GET_CHECK_LIST_ERROR,
+    type: actionTypes.GET_CHECK_LIST_PREPARE_ERROR,
+    payload: error,
+  };
+};
+
+
+// get check list
+export const getCheckListCompleteRequest = (payload) => ({
+  type: actionTypes.GET_CHECK_LIST_COMPLETE_REQUEST,
+  payload: payload,
+});
+export const getCheckListCompleteSuccess = (response) => {
+  return {
+    type: actionTypes.GET_CHECK_LIST_COMPLETE_SUCCESS,
+    payload: response,
+  };
+};
+export const getCheckListCompleteError = (error) => {
+  return {
+    type: actionTypes.GET_CHECK_LIST_COMPLETE_ERROR,
     payload: error,
   };
 };

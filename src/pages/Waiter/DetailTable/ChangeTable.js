@@ -1,10 +1,6 @@
-import React, {useState, Component, useEffect} from "react";
-import {Link, useLocation, withRouter} from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import { useLocation, withRouter} from "react-router-dom";
 import NotFound from "../../Authentication/Page401";
-import bell from "../../../assets/images/customer/bell.png";
-import confirmed from "../../../assets/images/receptionist/carousel.png";
-import a from "../../../assets/images/waiter/sand-clock.png";
-import b from "../../../assets/images/waiter/arrows-exchange.png";
 import Header from "../home/myHeader";
 //scss
 import "../../../assets/scss/custom/pages/waiter/changeTable.scss";
@@ -14,11 +10,15 @@ import {connect} from "react-redux";
 import {postChangeTableRequest} from "../../../store/post/actions";
 import {apiError} from "../../../store/auth/login/actions";
 import {getCloseTableRequest} from "../../../store/notifications/actions";
+import TableNav from "./TableNav";
+import {Modal} from "reactstrap";
 
 const ChangeTable = (props) => {
     const [role, setrole] = useState([]);
 
     const location = useLocation();
+
+    const [openLoadPa, setOpenLoadPa] = useState(false);
 
     const {dataCloseTablePage} = props;
 
@@ -32,7 +32,7 @@ const ChangeTable = (props) => {
             to_table_id: tableId,
         }
         props.postChangeTableRequest(table);
-        props.history.push("/waiter-view-all-table");
+
     }
 
     useEffect(() => {
@@ -46,79 +46,26 @@ const ChangeTable = (props) => {
         props.getCloseTableRequest();
     }, []);
 
-    console.log('role :' + role);
+
+    const table = {
+        _id: location.state._id,
+        username: location.state.username,
+        navChoose: '3',
+    }
+
     return (
         <React.Fragment>
             <div className="display-customer">
                 {(role === 'w') ? (
                     <div className="container_detail">
                         <Header username={location.state.username}/>
-                        <div className="nav-notification">
-                            <div className="nav_form">
-                                <div className="link_form">
-                                    <Link to={{
-                                        pathname: '/waiter-detail-table-notification',
-                                        state: {
-                                            _id: location.state._id,
-                                            username: location.state.username
-                                        }
-                                    }}><img style={{width: '16px', height: '23px'}} src={bell}/>
-                                    </Link>
-                                </div>
-                                <p>Thông báo</p>
-                            </div>
-
-                            <div className="nav_form">
-                                <div className="link_form">
-                                    <Link to={{
-                                        pathname: '/waiter-detail-table-confirm-order',
-                                        state: {
-                                            _id: location.state._id,
-                                            username: location.state.username
-                                        }
-                                    }}>
-                                        <img style={{width: '11px', height: '20px'}} src={a}/>
-                                    </Link>
-                                </div>
-                                <p>Confirm Order</p>
-                            </div>
-
-                            <div className="nav_form">
-                                <div className="link_form">
-                                    <Link to={{
-                                        pathname: '/waiter-detail-table-change-table',
-                                        state: {
-                                            _id: location.state._id,
-                                            username: location.state.username
-                                        }
-                                    }}>
-                                        <img style={{width: '19px', height: '13px'}} src={b}/>
-                                    </Link>
-                                </div>
-                                <p>Đổi Bàn</p>
-                            </div>
-
-                            <div className="nav_form">
-                                <div className="link_form">
-                                    <Link to={{
-                                        pathname: '/waiter-detail-table-confirmed-order',
-                                        state: {
-                                            _id: location.state._id,
-                                            username: location.state.username
-                                        }
-                                    }}>
-                                        <img src={confirmed}/>
-                                    </Link>
-                                </div>
-                                <p>Confirmed Order</p>
-                            </div>
-                        </div>
+                        <TableNav item={table}/>
                         <div style={{textAlign: "center", justifyContent: "center"}}>
                             <div className="list">
                                 {dataCloseTablePage?.map((d, index) => (
-                                        <label>
+                                        <label key={index}>
                                             <input
-                                                type="radio"
+                                                type="checkbox"
                                                 value={d._id}
                                                 id={d._id}
                                                 style={{opacity: '0'}}
@@ -152,11 +99,38 @@ const ChangeTable = (props) => {
                                     )
                                 )}
                             </div>
-                            <p className="btn-change" onClick={changeTable}>Lưu</p>
+
+                            <p className="btn-change" onClick={()=>{
+                                changeTable();
+                                setOpenLoadPa(true);
+                                setTimeout(() => {
+                                    setOpenLoadPa(false)
+                                    props.history.push("/waiter-view-all-table");
+
+                                }, 1000)
+                            }}>Lưu</p>
                         </div>
                     </div>
                 ) : (<NotFound/>)}
                 <Footer/>
+                <Modal align="center" style={{
+                    width: '350px',
+                    marginRight: 'auto',
+                    marginLeft: 'auto',
+                    height: '100px',
+                    marginTop: '200px',
+                    marginBottom: "auto",
+                }} isOpen={openLoadPa}>
+                    <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                        <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                           className="bx bx-calendar-check bx-tada"></i>
+                        <div style={{
+                            fontFamily: 'Cabin',
+                            fontSize: '15px',
+                        }}><b>Đổi bàn thành công</b>
+                        </div>
+                    </div>
+                </Modal>
             </div>
             <div className="none-display-customer">
                 <Invalid/>

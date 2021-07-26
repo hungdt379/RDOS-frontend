@@ -1,5 +1,5 @@
 import {Link, withRouter} from "react-router-dom";
-import React from "react";
+import React, {useState} from "react";
 import {connect} from "react-redux";
 import {getLogOutRequest} from "../../../store/notifications/actions";
 import {apiError} from "../../../store/auth/login/actions";
@@ -7,10 +7,16 @@ import {apiError} from "../../../store/auth/login/actions";
 // scss
 import "../../../assets/scss/custom/pages/waiter/header.scss";
 //image
-import toggle from "../../../assets/images/receptionist/profile.png";
-import home from  "../../../assets/images/customer/home.png";
+import Profile from "../../../assets/images/waiter/profile.png";
+import home from  "../../../assets/images/waiter/home.png";
 
-const myHeader = (props) => {
+const MyHeader = (props) => {
+
+    const [toggle,setToggle] = useState(false);
+
+    const toggleBtn = () =>{
+        setToggle(!toggle);
+    }
 
     const logout = () => {
         props.getLogOutRequest();
@@ -19,15 +25,15 @@ const myHeader = (props) => {
     return(
         <div className="MyHeader">
             <Link to="/waiter-view-all-table" className="div-table-code">
-                <img style={{width: '18px', height: '20px'}} src={home}/>
+                <img style={{width: '23px', height: '25px'}} src={home}/>
             </Link>
                 <div className="title_header">
-                  <p>{(props.username) ? props.username : "ALL Tables" }</p>
+                  <p>{(props.username) ? props.username : "Đồ Uống" }</p>
                 </div>
-                <div className="toggle">
-                    <img src={toggle}/>
-                    <div className="dropdown-content">
-                            <Link to="/login" onClick={logout}>Log Out</Link>
+                <div className="toggle-logout">
+                    <img onClick={toggleBtn} style={{width: '25px', height: '26px'}} src={Profile}/>
+                    <div className="dropdown-content" style={{display: toggle == true? "block" : "none"  }}>
+                            <Link to="/login" onClick={logout}>Đăng xuất</Link>
                     </div>
                 </div>
         </div>
@@ -40,4 +46,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default withRouter(connect(mapStateToProps, {getLogOutRequest,apiError})(myHeader));
+export default withRouter(connect(mapStateToProps, {getLogOutRequest,apiError})(MyHeader));

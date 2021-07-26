@@ -46,11 +46,11 @@ export function* watchGetNotifications() {
 }
 
 //all table
-function* allTable({ payload }) {
+function* allTable({payload: p}) {
   try {
-    const response = yield call(Request.getApi,apiUrls.getAllTables,payload);
+    const response = yield call(Request.getApi,apiUrls.getAllTables, {page: p, pageSize: 15});
     if(response){
-      yield put(actions.getAllTableSuccess(response.data));
+      yield put(actions.getAllTableSuccess(response));
     }
   } catch (error) {
     yield put(actions.getAllTableError(error));
@@ -101,9 +101,10 @@ export function* watchGetLogOut() {
 //update table by id
 function* UpdateTableByID({ payload }) {
   try {
-    const response = yield call(Request.postApi,apiUrls.postUpdateTableApi,payload);
+    const response = yield call(Request.postApi,apiUrls.postUpdateTable,payload);
     if(response){
       yield put(actions.postUpdateTableSuccess(response));
+      console.log(response);
     }
   } catch (error) {
     yield put(actions.getTableError(error));
@@ -114,21 +115,39 @@ export function* watchPostUpdateTableByID() {
   yield takeEvery(actionTypes.POST_UPDATE_TABLE_REQUEST, UpdateTableByID);
 }
 // get check list
-function* getCheckList({ payload }) {
+function* getCheckListPrepare({payload: p}) {
   try {
-    const response = yield call(Request.getApi,apiUrls.getCheckListApi,payload);
+    const response = yield call(Request.getApi,apiUrls.getCheckListApi,  {page: p, pageSize: 10,status:"prepare"});
     if(response){
-      yield put(actions.getCheckListSuccess(response));
-
+      yield put(actions.getCheckListPrepareSuccess(response));
+      console.log(response);
     }
   } catch (error) {
-    yield put(actions.getCheckListError(error));
+    yield put(actions.getCheckListPrepareError(error));
   }
 }
 
 
-export function* watchGetCheckList() {
-  yield takeEvery(actionTypes.GET_CHECK_LIST_REQUEST, getCheckList);
+export function* watchGetCheckListPrepare() {
+  yield takeEvery(actionTypes.GET_CHECK_LIST_PREPARE_REQUEST, getCheckListPrepare);
+}
+
+// get check list
+function* getCheckListComplete({payload: p}) {
+  try {
+    const response = yield call(Request.getApi,apiUrls.getCheckListApi,  {page: p, pageSize: 10,status:"completed"});
+    if(response){
+      yield put(actions.getCheckListCompleteSuccess(response));
+      console.log(response);
+    }
+  } catch (error) {
+    yield put(actions.getCheckListCompleteError(error));
+  }
+}
+
+
+export function* watchGetCheckListComplete() {
+  yield takeEvery(actionTypes.GET_CHECK_LIST_COMPLETE_REQUEST, getCheckListComplete);
 }
 // get close table
 function* getCloseTable({ payload }) {
@@ -136,6 +155,7 @@ function* getCloseTable({ payload }) {
     const response = yield call(Request.getApi,apiUrls.getCloseTableApi,payload);
     if(response){
       yield put(actions.getCloseTableSuccess(response.data));
+
     }
   } catch (error) {
     yield put(actions.getCloseTableError(error));
@@ -173,7 +193,8 @@ const sagaNotificatons = [
   watchGetAllTable(),
   watchGetTableByID(),
   watchGetLogOut(),
-  watchGetCheckList(),
+  watchGetCheckListComplete(),
+  watchGetCheckListPrepare(),
   watchPostDeleteItem(),
   watchGetCloseTable(),
 ];

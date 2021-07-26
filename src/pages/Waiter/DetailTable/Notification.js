@@ -1,4 +1,4 @@
-import React, {useState, Component, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import {Link, useLocation, withRouter} from "react-router-dom";
 import NotFound from "../../Authentication/Page401";
 import {connect} from "react-redux";
@@ -9,12 +9,9 @@ import {postMarkAsReadRequest} from "../../../store/post/actions";
 //scss
 import "../../../assets/scss/custom/pages/waiter/notification.scss";
 //image
-import bell from  "../../../assets/images/customer/bell.png";
-import confirmed from  "../../../assets/images/receptionist/carousel.png";
-import a from  "../../../assets/images/waiter/sand-clock.png";
-import b from  "../../../assets/images/waiter/arrows-exchange.png";
 import Invalid from "../../Customer/Invalid";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
+import TableNav from "./TableNav";
 
 const Notification = (props) => {
     const [role, setrole] = useState([]);
@@ -47,70 +44,19 @@ const Notification = (props) => {
     }, []);
 
 
+    const table = {
+        _id: location.state._id,
+        username: location.state.username,
+        navChoose: '1',
+    }
+
     return(
         <React.Fragment>
             <div className="display-customer">
-
-
                 {(role === 'w')?(
                     <div className="container_detail">
                         <Header username={location.state.username} />
-                        <div className="nav-notification">
-                            <div className="nav_form">
-                                <div className="link_form">
-                                    <Link to= {{ pathname:'/waiter-detail-table-notification',
-                                        state:{
-                                            _id: location.state._id,
-                                            username:location.state.username
-                                        }
-                                    }}><img style={{width: '16px', height: '23px'}} src={bell}/>
-                                    </Link>
-                                </div>
-                                <p>Thông báo</p>
-                            </div>
-
-                            <div className="nav_form">
-                                <div className="link_form">
-                                    <Link to= {{ pathname:'/waiter-detail-table-confirm-order',
-                                        state:{
-                                            _id: location.state._id,
-                                            username:location.state.username
-                                        }
-                                    }}>
-                                        <img style={{width: '11px', height:'20px'}} src={a}/>
-                                    </Link>
-                                </div>
-                                <p>Confirm Order</p>
-                            </div>
-
-                            <div className="nav_form">
-                                <div className="link_form">
-                                    <Link to= {{ pathname:'/waiter-detail-table-change-table',
-                                        state:{
-                                            _id: location.state._id,
-                                            username:location.state.username
-                                        }
-                                    }}>
-                                        <img style={{width: '19px', height:'13px'}} src={b}/>
-                                    </Link>
-                                </div>
-                                <p>Đổi Bàn</p>
-                            </div>
-
-                            <div className="nav_form">
-                                <div className="link_form">
-                                    <Link to= {{ pathname:'/waiter-detail-table-confirmed-order',
-                                        state:{
-                                            _id: location.state._id,
-                                            username:location.state.username
-                                        }
-                                    }}>
-                                        <img src={confirmed}/>
-                                    </Link>
-                                </div>
-                                <p>Confirmed Order</p>
-                            </div>
-                        </div>
+                        <TableNav item={table}/>
                         <div style={{textAlign: "center", justifyContent: "center"}}>
 
                             <div className="list-Item">

@@ -81,7 +81,7 @@ function* getQueueOrder({ payload }) {
     );
     if (response){
       yield  put(actions.getQueueOrderSuccess(response.data));
-      console.log(response);
+      console.log(response.data);
     }
   } catch (error) {
     yield put(actions.getQueueOrderError(error));
@@ -276,6 +276,26 @@ export function* watchPostCustomizeNumber() {
 }
 
 
+function* postCustomizeQueue({ payload }) {
+  try {
+    const response = yield call(
+        Request.postApi,
+        apiUrls.postCustomizeQueue,
+        payload
+    );
+    if (response){
+      yield  put(actions.postCustomizeQueueSuccess(response));
+      console.log(response)
+    }
+  } catch (error) {
+    yield put(actions.postCustomizeQueueError(error));
+  }
+}
+
+export function* watchPostCustomizeQueue() {
+  yield takeLatest(actionTypes.POST_CUSTOMIZE_QUEUE_REQUEST, postCustomizeQueue);
+}
+
 const sagaPost = [
   watchPostNumberCustomer(),
   watchPostCloseTable(),
@@ -289,7 +309,8 @@ const sagaPost = [
   watchPostDeleteQueueItem(),
   watchPostUpdateDrink(),
   watchPostDeleteDrink(),
-  watchPostCustomizeNumber()
+  watchPostCustomizeNumber(),
+  watchPostCustomizeQueue()
 ];
 
 export default sagaPost;
