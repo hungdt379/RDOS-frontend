@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import React, {useState} from "react";
-import bell from "../../../assets/images/waiter/bell.png";
+import bell from "../../../assets/images/customer/bell.png";
 import clock from "../../../assets/images/waiter/sand-clock (1).png";
 import arrow from "../../../assets/images/waiter/arrows-exchange (1).png";
 import carousel from "../../../assets/images/waiter/carousel.png";
