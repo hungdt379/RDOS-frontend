@@ -93,10 +93,10 @@ const ViewFeedback = (props) => {
                                     lineHeight: '16px',
                                 }}>
                                 <tr>
-                                    <th>Thời gian</th>
-                                    <th>Về món ăn</th>
-                                    <th>Về phục vụ</th>
-                                    <th>Nội dung</th>
+                                    <th className="col-3">Thời gian</th>
+                                    <th className="col-3">Về món ăn</th>
+                                    <th className="col-3">Về phục vụ</th>
+                                    <th className="col-3">Nội dung</th>
                                 </tr>
                                 </thead>
                                 <tbody align="left" style={{backgroundColor: '#ffffff'}}>
@@ -110,10 +110,26 @@ const ViewFeedback = (props) => {
                                         fontSize: '14px',
                                         lineHeight: '17px',
                                     }}>
-                                        <th>{moment(fe.ts * 1000).format("DD/ MM/ YYYY")}</th>
-                                        <th>{fe.rate_dish}</th>
-                                        <th>{fe.rate_service}</th>
-                                        <th>{fe.content}</th>
+                                        <th className="col-3">
+                                            <div className="table-th-manage-table">
+                                                <div>{moment(fe.ts * 1000).format("DD/ MM/ YYYY")}</div>
+                                            </div>
+                                        </th>
+                                        <th className="col-3">
+                                            <div className="table-th-manage-table">
+                                                <div>{fe.rate_dish}</div>
+                                            </div>
+                                        </th>
+                                        <th className="col-3">
+                                            <div className="table-th-manage-table">
+                                                <div>{fe.rate_service}</div>
+                                            </div>
+                                        </th>
+                                        <th className="col-3">
+                                            <div className="table-th-manage-table">
+                                                <div>{fe.content}</div>
+                                            </div>
+                                        </th>
                                     </tr>
                                 ))}
                                 </tbody>

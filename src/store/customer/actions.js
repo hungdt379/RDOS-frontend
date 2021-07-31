@@ -37,9 +37,9 @@ export const getAllMenuError = (error) => {
 };
 
 //all search
-export const getAllSearchRequest = (payload) => ({
+export const getAllSearchRequest = (se, tid) => ({
     type: actionTypes.GET_ALL_SEARCH_REQUEST,
-    payload: payload,
+    payload: {se, tid},
 });
 export const getAllSearchSuccess = (response) => {
     return {

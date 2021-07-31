@@ -39,9 +39,9 @@ export function* watchGetAllMenu() {
 }
 
 //all Search
-function* allSearch({payload: a}) {
+function* allSearch({payload: {se, tid}}) {
     try {
-        const response = yield call(Request.getApiCus, apiUrls.getAllSearchs, {q: a});
+        const response = yield call(Request.getApiCus, apiUrls.getAllSearchs, {q: se, table_id: tid});
         if (response) {
             yield put(actions.getAllSearchSuccess(response.data));
         }
