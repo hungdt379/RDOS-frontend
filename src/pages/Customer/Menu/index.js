@@ -89,7 +89,7 @@ const CustomerMenu = (props) => {
                                     // value={search}
                                        onChange={(e) => (
                                            setSearch(e.target.value),
-                                               props.dispatch(actions.getAllSearchRequest(e.target.value))
+                                               props.dispatch(actions.getAllSearchRequest(e.target.value, props.authCustomer.data.user.user_id))
                                        )}
                                 />
                                 <div style={{backgroundColor: '#FFEFCD', height: '35px'}} align="right"
@@ -571,7 +571,9 @@ const CustomerMenu = (props) => {
 };
 
 const mapStateToProps = (state) => {
+    const {authCustomer} = state.LoginCustomer;
     return {
+        authCustomer,
         dataCategory: state.Customer.getAllCategory.allCategories,
         dataMenu: state.Customer.getAllMenu.allMenu,
         dataSearch: state.Customer.getAllSearch.allSearch,

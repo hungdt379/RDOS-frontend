@@ -208,8 +208,8 @@ const OrderList = (props) => {
                                                                         <b>{lco.table_name}</b>
                                                                     </div>
                                                                     <div align="center" className="col-3 item-name-re"
-                                                                         style={{color: lco.status == "confirmed" ? "lightcoral" : "green"}}>
-                                                                        {lco.status}
+                                                                         style={{color: lco.status === "confirmed" ? "lightcoral" : "green"}}>
+                                                                        {lco.status === "confirmed" ? "Đã xác nhận" : "Hoàn thành"}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -342,8 +342,8 @@ const OrderList = (props) => {
                                                                         <b>{lpo.table_name}</b>
                                                                     </div>
                                                                     <div align="center" className="col-3 item-name-re"
-                                                                         style={{color: lpo.status == "confirmed" ? "lightcoral" : "green"}}>
-                                                                        {lpo.status}
+                                                                         style={{color: lpo.status === "confirmed" ? "lightcoral" : "green"}}>
+                                                                        {lpo.status === "confirmed" ? "Đã xác nhận" : "Hoàn thành"}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -426,9 +426,9 @@ const OrderList = (props) => {
                                         <div align="center" className="col-4 detail-order-re">
                                             <div className='detail-order-top-re'>Trạng thái</div>
                                             <div
-                                                style={{color: (props?.detailConfirmOrderReceptionist?.data?.status == "confirmed" || props?.detailConfirmOrderReceptionist?.data?.status === "matching") ? "lightcoral" : "green"}}
+                                                style={{color: (props?.detailConfirmOrderReceptionist?.data?.status === "confirmed" || props?.detailConfirmOrderReceptionist?.data?.status === "matching") ? "lightcoral" : "green"}}
                                                 className='detail-order-down-re'>
-                                                {props?.detailConfirmOrderReceptionist?.data?.status}
+                                                {props?.detailConfirmOrderReceptionist?.data?.status === "confirmed" ? "Đã xác nhận" : props?.detailConfirmOrderReceptionist?.data?.status === "matching" ? "Gộp đơn" : "Hoàn thành"}
                                             </div>
                                         </div>
                                     </div>
@@ -517,7 +517,7 @@ const OrderList = (props) => {
                                                                          color: (props?.detailConfirmOrderReceptionist?.data?.status == "confirmed" || props?.detailConfirmOrderReceptionist?.data?.status === "matching") ? "lightcoral" : "green",
                                                                          marginRight: '30px'
                                                                      }}>
-                                                                    {props?.detailConfirmOrderReceptionist?.data?.status}
+                                                                    {props?.detailConfirmOrderReceptionist?.data?.status === "confirmed" ? "Đã xác nhận" : props?.detailConfirmOrderReceptionist?.data?.status === "matching" ? "Gộp đơn" : "Hoàn thành"}
                                                                 </div>
                                                             </div>
                                                         )
