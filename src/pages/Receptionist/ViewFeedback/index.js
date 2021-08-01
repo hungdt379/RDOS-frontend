@@ -55,12 +55,16 @@ const ViewFeedback = (props) => {
 
     console.log('role :' + role);
 
+    const menu = {
+        menuChoose: '2',
+    }
+
     return (
         <div>
             {(role === 'r') ? (
                 <div>
                     <div>
-                        <Header/>
+                        <Header item={menu}/>
                         <div style={{
                             marginTop: '100px',
                             marginBottom: '60px',

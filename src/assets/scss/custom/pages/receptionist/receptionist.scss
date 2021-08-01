@@ -275,6 +275,14 @@
   }
 }
 
+input[type = 'radio'].check-menu:checked ~ .menu-type-a-re{
+  .menu-type-re{
+    .header-re-icon{
+      background-color: #FCBC3A !important;
+    }
+  }
+}
+
 .menu-type-a-re:hover{
   .menu-type-re{
     .header-re-icon{
