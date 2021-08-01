@@ -137,12 +137,16 @@ const OrderList = (props) => {
     const [openInvoiceSuccess, setOpenInvoiceSuccess] = useState(false);
     const [openMatchingFail, setOpenMatchingFail] = useState(false);
 
+    const menu = {
+        menuChoose: '1',
+    }
+
     return (
         <React.Fragment>
             {(role === 'r') ? (
                 <div>
                     <div className="display-receptionist">
-                        <Header/>
+                        <Header item={menu}/>
                         <div align="center" className="receptionist-order">
                             <div align="center" className="col-xl-6">
                                 <div className="side-content">
@@ -560,8 +564,7 @@ const OrderList = (props) => {
                                                                     color: '#000000',
                                                                 }}
                                                             >
-                                                                <div>Giá
-                                                                    gốc: {props?.detailConfirmOrderReceptionist?.data?.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
+                                                                <div>Giá gốc: {props?.detailConfirmOrderReceptionist?.data?.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
                                                                 <div>Voucher: {props?.detailConfirmOrderReceptionist?.data?.voucher} %</div>
                                                             </div>) : (null)}
                                                     </div>

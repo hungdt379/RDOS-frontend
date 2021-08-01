@@ -54,11 +54,15 @@ const OrderList = (props) => {
 
     console.log('role :' + role);
 
+    const kitchen = {
+        kitchenChoose: '1',
+    }
+
     return (
         <React.Fragment>
             {(role === 'k') ? (
                 <div className="display-receptionist">
-                    <Header/>
+                    <Header item={kitchen}/>
                     <div align="center" className="receptionist-order">
                         <div align="center" className="col-xl-12">
                             <div className="side-content">
