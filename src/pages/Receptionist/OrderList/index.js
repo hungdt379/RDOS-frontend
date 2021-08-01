@@ -13,7 +13,7 @@ import mathPlus from "../../../assets/images/receptionist/math-plus.png";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
 import * as actions from "../../../store/receptionist/actions";
 import {withNamespaces} from "react-i18next";
-import {authHeaderGetApiCus} from "../../../helpers/jwt-token-access/auth-token-header";
+import {authHeaderGetApi} from "../../../helpers/jwt-token-access/auth-token-header";
 import {Modal} from "reactstrap";
 import ReactPaginate from "react-paginate";
 
@@ -46,16 +46,16 @@ const OrderList = (props) => {
 
     const [page, setPage] = useState(1)
     const pageCount = Math.ceil(props?.listConfirmOrderReceptionist?.total / pageSize);
-    const changePage = ({ selected }) => {
-        setPage(selected+1);
-        props.dispatch(actions.getListConfirmOrderReRequest(selected+1));
+    const changePage = ({selected}) => {
+        setPage(selected + 1);
+        props.dispatch(actions.getListConfirmOrderReRequest(selected + 1));
     };
 
     const [pageComplete, setPageComplete] = useState(1)
     const pageCountComplete = Math.ceil(props?.listPaidOrderReceptionist?.total / pageSize);
-    const changePageComplete = ({ selectedComplete }) => {
-        setPageComplete(selectedComplete+1);
-        props.dispatch(actions.getListPaidOrderReRequest(selectedComplete+1));
+    const changePageComplete = ({selectedComplete}) => {
+        setPageComplete(selectedComplete + 1);
+        props.dispatch(actions.getListPaidOrderReRequest(selectedComplete + 1));
     };
 
     const prevPage = () => {
@@ -120,7 +120,7 @@ const OrderList = (props) => {
         const testMatchTable = updatedCheckedState.map(
             (currentState, index) => {
                 if (currentState === true) {
-                    return "table_id["+index+"]="+(props?.listConfirmOrderReceptionist?.data[index].table_id);
+                    return "table_id[" + index + "]=" + (props?.listConfirmOrderReceptionist?.data[index].table_id);
                 }
             },
         );
@@ -129,7 +129,7 @@ const OrderList = (props) => {
         }));
     };
 
-    console.log("matchTable: " + 'http://165.227.99.160/api/receptionist/order/confirm/match?'+matchTable.join("&"));
+    console.log("matchTable: " + 'http://165.227.99.160/api/receptionist/order/confirm/match?' + matchTable.join("&"));
     const [toggleSwitch, settoggleSwitch] = useState(false);
     console.log("toggleSwitch: " + toggleSwitch);
 
@@ -280,10 +280,10 @@ const OrderList = (props) => {
                                                     {(toggleSwitch === true) ? (
                                                         <button
                                                             onClick={() => {
-                                                                if(matchTable.length > 1){
-                                                                    fetch('http://165.227.99.160/api/receptionist/order/confirm/match?'+matchTable.join("&"), {
+                                                                if (matchTable.length > 1) {
+                                                                    fetch('http://165.227.99.160/api/receptionist/order/confirm/match?' + matchTable.join("&"), {
                                                                         method: 'POST',
-                                                                        headers: authHeaderGetApiCus(),
+                                                                        headers: authHeaderGetApi(),
                                                                     })
                                                                         .then(res => res.json())
                                                                         .then(data => {
@@ -297,7 +297,7 @@ const OrderList = (props) => {
                                                                             }, 1500)
                                                                         })
                                                                         .catch(error => console.log('ERROR'))
-                                                                }else{
+                                                                } else {
                                                                     setOpenMatchingFail(true)
                                                                     setTimeout(() => {
                                                                         setOpenMatchingFail(false)
@@ -428,7 +428,10 @@ const OrderList = (props) => {
                                             <div
                                                 style={{color: (props?.detailConfirmOrderReceptionist?.data?.status === "confirmed" || props?.detailConfirmOrderReceptionist?.data?.status === "matching") ? "lightcoral" : "green"}}
                                                 className='detail-order-down-re'>
-                                                {props?.detailConfirmOrderReceptionist?.data?.status === "confirmed" ? "Đã xác nhận" : props?.detailConfirmOrderReceptionist?.data?.status === "matching" ? "Gộp đơn" : "Hoàn thành"}
+                                                {props?.detailConfirmOrderReceptionist?.data?.status === "confirmed"
+                                                    ? "Đã xác nhận" : props?.detailConfirmOrderReceptionist?.data?.status === "matching"
+                                                        ? "Gộp đơn" : props?.detailConfirmOrderReceptionist?.data?.status === "completed"
+                                                            ? "Hoàn thành" : null}
                                             </div>
                                         </div>
                                     </div>
@@ -477,7 +480,7 @@ const OrderList = (props) => {
                                                                              className="d-flex">
                                                                             <div align="center" className="col-4">
                                                                                 <a onClick={() => {
-                                                                                    if(it?.quantity > 0){
+                                                                                    if (it?.quantity > 0) {
                                                                                         props.dispatch(actions.postCustomizeNumberItemReRequest(props?.detailConfirmOrderReceptionist?.data?._id, it?.item_id, 0))
                                                                                         setTimeout(() => {
                                                                                             props.dispatch(actions.getDetailConfirmOrderReRequest(props?.detailConfirmOrderReceptionist?.data?._id))
@@ -556,8 +559,11 @@ const OrderList = (props) => {
                                                                     lineHeight: '15px',
                                                                     color: '#000000',
                                                                 }}
-                                                            ><div>Giá gốc: {props?.detailConfirmOrderReceptionist?.data?.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
-                                                            <div>Voucher: {props?.detailConfirmOrderReceptionist?.data?.voucher} %</div></div>) : (null)}
+                                                            >
+                                                                <div>Giá
+                                                                    gốc: {props?.detailConfirmOrderReceptionist?.data?.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
+                                                                <div>Voucher: {props?.detailConfirmOrderReceptionist?.data?.voucher} %</div>
+                                                            </div>) : (null)}
                                                     </div>
                                                     <div align="center" className="col-4">
                                                         {(props?.detailConfirmOrderReceptionist?.data?.status === "confirmed" || props?.detailConfirmOrderReceptionist?.data?.status === "matching") ? (
