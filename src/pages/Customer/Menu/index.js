@@ -226,7 +226,7 @@ const CustomerMenu = (props) => {
                                         {props?.dataMenu?.combo?.map((combo) => (
                                             <div className="item-menu d-flex">
                                                 <div style={{
-                                                    backgroundColor: (combo?.is_sold_out === false && combo?.in_cart === false) ? '#EEEEEE' : (combo?.is_sold_out === false && combo?.in_cart === true) ? '#FFEEAA' : '#CFCFCF'
+                                                    backgroundColor: (combo?.is_sold_out === false && combo?.in_cart === false) ? '#EEEEEE' : (combo?.is_sold_out === false && combo?.in_cart === true) ? '#FFEFCD' : '#CFCFCF'
                                                 }} className="col-11 d-flex menu-item-bar">
                                                     <div align="left" className="col-8">
                                                         <div className="item-name"><b>{combo?.name}</b></div>
@@ -299,7 +299,7 @@ const CustomerMenu = (props) => {
                                         {props?.dataMenu?.drink?.map((drink) => (
                                             <div className="item-menu d-flex">
                                                 <div style={{
-                                                    backgroundColor: (drink?.is_sold_out === false && drink?.in_cart === false) ? '#EEEEEE' : (drink?.is_sold_out === false && drink?.in_cart === true) ? '#FFEEAA' : '#CFCFCF'
+                                                    backgroundColor: (drink?.is_sold_out === false && drink?.in_cart === false) ? '#EEEEEE' : (drink?.is_sold_out === false && drink?.in_cart === true) ? '#FFEFCD' : '#CFCFCF'
                                                 }} className="col-11 d-flex menu-item-bar">
                                                     <div align="left" className="col-8">
                                                         <div className="item-name"><b>{drink?.name}</b></div>
@@ -372,7 +372,7 @@ const CustomerMenu = (props) => {
                                         {props?.dataMenu?.normal?.map((normal) => (
                                             <div className="item-menu d-flex">
                                                 <div style={{
-                                                    backgroundColor: (normal?.is_sold_out === false && normal?.in_cart === false) ? '#EEEEEE' : (normal?.is_sold_out === false && normal?.in_cart === true) ? '#FFEEAA' : '#CFCFCF'
+                                                    backgroundColor: (normal?.is_sold_out === false && normal?.in_cart === false) ? '#EEEEEE' : (normal?.is_sold_out === false && normal?.in_cart === true) ? '#FFEFCD' : '#CFCFCF'
                                                 }} className="col-11 d-flex menu-item-bar">
                                                     <div align="left" className="col-8">
                                                         <div className="item-name"><b>{normal?.name}</b></div>
@@ -445,7 +445,7 @@ const CustomerMenu = (props) => {
                                         {props?.dataMenu?.fast?.map((fast) => (
                                             <div className="item-menu d-flex">
                                                 <div style={{
-                                                    backgroundColor: (fast?.is_sold_out === false && fast?.in_cart === false) ? '#EEEEEE' : (fast?.is_sold_out === false && fast?.in_cart === true) ? '#FFEEAA' : '#CFCFCF'
+                                                    backgroundColor: (fast?.is_sold_out === false && fast?.in_cart === false) ? '#EEEEEE' : (fast?.is_sold_out === false && fast?.in_cart === true) ? '#FFEFCD' : '#CFCFCF'
                                                 }} className="col-11 d-flex menu-item-bar">
                                                     <div align="left" className="col-8">
                                                         <div className="item-name"><b>{fast?.name}</b></div>
@@ -518,7 +518,7 @@ const CustomerMenu = (props) => {
                                         {props?.dataMenu?.alcohol?.map((alcohol) => (
                                             <div className="item-menu d-flex">
                                                 <div style={{
-                                                    backgroundColor: (alcohol?.is_sold_out === false && alcohol?.in_cart === false) ? '#EEEEEE' : (alcohol?.is_sold_out === false && alcohol?.in_cart === true) ? '#FFEEAA' : '#CFCFCF'
+                                                    backgroundColor: (alcohol?.is_sold_out === false && alcohol?.in_cart === false) ? '#EEEEEE' : (alcohol?.is_sold_out === false && alcohol?.in_cart === true) ? '#FFEFCD' : '#CFCFCF'
                                                 }} className="col-11 d-flex menu-item-bar">
                                                     <div align="left" className="col-8">
                                                         <div className="item-name"><b>{alcohol?.name}</b></div>
@@ -591,7 +591,7 @@ const CustomerMenu = (props) => {
                                         {props?.dataMenu?.beer?.map((beer) => (
                                             <div className="item-menu d-flex">
                                                 <div style={{
-                                                    backgroundColor: (beer?.is_sold_out === false && beer?.in_cart === false) ? '#EEEEEE' : (beer?.is_sold_out === false && beer?.in_cart === true) ? '#FFEEAA' : '#CFCFCF'
+                                                    backgroundColor: (beer?.is_sold_out === false && beer?.in_cart === false) ? '#EEEEEE' : (beer?.is_sold_out === false && beer?.in_cart === true) ? '#FFEFCD' : '#CFCFCF'
                                                 }} className="col-11 d-flex menu-item-bar">
                                                     <div align="left" className="col-8">
                                                         <div className="item-name"><b>{beer?.name}</b></div>

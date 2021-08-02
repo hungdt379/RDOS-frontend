@@ -571,12 +571,12 @@ const OrderList = (props) => {
                                                                 <div>Voucher: {props?.detailConfirmOrderReceptionist?.data?.voucher} %</div>
                                                             </div>) : (null)}
                                                     </div>
-                                                    <div align="center" className="col-4">
+                                                    <div align="left" className="col-5">
                                                         {(props?.detailConfirmOrderReceptionist?.data?.status === "confirmed" || props?.detailConfirmOrderReceptionist?.data?.status === "matching") ? (
                                                             <div className="d-flex">
                                                                 <div>
                                                                     <input style={{
-                                                                        height: 50,
+                                                                        height: 45,
                                                                         width: '100%',
                                                                         borderRadius: '10px'
                                                                     }}
@@ -592,8 +592,8 @@ const OrderList = (props) => {
                                                                 <button
                                                                     onClick={handleEnterVoucher}
                                                                     style={{
-                                                                        height: 50,
-                                                                        width: 50,
+                                                                        height: 45,
+                                                                        width: 45,
                                                                         borderRadius: '10px',
                                                                         backgroundColor: '#FCBC3A',
                                                                         fontFamily: 'Cabin',
@@ -608,7 +608,7 @@ const OrderList = (props) => {
                                                         ) : (
                                                             <div
                                                                 style={{
-                                                                    height: 50,
+                                                                    height: 45,
                                                                     width: 100,
                                                                     borderRadius: '10px',
                                                                     border: '2px solid #FCBC3A',
@@ -623,18 +623,7 @@ const OrderList = (props) => {
                                                             </div>
                                                         )}
                                                     </div>
-                                                    <div align="left" className="col-3">
-                                                        <div>
-                                                            <textarea style={{
-                                                                height: 50,
-                                                                width: '100%',
-                                                                borderRadius: '10px'
-                                                            }}>
-                                                                abc
-                                                            </textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div align="right" className="col-2">
+                                                    <div align="right" className="col-4">
                                                         {(props?.detailConfirmOrderReceptionist?.data?.status === "confirmed" || props?.detailConfirmOrderReceptionist?.data?.status === "matching")
                                                             ? (
                                                                 <button
