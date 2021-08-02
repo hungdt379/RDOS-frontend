@@ -108,7 +108,10 @@ const KitchenMenu = (props) => {
                                         </div>
                                     </div>
                                 </div>
-                                <div>
+                                <div style={{
+                                    backgroundColor: '#ffffff',
+                                    paddingBottom: '20px',
+                                }}>
                                     <div style={{
                                         backgroundColor: '#ffffff',
                                         border: '0px solid #ffffff',
