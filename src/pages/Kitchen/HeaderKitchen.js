@@ -43,7 +43,7 @@ const HeaderKitchen = (props) => {
                                                 <img src={carousel} className="icon-button-menu-re"/>
                                             </div>
                                         </div>
-                                        <div className="square-text-button-re"><b>Danh sách order</b></div>
+                                        <div className="square-text-button-re"><b>Danh sách món</b></div>
                                     </button>
                                 </Link>
                             </label>

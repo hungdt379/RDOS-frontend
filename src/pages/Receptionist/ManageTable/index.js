@@ -134,38 +134,14 @@ const ManageTable = (props) => {
                                 <div className="col-1"></div>
                                 <div className="col-4 d-flex">
                                     <div className="col-8 d-flex">
-                                        {/*<input style={{*/}
-                                        {/*    height: '35px',*/}
-                                        {/*    border: '1px solid #000000',*/}
-                                        {/*    backgroundColor: '#ffffff',*/}
-                                        {/*    borderRight: '0px',*/}
-                                        {/*    width: '100%'*/}
-                                        {/*}} className="search-bar" type="text" name="search" placeholder="Tìm kiếm..."*/}
-                                        {/*    // value={search}*/}
-                                        {/*    //    onChange={(e) => (*/}
-                                        {/*    //        setSearch(e.target.value),*/}
-                                        {/*    //            props.dispatch(actions.getAllSearchRequest(e.target.value))*/}
-                                        {/*    //    )}*/}
-                                        {/*/>*/}
-                                        {/*<div style={{*/}
-                                        {/*    height: '35px',*/}
-                                        {/*    border: '1px solid #000000',*/}
-                                        {/*    borderLeft: '0px',*/}
-                                        {/*    borderRadius: '0px 20px 20px 0px',*/}
-                                        {/*    width: '100%'*/}
-                                        {/*}} align="right" className="home-icon col-2">*/}
-                                        {/*    <a>*/}
-                                        {/*        <img style={{transform: 'matrix(-1,0,0,1,0,0)', marginTop: '5px'}}*/}
-                                        {/*             src={searchImg} className="icon-button"/>*/}
-                                        {/*    </a>*/}
-                                        {/*</div>*/}
                                     </div>
                                     <div className="col-4">
                                         <button style={{
                                             backgroundColor: '#FCBC3A',
                                             borderRadius: '10px',
                                             height: '35px',
-                                            width: '100%'
+                                            width: '100%',
+                                            border: '1px solid #FCBC3A'
                                         }}
                                                 onClick={() => {
                                                     setOpenAdd(true)
@@ -271,7 +247,8 @@ const ManageTable = (props) => {
                                                         backgroundColor: '#FCBC3A',
                                                         borderRadius: '30px',
                                                         height: '35px',
-                                                        width: '100%'
+                                                        width: '100%',
+                                                        border: '1px solid #FCBC3A'
                                                     }} onClick={() => {
                                                         props.dispatch(actions.generateTableReRequest(tabre._id))
                                                     }}

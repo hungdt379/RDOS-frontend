@@ -1,5 +1,5 @@
 @media(max-width: 1200px) {
-  .receptionist-order{
+  .kitchen-order{
     margin-top: 90px;
     margin-bottom: 60px;
     width: 100%;
@@ -59,12 +59,12 @@
 }
 
 @media(min-width: 1200px) {
-  .receptionist-order{
+  .kitchen-order{
     margin-left: calc(100% - 95%);
     display: flex;
     margin-top: 90px;
     margin-bottom: 60px;
-    position: fixed;
+    //position: fixed;
     width: 90%;
     height: 100% !important;
   }

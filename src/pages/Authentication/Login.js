@@ -50,9 +50,9 @@ const Login = (props) => {
                                                     fontWeight: 'bold',
                                                     fontFamily:'Cabin'
                                                 }}>
-                                                    Welcome Back !
+                                                    Xin chào bạn !
                                                 </div>
-                                                <p style={{fontFamily:'Cabin'}}>Sign in to continue to RDOS.</p>
+                                                <p style={{fontFamily:'Cabin'}}>Đăng nhập để tiếp tục với RDOS.</p>
                                             </div>
                                         </Col>
                                     </Row>
@@ -72,13 +72,13 @@ const Login = (props) => {
                                             {/*{props.error && props.error ? <Alert color="danger">{props.error}</Alert> : null}*/}
 
                                             <div className="form-group" style={{fontFamily:'Cabin'}}>
-                                                <AvField name="username" label="Username" className="form-control"
-                                                         placeholder="Enter username" type="text" required/>
+                                                <AvField name="username" label="Tên đăng nhập" className="form-control"
+                                                         placeholder="Nhập tên đăng nhập" type="text" required/>
                                             </div>
 
                                             <div className="form-group" style={{fontFamily: 'Cabin'}}>
-                                                <AvField name="password" label="Password" type="password"
-                                                         required placeholder="Enter Password"/>
+                                                <AvField name="password" label="Mật khẩu" type="password"
+                                                         required placeholder="Nhập mật khẩu"/>
                                             </div>
 
                                             <div className="mt-3">
@@ -88,7 +88,8 @@ const Login = (props) => {
                                                     fontSize: '13px',
                                                     fontWeight: '600',
                                                     borderRadius: '10px',
-                                                    fontFamily:'Cabin'
+                                                    fontFamily:'Cabin',
+                                                    border: '1px solid #FCBC3A'
                                                 }} className="btn btn-primary btn-block waves-effect waves-light"
                                                         type="submit">Đăng nhập
                                                 </button>
