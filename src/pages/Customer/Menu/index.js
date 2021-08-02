@@ -226,7 +226,7 @@ const CustomerMenu = (props) => {
                                         {props?.dataMenu?.combo?.map((combo) => (
                                             <div className="item-menu d-flex">
                                                 <div style={{
-                                                    backgroundColor: (combo?.is_sold_out === false && combo?.in_cart === false) ? '#EEEEEE' : (combo?.is_sold_out === false && combo?.in_cart === true) ? '#FFEEAA' : '#6a7187'
+                                                    backgroundColor: (combo?.is_sold_out === false && combo?.in_cart === false) ? '#EEEEEE' : (combo?.is_sold_out === false && combo?.in_cart === true) ? '#FFEEAA' : '#CFCFCF'
                                                 }} className="col-11 d-flex menu-item-bar">
                                                     <div align="left" className="col-8">
                                                         <div className="item-name"><b>{combo?.name}</b></div>
@@ -234,22 +234,27 @@ const CustomerMenu = (props) => {
                                                             className="item-cost">{(combo?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
                                                         </div>
                                                     </div>
-                                                    <div align="center" className="col-3" style={{paddingTop: '18px'}}>
-                                                        {(combo?.in_cart === true) ? (
+                                                    <div align="right" className="col-3" style={{paddingTop: '18px'}}>
+                                                        {(combo?.is_sold_out === false && combo?.in_cart === false) ? (
+                                                            <div></div>
+                                                        ) : (combo?.is_sold_out === false && combo?.in_cart === true) ? (
                                                             <div>
-                                                                <img style={{width: '22px', height: '19px'}}
-                                                                     src={shoppingCart} className="icon-button mr-2"/>
                                                                 <b style={{
-                                                                    fontSize: '15px',
-                                                                    fontWeight: 'normal',
+                                                                    fontSize: '18px',
+                                                                    fontWeight: 'bold',
                                                                     fontStyle: 'normal',
                                                                     fontFamily: 'Cabin',
-                                                                    lineHeight: '15px',
-                                                                    paddingTop: '5px'
-                                                                }}>: {combo?.quantity}</b>
+                                                                    paddingTop: '13px'
+                                                                }}>{combo?.quantity}</b>
                                                             </div>
                                                         ) : (
-                                                            <div></div>
+                                                            <div>
+                                                                <b style={{
+                                                                    fontWeight: 'bold',
+                                                                    fontStyle: 'normal',
+                                                                    fontFamily: 'Cabin',
+                                                                }}>Hết hàng</b>
+                                                            </div>
                                                         )}
                                                     </div>
                                                 </div>
@@ -267,7 +272,24 @@ const CustomerMenu = (props) => {
                                                                 </div>
                                                             </div>
                                                         </Link>
-                                                    ) : (null)}
+                                                    ) : (
+                                                        <div>
+                                                            <div style={{
+                                                                marginRight: 'auto',
+                                                                marginLeft: 'auto'
+                                                            }}
+                                                                 className="avatar-xs">
+                                                                <div
+                                                                    align='center'
+                                                                    style={{
+                                                                        backgroundColor:'#7A7A7A',
+                                                                    }}
+                                                                    className="plus-background-color avatar-title rounded-circle mt-2">
+                                                                    <div style={{color: 'white'}}>+</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
                                         ))}
@@ -277,7 +299,7 @@ const CustomerMenu = (props) => {
                                         {props?.dataMenu?.drink?.map((drink) => (
                                             <div className="item-menu d-flex">
                                                 <div style={{
-                                                    backgroundColor: (drink?.is_sold_out === false && drink?.in_cart === false) ? '#EEEEEE' : (drink?.is_sold_out === false && drink?.in_cart === true) ? '#FFEEAA' : '#6a7187'
+                                                    backgroundColor: (drink?.is_sold_out === false && drink?.in_cart === false) ? '#EEEEEE' : (drink?.is_sold_out === false && drink?.in_cart === true) ? '#FFEEAA' : '#CFCFCF'
                                                 }} className="col-11 d-flex menu-item-bar">
                                                     <div align="left" className="col-8">
                                                         <div className="item-name"><b>{drink?.name}</b></div>
@@ -285,22 +307,27 @@ const CustomerMenu = (props) => {
                                                             className="item-cost">{(drink?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
                                                         </div>
                                                     </div>
-                                                    <div align="center" className="col-3" style={{paddingTop: '18px'}}>
-                                                        {(drink?.in_cart === true) ? (
+                                                    <div align="right" className="col-3" style={{paddingTop: '18px'}}>
+                                                        {(drink?.is_sold_out === false && drink?.in_cart === false) ? (
+                                                            <div></div>
+                                                        ) : (drink?.is_sold_out === false && drink?.in_cart === true) ? (
                                                             <div>
-                                                                <img style={{width: '22px', height: '19px'}}
-                                                                     src={shoppingCart} className="icon-button mr-2"/>
-                                                                <b className="mt-2" style={{
-                                                                    fontSize: '15px',
-                                                                    fontWeight: 'normal',
+                                                                <b style={{
+                                                                    fontSize: '18px',
+                                                                    fontWeight: 'bold',
                                                                     fontStyle: 'normal',
                                                                     fontFamily: 'Cabin',
-                                                                    lineHeight: '15px',
-                                                                    paddingTop: '5px'
-                                                                }}>: {drink?.quantity}</b>
+                                                                    paddingTop: '13px'
+                                                                }}>{drink?.quantity}</b>
                                                             </div>
                                                         ) : (
-                                                            <div></div>
+                                                            <div>
+                                                                <b style={{
+                                                                    fontWeight: 'bold',
+                                                                    fontStyle: 'normal',
+                                                                    fontFamily: 'Cabin',
+                                                                }}>Hết hàng</b>
+                                                            </div>
                                                         )}
                                                     </div>
                                                 </div>
@@ -318,7 +345,24 @@ const CustomerMenu = (props) => {
                                                                 </div>
                                                             </div>
                                                         </Link>
-                                                    ) : (null)}
+                                                    ) : (
+                                                        <div>
+                                                            <div style={{
+                                                                marginRight: 'auto',
+                                                                marginLeft: 'auto'
+                                                            }}
+                                                                 className="avatar-xs">
+                                                                <div
+                                                                    align='center'
+                                                                    style={{
+                                                                        backgroundColor:'#7A7A7A',
+                                                                    }}
+                                                                    className="plus-background-color avatar-title rounded-circle mt-2">
+                                                                    <div style={{color: 'white'}}>+</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
                                         ))}
@@ -328,7 +372,7 @@ const CustomerMenu = (props) => {
                                         {props?.dataMenu?.normal?.map((normal) => (
                                             <div className="item-menu d-flex">
                                                 <div style={{
-                                                    backgroundColor: (normal?.is_sold_out === false && normal?.in_cart === false) ? '#EEEEEE' : (normal?.is_sold_out === false && normal?.in_cart === true) ? '#FFEEAA' : '#6a7187'
+                                                    backgroundColor: (normal?.is_sold_out === false && normal?.in_cart === false) ? '#EEEEEE' : (normal?.is_sold_out === false && normal?.in_cart === true) ? '#FFEEAA' : '#CFCFCF'
                                                 }} className="col-11 d-flex menu-item-bar">
                                                     <div align="left" className="col-8">
                                                         <div className="item-name"><b>{normal?.name}</b></div>
@@ -336,22 +380,27 @@ const CustomerMenu = (props) => {
                                                             className="item-cost">{(normal?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
                                                         </div>
                                                     </div>
-                                                    <div align="center" className="col-3" style={{paddingTop: '18px'}}>
-                                                        {(normal?.in_cart === true) ? (
+                                                    <div align="right" className="col-3" style={{paddingTop: '18px'}}>
+                                                        {(normal?.is_sold_out === false && normal?.in_cart === false) ? (
+                                                            <div></div>
+                                                        ) : (normal?.is_sold_out === false && normal?.in_cart === true) ? (
                                                             <div>
-                                                                <img style={{width: '22px', height: '19px'}}
-                                                                     src={shoppingCart} className="icon-button mr-2"/>
                                                                 <b style={{
-                                                                    fontSize: '15px',
-                                                                    fontWeight: 'normal',
+                                                                    fontSize: '18px',
+                                                                    fontWeight: 'bold',
                                                                     fontStyle: 'normal',
                                                                     fontFamily: 'Cabin',
-                                                                    lineHeight: '15px',
-                                                                    paddingTop: '5px'
-                                                                }}>: {normal?.quantity}</b>
+                                                                    paddingTop: '13px'
+                                                                }}>{normal?.quantity}</b>
                                                             </div>
                                                         ) : (
-                                                            <div></div>
+                                                            <div>
+                                                                <b style={{
+                                                                    fontWeight: 'bold',
+                                                                    fontStyle: 'normal',
+                                                                    fontFamily: 'Cabin',
+                                                                }}>Hết hàng</b>
+                                                            </div>
                                                         )}
                                                     </div>
                                                 </div>
@@ -369,7 +418,24 @@ const CustomerMenu = (props) => {
                                                                 </div>
                                                             </div>
                                                         </Link>
-                                                    ) : (null)}
+                                                    ) : (
+                                                        <div>
+                                                            <div style={{
+                                                                marginRight: 'auto',
+                                                                marginLeft: 'auto'
+                                                            }}
+                                                                 className="avatar-xs">
+                                                                <div
+                                                                    align='center'
+                                                                    style={{
+                                                                        backgroundColor:'#7A7A7A',
+                                                                    }}
+                                                                    className="plus-background-color avatar-title rounded-circle mt-2">
+                                                                    <div style={{color: 'white'}}>+</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
                                         ))}
@@ -379,7 +445,7 @@ const CustomerMenu = (props) => {
                                         {props?.dataMenu?.fast?.map((fast) => (
                                             <div className="item-menu d-flex">
                                                 <div style={{
-                                                    backgroundColor: (fast?.is_sold_out === false && fast?.in_cart === false) ? '#EEEEEE' : (fast?.is_sold_out === false && fast?.in_cart === true) ? '#FFEEAA' : '#6a7187'
+                                                    backgroundColor: (fast?.is_sold_out === false && fast?.in_cart === false) ? '#EEEEEE' : (fast?.is_sold_out === false && fast?.in_cart === true) ? '#FFEEAA' : '#CFCFCF'
                                                 }} className="col-11 d-flex menu-item-bar">
                                                     <div align="left" className="col-8">
                                                         <div className="item-name"><b>{fast?.name}</b></div>
@@ -387,22 +453,27 @@ const CustomerMenu = (props) => {
                                                             className="item-cost">{(fast?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
                                                         </div>
                                                     </div>
-                                                    <div align="center" className="col-3" style={{paddingTop: '18px'}}>
-                                                        {(fast?.in_cart === true) ? (
+                                                    <div align="right" className="col-3" style={{paddingTop: '18px'}}>
+                                                        {(fast?.is_sold_out === false && fast?.in_cart === false) ? (
+                                                            <div></div>
+                                                        ) : (fast?.is_sold_out === false && fast?.in_cart === true) ? (
                                                             <div>
-                                                                <img style={{width: '22px', height: '19px'}}
-                                                                     src={shoppingCart} className="icon-button mr-2"/>
                                                                 <b style={{
-                                                                    fontSize: '15px',
-                                                                    fontWeight: 'normal',
+                                                                    fontSize: '18px',
+                                                                    fontWeight: 'bold',
                                                                     fontStyle: 'normal',
                                                                     fontFamily: 'Cabin',
-                                                                    lineHeight: '15px',
-                                                                    paddingTop: '5px'
-                                                                }}>: {fast?.quantity}</b>
+                                                                    paddingTop: '13px'
+                                                                }}>{fast?.quantity}</b>
                                                             </div>
                                                         ) : (
-                                                            <div></div>
+                                                            <div>
+                                                                <b style={{
+                                                                    fontWeight: 'bold',
+                                                                    fontStyle: 'normal',
+                                                                    fontFamily: 'Cabin',
+                                                                }}>Hết hàng</b>
+                                                            </div>
                                                         )}
                                                     </div>
                                                 </div>
@@ -420,7 +491,24 @@ const CustomerMenu = (props) => {
                                                                 </div>
                                                             </div>
                                                         </Link>
-                                                    ) : (null)}
+                                                    ) : (
+                                                        <div>
+                                                            <div style={{
+                                                                marginRight: 'auto',
+                                                                marginLeft: 'auto'
+                                                            }}
+                                                                 className="avatar-xs">
+                                                                <div
+                                                                    align='center'
+                                                                    style={{
+                                                                        backgroundColor:'#7A7A7A',
+                                                                    }}
+                                                                    className="plus-background-color avatar-title rounded-circle mt-2">
+                                                                    <div style={{color: 'white'}}>+</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
                                         ))}
@@ -430,7 +518,7 @@ const CustomerMenu = (props) => {
                                         {props?.dataMenu?.alcohol?.map((alcohol) => (
                                             <div className="item-menu d-flex">
                                                 <div style={{
-                                                    backgroundColor: (alcohol?.is_sold_out === false && alcohol?.in_cart === false) ? '#EEEEEE' : (alcohol?.is_sold_out === false && alcohol?.in_cart === true) ? '#FFEEAA' : '#6a7187'
+                                                    backgroundColor: (alcohol?.is_sold_out === false && alcohol?.in_cart === false) ? '#EEEEEE' : (alcohol?.is_sold_out === false && alcohol?.in_cart === true) ? '#FFEEAA' : '#CFCFCF'
                                                 }} className="col-11 d-flex menu-item-bar">
                                                     <div align="left" className="col-8">
                                                         <div className="item-name"><b>{alcohol?.name}</b></div>
@@ -438,22 +526,27 @@ const CustomerMenu = (props) => {
                                                             className="item-cost">{(alcohol?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
                                                         </div>
                                                     </div>
-                                                    <div align="center" className="col-3" style={{paddingTop: '18px'}}>
-                                                        {(alcohol?.in_cart === true) ? (
+                                                    <div align="right" className="col-3" style={{paddingTop: '18px'}}>
+                                                        {(alcohol?.is_sold_out === false && alcohol?.in_cart === false) ? (
+                                                            <div></div>
+                                                        ) : (alcohol?.is_sold_out === false && alcohol?.in_cart === true) ? (
                                                             <div>
-                                                                <img style={{width: '22px', height: '19px'}}
-                                                                     src={shoppingCart} className="icon-button mr-2"/>
                                                                 <b style={{
-                                                                    fontSize: '15px',
-                                                                    fontWeight: 'normal',
+                                                                    fontSize: '18px',
+                                                                    fontWeight: 'bold',
                                                                     fontStyle: 'normal',
                                                                     fontFamily: 'Cabin',
-                                                                    lineHeight: '15px',
-                                                                    paddingTop: '5px'
-                                                                }}>: {alcohol?.quantity}</b>
+                                                                    paddingTop: '13px'
+                                                                }}>{alcohol?.quantity}</b>
                                                             </div>
                                                         ) : (
-                                                            <div></div>
+                                                            <div>
+                                                                <b style={{
+                                                                    fontWeight: 'bold',
+                                                                    fontStyle: 'normal',
+                                                                    fontFamily: 'Cabin',
+                                                                }}>Hết hàng</b>
+                                                            </div>
                                                         )}
                                                     </div>
                                                 </div>
@@ -471,7 +564,24 @@ const CustomerMenu = (props) => {
                                                                 </div>
                                                             </div>
                                                         </Link>
-                                                    ) : (null)}
+                                                    ) : (
+                                                        <div>
+                                                            <div style={{
+                                                                marginRight: 'auto',
+                                                                marginLeft: 'auto'
+                                                            }}
+                                                                 className="avatar-xs">
+                                                                <div
+                                                                    align='center'
+                                                                    style={{
+                                                                        backgroundColor:'#7A7A7A',
+                                                                    }}
+                                                                    className="plus-background-color avatar-title rounded-circle mt-2">
+                                                                    <div style={{color: 'white'}}>+</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
                                         ))}
@@ -481,7 +591,7 @@ const CustomerMenu = (props) => {
                                         {props?.dataMenu?.beer?.map((beer) => (
                                             <div className="item-menu d-flex">
                                                 <div style={{
-                                                    backgroundColor: (beer?.is_sold_out === false && beer?.in_cart === false) ? '#EEEEEE' : (beer?.is_sold_out === false && beer?.in_cart === true) ? '#FFEEAA' : '#6a7187'
+                                                    backgroundColor: (beer?.is_sold_out === false && beer?.in_cart === false) ? '#EEEEEE' : (beer?.is_sold_out === false && beer?.in_cart === true) ? '#FFEEAA' : '#CFCFCF'
                                                 }} className="col-11 d-flex menu-item-bar">
                                                     <div align="left" className="col-8">
                                                         <div className="item-name"><b>{beer?.name}</b></div>
@@ -489,22 +599,27 @@ const CustomerMenu = (props) => {
                                                             className="item-cost">{(beer?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
                                                         </div>
                                                     </div>
-                                                    <div align="center" className="col-3" style={{paddingTop: '18px'}}>
-                                                        {(beer?.in_cart === true) ? (
+                                                    <div align="right" className="col-3" style={{paddingTop: '18px'}}>
+                                                        {(beer?.is_sold_out === false && beer?.in_cart === false) ? (
+                                                            <div></div>
+                                                        ) : (beer?.is_sold_out === false && beer?.in_cart === true) ? (
                                                             <div>
-                                                                <img style={{width: '22px', height: '19px'}}
-                                                                     src={shoppingCart} className="icon-button mr-2"/>
                                                                 <b style={{
-                                                                    fontSize: '15px',
-                                                                    fontWeight: 'normal',
+                                                                    fontSize: '18px',
+                                                                    fontWeight: 'bold',
                                                                     fontStyle: 'normal',
                                                                     fontFamily: 'Cabin',
-                                                                    lineHeight: '15px',
-                                                                    paddingTop: '5px'
-                                                                }}>: {beer?.quantity}</b>
+                                                                    paddingTop: '13px'
+                                                                }}>{beer?.quantity}</b>
                                                             </div>
                                                         ) : (
-                                                            <div></div>
+                                                            <div>
+                                                                <b style={{
+                                                                    fontWeight: 'bold',
+                                                                    fontStyle: 'normal',
+                                                                    fontFamily: 'Cabin',
+                                                                }}>Hết hàng</b>
+                                                            </div>
                                                         )}
                                                     </div>
                                                 </div>
@@ -522,7 +637,24 @@ const CustomerMenu = (props) => {
                                                                 </div>
                                                             </div>
                                                         </Link>
-                                                    ) : (null)}
+                                                    ) : (
+                                                        <div>
+                                                            <div style={{
+                                                                marginRight: 'auto',
+                                                                marginLeft: 'auto'
+                                                            }}
+                                                                 className="avatar-xs">
+                                                                <div
+                                                                    align='center'
+                                                                    style={{
+                                                                        backgroundColor:'#7A7A7A',
+                                                                    }}
+                                                                    className="plus-background-color avatar-title rounded-circle mt-2">
+                                                                    <div style={{color: 'white'}}>+</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
                                         ))}

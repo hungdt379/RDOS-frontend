@@ -113,6 +113,7 @@ const LoginCustomer = (props) => {
                                                     fontSize: '13px',
                                                     fontWeight: '600',
                                                     fontFamily:'Cabin',
+                                                    border: '1px solid #FCBC3A'
                                                 }}
                                                         className="btn btn-primary btn-block waves-effect waves-light"
                                                         type="submit">Tiếp tục

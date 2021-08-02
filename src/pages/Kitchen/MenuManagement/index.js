@@ -56,7 +56,7 @@ const KitchenMenu = (props) => {
             {(role === 'k') ? (
                 <div className="display-receptionist">
                     <Header item={kitchen}/>
-                    <div align="center" className="receptionist-order">
+                    <div align="center" className="kitchen-order">
                         <div align="center" className="col-xl-12">
                             <div className="side-content">
                                 <div className="list-order-re">

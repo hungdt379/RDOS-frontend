@@ -63,12 +63,12 @@ const OrderList = (props) => {
             {(role === 'k') ? (
                 <div className="display-receptionist">
                     <Header item={kitchen}/>
-                    <div align="center" className="receptionist-order">
+                    <div align="center" className="kitchen-order">
                         <div align="center" className="col-xl-12">
                             <div className="side-content">
                                 <div className="list-order-re">
                                     <b>
-                                        Danh sách Order
+                                        Danh sách món
                                     </b>
                                 </div>
                                 <div className="ra-button-re d-flex">
@@ -103,10 +103,10 @@ const OrderList = (props) => {
                                         backgroundColor: '#ffffff',
                                         border: '0px solid #ffffff',
                                     }} className="card-order d-flex">
-                                        <div align="left" className="col-3 card-detail-order-text">
+                                        <div align="left" className="col-2 card-detail-order-text">
                                             <b>Mã order</b>
                                         </div>
-                                        <div align="left" className="col-1 card-detail-order-text">
+                                        <div align="left" className="col-2 card-detail-order-text">
                                             <b>Mã bàn</b>
                                         </div>
                                         <div align="left" className="col-2 card-detail-order-text">
@@ -134,15 +134,19 @@ const OrderList = (props) => {
                                     </div>
                                     {(displayStatus === 'prepare') ? (
                                         <div>
-                                            <PerfectScrollbar className="mh-55">
+                                            <div style={{
+                                                width: '100%',
+                                                marginTop: '25px',
+                                                marginBottom: '15px'
+                                            }}>
                                                 {props?.allDishInConfirm?.data?.map((it, i) => (
                                                     <div className="card-order d-flex">
                                                             <div align="left"
-                                                                 className="col-3 card-detail-order-text-child">
-                                                                <div>{it?._id}</div>
+                                                                 className="col-2 card-detail-order-text-child">
+                                                                <div>{it?.order_code}</div>
                                                             </div>
                                                             <div align="left"
-                                                                 className="col-1 card-detail-order-text-child">
+                                                                 className="col-2 card-detail-order-text-child">
                                                                 <b>{it?.table_name}</b>
                                                             </div>
                                                             <div align="left"
@@ -214,7 +218,7 @@ const OrderList = (props) => {
                                                         </div>
                                                     )
                                                 )}
-                                            </PerfectScrollbar>
+                                            </div>
                                             <div className="mt-3">
                                                 <ReactPaginate
                                                     previousLabel={
@@ -237,16 +241,20 @@ const OrderList = (props) => {
                                         </div>
                                     ) : (
                                         <div>
-                                            <PerfectScrollbar className="mh-55">
+                                            <div style={{
+                                                width: '100%',
+                                                marginTop: '25px',
+                                                marginBottom: '15px'
+                                            }}>
                                                 {props?.allDishInComplete?.data?.map((it, i) =>
                                                     (
                                                         <div className="card-order d-flex">
                                                             <div align="left"
-                                                                 className="col-3 card-detail-order-text-child">
-                                                                <div>{it?._id}</div>
+                                                                 className="col-2 card-detail-order-text-child">
+                                                                <div>{it?.order_code}</div>
                                                             </div>
                                                             <div align="left"
-                                                                 className="col-1 card-detail-order-text-child">
+                                                                 className="col-2 card-detail-order-text-child">
                                                                 <b>{it?.table_name}</b>
                                                             </div>
                                                             <div align="left"
@@ -318,7 +326,7 @@ const OrderList = (props) => {
                                                         </div>
                                                     )
                                                 )}
-                                            </PerfectScrollbar>
+                                            </div>
                                             <div className="mt-3">
                                                 <ReactPaginate
                                                     previousLabel={

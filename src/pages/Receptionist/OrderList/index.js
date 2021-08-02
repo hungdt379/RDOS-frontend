@@ -205,13 +205,13 @@ const OrderList = (props) => {
                                                                  className="col-11 d-flex menu-item-bar-re">
                                                                 <div style={{marginTop: 'auto', marginBottom: 'auto'}}
                                                                      align="left" className="col-11 d-flex">
-                                                                    <div align="center" className="col-6 item-cost-re">
-                                                                        <b>{lco._id}</b>
+                                                                    <div align="center" className="col-4 item-cost-re">
+                                                                        <b>{lco.order_code}</b>
                                                                     </div>
-                                                                    <div align="center" className="col-3 item-cost-re">
+                                                                    <div align="center" className="col-4 item-cost-re">
                                                                         <b>{lco.table_name}</b>
                                                                     </div>
-                                                                    <div align="center" className="col-3 item-name-re"
+                                                                    <div align="center" className="col-4 item-name-re"
                                                                          style={{color: lco.status === "confirmed" ? "lightcoral" : "green"}}>
                                                                         {lco.status === "confirmed" ? "Đã xác nhận" : "Hoàn thành"}
                                                                     </div>
@@ -308,6 +308,9 @@ const OrderList = (props) => {
                                                                     }, 1500)
                                                                 }
                                                             }}
+                                                            style={{
+                                                                border: '1px solid #FCBC3A'
+                                                            }}
                                                             className="button-gop-hoa-don">
                                                             <b className="text-gop-hoa-don">Gộp hóa đơn</b>
                                                         </button>
@@ -339,13 +342,13 @@ const OrderList = (props) => {
                                                                  className="col-11 d-flex menu-item-bar-re">
                                                                 <div style={{marginTop: 'auto', marginBottom: 'auto'}}
                                                                      align="left" className="col-11 d-flex">
-                                                                    <div align="center" className="col-6 item-cost-re">
-                                                                        <b>{lpo._id}</b>
+                                                                    <div align="center" className="col-4 item-cost-re">
+                                                                        <b>{lpo.order_code}</b>
                                                                     </div>
-                                                                    <div align="center" className="col-3 item-cost-re">
+                                                                    <div align="center" className="col-4 item-cost-re">
                                                                         <b>{lpo.table_name}</b>
                                                                     </div>
-                                                                    <div align="center" className="col-3 item-name-re"
+                                                                    <div align="center" className="col-4 item-name-re"
                                                                          style={{color: lpo.status === "confirmed" ? "lightcoral" : "green"}}>
                                                                         {lpo.status === "confirmed" ? "Đã xác nhận" : "Hoàn thành"}
                                                                     </div>
@@ -420,7 +423,7 @@ const OrderList = (props) => {
                                         <div align="center" className="col-4 detail-order-re">
                                             <div className='detail-order-top-re'>Mã Order</div>
                                             <div
-                                                className='detail-order-down-re'>{props?.detailConfirmOrderReceptionist?.data?._id}</div>
+                                                className='detail-order-down-re'>{props?.detailConfirmOrderReceptionist?.data?.order_code}</div>
                                         </div>
                                         <div align="center" className="col-4 detail-order-re">
                                             <div className='detail-order-top-re'>Mã Bàn</div>
@@ -596,6 +599,7 @@ const OrderList = (props) => {
                                                                         fontFamily: 'Cabin',
                                                                         fontStyle: 'normal',
                                                                         fontWeight: 'bold',
+                                                                        border: '1px solid #FCBC3A'
                                                                     }}
                                                                 >
                                                                     Xác nhận
@@ -648,7 +652,8 @@ const OrderList = (props) => {
                                                                         backgroundColor: '#FCBC3A',
                                                                         borderRadius: '10px',
                                                                         height: '45px',
-                                                                        width: '100%'
+                                                                        width: '100%',
+                                                                        border: '1px solid #FCBC3A'
                                                                     }}>
                                                                     <b style={{
                                                                         fontFamily: 'Cabin',
@@ -665,7 +670,8 @@ const OrderList = (props) => {
                                                                     backgroundColor: '#6a7187',
                                                                     borderRadius: '10px',
                                                                     height: '45px',
-                                                                    width: '100%'
+                                                                    width: '100%',
+                                                                    display: 'none'
                                                                 }}>
                                                                     <b style={{
                                                                         fontFamily: 'Cabin',

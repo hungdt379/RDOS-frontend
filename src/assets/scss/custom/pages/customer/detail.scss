@@ -64,8 +64,8 @@
   border-radius: 100%;
   width: 18px !important;
   height: 18px;
-  background-color: #FFFFFF;
-  border: 2px solid #FCBC3A;
+  background-color: #EEEEEE;
+  border: 2px solid #6a7187;
 }
 .check-once-text{
   font-family: Cabin;
@@ -77,6 +77,7 @@
 }
 input[type='checkbox'].check-once-input:checked ~ label.check-once-label{
   background-color: #FFEEAA;
+  border: 2px solid #FCBC3A;
 }
 
 input[type='checkbox'].check-all-button:checked ~ div.choose-all{
