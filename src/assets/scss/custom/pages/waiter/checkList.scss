@@ -16,7 +16,7 @@
     justify-items: center;
     flex-direction: column;
     height: 300px;
-   margin-bottom: 40px;
+    margin-bottom: 40px;
   }
   .item-form-checkList{
     position: relative;
@@ -69,7 +69,7 @@
   .checkList-btn{
     padding: 20px;
   }
-  input[type = 'radio'].check-list:checked ~ div.item{
+  input[type = 'checkbox'].check-list:checked ~ div.item{
     color: #1E1C19;
     border-bottom: 3px solid #FCBC3A;
   }

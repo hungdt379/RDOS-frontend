@@ -9,7 +9,7 @@ import "../../../assets/scss/custom/pages/waiter/header.scss";
 //image
 import Profile from "../../../assets/images/waiter/profile.png";
 import home from  "../../../assets/images/waiter/home.png";
-
+import  Search from "../../../assets/images/customer/wine.png"
 const MyHeader = (props) => {
 
     const [toggle,setToggle] = useState(false);
@@ -22,20 +22,23 @@ const MyHeader = (props) => {
         props.getLogOutRequest();
     }
 
+
+
     return(
         <div className="MyHeader">
             <Link to="/waiter-view-all-table" className="div-table-code">
                 <img style={{width: '23px', height: '25px'}} src={home}/>
             </Link>
-                <div className="title_header">
-                  <p>{(props.username) ? props.username : "Đồ Uống" }</p>
+            <div className="title_header">
+                <p>{(props.username) ? props.username : "Trang Chủ" }</p>
+            </div>
+
+            <div className="toggle-logout">
+                <img onClick={toggleBtn} style={{width: '25px', height: '26px'}} src={Profile}/>
+                <div className="dropdown-content" style={{display: toggle == true? "block" : "none"  }}>
+                    <Link to="/login" onClick={logout}>Đăng xuất</Link>
                 </div>
-                <div className="toggle-logout">
-                    <img onClick={toggleBtn} style={{width: '25px', height: '26px'}} src={Profile}/>
-                    <div className="dropdown-content" style={{display: toggle == true? "block" : "none"  }}>
-                            <Link to="/login" onClick={logout}>Đăng xuất</Link>
-                    </div>
-                </div>
+            </div>
         </div>
     );
 }

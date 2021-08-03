@@ -7,49 +7,11 @@
     background: #FFFFFF;
   }
 
-
-  .number_customer_form {
-    width: 100%;
-    text-align: center;
-    background-color: #F8F8FB;
-    color: #1E1C19;
-    font-weight: bold;
-    font-size: 18px;
-    line-height: 22px;
-    padding: 30px 0;
+  input[type = 'checkbox'].check-table:checked ~ div.page{
+    background-color: #FFEFCD;
+    border: 3px solid #FCBC3A;
   }
 
-  .number_customer_form .btn2 {
-    width: 40%;
-    height: 30px;
-    margin-left: 10px;
-    background: #FCBC3A;
-    border-radius: 30px;
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 16px;
-    /* identical to box height */
-
-    text-align: center;
-
-    color: #1E1C19;
-  }
-
-  .number_customer_form .btn1 {
-    width: 40%;
-    height: 30px;
-    margin-right: 10px;
-    background: #E5E5E5;
-    border-radius: 30px;
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 16px;
-    /* identical to box height */
-
-    text-align: center;
-
-    color: #7A7A7A;
-  }
   .btn-change{
     background: #FCBC3A;
     border-radius: 10px;

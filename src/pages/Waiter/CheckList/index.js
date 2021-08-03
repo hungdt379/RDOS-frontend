@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from "react";
-import { withRouter} from 'react-router-dom';
+import {useLocation, withRouter} from 'react-router-dom';
 import PerfectScrollbar from "react-perfect-scrollbar";
 import NotFound from "../../Authentication/Page401";
 import Header from "../home/myHeader";
 import ReactPaginate from "react-paginate";
+import TableNav from "../DetailTable/TableNav";
 //scss
 import "../../../assets/scss/custom/pages/waiter/header.scss";
 import "../../../assets/scss/custom/pages/waiter/checkList.scss";
@@ -20,7 +21,6 @@ import {
 } from "../../../store/notifications/actions";
 import Invalid from "../../Customer/Invalid";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
-import chevonRight from "../../../assets/images/receptionist/chevron-down.png";
 function CheckList(props){
 
     const {dataCheckListPreparePage} = props;
@@ -29,34 +29,13 @@ function CheckList(props){
 
     const [displayStatus, setStatus] = useState("prepare");
 
-    const [page, setPage] = useState(1)
-
-    const [pageSize] = useState(10)
-
     const [tableChoose, setTableChoose] = useState('1');
 
-    const totalPreparePage = dataCheckListPreparePage.total;
-
-    const preparePageCount = Math.ceil(totalPreparePage/pageSize);
-
-    const totalCompletePage = dataCheckListCompletePage.total;
-
-    const completePageCount = Math.ceil(totalCompletePage/pageSize);
+    const location  = useLocation();
 
 
-    const changePreparePage = ({ selected }) => {
-        setPage(selected+1);
-       props.getCheckListPrepareRequest(selected+1);
-    };
-
-    const changeCompletePage = ({ selected }) => {
-        setPage(selected+1);
-        props.getCheckListCompleteRequest(selected +1);
-    };
-
-
-    async function deleteItem(item){
-        await props.postDeleteDrinkRequest(item);
+    function deleteItem(item){
+        props.postDeleteDrinkRequest(item);
 
     }
 
@@ -74,8 +53,14 @@ function CheckList(props){
             const obj = JSON.parse(localStorage.getItem("authUser"));
             setrole(obj.data.user.role);
         }
-        props.getCheckListPrepareRequest(1);
+        props.getCheckListPrepareRequest(location.state._id);
     }, []);
+
+    const table = {
+        _id: location.state._id,
+        username: location.state.username,
+        navChoose: '5',
+    }
 
     return(
         <React.Fragment>
@@ -83,11 +68,12 @@ function CheckList(props){
                 {(role === 'w')?(
                     <div className="container_checkList">
                         <Header/>
+                        <TableNav item={table}/>
                         <div style={{textAlign: "center", justifycontent: "center",marginBottom: "30px"}}>
                             <div className="checkList-btn">
                                 <label>
                                     <input
-                                        type="radio"
+                                        type="checkbox"
                                         value={'1'}
                                         id={'1'}
                                         style={{opacity: '0'}}
@@ -95,19 +81,19 @@ function CheckList(props){
                                         className="check-list"
                                         onChange={(e) => (
                                             setTableChoose(e.target.value),
-                                            setStatus("prepare")
+                                                setStatus("prepare")
 
                                         )}
                                         checked={tableChoose === '1'}
                                     />
                                     <div className="item" onClick={() =>{
-                                        props.getCheckListPrepareRequest(page);
+                                        props.getCheckListPrepareRequest(location.state._id);
 
                                     }}>Đang chuẩn bị</div>
                                 </label>
                                 <label>
                                     <input
-                                        type="radio"
+                                        type="checkbox"
                                         value={'2'}
                                         id={'2'}
                                         style={{opacity: '0'}}
@@ -115,12 +101,12 @@ function CheckList(props){
                                         className="check-list"
                                         onChange={(e) => (
                                             setTableChoose(e.target.value),
-                                            setStatus("completed")
+                                                setStatus("completed")
                                         )}
                                         checked={tableChoose === '2'}
                                     />
                                     <div className="item" onClick={() =>{
-                                        props.getCheckListCompleteRequest(page);
+                                        props.getCheckListCompleteRequest(location.state._id);
 
                                     }}>Hoàn thành</div>
                                 </label>
@@ -137,7 +123,7 @@ function CheckList(props){
                                                         <div className="save-button"  onClick={() =>{
                                                             updateDrink(d._id);
                                                             setTimeout(() => {
-                                                                props.getCheckListPrepareRequest(page);
+                                                                props.getCheckListPrepareRequest(location.state._id);
                                                             }, 500)
 
                                                         }
@@ -145,7 +131,7 @@ function CheckList(props){
                                                         <span className="contain_button" onClick={() =>{
                                                             deleteItem(d);
                                                             setTimeout(() => {
-                                                                props.getCheckListPrepareRequest(page);
+                                                                props.getCheckListPrepareRequest(location.state._id);
                                                             }, 500)
                                                         }
                                                         }>X</span>
@@ -154,23 +140,7 @@ function CheckList(props){
                                             )}
                                         </div>
                                     </PerfectScrollbar>
-                                <ReactPaginate
-                                    previousLabel={
-                                        <img style={{width:"20px",height:"20px"}} src={chevonRight}
-                                             className="plus-icon-button-re-left"/>
-                                    }
-                                    nextLabel={
-                                        <img style={{width:"20px",height:"20px"}} src={chevonRight}
-                                             className="plus-icon-button-re-right"/>
-                                    }
-                                    pageCount={preparePageCount}
-                                    onPageChange={changePreparePage}
-                                    containerClassName={"paginationHome"}
-                                    previousLinkClassName={"previousBtnHome"}
-                                    nextLinkClassName={"nextBtnHome"}
-                                    disabledClassName={"paginationDisabledHome"}
-                                    activeClassName={"paginationActiveHome"}
-                                />
+
                                 </div>
                             ) : (
                                 <div>
@@ -182,13 +152,13 @@ function CheckList(props){
                                                         <span>{d.quantity}</span>
                                                         <div className="save-button"  onClick={() =>{
                                                             updateDrink(d._id);
-                                                            props.getCheckListCompleteRequest(page)
+                                                            props.getCheckListCompleteRequest(location.state._id);
                                                         }
                                                         }>Xác Nhận</div>
                                                         <span className="contain_button" onClick={() =>{
                                                             deleteItem(d);
                                                             setTimeout(() => {
-                                                                props.getCheckListCompleteRequest(page)
+                                                                props.getCheckListCompleteRequest(location.state._id);
                                                             }, 500)
 
                                                         }
@@ -198,28 +168,11 @@ function CheckList(props){
                                             )}
                                         </div>
                                     </PerfectScrollbar>
-                                    <ReactPaginate
-                                        previousLabel={
-                                            <img style={{width:"20px",height:"20px"}} src={chevonRight}
-                                                 className="plus-icon-button-re-left"/>
-                                        }
-                                        nextLabel={
-                                            <img style={{width:"20px",height:"20px"}} src={chevonRight}
-                                                 className="plus-icon-button-re-right"/>
-                                        }
-                                        pageCount={completePageCount}
-                                        onPageChange={changeCompletePage}
-                                        containerClassName={"paginationHome"}
-                                        previousLinkClassName={"previousBtnHome"}
-                                        nextLinkClassName={"nextBtnHome"}
-                                        disabledClassName={"paginationDisabledHome"}
-                                        activeClassName={"paginationActiveHome"}
-                                    />
                                 </div>
                             )}
 
                         </div>
-                        </div>
+                    </div>
 
                 ):(<NotFound/>)}
                 <Footer/>

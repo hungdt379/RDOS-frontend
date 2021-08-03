@@ -187,3 +187,56 @@ export const postDeleteItemError = (error) => {
     payload: error,
   };
 };
+
+// get search item
+export const getSearchItemRequest = (q,table_id) => ({
+  type: actionTypes.GET_SEARCH_ITEM_REQUEST,
+  payload: {q,table_id},
+});
+export const getSearchItemSuccess = (response) => {
+  return {
+    type: actionTypes.GET_SEARCH_ITEM_SUCCESS,
+    payload: response,
+  };
+};
+export const getSearchItemError = (error) => {
+  return {
+    type: actionTypes.GET_SEARCH_ITEM_ERROR,
+    payload: error,
+  };
+};
+
+// get detail item
+export const getDetailItemRequest = (payload) => ({
+  type: actionTypes.GET_DETAIL_ITEM_REQUEST,
+  payload: payload,
+});
+export const getDetailItemSuccess = (response) => {
+  return {
+    type: actionTypes.GET_DETAIL_ITEM_SUCCESS,
+    payload: response,
+  };
+};
+export const getDetailItemError = (error) => {
+  return {
+    type: actionTypes.GET_DETAIL_ITEM_ERROR,
+    payload: error,
+  };
+};
+// post Insert item
+export const postInsertItemRequest = (payload) => ({
+  type: actionTypes.POST_INSERT_ITEM_REQUEST,
+  payload: payload,
+});
+export const postInsertItemSuccess = (response) => {
+  return {
+    type: actionTypes.POST_INSERT_ITEM_SUCCESS,
+    payload: response,
+  };
+};
+export const postInsertItemError = (error) => {
+  return {
+    type: actionTypes.POST_INSERT_ITEM_ERROR,
+    payload: error,
+  };
+};

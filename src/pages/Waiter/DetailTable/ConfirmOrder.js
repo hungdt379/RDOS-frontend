@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { withRouter} from "react-router-dom";
 import { useLocation} from "react-router-dom";
+import {Link} from "react-router-dom";
 import NotFound from "../../Authentication/Page401";
 import Header from  "../home/myHeader";
 import TableNav from "./TableNav";
@@ -11,16 +12,17 @@ import {
     postCloseTableRequest,
     postConfirmQueueOrderRequest, postCustomizeQueueRequest, postDeleteQueueItemRequest
 } from "../../../store/post/actions";
-import {getTableRequest, postUpdateTableRequest} from "../../../store/notifications/actions";
+import {getSearchItemRequest, getTableRequest, postUpdateTableRequest} from "../../../store/notifications/actions";
 import {connect} from "react-redux";
 import {apiError} from "../../../store/auth/login/actions";
-import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField} from "@material-ui/core";
+import {Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
 import {Button, Modal} from "reactstrap";
 //scss
 import "../../../assets/scss/custom/pages/waiter/detailTable.scss";
 //image
 import Invalid from "../../Customer/Invalid";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
+import Search from "../../../assets/images/waiter/search.png";
 
 const ConfirmOrder = (props) => {
     const [role, setrole] = useState([]);
@@ -33,9 +35,19 @@ const ConfirmOrder = (props) => {
 
     const {dataQueueOrder} = props;
 
+    const {dataSearchItem} = props;
+
+    const [searchItem,setSearchItem] = useState('');
+
+    const [openSearch,setOpenSearch] = useState(false);
+
     const [openLoadPa, setOpenLoadPa] = useState(false);
 
+    const [openCancel, setOpenCancel] = useState(false);
+
     const [open,setOpen] = useState(false);
+
+    const searchClose = () => setOpenSearch(false);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -107,7 +119,12 @@ const ConfirmOrder = (props) => {
             _id: dataQueueOrder._id
         }
         props.postCancelQueueOrderRequest(dataCancel);
-
+        setOpenCancel(true);
+        setTimeout(() => {
+            setOpenCancel(false);
+            props.getQueueOrderRequest(value);
+            // window.location.reload();
+        }, 1000)
     }
 
     const deleteQueueItem = (id) =>{
@@ -131,11 +148,14 @@ const ConfirmOrder = (props) => {
         navChoose: '2',
     }
 
+    const maxLengthCheck = (object) => {
+        if (object.target.value.length > object.target.maxLength) {
+            object.target.value = object.target.value.slice(0, object.target.maxLength)
+        }
+    }
     return(
         <React.Fragment>
             <div className="display-customer">
-
-
                 {(role === 'w')?(
                     <div className="container_detail">
                         <Header username={dataTableByID.username}/>
@@ -147,16 +167,25 @@ const ConfirmOrder = (props) => {
 
                             <button className="btn2" onClick={handleClickOpen}>Sửa Số Khách</button>
 
+                            <button className="btn3" onClick={ () => {
+                                setSearchItem('');
+                                setOpenSearch(true);
+                            }}>Thêm Món</button>
                         </div>
-
                         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                            <DialogTitle id="form-dialog-title" className="dia_title">Mở Bàn</DialogTitle>
+                            <DialogTitle id="form-dialog-title" className="dia_title"> Nhập số Khách</DialogTitle>
+                            <DialogContent>
+                                Nhập Từ 1 Đến 6
+                            </DialogContent>
                             <DialogContent>
                                 <input
                                     className="text_field"
                                     type="number"
+                                    placeholder="Nhập Số Khách"
                                     onChange={event => setNumber(event.target.value)}
                                     required
+                                    maxLength="1"
+                                    onInput={maxLengthCheck}
                                 />
                             </DialogContent>
                             <DialogActions>
@@ -202,11 +231,7 @@ const ConfirmOrder = (props) => {
                             <div className="btn-form">
                                 <p className="btn_1" onClick={()=>{
                                     cancel();
-                                    setOpenLoadPa(true);
-                                    setTimeout(() => {
-                                        setOpenLoadPa(false);
-                                        window.location.reload();
-                                    }, 1000)
+
                                 }}>Hủy</p>
                                 <p className="btn_2" onClick={() =>{
                                     confirm();
@@ -236,8 +261,74 @@ const ConfirmOrder = (props) => {
                         <div style={{
                             fontFamily: 'Cabin',
                             fontSize: '15px',
-                        }}><b>Đổi bàn thành công</b>
+                        }}><b>Xác Nhận Thành Công</b>
                         </div>
+                    </div>
+                </Modal>
+                <Modal align="center" style={{
+                    width: '350px',
+                    marginRight: 'auto',
+                    marginLeft: 'auto',
+                    height: '100px',
+                    marginTop: '200px',
+                    marginBottom: "auto",
+                }} isOpen={openCancel}>
+                    <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                        <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                           className="bx bx-calendar-check bx-tada"></i>
+                        <div style={{
+                            fontFamily: 'Cabin',
+                            fontSize: '15px',
+                        }}><b>Hủy Thành Công</b>
+                        </div>
+                    </div>
+                </Modal>
+                <Modal align="center" style={{
+                    width: '350px',
+                    marginRight: 'auto',
+                    marginLeft: 'auto',
+                    marginTop: '150px',
+                    marginBottom: "auto",
+                }}  isOpen={openSearch} toggle={searchClose}>
+
+                    <div className="Search-item-form">
+                        <h3 style={{margin:"15px 0"}}>Thêm Món</h3>
+                        <div className="search-input">
+                            <input className="search-input-field" type="text" onChange={(e) =>{
+                                setSearchItem(e.target.value);
+                                props.getSearchItemRequest(e.target.value,location.state._id);
+                            }} placeholder="Tìm kiếm..." autoFocus/>
+                            <img style={{width: '20px', height: '23px'}} src={Search}/>
+                        </div>
+                        <div>
+                            {searchItem != '' ? <div style={{textAlign: "center", justifycontent: "center"}}>
+                                <PerfectScrollbar>
+                                    <div className="list-Item_detail">
+                                        {dataSearchItem?.map((d, index) => (
+                                                <div className="item-form-detail" key={index} >
+                                                    <div className="item-form-one">
+                                                        <span style={{font: "bold",fontSize: "16px"}}>{d.name}</span>
+                                                        <span style={{fontSize: "12px",fontWeight: "normal",
+                                                            lineHeight: "15px"}}>{d.cost}VNĐ</span>
+                                                    </div>
+                                                    <Link to= {{ pathname:'/waiter-detail-table-detail-item',
+                                                        state:{
+                                                            _id: d._id,
+                                                            table_id: location.state._id,
+                                                            number_customer: dataTableByID.number_of_customer,
+                                                        }
+                                                    }}>
+                                                        <p className="search_plus_button_detail"
+                                                        >+</p>
+                                                    </Link>
+                                                </div>
+                                            )
+                                        )}
+                                    </div>
+                                </PerfectScrollbar>
+                            </div> : ''}
+                        </div>
+
                     </div>
                 </Modal>
             </div>
@@ -255,7 +346,8 @@ const mapStateToProps = (state) => {
         dataUpdateTable: state.Notification.postUpdateTable.UpdateTableByID,
         dataTableByID: state.Notification.getTable.TableByID,
         dataQueueOrder: state.Posts.getQueueOrder.dataGetQueueOrder,
+        dataSearchItem: state.Notification.getSearchItem.dataSearchItem,
     };
 };
 
-export default withRouter(connect(mapStateToProps, {postCustomizeQueueRequest,postDeleteQueueItemRequest,postConfirmQueueOrderRequest,postCancelQueueOrderRequest,getQueueOrderRequest,getTableRequest,postUpdateTableRequest,postCloseTableRequest,apiError})(ConfirmOrder));
+export default withRouter(connect(mapStateToProps, {getSearchItemRequest,postCustomizeQueueRequest,postDeleteQueueItemRequest,postConfirmQueueOrderRequest,postCancelQueueOrderRequest,getQueueOrderRequest,getTableRequest,postUpdateTableRequest,postCloseTableRequest,apiError})(ConfirmOrder));
