@@ -183,7 +183,7 @@ const OrderList = (props) => {
                                         <div className="col-2"></div>
                                     </div>
                                     {(displayStatus === 'confirmed') ? (
-                                        <div>
+                                        <div style={{backgroundColor: '#ffffff'}}>
                                             <PerfectScrollbar className="mh-55">
                                                 {props?.listConfirmOrderReceptionist?.data?.map((lco, i) => (
                                                     <div>
@@ -242,7 +242,7 @@ const OrderList = (props) => {
                                                 ))
                                                 }
                                             </PerfectScrollbar>
-                                            <div className="d-flex">
+                                            <div className="d-flex" style={{height: '70px'}}>
                                                 <div className="gop-hoa-don col-4 d-flex" align="left">
                                                     <ReactPaginate
                                                         previousLabel={
@@ -324,7 +324,7 @@ const OrderList = (props) => {
                                             </div>
                                         </div>
                                     ) : (
-                                        <div>
+                                        <div style={{backgroundColor: '#ffffff'}}>
                                             <PerfectScrollbar className="mh-55">
                                                 {props?.listPaidOrderReceptionist?.data?.map((lpo, i) => (
                                                     <div>
@@ -379,7 +379,7 @@ const OrderList = (props) => {
                                                 ))
                                                 }
                                             </PerfectScrollbar>
-                                            <div className="d-flex">
+                                            <div className="d-flex" style={{height:'70px'}}>
                                                 <div className="gop-hoa-don col-6 d-flex" align="left">
                                                     <ReactPaginate
                                                         previousLabel={
@@ -443,7 +443,7 @@ const OrderList = (props) => {
                                         </div>
                                     </div>
                                     {(props?.detailConfirmOrderReceptionist?.data !== undefined) ? (
-                                            <div>
+                                            <div style={{backgroundColor: '#ffffff'}}>
                                                 <PerfectScrollbar className="mh-55">
                                                     <div style={{
                                                         backgroundColor: '#ffffff',
@@ -533,7 +533,7 @@ const OrderList = (props) => {
                                                         )
                                                     )}
                                                 </PerfectScrollbar>
-                                                <div style={{height: '60px', width: '98%'}} className="d-flex">
+                                                <div style={{height: '70px', width: '98%'}} className="d-flex">
                                                     <div align="left" className="col-3">
                                                         <div style={{
                                                             fontFamily: 'Cabin',
@@ -678,9 +678,12 @@ const OrderList = (props) => {
                                             </div>
                                         )
                                         : (
-                                            <div style={{fontSize: '20px'}}>Hãy chọn 1 Order để xem
-                                                chi
-                                                tiết
+                                            <div style={{backgroundColor: '#ffffff'}}>
+                                                <div className="mh-55" style={{fontSize: '20px'}}>Hãy chọn 1 Order để xem
+                                                    chi
+                                                    tiết
+                                                </div>
+                                                <div style={{height: '70px', width: '98%'}} className="d-flex"></div>
                                             </div>
                                         )}
                                 </div>

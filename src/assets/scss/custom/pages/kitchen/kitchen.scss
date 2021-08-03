@@ -140,59 +140,59 @@
         }
       }
     }
-    .mh-55{
-      height: 450px !important;
-      width: 100%;
-      margin-top: 25px;
-      margin-bottom: 15px;
-      .item-menu-re{
-        margin-left: calc(100% - 98%);
-        margin-top: 5px;
-        width: 98%;
-        height: 50px;
-        background-color: #ffffff;
-        input[type='checkbox'].check-re-order:checked ~ div.menu-item-bar-re{
-          background-color: #FFEFCD;
-          border: 1px solid #FCBC3A;
-        }
-        .menu-item-bar-re{
-          background: #EEEEEE;
-          border-radius: 20px;
-          .item-name-re{
-            font-style: normal;
-            font-weight: bold;
-            font-size: 15px;
-            line-height: 15px;
-            font-family: Cabin;
-            color: #000000;
-          }
-          .item-cost-re{
-            font-family: Cabin;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 15px;
-            line-height: 15px;
-            color: #000000;
-            bottom: 0px;
-          }
-        }
-        .add-button-re{
-          margin-bottom: auto;
-          margin-top: auto;
-          margin-left: -4%;
-          .plus-background-color-re{
-            height: 25px;
-            width: 25px;
-            background-color: #FCBC3A;
-            .plus-icon-button-re{
-              height: 15px;
-              width: 15px;
-              transform: matrix(0,-1,1,0,0,0);
-            }
-          }
-        }
-      }
-    }
+    //.mh-55{
+    //  height: 450px !important;
+    //  width: 100%;
+    //  margin-top: 25px;
+    //  margin-bottom: 15px;
+    //  .item-menu-re{
+    //    margin-left: calc(100% - 98%);
+    //    margin-top: 5px;
+    //    width: 98%;
+    //    height: 50px;
+    //    background-color: #ffffff;
+    //    input[type='checkbox'].check-re-order:checked ~ div.menu-item-bar-re{
+    //      background-color: #FFEFCD;
+    //      border: 1px solid #FCBC3A;
+    //    }
+    //    .menu-item-bar-re{
+    //      background: #EEEEEE;
+    //      border-radius: 20px;
+    //      .item-name-re{
+    //        font-style: normal;
+    //        font-weight: bold;
+    //        font-size: 15px;
+    //        line-height: 15px;
+    //        font-family: Cabin;
+    //        color: #000000;
+    //      }
+    //      .item-cost-re{
+    //        font-family: Cabin;
+    //        font-style: normal;
+    //        font-weight: normal;
+    //        font-size: 15px;
+    //        line-height: 15px;
+    //        color: #000000;
+    //        bottom: 0px;
+    //      }
+    //    }
+    //    .add-button-re{
+    //      margin-bottom: auto;
+    //      margin-top: auto;
+    //      margin-left: -4%;
+    //      .plus-background-color-re{
+    //        height: 25px;
+    //        width: 25px;
+    //        background-color: #FCBC3A;
+    //        .plus-icon-button-re{
+    //          height: 15px;
+    //          width: 15px;
+    //          transform: matrix(0,-1,1,0,0,0);
+    //        }
+    //      }
+    //    }
+    //  }
+    //}
     .gop-hoa-don{
       margin-top: auto;
       margin-bottom: auto;
