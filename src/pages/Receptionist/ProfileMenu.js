@@ -42,6 +42,16 @@ const ProfileMenu = (props) => {
 
                 </DropdownToggle>
                 <DropdownMenu right>
+                    <button
+                        className="dropdown-item"
+                        onClick={() => {
+                            props.history.push('/receptionist-change-password');
+                        }}
+                        className="dropdown-item"
+                    >
+                        <i className="bx bx-lock font-size-16 align-middle mr-1"/>
+                        <span>Đổi mật khẩu</span>
+                    </button>
                     <div className="dropdown-divider"></div>
                     <button
                         className="dropdown-item"
