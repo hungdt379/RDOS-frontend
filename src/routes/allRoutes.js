@@ -39,6 +39,7 @@ import Timeout from "../pages/Authentication/Timeout";
 import LoginCustomer from "../pages/Authentication/LoginCustomer";
 import ManageTable from "../pages/Receptionist/ManageTable";
 import DetailOrder from "../pages/Customer/SeeOrder/DetailOrder";
+import DetailItem from "../pages/Waiter/DetailTable/DetailItem";
 
 // Waiter Page;
 
@@ -72,6 +73,7 @@ export const userRoutes = [
     {path: "/waiter-detail-table-confirmed-order" , component: ConfirmedOrder},
     {path: "/waiter-detail-table-change-table" , component: ChangeTable},
     {path: "/waiter-detail-table-notification" , component: Notification},
+    {path: "/waiter-detail-table-detail-item" , component: DetailItem},
 
     //path kitchen
     {path: "/kitchen-home", component: KitchenOrderList},

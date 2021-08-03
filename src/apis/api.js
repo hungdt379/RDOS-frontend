@@ -66,4 +66,7 @@ export const apiUrls = {
   postDeleteItemCheckList: "api/order/dish/delete",
   postCustomizeOrder: "api/receptionist/order/confirm/item/quantity/update",
   postCustomizeQueue: "api/waiter/order/queue/item/quantity/update",
+  getSearchItem: "api/search",
+  getDetailSearchItem: "api/customer/menu/item/detail",
+  postInsertItem: "api/waiter/table/queue/order/insert",
 };

@@ -4,7 +4,7 @@ import bell from "../../../assets/images/customer/bell.png";
 import clock from "../../../assets/images/waiter/sand-clock (1).png";
 import arrow from "../../../assets/images/waiter/arrows-exchange (1).png";
 import carousel from "../../../assets/images/waiter/carousel.png";
-
+import listCheck from "../../../assets/images/customer/play-list-check.png";
 const TableNav = (props) => {
     const [tableChoose] = useState(props.item.navChoose);
     return(
@@ -120,6 +120,34 @@ const TableNav = (props) => {
                     </label>
 
                     <p>Món đã gọi</p>
+                </div>
+            </div>
+
+            <div className="nav_form">
+                <div className="nav-item">
+                    <label>
+                        <input
+                            type="radio"
+                            value={'5'}
+                            id={'5'}
+                            style={{opacity: '0'}}
+                            name="tableCheck"
+                            className="check-nav"
+                            checked={tableChoose === '5'}
+                        />
+                        <div className="link_form">
+                            <Link to= {{ pathname:'/waiter-check-list',
+                                state:{
+                                    _id: props.item._id,
+                                    username: props.item.username
+                                }
+                            }}>
+                                <img style={{width: '19px', height:'15px',marginTop:"10px"}} src={listCheck}/>
+                            </Link>
+                        </div>
+                    </label>
+
+                    <p>Đồ Uống</p>
                 </div>
             </div>
 

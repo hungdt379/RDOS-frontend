@@ -48,9 +48,9 @@ export function* watchGetNotifications() {
 //all table
 function* allTable({payload: p}) {
   try {
-    const response = yield call(Request.getApi,apiUrls.getAllTables, {page: p, pageSize: 15});
+    const response = yield call(Request.getApi,apiUrls.getAllTables, {page: p, pageSize: 100});
     if(response){
-      yield put(actions.getAllTableSuccess(response));
+      yield put(actions.getAllTableSuccess(response.data));
     }
   } catch (error) {
     yield put(actions.getAllTableError(error));
@@ -117,7 +117,7 @@ export function* watchPostUpdateTableByID() {
 // get check list
 function* getCheckListPrepare({payload: p}) {
   try {
-    const response = yield call(Request.getApi,apiUrls.getCheckListApi,  {page: p, pageSize: 10,status:"prepare"});
+    const response = yield call(Request.getApi,apiUrls.getCheckListApi,  {table_id: p ,status:"prepare"});
     if(response){
       yield put(actions.getCheckListPrepareSuccess(response));
       console.log(response);
@@ -135,7 +135,7 @@ export function* watchGetCheckListPrepare() {
 // get check list
 function* getCheckListComplete({payload: p}) {
   try {
-    const response = yield call(Request.getApi,apiUrls.getCheckListApi,  {page: p, pageSize: 10,status:"completed"});
+    const response = yield call(Request.getApi,apiUrls.getCheckListApi,  {table_id: p,status:"completed"});
     if(response){
       yield put(actions.getCheckListCompleteSuccess(response));
       console.log(response);
@@ -185,6 +185,58 @@ export function* watchPostDeleteItem() {
 }
 
 
+//get Search Item
+function* SearchItem({ payload:{q,table_id} }) {
+  try {
+    const response = yield call(Request.getApi,apiUrls.getSearchItem,{q:q , table_id: table_id});
+    if(response){
+      yield put(actions.getSearchItemSuccess(response.data));
+    }
+    console.log(response);
+  } catch (error) {
+    yield put(actions.getSearchItemError(error));
+  }
+}
+
+
+export function* watchGetSearchItem() {
+  yield takeEvery(actionTypes.GET_SEARCH_ITEM_REQUEST, SearchItem);
+}
+
+//get Detail Item
+function* DetailItem({ payload }) {
+  try {
+    const response = yield call(Request.getApi,apiUrls.getDetailSearchItem,payload);
+    if(response){
+      yield put(actions.getDetailItemSuccess(response));
+    }
+    console.log(response);
+  } catch (error) {
+    yield put(actions.getDetailItemError(error));
+  }
+}
+
+
+export function* watchGetDetailItem() {
+  yield takeEvery(actionTypes.GET_DETAIL_ITEM_REQUEST, DetailItem);
+}
+
+//post Insert Item
+function* InsertItem({ payload }) {
+  try {
+    const response = yield call(Request.postApi,apiUrls.postInsertItem,payload);
+    if(response){
+      yield put(actions.postInsertItemSuccess(response));
+    }
+  } catch (error) {
+    yield put(actions.postInsertItemError(error));
+  }
+}
+
+
+export function* watchInsertItem() {
+  yield takeEvery(actionTypes.POST_INSERT_ITEM_REQUEST, InsertItem);
+}
 
 const sagaNotificatons = [
   watchTotalOfNotifications(),
@@ -197,6 +249,9 @@ const sagaNotificatons = [
   watchGetCheckListPrepare(),
   watchPostDeleteItem(),
   watchGetCloseTable(),
+  watchGetSearchItem(),
+  watchGetDetailItem(),
+  watchInsertItem()
 ];
 
 export default sagaNotificatons;

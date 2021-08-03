@@ -175,6 +175,61 @@ const postDeleteItem = (state = DeleteItemReducer, action) => {
   }
 };
 
+const SearchItemReducer = {
+  dataSearchItem: [],
+};
+
+const getSearchItem = (state = SearchItemReducer, action) => {
+  switch (action.type) {
+    case actionTypes.GET_SEARCH_ITEM_REQUEST:
+      return { ...state };
+    case actionTypes.GET_SEARCH_ITEM_SUCCESS:
+      state =  { ...state, dataSearchItem: action.payload };
+    case actionTypes.GET_SEARCH_ITEM_ERROR:
+      return { ...state,error: action.payload };
+    default:
+      return state;
+  }
+};
+
+
+const DetailItemReducer = {
+  dataDetailItem: [],
+};
+
+const getDetailItem = (state = DetailItemReducer, action) => {
+  switch (action.type) {
+    case actionTypes.GET_DETAIL_ITEM_REQUEST:
+      return { ...state };
+    case actionTypes.GET_DETAIL_ITEM_SUCCESS:
+      state =  { ...state, dataDetailItem: action.payload };
+    case actionTypes.GET_DETAIL_ITEM_ERROR:
+      return { ...state,error: action.payload };
+    default:
+      return state;
+  }
+};
+
+
+const InsertItemReducer = {
+  dataInsertItem: [],
+};
+
+const postInsertItem = (state = InsertItemReducer, action) => {
+  switch (action.type) {
+    case actionTypes.POST_INSERT_ITEM_REQUEST:
+      return { ...state };
+    case actionTypes.POST_INSERT_ITEM_SUCCESS:
+      state =  { ...state, dataInsertItem: action.payload };
+    case actionTypes.POST_INSERT_ITEM_ERROR:
+      return { ...state,error: action.payload };
+    default:
+      return state;
+  }
+};
+
+
+
 
 export const Notification = combineReducers({
   totalOfNotifications,
@@ -186,5 +241,8 @@ export const Notification = combineReducers({
   postUpdateTable,
   LogOut,
   postDeleteItem,
-  getCloseTable
+  getCloseTable,
+  getSearchItem,
+  getDetailItem,
+  postInsertItem
 });
