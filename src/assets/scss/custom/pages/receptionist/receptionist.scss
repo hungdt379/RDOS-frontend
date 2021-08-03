@@ -412,3 +412,14 @@ input[type='checkbox'].check-all-button-matching:checked ~ div.choose-all-matchi
 .paginationDisabled a {
   color: #000000;
 }
+
+.change-password{
+  padding-bottom: 10px;
+  .change-password-input{
+    border-radius: 5px;
+    height: 40px;
+  }
+  .change-password-input:focus{
+    border: 1px solid #FCBC3A;
+  }
+}

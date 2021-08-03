@@ -40,6 +40,7 @@ import LoginCustomer from "../pages/Authentication/LoginCustomer";
 import ManageTable from "../pages/Receptionist/ManageTable";
 import DetailOrder from "../pages/Customer/SeeOrder/DetailOrder";
 import DetailItem from "../pages/Waiter/DetailTable/DetailItem";
+import ChangePassword from "../pages/Receptionist/ChangePassword";
 
 // Waiter Page;
 
@@ -64,6 +65,7 @@ export const userRoutes = [
     {path: "/receptionist-home", component: OrderList},
     {path: "/receptionist-feedback", component: ViewFeedback},
     {path: "/receptionist-manage", component: ManageTable},
+    {path: "/receptionist-change-password", component: ChangePassword},
 
     //Waiter Page
     // {path: "/waiter-sign-in-waiter" , component: SignIn},
