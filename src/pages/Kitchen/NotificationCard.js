@@ -42,10 +42,8 @@ const NotificationCard = (props) => {
                                     <p className="col-1"><i style={{color: "green"}}
                                                             className="bx bx-up-arrow-circle bx-tada"></i></p>) :
                                 (null)}
-                            <p style={{fontFamily: 'Cabin'}} className="mt-0 mb-0 col-3 font-size-15">
-                                <b>{data.user_fulname}</b></p>
-                            <p style={{fontFamily: 'Cabin'}} className="mt-0 mb-0 col-4 font-size-15">
-                                {"Thanh toán"}
+                            <p style={{fontFamily: 'Cabin'}} className="mt-0 mb-0 col-7 font-size-15">
+                                {"Bồi bàn đã xác nhận món mới"}
                             </p>
                             <p style={{fontFamily: 'Cabin', color: '#DC4040', textAlign: 'right'}} className="mt-0 mb-0 mr-0 col-4 font-size-15">
                                 {getYoutubeLikeToDisplay(Date.now() - Date.parse(data.created_at))}

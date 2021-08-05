@@ -106,21 +106,25 @@ const OrderList = (props) => {
                                         backgroundColor: '#ffffff',
                                         border: '0px solid #ffffff',
                                     }} className="card-order d-flex">
-                                        <div align="left" className="col-2 card-detail-order-text">
+                                        <div align="left" className="col-1 card-detail-order-text">
                                             <b>Mã order</b>
                                         </div>
-                                        <div align="left" className="col-2 card-detail-order-text">
+                                        <div align="left" className="col-1 card-detail-order-text">
                                             <b>Mã bàn</b>
                                         </div>
                                         <div align="left" className="col-2 card-detail-order-text">
                                             <b>Tên món</b>
                                         </div>
-                                        <div align="left" className="col-2 card-detail-order-text">
+                                        <div align="left" className="col-1 card-detail-order-text">
                                             <b>Kiểu món</b>
                                         </div>
                                         <div style={{paddingLeft: '0px'}} align="center"
                                              className="col-1 card-detail-order-text">
                                             <b>Số lượng</b>
+                                        </div>
+                                        <div align="center"
+                                             className="col-3 card-detail-order-text">
+                                            <b>Ghi chú</b>
                                         </div>
                                         <div align="center"
                                              className="col-1 card-detail-order-text">
@@ -143,13 +147,13 @@ const OrderList = (props) => {
                                                 marginBottom: '15px'
                                             }}>
                                                 {props?.allDishInConfirm?.data?.map((it, i) => (
-                                                    <div className="card-order d-flex">
+                                                        <div className="card-order d-flex">
                                                             <div align="left"
-                                                                 className="col-2 card-detail-order-text-child">
+                                                                 className="col-1 card-detail-order-text-child">
                                                                 <div>{it?.order_code}</div>
                                                             </div>
                                                             <div align="left"
-                                                                 className="col-2 card-detail-order-text-child">
+                                                                 className="col-1 card-detail-order-text-child">
                                                                 <b>{it?.table_name}</b>
                                                             </div>
                                                             <div align="left"
@@ -157,12 +161,16 @@ const OrderList = (props) => {
                                                                 <b>{it?.item_name}</b>
                                                             </div>
                                                             <div align="left"
-                                                                 className="col-2 card-detail-order-text-child">
+                                                                 className="col-1 card-detail-order-text-child">
                                                                 <b>{it?.category.map(ic => ic.name === 'combo' ? 'Combo' : ic.name === 'normal' ? 'Món lẻ' : 'Đồ ăn nhanh')}</b>
                                                             </div>
                                                             <div align="center"
                                                                  className="col-1 card-detail-order-text-child">
                                                                 <div>{it?.quantity}</div>
+                                                            </div>
+                                                            <div align="center"
+                                                                 className="col-3 card-detail-order-text-child">
+                                                                <b>{it?.note !== null ? it?.note : '(Không có)'}</b>
                                                             </div>
                                                             <div align="center"
                                                                  className="col-1 card-detail-order-text-child">
@@ -253,11 +261,11 @@ const OrderList = (props) => {
                                                     (
                                                         <div className="card-order d-flex">
                                                             <div align="left"
-                                                                 className="col-2 card-detail-order-text-child">
+                                                                 className="col-1 card-detail-order-text-child">
                                                                 <div>{it?.order_code}</div>
                                                             </div>
                                                             <div align="left"
-                                                                 className="col-2 card-detail-order-text-child">
+                                                                 className="col-1 card-detail-order-text-child">
                                                                 <b>{it?.table_name}</b>
                                                             </div>
                                                             <div align="left"
@@ -265,12 +273,16 @@ const OrderList = (props) => {
                                                                 <b>{it?.item_name}</b>
                                                             </div>
                                                             <div align="left"
-                                                                 className="col-2 card-detail-order-text-child">
+                                                                 className="col-1 card-detail-order-text-child">
                                                                 <b>{it?.category.map(ic => ic.name === 'combo' ? 'Combo' : ic.name === 'normal' ? 'Món lẻ' : 'Đồ ăn nhanh')}</b>
                                                             </div>
                                                             <div align="center"
                                                                  className="col-1 card-detail-order-text-child">
                                                                 <div>{it?.quantity}</div>
+                                                            </div>
+                                                            <div align="center"
+                                                                 className="col-3 card-detail-order-text-child">
+                                                                <b>{it?.note !== null ? it?.note : '(Không có)'}</b>
                                                             </div>
                                                             <div align="center"
                                                                  className="col-1 card-detail-order-text-child">

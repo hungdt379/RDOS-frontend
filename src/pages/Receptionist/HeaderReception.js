@@ -109,7 +109,7 @@ const Header = (props) => {
 
                     <div className="d-flex">
                         <div className="navbar-brand-box">
-                            <label><NotificationDropdown/></label>
+                            <div><NotificationDropdown/></div>
                         </div>
                     </div>
 
