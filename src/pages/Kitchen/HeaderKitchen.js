@@ -14,6 +14,7 @@ import imageItem from "../../assets/images/customer/logo-web.jpg";
 import carousel from "../../assets/images/receptionist/carousel.png";
 import ereader from "../../assets/images/customer/ereader.png";
 import tableManage from "../../assets/images/receptionist/display-spacing.png";
+import NotificationFooter from "./NotificationFooter";
 
 const HeaderKitchen = (props) => {
     const [kitchenChoose] = useState(props.item.kitchenChoose);
@@ -35,7 +36,7 @@ const HeaderKitchen = (props) => {
                                 />
                                 <Link to="/kitchen-home" className="logo logo-dark d-flex menu-type-a-re">
                                     <button className="d-flex menu-type-re">
-                                        {/*<NotificationFooter/>*/}
+                                        <NotificationFooter/>
                                         <div style={{marginTop: 'auto', marginBottom: 'auto'}}
                                              className="avatar-sm profile-user-wid mr-2">
                                             <div align="center"
@@ -81,7 +82,7 @@ const HeaderKitchen = (props) => {
 
                     <div className="d-flex">
                         <div className="navbar-brand-box">
-                            <label><NotificationDropdown/></label>
+                            <div><NotificationDropdown/></div>
                         </div>
                     </div>
 

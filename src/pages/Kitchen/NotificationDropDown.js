@@ -54,7 +54,7 @@ const NotificationDropdown = (props) => {
     const [todoList, setTodoList] = useState(0);
 
     useEffect(() => {
-        const todoRef = firebase.database().ref('receptionist');
+        const todoRef = firebase.database().ref('kitchen manager');
         todoRef.on('value', (snapshot) => {
             setTodoList(snapshot.numChildren());
         });
@@ -107,7 +107,7 @@ const NotificationDropdown = (props) => {
                     style={{
                         borderRadius: '10px'
                     }}
-                    className="dropdown-menu dropdown-menu-lg dropdown-thanks-notification p-0"
+                    className="dropdown-menu dropdown-mega-menu-lg dropdown-thanks-notification p-0"
                     right
                 >
                     <div className="p-3">
