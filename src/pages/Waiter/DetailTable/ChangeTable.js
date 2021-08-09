@@ -58,9 +58,16 @@ const ChangeTable = (props) => {
             <div className="display-customer">
                 {(role === 'w') ? (
                     <div className="container_detail">
-                        <Header username={location.state.username}/>
-                        <TableNav item={table}/>
-                        <div style={{textAlign: "center", justifyContent: "center"}}>
+                        <div style={{
+                            position: 'fixed',
+                            width: '100%',
+                            zIndex: '100',
+                            backgroundColor:'#ffffff'
+                        }}>
+                            <Header username={location.state.username} />
+                            <TableNav item={table}/>
+                        </div>
+                        <div style={{textAlign: "center", justifyContent: "center", paddingTop: '180px'}}>
                             <div className="list">
                                 {dataCloseTablePage?.map((d, index) => (
                                         <label key={index}>

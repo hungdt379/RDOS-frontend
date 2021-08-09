@@ -80,9 +80,16 @@ const ConfirmedOrder = (props) => {
             <div className="display-customer">
                 {(role === 'w')?(
                     <div className="container_checkList">
-                        <Header username={location.state.username} />
-                        <TableNav item={table}/>
-                        <div style={{textAlign: "center", justifycontent: "center"}}>
+                        <div style={{
+                            position: 'fixed',
+                            width: '100%',
+                            zIndex: '100',
+                            backgroundColor:'#ffffff'
+                        }}>
+                            <Header username={location.state.username} />
+                            <TableNav item={table}/>
+                        </div>
+                        <div style={{textAlign: "center", justifycontent: "center", paddingTop: '180px'}}>
                             <div className="list-Item">
                                 {dataConfirmedOrder.item?.map((d, index) => (
                                         <div className="item-form-checkList" key={index}>
