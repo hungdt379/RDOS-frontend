@@ -21,7 +21,8 @@ import {
 } from "../../../store/notifications/actions";
 import Invalid from "../../Customer/Invalid";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
-function CheckList(props){
+
+function CheckList(props) {
 
     const {dataCheckListPreparePage} = props;
 
@@ -31,10 +32,10 @@ function CheckList(props){
 
     const [tableChoose, setTableChoose] = useState('1');
 
-    const location  = useLocation();
+    const location = useLocation();
 
 
-    function deleteItem(item){
+    function deleteItem(item) {
         props.postDeleteDrinkRequest(item);
 
     }
@@ -43,11 +44,12 @@ function CheckList(props){
 
     function updateDrink(id) {
         const drinkID = {
-            _id : id
+            _id: id
         }
         props.postUpdateDrinkRequest(drinkID);
 
     }
+
     useEffect(() => {
         if (localStorage.getItem("authUser")) {
             const obj = JSON.parse(localStorage.getItem("authUser"));
@@ -62,21 +64,26 @@ function CheckList(props){
         navChoose: '5',
     }
 
-    return(
+    return (
         <React.Fragment>
             <div className="display-customer">
-                {(role === 'w')?(
+                {(role === 'w') ? (
                     <div className="container_checkList">
                         <div style={{
                             position: 'fixed',
                             width: '100%',
                             zIndex: '100',
-                            backgroundColor:'#ffffff'
+                            backgroundColor: '#ffffff'
                         }}>
-                            <Header/>
+                            <Header username={location.state.username} />
                             <TableNav item={table}/>
                         </div>
-                        <div style={{textAlign: "center", justifycontent: "center",marginBottom: "30px", paddingTop: '180px'}}>
+                        <div style={{
+                            textAlign: "center",
+                            justifycontent: "center",
+                            marginBottom: "30px",
+                            paddingTop: '180px'
+                        }}>
                             <div className="checkList-btn">
                                 <label>
                                     <input
@@ -93,10 +100,11 @@ function CheckList(props){
                                         )}
                                         checked={tableChoose === '1'}
                                     />
-                                    <div className="item" onClick={() =>{
+                                    <div className="item" onClick={() => {
                                         props.getCheckListPrepareRequest(location.state._id);
 
-                                    }}>Đang chuẩn bị</div>
+                                    }}>Đang chuẩn bị
+                                    </div>
                                 </label>
                                 <label>
                                     <input
@@ -112,10 +120,11 @@ function CheckList(props){
                                         )}
                                         checked={tableChoose === '2'}
                                     />
-                                    <div className="item" onClick={() =>{
+                                    <div className="item" onClick={() => {
                                         props.getCheckListCompleteRequest(location.state._id);
 
-                                    }}>Hoàn thành</div>
+                                    }}>Hoàn thành
+                                    </div>
                                 </label>
 
                             </div>
@@ -125,23 +134,33 @@ function CheckList(props){
                                         <div className="list-Item_checkList">
                                             {dataCheckListPreparePage.data?.map((d, index) => (
                                                     <div className="item-form-checkList" key={index}>
-                                                        <span>{d.item_name}</span>
+                                                        <span style={{
+                                                            fontFamily: 'Cabin',
+                                                            fontSize: '16px',
+                                                            fontWeight: 'bold'
+                                                        }}>{d.item_name}</span>
                                                         <span>{d.quantity}</span>
-                                                        <div className="save-button"  onClick={() =>{
+                                                        <div className="save-button" onClick={() => {
                                                             updateDrink(d._id);
                                                             setTimeout(() => {
                                                                 props.getCheckListPrepareRequest(location.state._id);
                                                             }, 500)
 
                                                         }
-                                                        }>Xác Nhận</div>
-                                                        <span className="contain_button" onClick={() =>{
+                                                        }>Xác Nhận
+                                                        </div>
+                                                        <div className="contain_button_cl" onClick={() => {
                                                             deleteItem(d);
                                                             setTimeout(() => {
                                                                 props.getCheckListPrepareRequest(location.state._id);
                                                             }, 500)
                                                         }
-                                                        }>X</span>
+                                                        }>
+                                                            <div
+                                                                className="delete_contain_button_detail avatar-title rounded-circle">
+                                                                <div className="delete-icon-button">x</div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 )
                                             )}
@@ -155,21 +174,31 @@ function CheckList(props){
                                         <div className="list-Item_checkList">
                                             {dataCheckListCompletePage.data?.map((d, index) => (
                                                     <div className="item-form-checkList" key={index}>
-                                                        <span>{d.item_name}</span>
+                                                        <span style={{
+                                                            fontFamily: 'Cabin',
+                                                            fontSize: '16px',
+                                                            fontWeight: 'bold'
+                                                        }}>{d.item_name}</span>
                                                         <span>{d.quantity}</span>
-                                                        <div className="save-button"  onClick={() =>{
+                                                        <div className="save-button" onClick={() => {
                                                             updateDrink(d._id);
                                                             props.getCheckListCompleteRequest(location.state._id);
                                                         }
-                                                        }>Xác Nhận</div>
-                                                        <span className="contain_button" onClick={() =>{
+                                                        }>Xác Nhận
+                                                        </div>
+                                                        <div className="contain_button_cl" onClick={() => {
                                                             deleteItem(d);
                                                             setTimeout(() => {
                                                                 props.getCheckListCompleteRequest(location.state._id);
                                                             }, 500)
 
                                                         }
-                                                        }>X</span>
+                                                        }>
+                                                            <div
+                                                                className="delete_contain_button_detail avatar-title rounded-circle">
+                                                                <div className="delete-icon-button">x</div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 )
                                             )}
@@ -181,7 +210,7 @@ function CheckList(props){
                         </div>
                     </div>
 
-                ):(<NotFound/>)}
+                ) : (<NotFound/>)}
                 <Footer/>
             </div>
             <div className="none-display-customer">
@@ -201,4 +230,10 @@ const mapStateToProps = (state) => {
 };
 
 
-export default withRouter(connect(mapStateToProps, {postDeleteDrinkRequest,postUpdateDrinkRequest,getCheckListPrepareRequest,getCheckListCompleteRequest,apiError})(CheckList));
+export default withRouter(connect(mapStateToProps, {
+    postDeleteDrinkRequest,
+    postUpdateDrinkRequest,
+    getCheckListPrepareRequest,
+    getCheckListCompleteRequest,
+    apiError
+})(CheckList));

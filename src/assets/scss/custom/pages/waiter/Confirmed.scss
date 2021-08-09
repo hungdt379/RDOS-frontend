@@ -28,23 +28,25 @@
     padding-left: 5%;
   }
 
-  .contain_button {
+  .contain_button_ced {
     position: absolute;
     top: 15px;
     right: -10px;
-    padding: 3px 6px;
-    border-radius: 50%;
-    background-color: #DC4040;
 
-    font-family: Roboto;
+    font-family: Cabin;
     font-style: normal;
     font-weight: bold;
-    font-size: 10px;
-    line-height: 12px;
     color: #FFFFFF;
 
     text-align: center;
-    letter-spacing: -0.15em;
+    .delete_contain_button_detail {
+      height: 20px;
+      width: 20px;
+      background-color: #DC4040;
+      .delete-icon-button{
+        margin-top: -2px;
+      }
+    }
   }
   .save-button{
     position: absolute;

@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import { withRouter} from "react-router-dom";
-import { useLocation} from "react-router-dom";
+import {withRouter} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import {Link} from "react-router-dom";
 import NotFound from "../../Authentication/Page401";
-import Header from  "../home/myHeader";
+import Header from "../home/myHeader";
 import TableNav from "./TableNav";
 import {
     getQueueOrderRequest,
@@ -23,11 +23,12 @@ import "../../../assets/scss/custom/pages/waiter/detailTable.scss";
 import Invalid from "../../Customer/Invalid";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
 import Search from "../../../assets/images/waiter/search.png";
+import mathPlus from "../../../assets/images/customer/math-plus.png";
 
 const ConfirmOrder = (props) => {
     const [role, setrole] = useState([]);
 
-    const location  = useLocation();
+    const location = useLocation();
 
     const {dataTableByID} = props;
 
@@ -37,15 +38,15 @@ const ConfirmOrder = (props) => {
 
     const {dataSearchItem} = props;
 
-    const [searchItem,setSearchItem] = useState('');
+    const [searchItem, setSearchItem] = useState('');
 
-    const [openSearch,setOpenSearch] = useState(false);
+    const [openSearch, setOpenSearch] = useState(false);
 
     const [openLoadPa, setOpenLoadPa] = useState(false);
 
     const [openCancel, setOpenCancel] = useState(false);
 
-    const [open,setOpen] = useState(false);
+    const [open, setOpen] = useState(false);
 
     const searchClose = () => setOpenSearch(false);
 
@@ -58,7 +59,7 @@ const ConfirmOrder = (props) => {
     }
 
     const [number, setNumber] = useState();
-    const customizeNumberSub = (item) =>{
+    const customizeNumberSub = (item) => {
         const aItem = {
             _id: dataQueueOrder._id,
             item_id: item.item_id,
@@ -70,7 +71,7 @@ const ConfirmOrder = (props) => {
         }, 500)
     }
 
-    const customizeNumberAdd = (item) =>{
+    const customizeNumberAdd = (item) => {
         const aItem = {
             _id: dataQueueOrder._id,
             item_id: item.item_id,
@@ -98,15 +99,16 @@ const ConfirmOrder = (props) => {
 
     }, [dataUpdateTable]);
 
-    function postUpdateNumberCustomer(){
+    function postUpdateNumberCustomer() {
         props.postUpdateTableRequest(value)
         setOpen(false);
     }
-    function redirect(){
+
+    function redirect() {
         props.history.push('/waiter-view-all-table');
     }
 
-    function postCloseTable(){
+    function postCloseTable() {
         props.postCloseTableRequest(value);
         setOpen(false);
         setTimeout(() => {
@@ -114,7 +116,7 @@ const ConfirmOrder = (props) => {
         }, 500)
     }
 
-    const cancel = () =>{
+    const cancel = () => {
         let dataCancel = {
             _id: dataQueueOrder._id
         }
@@ -127,7 +129,7 @@ const ConfirmOrder = (props) => {
         }, 1000)
     }
 
-    const deleteQueueItem = (id) =>{
+    const deleteQueueItem = (id) => {
         const itemDelete = {
             table_id: location.state._id,
             item_id: id
@@ -138,7 +140,7 @@ const ConfirmOrder = (props) => {
         }, 500)
     }
 
-    const  confirm = () => {
+    const confirm = () => {
         props.postConfirmQueueOrderRequest(value)
     }
 
@@ -153,31 +155,32 @@ const ConfirmOrder = (props) => {
             object.target.value = object.target.value.slice(0, object.target.maxLength)
         }
     }
-    return(
+    return (
         <React.Fragment>
             <div className="display-customer">
-                {(role === 'w')?(
+                {(role === 'w') ? (
                     <div className="container_detail">
                         <div style={{
                             position: 'fixed',
                             width: '100%',
                             zIndex: '100',
-                            backgroundColor:'#ffffff'
+                            backgroundColor: '#ffffff'
                         }}>
                             <Header username={dataTableByID.username}/>
                             <TableNav item={table}/>
                         </div>
-                        <div style={{paddingTop: '200px'}} className= "number_customer_form" >
+                        <div style={{paddingTop: '200px'}} className="number_customer_form">
                             <p align="center">Số Khách Tại Bàn: {dataTableByID.number_of_customer}</p>
 
                             <button className="btn1" onClick={postCloseTable}>Đóng Bàn</button>
 
                             <button className="btn2" onClick={handleClickOpen}>Sửa Số Khách</button>
 
-                            <button className="btn3" onClick={ () => {
+                            <button className="btn3" onClick={() => {
                                 setSearchItem('');
                                 setOpenSearch(true);
-                            }}>Thêm Món</button>
+                            }}>Thêm Món
+                            </button>
                         </div>
                         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                             <DialogTitle id="form-dialog-title" className="dia_title"> Nhập số Khách</DialogTitle>
@@ -196,10 +199,12 @@ const ConfirmOrder = (props) => {
                                 />
                             </DialogContent>
                             <DialogActions>
-                                <Button style={{backgroundColor: "#E5E5E5",color:"#1E1C19"}} onClick={handleClose} color="primary">
+                                <Button style={{backgroundColor: "#E5E5E5", color: "#1E1C19"}} onClick={handleClose}
+                                        color="primary">
                                     Cancel
                                 </Button>
-                                <Button style={{backgroundColor: "#FCBC3A",color:"#1E1C19"}}  onClick={postUpdateNumberCustomer}  color="primary">
+                                <Button style={{backgroundColor: "#FCBC3A", color: "#1E1C19"}}
+                                        onClick={postUpdateNumberCustomer} color="primary">
                                     Update
                                 </Button>
                             </DialogActions>
@@ -210,11 +215,17 @@ const ConfirmOrder = (props) => {
                                 <div className="list-Item_detail">
 
                                     {dataQueueOrder.item?.map((d, index) => (
-                                            <div className="item-form-detail" key={index} >
+                                            <div className="item-form-detail" key={index}>
                                                 <div className="item-form-one">
-                                                    <span>{d.detail_item.name}</span>
-                                                    <span style={{fontSize: "12px",fontWeight: "normal",
-                                                        lineHeight: "15px"}}>{d.total_cost}VNĐ</span>
+                                                    <span style={{
+                                                        fontFamily: 'Cabin',
+                                                        fontSize: '16px',
+                                                        fontWeight: 'bold'
+                                                    }}>{d.detail_item.name}</span>
+                                                    <span style={{
+                                                        fontSize: "15px", fontWeight: "normal",
+                                                        lineHeight: "15px", fontFamily: 'Cabin'
+                                                    }}>{d.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}VNĐ</span>
                                                 </div>
                                                 <div className="save-button">
                                                 <span onClick={() => {
@@ -225,10 +236,15 @@ const ConfirmOrder = (props) => {
                                                         customizeNumberAdd(d)
                                                     }}>+</span>
                                                 </div>
-                                                <span className="contain_button_detail" onClick={() => {
+                                                <div className="contain_button_detail" onClick={() => {
                                                     deleteQueueItem(d.item_id)
                                                 }
-                                                }>X</span>
+                                                }>
+                                                    <div
+                                                        className="delete_contain_button_detail avatar-title rounded-circle">
+                                                        <div className="delete-icon-button">x</div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         )
                                     )}
@@ -236,11 +252,11 @@ const ConfirmOrder = (props) => {
                             </PerfectScrollbar>
 
                             <div className="btn-form">
-                                <p className="btn_1" onClick={()=>{
+                                <p className="btn_1" onClick={() => {
                                     cancel();
 
                                 }}>Hủy</p>
-                                <p className="btn_2" onClick={() =>{
+                                <p className="btn_2" onClick={() => {
                                     confirm();
                                     setOpenLoadPa(true);
                                     setTimeout(() => {
@@ -252,7 +268,7 @@ const ConfirmOrder = (props) => {
 
                         </div>
                     </div>
-                ):(<NotFound/>)}
+                ) : (<NotFound/>)}
                 <Footer/>
                 <Modal align="center" style={{
                     width: '350px',
@@ -296,14 +312,14 @@ const ConfirmOrder = (props) => {
                     marginLeft: 'auto',
                     marginTop: '150px',
                     marginBottom: "auto",
-                }}  isOpen={openSearch} toggle={searchClose}>
+                }} isOpen={openSearch} toggle={searchClose}>
 
                     <div className="Search-item-form">
-                        <h3 style={{margin:"15px 0"}}>Thêm Món</h3>
+                        <h3 style={{margin: "15px 0"}}>Thêm Món</h3>
                         <div className="search-input">
-                            <input className="search-input-field" type="text" onChange={(e) =>{
+                            <input className="search-input-field" type="text" onChange={(e) => {
                                 setSearchItem(e.target.value);
-                                props.getSearchItemRequest(e.target.value,location.state._id);
+                                props.getSearchItemRequest(e.target.value, location.state._id);
                             }} placeholder="Tìm kiếm..." autoFocus/>
                             <img style={{width: '20px', height: '23px'}} src={Search}/>
                         </div>
@@ -312,14 +328,17 @@ const ConfirmOrder = (props) => {
                                 <PerfectScrollbar>
                                     <div className="list-Item_detail">
                                         {dataSearchItem?.map((d, index) => (
-                                                <div className="item-form-detail" key={index} >
+                                                <div className="item-form-detail" key={index}>
                                                     <div className="item-form-one">
-                                                        <span style={{font: "bold",fontSize: "16px"}}>{d.name}</span>
-                                                        <span style={{fontSize: "12px",fontWeight: "normal",
-                                                            lineHeight: "15px"}}>{d.cost}VNĐ</span>
+                                                        <span style={{font: "bold", fontSize: "16px"}}>{d.name}</span>
+                                                        <span style={{
+                                                            fontSize: "12px", fontWeight: "normal",
+                                                            lineHeight: "15px"
+                                                        }}>{d.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}VNĐ</span>
                                                     </div>
-                                                    <Link to= {{ pathname:'/waiter-detail-table-detail-item',
-                                                        state:{
+                                                    <Link to={{
+                                                        pathname: '/waiter-detail-table-detail-item',
+                                                        state: {
                                                             _id: d._id,
                                                             table_id: location.state._id,
                                                             number_customer: dataTableByID.number_of_customer,
@@ -357,4 +376,15 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default withRouter(connect(mapStateToProps, {getSearchItemRequest,postCustomizeQueueRequest,postDeleteQueueItemRequest,postConfirmQueueOrderRequest,postCancelQueueOrderRequest,getQueueOrderRequest,getTableRequest,postUpdateTableRequest,postCloseTableRequest,apiError})(ConfirmOrder));
+export default withRouter(connect(mapStateToProps, {
+    getSearchItemRequest,
+    postCustomizeQueueRequest,
+    postDeleteQueueItemRequest,
+    postConfirmQueueOrderRequest,
+    postCancelQueueOrderRequest,
+    getQueueOrderRequest,
+    getTableRequest,
+    postUpdateTableRequest,
+    postCloseTableRequest,
+    apiError
+})(ConfirmOrder));

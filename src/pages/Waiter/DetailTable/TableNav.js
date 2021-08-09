@@ -33,7 +33,11 @@ const TableNav = (props) => {
                         </div>
                     </label>
 
-                    <p>Thông báo</p>
+                    <p style={{
+                        fontFamily: 'Cabin',
+                        fontSize: '14px',
+                        fontWeight: 'bold'
+                    }}>Thông báo</p>
                 </div>
             </div>
 
@@ -62,7 +66,11 @@ const TableNav = (props) => {
                         </div>
                     </label>
 
-                    <p>Chờ xác nhận</p>
+                    <p style={{
+                        fontFamily: 'Cabin',
+                        fontSize: '14px',
+                        fontWeight: 'bold'
+                    }}>Chờ xác nhận</p>
                 </div>
 
             </div>
@@ -91,7 +99,11 @@ const TableNav = (props) => {
                         </div>
                     </label>
 
-                    <p>Đổi Bàn</p>
+                    <p style={{
+                        fontFamily: 'Cabin',
+                        fontSize: '14px',
+                        fontWeight: 'bold'
+                    }}>Đổi Bàn</p>
                 </div>
             </div>
 
@@ -119,7 +131,11 @@ const TableNav = (props) => {
                         </div>
                     </label>
 
-                    <p>Món đã gọi</p>
+                    <p style={{
+                        fontFamily: 'Cabin',
+                        fontSize: '14px',
+                        fontWeight: 'bold'
+                    }}>Món đã gọi</p>
                 </div>
             </div>
 
@@ -147,7 +163,11 @@ const TableNav = (props) => {
                         </div>
                     </label>
 
-                    <p>Đồ Uống</p>
+                    <p style={{
+                        fontFamily: 'Cabin',
+                        fontSize: '14px',
+                        fontWeight: 'bold'
+                    }}>Đồ Uống</p>
                 </div>
             </div>
 
