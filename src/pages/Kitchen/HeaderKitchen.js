@@ -82,7 +82,7 @@ const HeaderKitchen = (props) => {
 
                     <div className="d-flex">
                         <div className="navbar-brand-box">
-                            <div><NotificationDropdown/></div>
+                            <div style={{marginTop: '-10px'}}><NotificationDropdown/></div>
                         </div>
                     </div>
 

@@ -95,7 +95,7 @@ const ConfirmedOrder = (props) => {
                                         <div className="item-form-checkList" key={index}>
                                             <span style={{
                                                 fontFamily: 'Cabin',
-                                                fontSize: '16px',
+                                                fontSize: '14px',
                                                 fontWeight: 'bold'
                                             }}>{d.detail_item.name}</span>
                                             <div className="save-button">

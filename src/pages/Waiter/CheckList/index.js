@@ -136,7 +136,7 @@ function CheckList(props) {
                                                     <div className="item-form-checkList" key={index}>
                                                         <span style={{
                                                             fontFamily: 'Cabin',
-                                                            fontSize: '16px',
+                                                            fontSize: '14px',
                                                             fontWeight: 'bold'
                                                         }}>{d.item_name}</span>
                                                         <span>{d.quantity}</span>
@@ -176,7 +176,7 @@ function CheckList(props) {
                                                     <div className="item-form-checkList" key={index}>
                                                         <span style={{
                                                             fontFamily: 'Cabin',
-                                                            fontSize: '16px',
+                                                            fontSize: '14px',
                                                             fontWeight: 'bold'
                                                         }}>{d.item_name}</span>
                                                         <span>{d.quantity}</span>
