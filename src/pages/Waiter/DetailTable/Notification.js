@@ -70,8 +70,16 @@ const Notification = (props) => {
 
                                 {dataNotification.data?.map((d, index) => (
                                         <div className="item-form" style={d.read == false ? {backgroundColor: "#EEEEEE"} : {backgroundColor: "#FFEFCD"} } key={index}>
-                                            <span>{d.title}</span>
-                                            <span>{d.content}</span>
+                                            <span style={{
+                                                fontFamily: 'Cabin',
+                                                fontSize: '14px',
+                                                fontWeight: 'bold'
+                                            }}>{d.title}</span>
+                                            <span style={{
+                                                fontFamily: 'Cabin',
+                                                fontSize: '14px',
+                                                fontWeight: 'normal'
+                                            }}>{d.content}</span>
                                             {/*{d.read === false ?  <span></span> : ''}*/}
                                         </div>
                                     )

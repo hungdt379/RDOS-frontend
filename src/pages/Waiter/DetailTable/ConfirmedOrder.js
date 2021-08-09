@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import "../../../assets/scss/custom/pages/waiter/detailTable.scss";
 import "../../../assets/scss/custom/pages/waiter/Confirmed.scss";
 import {useLocation, withRouter} from "react-router-dom";
@@ -7,7 +7,7 @@ import Header from "../home/myHeader";
 import {connect} from "react-redux";
 import {
     getConfirmedOrderRequest,
-   postCustomizeNumberRequest, postDeleteItemRequest
+    postCustomizeNumberRequest, postDeleteItemRequest
 } from "../../../store/post/actions";
 import {apiError} from "../../../store/auth/login/actions";
 import Invalid from "../../Customer/Invalid";
@@ -18,14 +18,14 @@ const ConfirmedOrder = (props) => {
 
     const [role, setrole] = useState([]);
 
-    const location  = useLocation();
+    const location = useLocation();
 
     const value = {
         table_id: location.state._id
     }
 
     const {dataConfirmedOrder} = props;
-    const customizeNumberSub = (item) =>{
+    const customizeNumberSub = (item) => {
         const aItem = {
             _id: dataConfirmedOrder._id,
             item_id: item.item_id,
@@ -37,7 +37,7 @@ const ConfirmedOrder = (props) => {
         }, 500)
     }
 
-    const customizeNumberAdd = (item) =>{
+    const customizeNumberAdd = (item) => {
         const aItem = {
             _id: dataConfirmedOrder._id,
             item_id: item.item_id,
@@ -50,7 +50,7 @@ const ConfirmedOrder = (props) => {
 
     }
 
-    function deleteItem(id){
+    function deleteItem(id) {
         const value = {
             table_id: location.state._id,
             item_id: id
@@ -75,25 +75,29 @@ const ConfirmedOrder = (props) => {
         navChoose: '4',
     }
 
-    return(
+    return (
         <React.Fragment>
             <div className="display-customer">
-                {(role === 'w')?(
+                {(role === 'w') ? (
                     <div className="container_checkList">
                         <div style={{
                             position: 'fixed',
                             width: '100%',
                             zIndex: '100',
-                            backgroundColor:'#ffffff'
+                            backgroundColor: '#ffffff'
                         }}>
-                            <Header username={location.state.username} />
+                            <Header username={location.state.username}/>
                             <TableNav item={table}/>
                         </div>
                         <div style={{textAlign: "center", justifycontent: "center", paddingTop: '180px'}}>
                             <div className="list-Item">
                                 {dataConfirmedOrder.item?.map((d, index) => (
                                         <div className="item-form-checkList" key={index}>
-                                            <span>{d.detail_item.name}</span>
+                                            <span style={{
+                                                fontFamily: 'Cabin',
+                                                fontSize: '16px',
+                                                fontWeight: 'bold'
+                                            }}>{d.detail_item.name}</span>
                                             <div className="save-button">
                                                 <span onClick={() => {
                                                     customizeNumberSub(d)
@@ -103,17 +107,22 @@ const ConfirmedOrder = (props) => {
                                                     customizeNumberAdd(d)
                                                 }}>+</span>
                                             </div>
-                                            <span className="contain_button" onClick={() => {
+                                            <div className="contain_button_ced" onClick={() => {
                                                 deleteItem(d.item_id)
                                             }
-                                            }>X</span>
+                                            }>
+                                                <div
+                                                    className="delete_contain_button_detail avatar-title rounded-circle">
+                                                        <div className="delete-icon-button">x</div>
+                                                    </div>
+                                            </div>
                                         </div>
                                     )
                                 )}
                             </div>
                         </div>
                     </div>
-                ):(<NotFound/>)}
+                ) : (<NotFound/>)}
                 <Footer/>
             </div>
             <div className="none-display-customer">
@@ -131,4 +140,9 @@ const mapStateToProps = (state) => {
 };
 
 
-export default withRouter(connect(mapStateToProps, { postCustomizeNumberRequest,postDeleteItemRequest,getConfirmedOrderRequest,apiError})(ConfirmedOrder));
+export default withRouter(connect(mapStateToProps, {
+    postCustomizeNumberRequest,
+    postDeleteItemRequest,
+    getConfirmedOrderRequest,
+    apiError
+})(ConfirmedOrder));
