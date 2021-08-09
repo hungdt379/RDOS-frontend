@@ -67,9 +67,16 @@ function CheckList(props){
             <div className="display-customer">
                 {(role === 'w')?(
                     <div className="container_checkList">
-                        <Header/>
-                        <TableNav item={table}/>
-                        <div style={{textAlign: "center", justifycontent: "center",marginBottom: "30px"}}>
+                        <div style={{
+                            position: 'fixed',
+                            width: '100%',
+                            zIndex: '100',
+                            backgroundColor:'#ffffff'
+                        }}>
+                            <Header/>
+                            <TableNav item={table}/>
+                        </div>
+                        <div style={{textAlign: "center", justifycontent: "center",marginBottom: "30px", paddingTop: '180px'}}>
                             <div className="checkList-btn">
                                 <label>
                                     <input

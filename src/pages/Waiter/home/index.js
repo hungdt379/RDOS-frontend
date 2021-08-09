@@ -109,10 +109,17 @@ const  ViewAllTable = (props) => {
         <React.Fragment>
             <div className="display-customer">
                 {(role === 'w')?(
-                    <div className="container">
-                        <Header />
-                        <PerfectScrollbar>
-                            <div className="list" style={{margin: "40px 0",height:"400px"}}>
+                    <div className="container_detail">
+                        <div style={{
+                            position: 'fixed',
+                            width: '100%',
+                            zIndex: '100',
+                            backgroundColor:'#ffffff'
+                        }}>
+                            <Header />
+                        </div>
+                        <PerfectScrollbar style={{paddingTop: '50px'}}>
+                            <div className="list" style={{margin: "40px 0",height:"100%"}}>
                                 { dataTable?.map((d, index) => (
                                         <div key={index} onClick={d?.is_active === false ? handleClickOpen : handleClose}>
                                             <Link  onClick={event => setID(d._id)} to= {{ pathname: d.is_active == true ? '/waiter-detail-table-confirm-order' : '',

@@ -158,10 +158,17 @@ const ConfirmOrder = (props) => {
             <div className="display-customer">
                 {(role === 'w')?(
                     <div className="container_detail">
-                        <Header username={dataTableByID.username}/>
-                        <TableNav item={table}/>
-                        <div className= "number_customer_form" >
-                            <p style={{marginRight: "40px"}}>Số Khách Tại Bàn: {dataTableByID.number_of_customer}</p>
+                        <div style={{
+                            position: 'fixed',
+                            width: '100%',
+                            zIndex: '100',
+                            backgroundColor:'#ffffff'
+                        }}>
+                            <Header username={dataTableByID.username}/>
+                            <TableNav item={table}/>
+                        </div>
+                        <div style={{paddingTop: '200px'}} className= "number_customer_form" >
+                            <p align="center">Số Khách Tại Bàn: {dataTableByID.number_of_customer}</p>
 
                             <button className="btn1" onClick={postCloseTable}>Đóng Bàn</button>
 
