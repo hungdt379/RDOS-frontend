@@ -52,7 +52,7 @@ const SeeOrder = props => {
                         }}>
                             <b style={{
                                 fontStyle: 'normal',
-                                fontSize: '23px',
+                                fontSize: '18px',
                                 fontFamily: 'Cabin',
                                 lineHeight: '25px',
                             }}>Số người: {props.authCustomer.data.user.number_of_customer}</b>

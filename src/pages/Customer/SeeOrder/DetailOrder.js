@@ -62,7 +62,7 @@ const DetailItemOrder = (props) => {
                     }}>
                         <b style={{
                             fontStyle: 'normal',
-                            fontSize: '23px',
+                            fontSize: '18px',
                             fontFamily: 'Cabin',
                             lineHeight: '25px',
                         }}>{(dol?.detail_item?.name)}</b>
@@ -120,7 +120,7 @@ const DetailItemOrder = (props) => {
                     }}>
                         <b style={{
                             fontStyle: 'normal',
-                            fontSize: '23px',
+                            fontSize: '18px',
                             fontFamily: 'Cabin',
                             lineHeight: '25px',
                         }}>{(dol?.detail_item?.name)}</b>

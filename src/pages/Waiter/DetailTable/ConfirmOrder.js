@@ -219,11 +219,11 @@ const ConfirmOrder = (props) => {
                                                 <div className="item-form-one">
                                                     <span style={{
                                                         fontFamily: 'Cabin',
-                                                        fontSize: '16px',
+                                                        fontSize: '14px',
                                                         fontWeight: 'bold'
                                                     }}>{d.detail_item.name}</span>
                                                     <span style={{
-                                                        fontSize: "15px", fontWeight: "normal",
+                                                        fontSize: "12px", fontWeight: "normal",
                                                         lineHeight: "15px", fontFamily: 'Cabin'
                                                     }}>{d.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}VNĐ</span>
                                                 </div>

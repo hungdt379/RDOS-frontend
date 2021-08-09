@@ -182,7 +182,7 @@ const DetailCombo = (props) => {
                             }}>
                                 <b style={{
                                     fontStyle: 'normal',
-                                    fontSize: '23px',
+                                    fontSize: '18px',
                                     fontFamily: 'Cabin',
                                     lineHeight: '25px',
                                 }}>{(d.name)}</b>
@@ -321,7 +321,7 @@ const DetailCombo = (props) => {
                                 }}>
                                     <b style={{
                                         fontStyle: 'normal',
-                                        fontSize: '23px',
+                                        fontSize: '18px',
                                         fontFamily: 'Cabin',
                                         lineHeight: '25px',
                                     }}>{(d.name)}</b>
@@ -473,7 +473,7 @@ const DetailCombo = (props) => {
                             }}>
                                 <b style={{
                                     fontStyle: 'normal',
-                                    fontSize: '23px',
+                                    fontSize: '18px',
                                     fontFamily: 'Cabin',
                                     lineHeight: '25px',
                                 }}>{(d.name)}</b>
@@ -549,7 +549,7 @@ const DetailCombo = (props) => {
                                 }}>
                                     <b style={{
                                         fontStyle: 'normal',
-                                        fontSize: '23px',
+                                        fontSize: '18px',
                                         fontFamily: 'Cabin',
                                         lineHeight: '25px',
                                     }}>{(d.name)}</b>
