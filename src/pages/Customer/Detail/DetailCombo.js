@@ -109,7 +109,7 @@ const DetailCombo = (props) => {
         } else {
             dispatch(addToCartRequest(data));
             setTimeout(() => {
-                props.history.push('/customer-cart');
+                props.history.push('/customer-menu');
                 dispatch(getFoodInComboRequest());
             }, 650)
         }
