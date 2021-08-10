@@ -24,6 +24,7 @@ import Invalid from "../../Customer/Invalid";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
 import Search from "../../../assets/images/waiter/search.png";
 import mathPlus from "../../../assets/images/customer/math-plus.png";
+import mathMinus from "../../../assets/images/customer/math-minus.png";
 
 const ConfirmOrder = (props) => {
     const [role, setrole] = useState([]);
@@ -169,7 +170,7 @@ const ConfirmOrder = (props) => {
                             <Header username={dataTableByID.username}/>
                             <TableNav item={table}/>
                         </div>
-                        <div style={{paddingTop: '200px'}} className="number_customer_form">
+                        <div style={{paddingTop: '160px'}} className="number_customer_form">
                             <p align="center">Số Khách Tại Bàn: {dataTableByID.number_of_customer}</p>
 
                             <button className="btn1" onClick={postCloseTable}>Đóng Bàn</button>
@@ -227,14 +228,14 @@ const ConfirmOrder = (props) => {
                                                         lineHeight: "15px", fontFamily: 'Cabin'
                                                     }}>{d.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}VNĐ</span>
                                                 </div>
-                                                <div className="save-button">
-                                                <span onClick={() => {
-                                                    customizeNumberSub(d)
-                                                }}>-</span>
+                                                <div style={{display: 'flex', height: '35px'}} className="save-button">
+                                                    <span onClick={() => {
+                                                        customizeNumberSub(d)
+                                                    }}><img className="minus-button-waiter" src={mathMinus}/></span>
                                                     <span>{d.quantity}</span>
                                                     <span onClick={() => {
                                                         customizeNumberAdd(d)
-                                                    }}>+</span>
+                                                    }}><img className="plus-button-waiter" src={mathPlus}/></span>
                                                 </div>
                                                 <div className="contain_button_detail" onClick={() => {
                                                     deleteQueueItem(d.item_id)
