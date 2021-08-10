@@ -64,7 +64,7 @@ const Notification = (props) => {
                             <Header username={location.state.username} />
                             <TableNav item={table}/>
                         </div>
-                        <div style={{textAlign: "center", justifyContent: "center", paddingTop: '180px'}}>
+                        <div style={{textAlign: "center", justifyContent: "center", paddingTop: '140px'}}>
 
                             <div className="list-Item">
 

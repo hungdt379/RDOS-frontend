@@ -82,7 +82,7 @@ function CheckList(props) {
                             textAlign: "center",
                             justifycontent: "center",
                             marginBottom: "30px",
-                            paddingTop: '180px'
+                            paddingTop: '140px'
                         }}>
                             <div className="checkList-btn">
                                 <label>

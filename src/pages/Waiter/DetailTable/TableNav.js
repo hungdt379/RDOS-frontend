@@ -11,7 +11,7 @@ const TableNav = (props) => {
 
         <div className="nav-notification">
             <div className="nav_form">
-                <div className="nav-item">
+                <div style={{marginTop: '-10px'}} className="nav-item">
                     <label>
                         <input
                             type="radio"
@@ -42,7 +42,7 @@ const TableNav = (props) => {
             </div>
 
             <div className="nav_form">
-                <div className="nav-item">
+                <div style={{marginTop: '-10px'}} className="nav-item">
                     <label>
                         <input
                             type="radio"
@@ -76,7 +76,7 @@ const TableNav = (props) => {
             </div>
 
             <div className="nav_form">
-                <div className="nav-item">
+                <div style={{marginTop: '-10px'}} className="nav-item">
                     <label>
                         <input
                             type="radio"
@@ -108,7 +108,7 @@ const TableNav = (props) => {
             </div>
 
             <div className="nav_form">
-                <div className="nav-item">
+                <div style={{marginTop: '-10px'}} className="nav-item">
                     <label>
                         <input
                             type="radio"
@@ -140,7 +140,7 @@ const TableNav = (props) => {
             </div>
 
             <div className="nav_form">
-                <div className="nav-item">
+                <div style={{marginTop: '-10px'}} className="nav-item">
                     <label>
                         <input
                             type="radio"
