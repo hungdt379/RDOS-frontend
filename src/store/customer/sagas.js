@@ -38,6 +38,22 @@ export function* watchGetAllMenu() {
     yield takeEvery(actionTypes.GET_ALL_MENU_REQUEST, allMenu);
 }
 
+//add to cart menu
+function* postAddToCartMenu({ payload:{id, q, note, dish, cost} }) {
+    try {
+        const response = yield call(Request.postApiCus, apiUrls.addToCartApi, {item_id: id, quantity: q, note: note, dish_in_combo: dish, cost: cost});
+        yield put(actions.addToCartMenuSuccess(response.data));
+        console.log("add to cart menu: " + response.data)
+        // return response;
+    } catch (error) {
+        yield put(actions.addToCartMenuError(error));
+    }
+}
+
+export function* watchPostAddToCartMenu() {
+    yield takeEvery(actionTypes.ADD_TO_CART_MENU_REQUEST, postAddToCartMenu);
+}
+
 //all Search
 function* allSearch({payload: {se, tid}}) {
     try {
@@ -238,6 +254,7 @@ export function* watchCheckQueueOrder() {
 const sagaCustomer = [
     watchGetAllCategory(),
     watchGetAllMenu(),
+    watchPostAddToCartMenu(),
     watchGetAllSearch(),
     watchPostCallWaiter(),
     watchPostCallPayment(),

@@ -157,6 +157,54 @@
   }
 }
 
+.item-menu-other{
+  margin-left: calc(100% - 98%);
+  margin-top: 5px;
+  width: 96%;
+  height: 65px;
+  background-color: #ffffff;
+  .menu-item-bar{
+    background: #EEEEEE;
+    border-radius: 10px;
+    .item-name {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 17px;
+      padding: 8px 0px 0px 0px;
+      font-family: Cabin;
+      color: #000000;
+    }
+    .item-cost {
+      font-family: Cabin;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 15px;
+      color: #000000;
+      padding: 18px 0px 0px 0px;
+      bottom: 0px;
+    }
+  }
+  .other-item{
+    margin-bottom: auto;
+    margin-top: auto;
+    .plus-background-color{
+      height: 22px;
+      width: 22px;
+      background-color: #FCBC3A;
+      .plus-icon-button{
+        height: 10px;
+        width: 10px;
+      }
+    }
+    .quantity-background-color{
+      height: 22px;
+      width: 22px;
+      background-color: #FFEFCD;
+    }
+  }
+}
 
 .add-btn{
   border-radius: 50%;

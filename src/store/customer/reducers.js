@@ -37,6 +37,24 @@ const getAllMenu = (state = allMenuReducer, action) => {
     }
 };
 
+//add to cart
+const addToCartMenuReducer = {
+    dataAddToCartMenu: [],
+};
+
+const addToCartMenu = (state = addToCartMenuReducer, action) => {
+    switch (action.type) {
+        case actionTypes.ADD_TO_CART_MENU_REQUEST:
+            return { ...state };
+        case actionTypes.ADD_TO_CART_MENU_SUCCESS:
+            return { ...state, dataAddToCartMenu: action.payload };
+        case actionTypes.ADD_TO_CART_MENU_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
 //all Search
 const allSearchReducer = {
     allSearch: [],
@@ -256,6 +274,7 @@ const getCheckQueueOrder = (state = checkQueueOrderReducer, action) => {
 export const Customer = combineReducers({
     getAllCategory,
     getAllMenu,
+    addToCartMenu,
     getAllSearch,
     postCallWaiter,
     postCallPayment,
