@@ -36,6 +36,26 @@ export const getAllMenuError = (error) => {
     };
 };
 
+//add to cart menu
+export const addToCartMenuRequest = (id, q, note, dish, cost) => {
+    return {
+        type: actionTypes.ADD_TO_CART_MENU_REQUEST,
+        payload: {id, q, note, dish, cost},
+    };
+};
+export const addToCartMenuSuccess = (response) => {
+    return {
+        type: actionTypes.ADD_TO_CART_MENU_SUCCESS,
+        payload: response,
+    };
+};
+export const addToCartMenuError = (error) => {
+    return {
+        type: actionTypes.ADD_TO_CART_MENU_ERROR,
+        payload: error,
+    };
+};
+
 //all search
 export const getAllSearchRequest = (se, tid) => ({
     type: actionTypes.GET_ALL_SEARCH_REQUEST,

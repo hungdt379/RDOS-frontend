@@ -83,4 +83,29 @@
         width: 30%;
         text-align: left;
     }
+
+    .menu-bar-waiter{
+        overflow: auto;
+        white-space: nowrap;
+        z-index: 150;
+        width: 100%;
+        overflow-y: scroll;
+        background-color: #fff;
+        text-align: center;
+        //height: 90px;
+        .menu-type-a-waiter{
+            height: 100%;
+            .menu-type-waiter{
+                width: 100%;
+                height: 100%;
+                background-color: transparent;
+                border: 0;
+                padding-left: 15px;
+                padding-right: 15px;
+                font-size: 14px;
+                position: relative;
+                outline: 0;
+            }
+        }
+    }
 }

@@ -35,7 +35,7 @@ const MyHeader = (props) => {
 
             <div className="toggle-logout">
                 <img onClick={toggleBtn} style={{width: '25px', height: '26px'}} src={Profile}/>
-                <div className="dropdown-content" style={{display: toggle == true? "block" : "none"  }}>
+                <div className="dropdown-content" style={{zIndex: '100',display: toggle == true? "block" : "none"  }}>
                     <Link to="/login" onClick={logout}>Đăng xuất</Link>
                 </div>
             </div>

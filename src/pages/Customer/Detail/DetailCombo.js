@@ -36,10 +36,18 @@ const DetailCombo = (props) => {
         dispatch(getFoodInComboRequest({_id}));
         dispatch(getCartRequest());
         dispatch(getAllCategoryRequest());
-        setOpenLoadDetail(true);
-        setTimeout(() => {
+        //setOpenLoadDetail(true);
+        if(props?.dataFoodInCombo?.data !== undefined){
             setOpenLoadDetail(false);
-        }, 2000)
+        }else{
+            setOpenLoadDetail(true);
+            setTimeout(() => {
+                setOpenLoadDetail(false);
+            }, 1000)
+        }
+        // setTimeout(() => {
+        //     setOpenLoadDetail(false);
+        // }, 2000)
     }, []);
 
     // const [minusAdd, setMinusAdd] = useState(1);

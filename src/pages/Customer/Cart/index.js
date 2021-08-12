@@ -60,7 +60,7 @@ const Cart = (props) => {
                                     setOpenLoadDe(false)
                                 }, 1000)
                             }}>
-                                <img style={{width:'19px', height:'21px'}} src={trash} className="icon-button"/>
+                                <img style={{width: '19px', height: '21px'}} src={trash} className="icon-button"/>
                             </a>
                         </div>
                     </div>
@@ -85,17 +85,20 @@ const Cart = (props) => {
                             <div className="side-list-menu">
                                 <PerfectScrollbar className="list-menu">
                                     {props?.dataCart?.data?.item_in_cart?.map((iic, index) => (
-                                            <div className="item-menu d-flex">
-                                                <div className="col-11 d-flex menu-item-bar">
-                                                    <Link style={{width : '100%'}} to={`/customer-detail-combo/${iic?._id}`}>
+                                        <div className="item-menu d-flex">
+                                            <div className="col-11 d-flex menu-item-bar">
+                                                <Link style={{width: '100%'}} to={`/customer-detail-combo/${iic?._id}`}>
                                                     <div align="left" className="col-11 d-flex">
-                                                        <div className="col-10">
+                                                        <div align="left" className="col-3" style={{marginLeft: '-12px'}}>
+                                                            <img src={iic?.image} alt="" height='80px' width='80px'/>
+                                                        </div>
+                                                        <div className="col-7">
                                                             <div className="item-name"><b>{iic?.name}</b></div>
                                                             <div
                                                                 className="item-cost ">{(iic?.total_cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
                                                             </div>
                                                         </div>
-                                                        <div align='right' className="col-2" style={{
+                                                        <div align='right' className="col-1" style={{
                                                             fontFamily: 'Cabin',
                                                             fontStyle: 'normal',
                                                             fontWeight: 'bold',
@@ -103,50 +106,81 @@ const Cart = (props) => {
                                                             lineHeight: '17px',
                                                             textAlign: 'right',
                                                             color: '#1E1C19',
-                                                            marginTop:'auto',
-                                                            marginBottom:'auto'
+                                                            paddingTop: '25px'
                                                         }}>{iic.quantity}</div>
                                                     </div>
-                                                    </Link>
-                                                </div>
-                                                <div className="add-button col-1">
-                                                    <a onClick={() => {
-                                                        fetch('http://165.227.99.160/api/customer/cart/item/delete?item_id[]=' + iic?._id, {
-                                                            method: 'POST',
-                                                            headers: authHeaderGetApiCus(),
-                                                        })
-                                                            .then(res => {
-                                                                if (res.ok) {
-                                                                    console.log('DELETE SUCCESS')
-                                                                } else {
-                                                                    console.log('DELETE FAILED')
-                                                                }
-                                                            })
-                                                            .then(data => console.log(data))
-                                                            .catch(error => console.log('ERROR'))
-                                                        setOpenLoadDe(true);
-                                                        setTimeout(() => {
-                                                            props.dispatch(actions.getCartRequest())
-                                                        }, 600)
-                                                        setTimeout(() => {
-                                                            setOpenLoadDe(false);
-                                                        }, 1800)
-                                                    }}>
-                                                        <div style={{
-                                                            marginRight: 'auto',
-                                                            marginLeft: 'auto'
-                                                        }}
-                                                             className="avatar-xs">
-                                                            <div
-                                                                className="plus-background-color avatar-title rounded-circle mt-2"
-                                                            style={{backgroundColor: 'red'}}>
-                                                                <img src={close} className="plus-icon-button"/>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
+                                                </Link>
                                             </div>
+                                            <div className="add-button col-1">
+                                                <a onClick={() => {
+                                                    fetch('http://165.227.99.160/api/customer/cart/item/delete?item_id[]=' + iic?._id, {
+                                                        method: 'POST',
+                                                        headers: authHeaderGetApiCus(),
+                                                    })
+                                                        .then(res => {
+                                                            if (res.ok) {
+                                                                console.log('DELETE SUCCESS')
+                                                            } else {
+                                                                console.log('DELETE FAILED')
+                                                            }
+                                                        })
+                                                        .then(data => console.log(data))
+                                                        .catch(error => console.log('ERROR'))
+                                                    setOpenLoadDe(true);
+                                                    setTimeout(() => {
+                                                        props.dispatch(actions.getCartRequest())
+                                                    }, 600)
+                                                    setTimeout(() => {
+                                                        setOpenLoadDe(false);
+                                                    }, 1800)
+                                                }}>
+                                                    <div style={{
+                                                        marginRight: 'auto',
+                                                        marginLeft: 'auto'
+                                                    }}
+                                                         className="avatar-xs">
+                                                        <div
+                                                            className="plus-background-color avatar-title rounded-circle mt-2"
+                                                            style={{backgroundColor: 'red'}}>
+                                                            <img src={close} className="plus-icon-button"/>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
                                     ))}
+                                    {props?.dataCart?.data?.item_in_cart?.length > 0 ? (null) : (
+                                        <div align='center'>
+                                            <b
+                                                style={{
+                                                    fontFamily: 'Cabin',
+                                                    fontSize: '16px',
+                                                }}
+                                            >Bạn chưa chọn món nào</b>
+                                            <div
+                                                style={{
+                                                    fontFamily: 'Cabin',
+                                                    fontSize: '14px',
+                                                }}
+                                            >Hãy chọn món bạn thích nhé
+                                            </div>
+                                            <div align='center' onClick={() => {
+                                                backPage()
+                                            }}
+                                                 style={{
+                                                     backgroundColor: '#FCBC3A',
+                                                     border: '1px solid #FCBC3A',
+                                                     borderRadius: '10px',
+                                                     height: '30px',
+                                                     fontFamily: 'Cabin',
+                                                     fontSize: '16px',
+                                                     width: '60%'
+                                                 }}
+                                            >
+                                                <b>Quay về menu</b>
+                                            </div>
+                                        </div>
+                                    )}
                                 </PerfectScrollbar>
                             </div>
                         </div>
@@ -157,33 +191,33 @@ const Cart = (props) => {
                     {props?.dataCart?.data?.item_in_cart.length > 0 ? (
                         <button className="cart-button d-flex"
                                 style={{
-                                    marginTop:'auto',
+                                    marginTop: 'auto',
                                     marginBottom: 'auto',
                                 }}
-                            onClick={() => {
-                                fetch('http://165.227.99.160/api/customer/order/send', {
-                                    method: 'POST',
-                                    headers: authHeaderGetApiCus(),
-                                })
-                                    .then(res => {
-                                        if (res.status === 200) {
-                                            setOpenSendOrder(true);
-                                            setTimeout(() => {
-                                                setOpenSendOrder(false);
-                                                props.history.push('/customer-menu')
-                                            }, 2000)
-                                            console.log(res)
-                                        } else {
-                                            setOpenLoadCheck(true);
-                                            setTimeout(() => {
-                                                setOpenLoadCheck(false);
-                                            }, 2000)
-                                            console.log(res)
-                                        }
+                                onClick={() => {
+                                    fetch('http://165.227.99.160/api/customer/order/send', {
+                                        method: 'POST',
+                                        headers: authHeaderGetApiCus(),
                                     })
-                                    .then(data => console.log(data))
-                                    .catch(error => console.log('ERROR'))
-                            }}>
+                                        .then(res => {
+                                            if (res.status === 200) {
+                                                setOpenSendOrder(true);
+                                                setTimeout(() => {
+                                                    setOpenSendOrder(false);
+                                                    props.history.push('/customer-menu')
+                                                }, 2000)
+                                                console.log(res)
+                                            } else {
+                                                setOpenLoadCheck(true);
+                                                setTimeout(() => {
+                                                    setOpenLoadCheck(false);
+                                                }, 2000)
+                                                console.log(res)
+                                            }
+                                        })
+                                        .then(data => console.log(data))
+                                        .catch(error => console.log('ERROR'))
+                                }}>
                             <div style={{
                                 fontFamily: 'Cabin',
                                 fontStyle: 'normal',
@@ -191,8 +225,8 @@ const Cart = (props) => {
                                 fontSize: '16px',
                                 lineHeight: '17px',
                                 color: '#1E1C19',
-                                marginTop:'auto',
-                                marginBottom:'auto'
+                                marginTop: 'auto',
+                                marginBottom: 'auto'
                             }} align="left" className="col-6">
                                 <b style={{color: '#000000'}}>{props?.dataCart?.data?.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd</b>
                             </div>
@@ -203,8 +237,8 @@ const Cart = (props) => {
                                 fontSize: '16px',
                                 lineHeight: '17px',
                                 color: '#1E1C19',
-                                marginTop:'auto',
-                                marginBottom:'auto'
+                                marginTop: 'auto',
+                                marginBottom: 'auto'
                             }} align="right" className="col-6">
                                 Gửi yêu cầu đặt món
                             </div>

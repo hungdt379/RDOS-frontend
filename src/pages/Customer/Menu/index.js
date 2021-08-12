@@ -14,12 +14,15 @@ import food from "../../../assets/images/customer/food.png";
 import bowl from "../../../assets/images/customer/bowl.png";
 import coffee from "../../../assets/images/customer/coffee.png";
 import shoppingCart from "../../../assets/images/customer/shopping-cart.png";
+import mathMinus from "../../../assets/images/customer/math-minus.png";
 import mathPlus from "../../../assets/images/customer/math-plus.png";
 import beers from "../../../assets/images/customer/beer.png";
 import wine from "../../../assets/images/customer/wine.png";
 import chicken from "../../../assets/images/customer/chicken.png";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
 import {Modal} from "reactstrap";
+import {addToCartMenuRequest, addToCartRequest, sendFeedbackRequest} from "../../../store/customer/actions";
+import {authHeaderGetApiCus} from "../../../helpers/jwt-token-access/auth-token-header";
 
 const CustomerMenu = (props) => {
 
@@ -193,48 +196,242 @@ const CustomerMenu = (props) => {
                             <PerfectScrollbar className="list-menu">
                                 <div className={(search !== '') ? 'dis-search' : 'none-dis-search'}>
                                     <div className="title-menu">Món bạn đang tìm là:</div>
-                                    {props?.dataSearch?.map((se, id) => (
-                                        <div className="item-menu d-flex">
-                                            <div className="col-11 d-flex menu-item-bar">
-                                                <div align="left" className="col-11">
-                                                    <div className="item-name"><b>{se?.name}</b></div>
-                                                    <div
-                                                        className="item-cost">{(se?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                    {props?.dataSearch?.map((se, id) => se?.add_to_cart === false ? (
+                                            <div className="item-menu d-flex">
+                                                <Link to={`/customer-detail-combo/${se?._id}`} style={{
+                                                    backgroundColor: (se?.is_sold_out === false && se?.quantity === 0) ? '#EEEEEE' : (se?.is_sold_out === false && se?.quantity > 0) ? '#FFEFCD' : '#CFCFCF'
+                                                }} className="col-11 d-flex menu-item-bar">
+                                                    <div align="left" className="col-3" style={{marginLeft: '-12px'}}>
+                                                        <img src={se?.image} alt="" height='80px' width='80px'/>
+                                                    </div>
+                                                    <div align="left" className="col-7">
+                                                        <div className="item-name"><b>{se?.name}</b></div>
+                                                        <div
+                                                            className="item-cost">{(se?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                                        </div>
+                                                    </div>
+                                                    <div align="right" className="col-1" style={{paddingTop: '18px'}}>
+                                                        {(se?.is_sold_out === false && se?.quantity === 0) ? (
+                                                            <div></div>
+                                                        ) : (se?.is_sold_out === false && se?.quantity > 0) ? (
+                                                            <div>
+                                                                <b style={{
+                                                                    fontSize: '18px',
+                                                                    fontWeight: 'bold',
+                                                                    fontStyle: 'normal',
+                                                                    fontFamily: 'Cabin',
+                                                                    paddingTop: '13px',
+                                                                    color: '#000000',
+                                                                }}>{se?.quantity}</b>
+                                                            </div>
+                                                        ) : (
+                                                            <div>
+                                                                <b style={{
+                                                                    fontWeight: 'bold',
+                                                                    fontStyle: 'normal',
+                                                                    fontFamily: 'Cabin',
+                                                                    color: '#000000',
+                                                                }}>Hết</b>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </Link>
+                                                <div className="add-button col-1">
+                                                    {(se?.is_sold_out === false) ? (
+                                                        <Link to={`/customer-detail-combo/${se?._id}`}>
+                                                            <div style={{
+                                                                marginRight: 'auto',
+                                                                marginLeft: 'auto'
+                                                            }}
+                                                                 className="avatar-xs">
+                                                                <div
+                                                                    className="plus-background-color avatar-title rounded-circle mt-2">
+                                                                    <img src={mathPlus} className="plus-icon-button"/>
+                                                                </div>
+                                                            </div>
+                                                        </Link>
+                                                    ) : (
+                                                        <div>
+                                                            <div style={{
+                                                                marginRight: 'auto',
+                                                                marginLeft: 'auto'
+                                                            }}
+                                                                 className="avatar-xs">
+                                                                <div
+                                                                    align='center'
+                                                                    style={{
+                                                                        backgroundColor: '#7A7A7A',
+                                                                    }}
+                                                                    className="plus-background-color avatar-title rounded-circle mt-2">
+                                                                    <div style={{color: 'white'}}>+</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <div className="item-menu-other d-flex">
+                                                <div style={{
+                                                    backgroundColor: (se?.is_sold_out === false && se?.quantity === 0) ? '#EEEEEE' : (se?.is_sold_out === false && se?.quantity > 0) ? '#FFEFCD' : '#CFCFCF'
+                                                }} className="col-12 d-flex menu-item-bar">
+                                                    {(se?.is_sold_out === false) ? (
+                                                        <Link to={`/customer-detail-combo/${se?._id}`} align="left"
+                                                              className="col-3"
+                                                              style={{marginLeft: '-12px'}}>
+                                                            <img src={se?.image} alt="" height='80px' width='80px'/>
+                                                        </Link>
+                                                    ) : (
+                                                        <div className="col-3"
+                                                             style={{marginLeft: '-12px'}}>
+                                                            <img src={se?.image} alt="" height='80px' width='80px'/>
+                                                        </div>
+                                                    )}
+                                                    {(se?.is_sold_out === false) ? (
+                                                        <Link to={`/customer-detail-combo/${se?._id}`} align="left"
+                                                              className="col-7">
+                                                            <div className="item-name"><b>{se?.name}</b></div>
+                                                            <div
+                                                                className="item-cost">{(se?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                                            </div>
+                                                        </Link>
+                                                    ) : (
+                                                        <div align="left" className="col-7">
+                                                            <div className="item-name"><b>{se?.name}</b></div>
+                                                            <div
+                                                                className="item-cost">{(se?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                    <div align="center" className="other-item col-2">
+                                                        {(se?.is_sold_out === false) ? (
+                                                            <div className="d-flex">
+                                                                {se?.quantity > 0 ? (
+                                                                    <div onClick={() => {
+                                                                        if (se?.quantity > 1) {
+                                                                            props.dispatch(addToCartMenuRequest(se?._id, se?.quantity - 1, '', [], se?.cost));
+                                                                            setTimeout(() => {
+                                                                                props.dispatch(actions.getAllCategoryRequest());
+                                                                                props.dispatch(actions.getAllMenuRequest());
+                                                                                props.dispatch(actions.getCartRequest());
+                                                                            }, 600)
+                                                                        } else {
+                                                                            fetch('http://165.227.99.160/api/customer/cart/item/delete?item_id[]=' + se?._id, {
+                                                                                method: 'POST',
+                                                                                headers: authHeaderGetApiCus(),
+                                                                            })
+                                                                                .then(res => {
+                                                                                    if (res.ok) {
+                                                                                        console.log('DELETE SUCCESS')
+                                                                                    } else {
+                                                                                        console.log('DELETE FAILED')
+                                                                                    }
+                                                                                })
+                                                                                .then(data => console.log(data))
+                                                                                .catch(error => console.log('ERROR'))
+                                                                            setTimeout(() => {
+                                                                                props.dispatch(actions.getAllCategoryRequest());
+                                                                                props.dispatch(actions.getAllMenuRequest());
+                                                                                props.dispatch(actions.getCartRequest());
+                                                                            }, 650)
+                                                                        }
+                                                                    }}
+                                                                         className="avatar-xs">
+                                                                        <div
+                                                                            className="plus-background-color avatar-title rounded-circle mt-2"
+                                                                            style={{
+                                                                                backgroundColor: '#ffffff',
+                                                                                border: '2px solid #FCBC3A'
+                                                                            }}>
+                                                                            <img src={mathMinus}
+                                                                                 className="plus-icon-button"/>
+                                                                        </div>
+                                                                    </div>
+                                                                ) : (
+                                                                    <div className="avatar-xs">
+                                                                        <div
+                                                                            className="plus-background-color avatar-title rounded-circle mt-2"
+                                                                            style={{backgroundColor: '#eeeeee'}}>
+                                                                        </div>
+                                                                    </div>
+                                                                )}
+                                                                <div className="avatar-xs">
+                                                                    {se?.quantity > 0 ? (
+                                                                        <div
+                                                                            className="quantity-background-color avatar-title rounded-circle mt-2">
+                                                                            <b style={{
+                                                                                fontSize: '18px',
+                                                                                fontWeight: 'bold',
+                                                                                fontStyle: 'normal',
+                                                                                fontFamily: 'Cabin',
+                                                                                color: '#000000',
+                                                                            }}>{se?.quantity}</b>
+                                                                        </div>
+                                                                    ) : (
+                                                                        <div
+                                                                            className="quantity-background-color avatar-title rounded-circle mt-2"
+                                                                            style={{backgroundColor: '#eeeeee'}}
+                                                                        >
+                                                                            <b style={{
+                                                                                fontSize: '18px',
+                                                                                fontWeight: 'bold',
+                                                                                fontStyle: 'normal',
+                                                                                fontFamily: 'Cabin',
+                                                                                color: '#000000',
+                                                                            }}></b>
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                                <div onClick={() => {
+                                                                    props.dispatch(addToCartMenuRequest(se?._id, se?.quantity + 1, '', [], se?.cost));
+                                                                    setTimeout(() => {
+                                                                        props.dispatch(actions.getAllCategoryRequest());
+                                                                        props.dispatch(actions.getAllMenuRequest());
+                                                                        props.dispatch(actions.getCartRequest());
+                                                                    }, 600)
+                                                                }}
+                                                                     className="avatar-xs">
+                                                                    <div
+                                                                        className="plus-background-color avatar-title rounded-circle mt-2">
+                                                                        <img src={mathPlus}
+                                                                             className="plus-icon-button"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        ) : (
+                                                            <div>
+                                                                <b style={{
+                                                                    fontWeight: 'bold',
+                                                                    fontStyle: 'normal',
+                                                                    fontFamily: 'Cabin',
+                                                                    color: '#000000',
+                                                                }}>Hết</b>
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="add-button col-1">
-                                                <Link to={`/customer-detail-combo/${se?._id}`}>
-                                                    <div style={{
-                                                        marginRight: 'auto',
-                                                        marginLeft: 'auto'
-                                                    }}
-                                                         className="avatar-xs">
-                                                        <div
-                                                            className="plus-background-color avatar-title rounded-circle mt-2">
-                                                            <img src={mathPlus} className="plus-icon-button"/>
-                                                        </div>
-                                                    </div>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                    ))}
+                                        )
+                                    )}
                                 </div>
                                 <div className={(search === '') ? 'dis-menu' : 'none-dis-menu'}>
                                     <div id="combo">
                                         <div className="title-menu"><b>Combo Nướng</b></div>
                                         {props?.dataMenu?.combo?.map((combo) => (
                                             <div className="item-menu d-flex">
-                                                <div style={{
+                                                <Link to={`/customer-detail-combo/${combo?._id}`} style={{
                                                     backgroundColor: (combo?.is_sold_out === false && combo?.in_cart === false) ? '#EEEEEE' : (combo?.is_sold_out === false && combo?.in_cart === true) ? '#FFEFCD' : '#CFCFCF'
                                                 }} className="col-11 d-flex menu-item-bar">
-                                                    <div align="left" className="col-8">
+                                                    <div align="left" className="col-3" style={{marginLeft: '-12px'}}>
+                                                        <img src={combo?.image} alt="" height='80px' width='80px'/>
+                                                    </div>
+                                                    <div align="left" className="col-7">
                                                         <div className="item-name"><b>{combo?.name}</b></div>
                                                         <div
                                                             className="item-cost">{(combo?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
                                                         </div>
                                                     </div>
-                                                    <div align="right" className="col-3" style={{paddingTop: '18px'}}>
+                                                    <div align="right" className="col-1" style={{paddingTop: '18px'}}>
                                                         {(combo?.is_sold_out === false && combo?.in_cart === false) ? (
                                                             <div></div>
                                                         ) : (combo?.is_sold_out === false && combo?.in_cart === true) ? (
@@ -244,7 +441,8 @@ const CustomerMenu = (props) => {
                                                                     fontWeight: 'bold',
                                                                     fontStyle: 'normal',
                                                                     fontFamily: 'Cabin',
-                                                                    paddingTop: '13px'
+                                                                    paddingTop: '13px',
+                                                                    color: '#000000',
                                                                 }}>{combo?.quantity}</b>
                                                             </div>
                                                         ) : (
@@ -253,11 +451,12 @@ const CustomerMenu = (props) => {
                                                                     fontWeight: 'bold',
                                                                     fontStyle: 'normal',
                                                                     fontFamily: 'Cabin',
-                                                                }}>Hết hàng</b>
+                                                                    color: '#000000',
+                                                                }}>Hết</b>
                                                             </div>
                                                         )}
                                                     </div>
-                                                </div>
+                                                </Link>
                                                 <div className="add-button col-1">
                                                     {(combo?.is_sold_out === false) ? (
                                                         <Link to={`/customer-detail-combo/${combo?._id}`}>
@@ -282,7 +481,7 @@ const CustomerMenu = (props) => {
                                                                 <div
                                                                     align='center'
                                                                     style={{
-                                                                        backgroundColor:'#7A7A7A',
+                                                                        backgroundColor: '#7A7A7A',
                                                                     }}
                                                                     className="plus-background-color avatar-title rounded-circle mt-2">
                                                                     <div style={{color: 'white'}}>+</div>
@@ -297,28 +496,132 @@ const CustomerMenu = (props) => {
                                     <div id="drink">
                                         <div className="title-menu"><b>Đồ uống</b></div>
                                         {props?.dataMenu?.drink?.map((drink) => (
-                                            <div className="item-menu d-flex">
+                                            <div className="item-menu-other d-flex">
                                                 <div style={{
                                                     backgroundColor: (drink?.is_sold_out === false && drink?.in_cart === false) ? '#EEEEEE' : (drink?.is_sold_out === false && drink?.in_cart === true) ? '#FFEFCD' : '#CFCFCF'
-                                                }} className="col-11 d-flex menu-item-bar">
-                                                    <div align="left" className="col-8">
-                                                        <div className="item-name"><b>{drink?.name}</b></div>
-                                                        <div
-                                                            className="item-cost">{(drink?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                                }} className="col-12 d-flex menu-item-bar">
+                                                    {(drink?.is_sold_out === false) ? (
+                                                        <Link to={`/customer-detail-combo/${drink?._id}`} align="left"
+                                                              className="col-3"
+                                                              style={{marginLeft: '-12px'}}>
+                                                            <img src={drink?.image} alt="" height='80px' width='80px'/>
+                                                        </Link>
+                                                    ) : (
+                                                        <div className="col-3"
+                                                             style={{marginLeft: '-12px'}}>
+                                                            <img src={drink?.image} alt="" height='80px' width='80px'/>
                                                         </div>
-                                                    </div>
-                                                    <div align="right" className="col-3" style={{paddingTop: '18px'}}>
-                                                        {(drink?.is_sold_out === false && drink?.in_cart === false) ? (
-                                                            <div></div>
-                                                        ) : (drink?.is_sold_out === false && drink?.in_cart === true) ? (
-                                                            <div>
-                                                                <b style={{
-                                                                    fontSize: '18px',
-                                                                    fontWeight: 'bold',
-                                                                    fontStyle: 'normal',
-                                                                    fontFamily: 'Cabin',
-                                                                    paddingTop: '13px'
-                                                                }}>{drink?.quantity}</b>
+                                                    )}
+                                                    {(drink?.is_sold_out === false) ? (
+                                                        <Link to={`/customer-detail-combo/${drink?._id}`} align="left"
+                                                              className="col-7">
+                                                            <div className="item-name"><b>{drink?.name}</b></div>
+                                                            <div
+                                                                className="item-cost">{(drink?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                                            </div>
+                                                        </Link>
+                                                    ) : (
+                                                        <div align="left" className="col-7">
+                                                            <div className="item-name"><b>{drink?.name}</b></div>
+                                                            <div
+                                                                className="item-cost">{(drink?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                    <div align="center" className="other-item col-2">
+                                                        {(drink?.is_sold_out === false) ? (
+                                                            <div className="d-flex">
+                                                                {drink?.quantity > 0 ? (
+                                                                    <div onClick={() => {
+                                                                        if (drink?.quantity > 1) {
+                                                                            props.dispatch(addToCartMenuRequest(drink?._id, drink?.quantity - 1, '', [], drink?.cost));
+                                                                            setTimeout(() => {
+                                                                                props.dispatch(actions.getAllCategoryRequest());
+                                                                                props.dispatch(actions.getAllMenuRequest());
+                                                                                props.dispatch(actions.getCartRequest());
+                                                                            }, 600)
+                                                                        } else {
+                                                                            fetch('http://165.227.99.160/api/customer/cart/item/delete?item_id[]=' + drink?._id, {
+                                                                                method: 'POST',
+                                                                                headers: authHeaderGetApiCus(),
+                                                                            })
+                                                                                .then(res => {
+                                                                                    if (res.ok) {
+                                                                                        console.log('DELETE SUCCESS')
+                                                                                    } else {
+                                                                                        console.log('DELETE FAILED')
+                                                                                    }
+                                                                                })
+                                                                                .then(data => console.log(data))
+                                                                                .catch(error => console.log('ERROR'))
+                                                                            setTimeout(() => {
+                                                                                props.dispatch(actions.getAllCategoryRequest());
+                                                                                props.dispatch(actions.getAllMenuRequest());
+                                                                                props.dispatch(actions.getCartRequest());
+                                                                            }, 650)
+                                                                        }
+                                                                    }}
+                                                                         className="avatar-xs">
+                                                                        <div
+                                                                            className="plus-background-color avatar-title rounded-circle mt-2"
+                                                                            style={{
+                                                                                backgroundColor: '#ffffff',
+                                                                                border: '2px solid #FCBC3A'
+                                                                            }}>
+                                                                            <img src={mathMinus}
+                                                                                 className="plus-icon-button"/>
+                                                                        </div>
+                                                                    </div>
+                                                                ) : (
+                                                                    <div className="avatar-xs">
+                                                                        <div
+                                                                            className="plus-background-color avatar-title rounded-circle mt-2"
+                                                                            style={{backgroundColor: '#eeeeee'}}>
+                                                                        </div>
+                                                                    </div>
+                                                                )}
+                                                                <div className="avatar-xs">
+                                                                    {drink?.quantity > 0 ? (
+                                                                        <div
+                                                                            className="quantity-background-color avatar-title rounded-circle mt-2">
+                                                                            <b style={{
+                                                                                fontSize: '18px',
+                                                                                fontWeight: 'bold',
+                                                                                fontStyle: 'normal',
+                                                                                fontFamily: 'Cabin',
+                                                                                color: '#000000',
+                                                                            }}>{drink?.quantity}</b>
+                                                                        </div>
+                                                                    ) : (
+                                                                        <div
+                                                                            className="quantity-background-color avatar-title rounded-circle mt-2"
+                                                                            style={{backgroundColor: '#eeeeee'}}
+                                                                        >
+                                                                            <b style={{
+                                                                                fontSize: '18px',
+                                                                                fontWeight: 'bold',
+                                                                                fontStyle: 'normal',
+                                                                                fontFamily: 'Cabin',
+                                                                                color: '#000000',
+                                                                            }}></b>
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                                <div onClick={() => {
+                                                                    props.dispatch(addToCartMenuRequest(drink?._id, drink?.quantity + 1, '', [], drink?.cost));
+                                                                    setTimeout(() => {
+                                                                        props.dispatch(actions.getAllCategoryRequest());
+                                                                        props.dispatch(actions.getAllMenuRequest());
+                                                                        props.dispatch(actions.getCartRequest());
+                                                                    }, 600)
+                                                                }}
+                                                                     className="avatar-xs">
+                                                                    <div
+                                                                        className="plus-background-color avatar-title rounded-circle mt-2">
+                                                                        <img src={mathPlus}
+                                                                             className="plus-icon-button"/>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         ) : (
                                                             <div>
@@ -326,43 +629,11 @@ const CustomerMenu = (props) => {
                                                                     fontWeight: 'bold',
                                                                     fontStyle: 'normal',
                                                                     fontFamily: 'Cabin',
-                                                                }}>Hết hàng</b>
+                                                                    color: '#000000',
+                                                                }}>Hết</b>
                                                             </div>
                                                         )}
                                                     </div>
-                                                </div>
-                                                <div className="add-button col-1">
-                                                    {(drink?.is_sold_out === false) ? (
-                                                        <Link to={`/customer-detail-combo/${drink?._id}`}>
-                                                            <div style={{
-                                                                marginRight: 'auto',
-                                                                marginLeft: 'auto'
-                                                            }}
-                                                                 className="avatar-xs">
-                                                                <div
-                                                                    className="plus-background-color avatar-title rounded-circle mt-2">
-                                                                    <img src={mathPlus} className="plus-icon-button"/>
-                                                                </div>
-                                                            </div>
-                                                        </Link>
-                                                    ) : (
-                                                        <div>
-                                                            <div style={{
-                                                                marginRight: 'auto',
-                                                                marginLeft: 'auto'
-                                                            }}
-                                                                 className="avatar-xs">
-                                                                <div
-                                                                    align='center'
-                                                                    style={{
-                                                                        backgroundColor:'#7A7A7A',
-                                                                    }}
-                                                                    className="plus-background-color avatar-title rounded-circle mt-2">
-                                                                    <div style={{color: 'white'}}>+</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    )}
                                                 </div>
                                             </div>
                                         ))}
@@ -370,28 +641,132 @@ const CustomerMenu = (props) => {
                                     <div id="normal">
                                         <div className="title-menu"><b>Gọi món</b></div>
                                         {props?.dataMenu?.normal?.map((normal) => (
-                                            <div className="item-menu d-flex">
+                                            <div className="item-menu-other d-flex">
                                                 <div style={{
                                                     backgroundColor: (normal?.is_sold_out === false && normal?.in_cart === false) ? '#EEEEEE' : (normal?.is_sold_out === false && normal?.in_cart === true) ? '#FFEFCD' : '#CFCFCF'
-                                                }} className="col-11 d-flex menu-item-bar">
-                                                    <div align="left" className="col-8">
-                                                        <div className="item-name"><b>{normal?.name}</b></div>
-                                                        <div
-                                                            className="item-cost">{(normal?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                                }} className="col-12 d-flex menu-item-bar">
+                                                    {(normal?.is_sold_out === false) ? (
+                                                        <Link to={`/customer-detail-combo/${normal?._id}`} align="left"
+                                                              className="col-3"
+                                                              style={{marginLeft: '-12px'}}>
+                                                            <img src={normal?.image} alt="" height='80px' width='80px'/>
+                                                        </Link>
+                                                    ) : (
+                                                        <div className="col-3"
+                                                             style={{marginLeft: '-12px'}}>
+                                                            <img src={normal?.image} alt="" height='80px' width='80px'/>
                                                         </div>
-                                                    </div>
-                                                    <div align="right" className="col-3" style={{paddingTop: '18px'}}>
-                                                        {(normal?.is_sold_out === false && normal?.in_cart === false) ? (
-                                                            <div></div>
-                                                        ) : (normal?.is_sold_out === false && normal?.in_cart === true) ? (
-                                                            <div>
-                                                                <b style={{
-                                                                    fontSize: '18px',
-                                                                    fontWeight: 'bold',
-                                                                    fontStyle: 'normal',
-                                                                    fontFamily: 'Cabin',
-                                                                    paddingTop: '13px'
-                                                                }}>{normal?.quantity}</b>
+                                                    )}
+                                                    {(normal?.is_sold_out === false) ? (
+                                                        <Link to={`/customer-detail-combo/${normal?._id}`} align="left"
+                                                              className="col-7">
+                                                            <div className="item-name"><b>{normal?.name}</b></div>
+                                                            <div
+                                                                className="item-cost">{(normal?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                                            </div>
+                                                        </Link>
+                                                    ) : (
+                                                        <div align="left" className="col-7">
+                                                            <div className="item-name"><b>{normal?.name}</b></div>
+                                                            <div
+                                                                className="item-cost">{(normal?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                    <div align="center" className="other-item col-2">
+                                                        {(normal?.is_sold_out === false) ? (
+                                                            <div className="d-flex">
+                                                                {normal?.quantity > 0 ? (
+                                                                    <div onClick={() => {
+                                                                        if (normal?.quantity > 1) {
+                                                                            props.dispatch(addToCartMenuRequest(normal?._id, normal?.quantity - 1, '', [], normal?.cost));
+                                                                            setTimeout(() => {
+                                                                                props.dispatch(actions.getAllCategoryRequest());
+                                                                                props.dispatch(actions.getAllMenuRequest());
+                                                                                props.dispatch(actions.getCartRequest());
+                                                                            }, 600)
+                                                                        } else {
+                                                                            fetch('http://165.227.99.160/api/customer/cart/item/delete?item_id[]=' + normal?._id, {
+                                                                                method: 'POST',
+                                                                                headers: authHeaderGetApiCus(),
+                                                                            })
+                                                                                .then(res => {
+                                                                                    if (res.ok) {
+                                                                                        console.log('DELETE SUCCESS')
+                                                                                    } else {
+                                                                                        console.log('DELETE FAILED')
+                                                                                    }
+                                                                                })
+                                                                                .then(data => console.log(data))
+                                                                                .catch(error => console.log('ERROR'))
+                                                                            setTimeout(() => {
+                                                                                props.dispatch(actions.getAllCategoryRequest());
+                                                                                props.dispatch(actions.getAllMenuRequest());
+                                                                                props.dispatch(actions.getCartRequest());
+                                                                            }, 650)
+                                                                        }
+                                                                    }}
+                                                                         className="avatar-xs">
+                                                                        <div
+                                                                            className="plus-background-color avatar-title rounded-circle mt-2"
+                                                                            style={{
+                                                                                backgroundColor: '#ffffff',
+                                                                                border: '2px solid #FCBC3A'
+                                                                            }}>
+                                                                            <img src={mathMinus}
+                                                                                 className="plus-icon-button"/>
+                                                                        </div>
+                                                                    </div>
+                                                                ) : (
+                                                                    <div className="avatar-xs">
+                                                                        <div
+                                                                            className="plus-background-color avatar-title rounded-circle mt-2"
+                                                                            style={{backgroundColor: '#eeeeee'}}>
+                                                                        </div>
+                                                                    </div>
+                                                                )}
+                                                                <div className="avatar-xs">
+                                                                    {normal?.quantity > 0 ? (
+                                                                        <div
+                                                                            className="quantity-background-color avatar-title rounded-circle mt-2">
+                                                                            <b style={{
+                                                                                fontSize: '18px',
+                                                                                fontWeight: 'bold',
+                                                                                fontStyle: 'normal',
+                                                                                fontFamily: 'Cabin',
+                                                                                color: '#000000',
+                                                                            }}>{normal?.quantity}</b>
+                                                                        </div>
+                                                                    ) : (
+                                                                        <div
+                                                                            className="quantity-background-color avatar-title rounded-circle mt-2"
+                                                                            style={{backgroundColor: '#eeeeee'}}
+                                                                        >
+                                                                            <b style={{
+                                                                                fontSize: '18px',
+                                                                                fontWeight: 'bold',
+                                                                                fontStyle: 'normal',
+                                                                                fontFamily: 'Cabin',
+                                                                                color: '#000000',
+                                                                            }}></b>
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                                <div onClick={() => {
+                                                                    props.dispatch(addToCartMenuRequest(normal?._id, normal?.quantity + 1, '', [], normal?.cost));
+                                                                    setTimeout(() => {
+                                                                        props.dispatch(actions.getAllCategoryRequest());
+                                                                        props.dispatch(actions.getAllMenuRequest());
+                                                                        props.dispatch(actions.getCartRequest());
+                                                                    }, 600)
+                                                                }}
+                                                                     className="avatar-xs">
+                                                                    <div
+                                                                        className="plus-background-color avatar-title rounded-circle mt-2">
+                                                                        <img src={mathPlus}
+                                                                             className="plus-icon-button"/>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         ) : (
                                                             <div>
@@ -399,72 +774,144 @@ const CustomerMenu = (props) => {
                                                                     fontWeight: 'bold',
                                                                     fontStyle: 'normal',
                                                                     fontFamily: 'Cabin',
-                                                                }}>Hết hàng</b>
+                                                                    color: '#000000',
+                                                                }}>Hết</b>
                                                             </div>
                                                         )}
                                                     </div>
-                                                </div>
-                                                <div className="add-button col-1">
-                                                    {(normal?.is_sold_out === false) ? (
-                                                        <Link to={`/customer-detail-combo/${normal?._id}`}>
-                                                            <div style={{
-                                                                marginRight: 'auto',
-                                                                marginLeft: 'auto'
-                                                            }}
-                                                                 className="avatar-xs">
-                                                                <div
-                                                                    className="plus-background-color avatar-title rounded-circle mt-2">
-                                                                    <img src={mathPlus} className="plus-icon-button"/>
-                                                                </div>
-                                                            </div>
-                                                        </Link>
-                                                    ) : (
-                                                        <div>
-                                                            <div style={{
-                                                                marginRight: 'auto',
-                                                                marginLeft: 'auto'
-                                                            }}
-                                                                 className="avatar-xs">
-                                                                <div
-                                                                    align='center'
-                                                                    style={{
-                                                                        backgroundColor:'#7A7A7A',
-                                                                    }}
-                                                                    className="plus-background-color avatar-title rounded-circle mt-2">
-                                                                    <div style={{color: 'white'}}>+</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    )}
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
                                     <div id="fast">
-                                        <div className="title-menu"><b>Đồ ăn kèm</b></div>
+                                        <div className="title-menu"><b>Đồ ăn nhanh</b></div>
                                         {props?.dataMenu?.fast?.map((fast) => (
-                                            <div className="item-menu d-flex">
+                                            <div className="item-menu-other d-flex">
                                                 <div style={{
                                                     backgroundColor: (fast?.is_sold_out === false && fast?.in_cart === false) ? '#EEEEEE' : (fast?.is_sold_out === false && fast?.in_cart === true) ? '#FFEFCD' : '#CFCFCF'
-                                                }} className="col-11 d-flex menu-item-bar">
-                                                    <div align="left" className="col-8">
-                                                        <div className="item-name"><b>{fast?.name}</b></div>
-                                                        <div
-                                                            className="item-cost">{(fast?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                                }} className="col-12 d-flex menu-item-bar">
+                                                    {(fast?.is_sold_out === false) ? (
+                                                        <Link to={`/customer-detail-combo/${fast?._id}`} align="left"
+                                                              className="col-3"
+                                                              style={{marginLeft: '-12px'}}>
+                                                            <img src={fast?.image} alt="" height='80px' width='80px'/>
+                                                        </Link>
+                                                    ) : (
+                                                        <div className="col-3"
+                                                             style={{marginLeft: '-12px'}}>
+                                                            <img src={fast?.image} alt="" height='80px' width='80px'/>
                                                         </div>
-                                                    </div>
-                                                    <div align="right" className="col-3" style={{paddingTop: '18px'}}>
-                                                        {(fast?.is_sold_out === false && fast?.in_cart === false) ? (
-                                                            <div></div>
-                                                        ) : (fast?.is_sold_out === false && fast?.in_cart === true) ? (
-                                                            <div>
-                                                                <b style={{
-                                                                    fontSize: '18px',
-                                                                    fontWeight: 'bold',
-                                                                    fontStyle: 'normal',
-                                                                    fontFamily: 'Cabin',
-                                                                    paddingTop: '13px'
-                                                                }}>{fast?.quantity}</b>
+                                                    )}
+                                                    {(fast?.is_sold_out === false) ? (
+                                                        <Link to={`/customer-detail-combo/${fast?._id}`} align="left"
+                                                              className="col-7">
+                                                            <div className="item-name"><b>{fast?.name}</b></div>
+                                                            <div
+                                                                className="item-cost">{(fast?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                                            </div>
+                                                        </Link>
+                                                    ) : (
+                                                        <div align="left" className="col-7">
+                                                            <div className="item-name"><b>{fast?.name}</b></div>
+                                                            <div
+                                                                className="item-cost">{(fast?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                    <div align="center" className="other-item col-2">
+                                                        {(fast?.is_sold_out === false) ? (
+                                                            <div className="d-flex">
+                                                                {fast?.quantity > 0 ? (
+                                                                    <div onClick={() => {
+                                                                        if (fast?.quantity > 1) {
+                                                                            props.dispatch(addToCartMenuRequest(fast?._id, fast?.quantity - 1, '', [], fast?.cost));
+                                                                            setTimeout(() => {
+                                                                                props.dispatch(actions.getAllCategoryRequest());
+                                                                                props.dispatch(actions.getAllMenuRequest());
+                                                                                props.dispatch(actions.getCartRequest());
+                                                                            }, 600)
+                                                                        } else {
+                                                                            fetch('http://165.227.99.160/api/customer/cart/item/delete?item_id[]=' + fast?._id, {
+                                                                                method: 'POST',
+                                                                                headers: authHeaderGetApiCus(),
+                                                                            })
+                                                                                .then(res => {
+                                                                                    if (res.ok) {
+                                                                                        console.log('DELETE SUCCESS')
+                                                                                    } else {
+                                                                                        console.log('DELETE FAILED')
+                                                                                    }
+                                                                                })
+                                                                                .then(data => console.log(data))
+                                                                                .catch(error => console.log('ERROR'))
+                                                                            setTimeout(() => {
+                                                                                props.dispatch(actions.getAllCategoryRequest());
+                                                                                props.dispatch(actions.getAllMenuRequest());
+                                                                                props.dispatch(actions.getCartRequest());
+                                                                            }, 650)
+                                                                        }
+                                                                    }}
+                                                                         className="avatar-xs">
+                                                                        <div
+                                                                            className="plus-background-color avatar-title rounded-circle mt-2"
+                                                                            style={{
+                                                                                backgroundColor: '#ffffff',
+                                                                                border: '2px solid #FCBC3A'
+                                                                            }}>
+                                                                            <img src={mathMinus}
+                                                                                 className="plus-icon-button"/>
+                                                                        </div>
+                                                                    </div>
+                                                                ) : (
+                                                                    <div className="avatar-xs">
+                                                                        <div
+                                                                            className="plus-background-color avatar-title rounded-circle mt-2"
+                                                                            style={{backgroundColor: '#eeeeee'}}>
+                                                                        </div>
+                                                                    </div>
+                                                                )}
+                                                                <div className="avatar-xs">
+                                                                    {fast?.quantity > 0 ? (
+                                                                        <div
+                                                                            className="quantity-background-color avatar-title rounded-circle mt-2">
+                                                                            <b style={{
+                                                                                fontSize: '18px',
+                                                                                fontWeight: 'bold',
+                                                                                fontStyle: 'normal',
+                                                                                fontFamily: 'Cabin',
+                                                                                color: '#000000',
+                                                                            }}>{fast?.quantity}</b>
+                                                                        </div>
+                                                                    ) : (
+                                                                        <div
+                                                                            className="quantity-background-color avatar-title rounded-circle mt-2"
+                                                                            style={{backgroundColor: '#eeeeee'}}
+                                                                        >
+                                                                            <b style={{
+                                                                                fontSize: '18px',
+                                                                                fontWeight: 'bold',
+                                                                                fontStyle: 'normal',
+                                                                                fontFamily: 'Cabin',
+                                                                                color: '#000000',
+                                                                            }}></b>
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                                <div onClick={() => {
+                                                                    props.dispatch(addToCartMenuRequest(fast?._id, fast?.quantity + 1, '', [], fast?.cost));
+                                                                    setTimeout(() => {
+                                                                        props.dispatch(actions.getAllCategoryRequest());
+                                                                        props.dispatch(actions.getAllMenuRequest());
+                                                                        props.dispatch(actions.getCartRequest());
+                                                                    }, 600)
+                                                                }}
+                                                                     className="avatar-xs">
+                                                                    <div
+                                                                        className="plus-background-color avatar-title rounded-circle mt-2">
+                                                                        <img src={mathPlus}
+                                                                             className="plus-icon-button"/>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         ) : (
                                                             <div>
@@ -472,43 +919,11 @@ const CustomerMenu = (props) => {
                                                                     fontWeight: 'bold',
                                                                     fontStyle: 'normal',
                                                                     fontFamily: 'Cabin',
-                                                                }}>Hết hàng</b>
+                                                                    color: '#000000',
+                                                                }}>Hết</b>
                                                             </div>
                                                         )}
                                                     </div>
-                                                </div>
-                                                <div className="add-button col-1">
-                                                    {(fast?.is_sold_out === false) ? (
-                                                        <Link to={`/customer-detail-combo/${fast?._id}`}>
-                                                            <div style={{
-                                                                marginRight: 'auto',
-                                                                marginLeft: 'auto'
-                                                            }}
-                                                                 className="avatar-xs">
-                                                                <div
-                                                                    className="plus-background-color avatar-title rounded-circle mt-2">
-                                                                    <img src={mathPlus} className="plus-icon-button"/>
-                                                                </div>
-                                                            </div>
-                                                        </Link>
-                                                    ) : (
-                                                        <div>
-                                                            <div style={{
-                                                                marginRight: 'auto',
-                                                                marginLeft: 'auto'
-                                                            }}
-                                                                 className="avatar-xs">
-                                                                <div
-                                                                    align='center'
-                                                                    style={{
-                                                                        backgroundColor:'#7A7A7A',
-                                                                    }}
-                                                                    className="plus-background-color avatar-title rounded-circle mt-2">
-                                                                    <div style={{color: 'white'}}>+</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    )}
                                                 </div>
                                             </div>
                                         ))}
@@ -516,28 +931,134 @@ const CustomerMenu = (props) => {
                                     <div id="alcohol">
                                         <div className="title-menu"><b>Rượu</b></div>
                                         {props?.dataMenu?.alcohol?.map((alcohol) => (
-                                            <div className="item-menu d-flex">
+                                            <div className="item-menu-other d-flex">
                                                 <div style={{
                                                     backgroundColor: (alcohol?.is_sold_out === false && alcohol?.in_cart === false) ? '#EEEEEE' : (alcohol?.is_sold_out === false && alcohol?.in_cart === true) ? '#FFEFCD' : '#CFCFCF'
-                                                }} className="col-11 d-flex menu-item-bar">
-                                                    <div align="left" className="col-8">
-                                                        <div className="item-name"><b>{alcohol?.name}</b></div>
-                                                        <div
-                                                            className="item-cost">{(alcohol?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                                }} className="col-12 d-flex menu-item-bar">
+                                                    {(alcohol?.is_sold_out === false) ? (
+                                                        <Link to={`/customer-detail-combo/${alcohol?._id}`} align="left"
+                                                              className="col-3"
+                                                              style={{marginLeft: '-12px'}}>
+                                                            <img src={alcohol?.image} alt="" height='80px'
+                                                                 width='80px'/>
+                                                        </Link>
+                                                    ) : (
+                                                        <div className="col-3"
+                                                             style={{marginLeft: '-12px'}}>
+                                                            <img src={alcohol?.image} alt="" height='80px'
+                                                                 width='80px'/>
                                                         </div>
-                                                    </div>
-                                                    <div align="right" className="col-3" style={{paddingTop: '18px'}}>
-                                                        {(alcohol?.is_sold_out === false && alcohol?.in_cart === false) ? (
-                                                            <div></div>
-                                                        ) : (alcohol?.is_sold_out === false && alcohol?.in_cart === true) ? (
-                                                            <div>
-                                                                <b style={{
-                                                                    fontSize: '18px',
-                                                                    fontWeight: 'bold',
-                                                                    fontStyle: 'normal',
-                                                                    fontFamily: 'Cabin',
-                                                                    paddingTop: '13px'
-                                                                }}>{alcohol?.quantity}</b>
+                                                    )}
+                                                    {(alcohol?.is_sold_out === false) ? (
+                                                        <Link to={`/customer-detail-combo/${alcohol?._id}`} align="left"
+                                                              className="col-7">
+                                                            <div className="item-name"><b>{alcohol?.name}</b></div>
+                                                            <div
+                                                                className="item-cost">{(alcohol?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                                            </div>
+                                                        </Link>
+                                                    ) : (
+                                                        <div align="left" className="col-7">
+                                                            <div className="item-name"><b>{alcohol?.name}</b></div>
+                                                            <div
+                                                                className="item-cost">{(alcohol?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                    <div align="center" className="other-item col-2">
+                                                        {(alcohol?.is_sold_out === false) ? (
+                                                            <div className="d-flex">
+                                                                {alcohol?.quantity > 0 ? (
+                                                                    <div onClick={() => {
+                                                                        if (alcohol?.quantity > 1) {
+                                                                            props.dispatch(addToCartMenuRequest(alcohol?._id, alcohol?.quantity - 1, '', [], alcohol?.cost));
+                                                                            setTimeout(() => {
+                                                                                props.dispatch(actions.getAllCategoryRequest());
+                                                                                props.dispatch(actions.getAllMenuRequest());
+                                                                                props.dispatch(actions.getCartRequest());
+                                                                            }, 600)
+                                                                        } else {
+                                                                            fetch('http://165.227.99.160/api/customer/cart/item/delete?item_id[]=' + alcohol?._id, {
+                                                                                method: 'POST',
+                                                                                headers: authHeaderGetApiCus(),
+                                                                            })
+                                                                                .then(res => {
+                                                                                    if (res.ok) {
+                                                                                        console.log('DELETE SUCCESS')
+                                                                                    } else {
+                                                                                        console.log('DELETE FAILED')
+                                                                                    }
+                                                                                })
+                                                                                .then(data => console.log(data))
+                                                                                .catch(error => console.log('ERROR'))
+                                                                            setTimeout(() => {
+                                                                                props.dispatch(actions.getAllCategoryRequest());
+                                                                                props.dispatch(actions.getAllMenuRequest());
+                                                                                props.dispatch(actions.getCartRequest());
+                                                                            }, 650)
+                                                                        }
+                                                                    }}
+                                                                         className="avatar-xs">
+                                                                        <div
+                                                                            className="plus-background-color avatar-title rounded-circle mt-2"
+                                                                            style={{
+                                                                                backgroundColor: '#ffffff',
+                                                                                border: '2px solid #FCBC3A'
+                                                                            }}>
+                                                                            <img src={mathMinus}
+                                                                                 className="plus-icon-button"/>
+                                                                        </div>
+                                                                    </div>
+                                                                ) : (
+                                                                    <div className="avatar-xs">
+                                                                        <div
+                                                                            className="plus-background-color avatar-title rounded-circle mt-2"
+                                                                            style={{backgroundColor: '#eeeeee'}}>
+                                                                        </div>
+                                                                    </div>
+                                                                )}
+                                                                <div className="avatar-xs">
+                                                                    {alcohol?.quantity > 0 ? (
+                                                                        <div
+                                                                            className="quantity-background-color avatar-title rounded-circle mt-2">
+                                                                            <b style={{
+                                                                                fontSize: '18px',
+                                                                                fontWeight: 'bold',
+                                                                                fontStyle: 'normal',
+                                                                                fontFamily: 'Cabin',
+                                                                                color: '#000000',
+                                                                            }}>{alcohol?.quantity}</b>
+                                                                        </div>
+                                                                    ) : (
+                                                                        <div
+                                                                            className="quantity-background-color avatar-title rounded-circle mt-2"
+                                                                            style={{backgroundColor: '#eeeeee'}}
+                                                                        >
+                                                                            <b style={{
+                                                                                fontSize: '18px',
+                                                                                fontWeight: 'bold',
+                                                                                fontStyle: 'normal',
+                                                                                fontFamily: 'Cabin',
+                                                                                color: '#000000',
+                                                                            }}></b>
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                                <div onClick={() => {
+                                                                    props.dispatch(addToCartMenuRequest(alcohol?._id, alcohol?.quantity + 1, '', [], alcohol?.cost));
+                                                                    setTimeout(() => {
+                                                                        props.dispatch(actions.getAllCategoryRequest());
+                                                                        props.dispatch(actions.getAllMenuRequest());
+                                                                        props.dispatch(actions.getCartRequest());
+                                                                    }, 600)
+                                                                }}
+                                                                     className="avatar-xs">
+                                                                    <div
+                                                                        className="plus-background-color avatar-title rounded-circle mt-2">
+                                                                        <img src={mathPlus}
+                                                                             className="plus-icon-button"/>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         ) : (
                                                             <div>
@@ -545,43 +1066,11 @@ const CustomerMenu = (props) => {
                                                                     fontWeight: 'bold',
                                                                     fontStyle: 'normal',
                                                                     fontFamily: 'Cabin',
-                                                                }}>Hết hàng</b>
+                                                                    color: '#000000',
+                                                                }}>Hết</b>
                                                             </div>
                                                         )}
                                                     </div>
-                                                </div>
-                                                <div className="add-button col-1">
-                                                    {(alcohol?.is_sold_out === false) ? (
-                                                        <Link to={`/customer-detail-combo/${alcohol?._id}`}>
-                                                            <div style={{
-                                                                marginRight: 'auto',
-                                                                marginLeft: 'auto'
-                                                            }}
-                                                                 className="avatar-xs">
-                                                                <div
-                                                                    className="plus-background-color avatar-title rounded-circle mt-2">
-                                                                    <img src={mathPlus} className="plus-icon-button"/>
-                                                                </div>
-                                                            </div>
-                                                        </Link>
-                                                    ) : (
-                                                        <div>
-                                                            <div style={{
-                                                                marginRight: 'auto',
-                                                                marginLeft: 'auto'
-                                                            }}
-                                                                 className="avatar-xs">
-                                                                <div
-                                                                    align='center'
-                                                                    style={{
-                                                                        backgroundColor:'#7A7A7A',
-                                                                    }}
-                                                                    className="plus-background-color avatar-title rounded-circle mt-2">
-                                                                    <div style={{color: 'white'}}>+</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    )}
                                                 </div>
                                             </div>
                                         ))}
@@ -589,28 +1078,132 @@ const CustomerMenu = (props) => {
                                     <div id="beer">
                                         <div className="title-menu"><b>Bia</b></div>
                                         {props?.dataMenu?.beer?.map((beer) => (
-                                            <div className="item-menu d-flex">
+                                            <div className="item-menu-other d-flex">
                                                 <div style={{
                                                     backgroundColor: (beer?.is_sold_out === false && beer?.in_cart === false) ? '#EEEEEE' : (beer?.is_sold_out === false && beer?.in_cart === true) ? '#FFEFCD' : '#CFCFCF'
-                                                }} className="col-11 d-flex menu-item-bar">
-                                                    <div align="left" className="col-8">
-                                                        <div className="item-name"><b>{beer?.name}</b></div>
-                                                        <div
-                                                            className="item-cost">{(beer?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                                }} className="col-12 d-flex menu-item-bar">
+                                                    {(beer?.is_sold_out === false) ? (
+                                                        <Link to={`/customer-detail-combo/${beer?._id}`} align="left"
+                                                              className="col-3"
+                                                              style={{marginLeft: '-12px'}}>
+                                                            <img src={beer?.image} alt="" height='80px' width='80px'/>
+                                                        </Link>
+                                                    ) : (
+                                                        <div className="col-3"
+                                                             style={{marginLeft: '-12px'}}>
+                                                            <img src={beer?.image} alt="" height='80px' width='80px'/>
                                                         </div>
-                                                    </div>
-                                                    <div align="right" className="col-3" style={{paddingTop: '18px'}}>
-                                                        {(beer?.is_sold_out === false && beer?.in_cart === false) ? (
-                                                            <div></div>
-                                                        ) : (beer?.is_sold_out === false && beer?.in_cart === true) ? (
-                                                            <div>
-                                                                <b style={{
-                                                                    fontSize: '18px',
-                                                                    fontWeight: 'bold',
-                                                                    fontStyle: 'normal',
-                                                                    fontFamily: 'Cabin',
-                                                                    paddingTop: '13px'
-                                                                }}>{beer?.quantity}</b>
+                                                    )}
+                                                    {(beer?.is_sold_out === false) ? (
+                                                        <Link to={`/customer-detail-combo/${beer?._id}`} align="left"
+                                                              className="col-7">
+                                                            <div className="item-name"><b>{beer?.name}</b></div>
+                                                            <div
+                                                                className="item-cost">{(beer?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                                            </div>
+                                                        </Link>
+                                                    ) : (
+                                                        <div align="left" className="col-7">
+                                                            <div className="item-name"><b>{beer?.name}</b></div>
+                                                            <div
+                                                                className="item-cost">{(beer?.cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                    <div align="center" className="other-item col-2">
+                                                        {(beer?.is_sold_out === false) ? (
+                                                            <div className="d-flex">
+                                                                {beer?.quantity > 0 ? (
+                                                                    <div onClick={() => {
+                                                                        if (beer?.quantity > 1) {
+                                                                            props.dispatch(addToCartMenuRequest(beer?._id, beer?.quantity - 1, '', [], beer?.cost));
+                                                                            setTimeout(() => {
+                                                                                props.dispatch(actions.getAllCategoryRequest());
+                                                                                props.dispatch(actions.getAllMenuRequest());
+                                                                                props.dispatch(actions.getCartRequest());
+                                                                            }, 600)
+                                                                        } else {
+                                                                            fetch('http://165.227.99.160/api/customer/cart/item/delete?item_id[]=' + beer?._id, {
+                                                                                method: 'POST',
+                                                                                headers: authHeaderGetApiCus(),
+                                                                            })
+                                                                                .then(res => {
+                                                                                    if (res.ok) {
+                                                                                        console.log('DELETE SUCCESS')
+                                                                                    } else {
+                                                                                        console.log('DELETE FAILED')
+                                                                                    }
+                                                                                })
+                                                                                .then(data => console.log(data))
+                                                                                .catch(error => console.log('ERROR'))
+                                                                            setTimeout(() => {
+                                                                                props.dispatch(actions.getAllCategoryRequest());
+                                                                                props.dispatch(actions.getAllMenuRequest());
+                                                                                props.dispatch(actions.getCartRequest());
+                                                                            }, 650)
+                                                                        }
+                                                                    }}
+                                                                         className="avatar-xs">
+                                                                        <div
+                                                                            className="plus-background-color avatar-title rounded-circle mt-2"
+                                                                            style={{
+                                                                                backgroundColor: '#ffffff',
+                                                                                border: '2px solid #FCBC3A'
+                                                                            }}>
+                                                                            <img src={mathMinus}
+                                                                                 className="plus-icon-button"/>
+                                                                        </div>
+                                                                    </div>
+                                                                ) : (
+                                                                    <div className="avatar-xs">
+                                                                        <div
+                                                                            className="plus-background-color avatar-title rounded-circle mt-2"
+                                                                            style={{backgroundColor: '#eeeeee'}}>
+                                                                        </div>
+                                                                    </div>
+                                                                )}
+                                                                <div className="avatar-xs">
+                                                                    {beer?.quantity > 0 ? (
+                                                                        <div
+                                                                            className="quantity-background-color avatar-title rounded-circle mt-2">
+                                                                            <b style={{
+                                                                                fontSize: '18px',
+                                                                                fontWeight: 'bold',
+                                                                                fontStyle: 'normal',
+                                                                                fontFamily: 'Cabin',
+                                                                                color: '#000000',
+                                                                            }}>{beer?.quantity}</b>
+                                                                        </div>
+                                                                    ) : (
+                                                                        <div
+                                                                            className="quantity-background-color avatar-title rounded-circle mt-2"
+                                                                            style={{backgroundColor: '#eeeeee'}}
+                                                                        >
+                                                                            <b style={{
+                                                                                fontSize: '18px',
+                                                                                fontWeight: 'bold',
+                                                                                fontStyle: 'normal',
+                                                                                fontFamily: 'Cabin',
+                                                                                color: '#000000',
+                                                                            }}></b>
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                                <div onClick={() => {
+                                                                    props.dispatch(addToCartMenuRequest(beer?._id, beer?.quantity + 1, '', [], beer?.cost));
+                                                                    setTimeout(() => {
+                                                                        props.dispatch(actions.getAllCategoryRequest());
+                                                                        props.dispatch(actions.getAllMenuRequest());
+                                                                        props.dispatch(actions.getCartRequest());
+                                                                    }, 600)
+                                                                }}
+                                                                     className="avatar-xs">
+                                                                    <div
+                                                                        className="plus-background-color avatar-title rounded-circle mt-2">
+                                                                        <img src={mathPlus}
+                                                                             className="plus-icon-button"/>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         ) : (
                                                             <div>
@@ -618,43 +1211,11 @@ const CustomerMenu = (props) => {
                                                                     fontWeight: 'bold',
                                                                     fontStyle: 'normal',
                                                                     fontFamily: 'Cabin',
-                                                                }}>Hết hàng</b>
+                                                                    color: '#000000',
+                                                                }}>Hết</b>
                                                             </div>
                                                         )}
                                                     </div>
-                                                </div>
-                                                <div className="add-button col-1">
-                                                    {(beer?.is_sold_out === false) ? (
-                                                        <Link to={`/customer-detail-combo/${beer?._id}`}>
-                                                            <div style={{
-                                                                marginRight: 'auto',
-                                                                marginLeft: 'auto'
-                                                            }}
-                                                                 className="avatar-xs">
-                                                                <div
-                                                                    className="plus-background-color avatar-title rounded-circle mt-2">
-                                                                    <img src={mathPlus} className="plus-icon-button"/>
-                                                                </div>
-                                                            </div>
-                                                        </Link>
-                                                    ) : (
-                                                        <div>
-                                                            <div style={{
-                                                                marginRight: 'auto',
-                                                                marginLeft: 'auto'
-                                                            }}
-                                                                 className="avatar-xs">
-                                                                <div
-                                                                    align='center'
-                                                                    style={{
-                                                                        backgroundColor:'#7A7A7A',
-                                                                    }}
-                                                                    className="plus-background-color avatar-title rounded-circle mt-2">
-                                                                    <div style={{color: 'white'}}>+</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    )}
                                                 </div>
                                             </div>
                                         ))}
@@ -708,6 +1269,7 @@ const mapStateToProps = (state) => {
         authCustomer,
         dataCategory: state.Customer.getAllCategory.allCategories,
         dataMenu: state.Customer.getAllMenu.allMenu,
+        dataAddToCartMenu: state.Customer.addToCartMenu.dataAddToCartMenu,
         dataSearch: state.Customer.getAllSearch.allSearch,
         dataCart: state.Customer.getCart.dataCart,
         allQueueOrder: state.Customer.getCheckQueueOrder.allQueueOrder,
