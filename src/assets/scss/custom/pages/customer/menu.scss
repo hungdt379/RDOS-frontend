@@ -55,6 +55,9 @@
             height: 20px;
           }
         }
+        .active{
+          background-color: #FCBC3A !important;
+        }
         .square-text-button{
           font-family: Cabin;
           font-style: normal;
@@ -63,14 +66,6 @@
           line-height: 16px;
           text-align: center;
           color: #1E1C19;
-        }
-      }
-    }
-    .menu-type-a:hover{
-      height: 100%;
-      .menu-type{
-        .cate-background-color{
-          background-color: #FCBC3A !important;
         }
       }
     }
@@ -84,6 +79,20 @@
       height: calc(100% - 50px) !important;
       padding-bottom: 90px;
       .list-menu{
+        height: 100% !important;
+        width: 100%;
+      }
+    }
+  }
+  .cover-list-menu{
+    //position: fixed;
+    width: 100%;
+    height: calc(100% - 50px) !important;
+    background-color: #ffffff;
+    .side-list-menu-menu{
+      height: calc(100% - 50px) !important;
+      padding-bottom: 90px;
+      .list-menu-menu{
         height: 100% !important;
         width: 100%;
       }
@@ -259,6 +268,7 @@
 
 .dis-search{
   display: block;
+  margin-top: -100px;
 }
 
 .none-dis-search{
