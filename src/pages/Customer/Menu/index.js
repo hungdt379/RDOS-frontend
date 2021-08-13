@@ -342,6 +342,7 @@ const CustomerMenu = (props) => {
                                                                                 props.dispatch(actions.getAllCategoryRequest());
                                                                                 props.dispatch(actions.getAllMenuRequest());
                                                                                 props.dispatch(actions.getCartRequest());
+                                                                                props.dispatch(actions.getAllSearchRequest(search, props.authCustomer.data.user.user_id));
                                                                             }, 600)
                                                                         } else {
                                                                             fetch('http://165.227.99.160/api/customer/cart/item/delete?item_id[]=' + se?._id, {
@@ -361,6 +362,7 @@ const CustomerMenu = (props) => {
                                                                                 props.dispatch(actions.getAllCategoryRequest());
                                                                                 props.dispatch(actions.getAllMenuRequest());
                                                                                 props.dispatch(actions.getCartRequest());
+                                                                                props.dispatch(actions.getAllSearchRequest(search, props.authCustomer.data.user.user_id));
                                                                             }, 650)
                                                                         }
                                                                     }}
@@ -416,6 +418,7 @@ const CustomerMenu = (props) => {
                                                                         props.dispatch(actions.getAllCategoryRequest());
                                                                         props.dispatch(actions.getAllMenuRequest());
                                                                         props.dispatch(actions.getCartRequest());
+                                                                        props.dispatch(actions.getAllSearchRequest(search, props.authCustomer.data.user.user_id));
                                                                     }, 600)
                                                                 }}
                                                                      className="avatar-xs">
