@@ -53,9 +53,9 @@
         color: #1E1C19;
     }
 
-    input[type = 'radio'].check-nav:checked ~ div.link_form{
-        background-color: #FCBC3A;
-    }
+    //input[type = 'radio'].check-nav:checked ~ div.link_form{
+    //    background-color: #FCBC3A;
+    //}
 
 
     .list-Item{
@@ -92,7 +92,7 @@
         overflow-y: scroll;
         background-color: #fff;
         text-align: center;
-        //height: 90px;
+        height: 90px;
         .menu-type-a-waiter{
             height: 100%;
             .menu-type-waiter{
@@ -105,6 +105,25 @@
                 font-size: 14px;
                 position: relative;
                 outline: 0;
+                .cate-background-color-waiter{
+                    background-color: #FFEFCD !important;
+                    .icon-button-menu-waiter{
+                        width: 25px;
+                        height: 25px;
+                    }
+                }
+                input[type = 'radio'].check-nav:checked ~ div.avatar-sm>div.cate-background-color-waiter{
+                    background-color: #FCBC3A !important;
+                }
+                .square-text-button-waiter{
+                    font-family: Cabin;
+                    font-style: normal;
+                    font-weight: 600;
+                    font-size: 13px;
+                    line-height: 16px;
+                    text-align: center;
+                    color: #1E1C19;
+                }
             }
         }
     }
