@@ -232,7 +232,9 @@ const ConfirmOrder = (props) => {
                                                     <span onClick={() => {
                                                         customizeNumberSub(d)
                                                     }}><img className="minus-button-waiter" src={mathMinus}/></span>
-                                                    <span>{d.quantity}</span>
+                                                    <span style={{
+                                                        marginTop:'2px'
+                                                    }}>{d.quantity}</span>
                                                     <span onClick={() => {
                                                         customizeNumberAdd(d)
                                                     }}><img className="plus-button-waiter" src={mathPlus}/></span>
@@ -322,20 +324,23 @@ const ConfirmOrder = (props) => {
                                 setSearchItem(e.target.value);
                                 props.getSearchItemRequest(e.target.value, location.state._id);
                             }} placeholder="Tìm kiếm..." autoFocus/>
-                            <img style={{width: '20px', height: '23px'}} src={Search}/>
+                            <img style={{width: '20px', height: '20px'}} src={Search}/>
                         </div>
                         <div>
                             {searchItem != '' ? <div style={{textAlign: "center", justifycontent: "center"}}>
                                 <PerfectScrollbar>
                                     <div className="list-Item_detail">
                                         {dataSearchItem?.map((d, index) => (
-                                                <div className="item-form-detail" key={index}>
-                                                    <div className="item-form-one">
-                                                        <span style={{font: "bold", fontSize: "16px"}}>{d.name}</span>
-                                                        <span style={{
-                                                            fontSize: "12px", fontWeight: "normal",
-                                                            lineHeight: "15px"
-                                                        }}>{d.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}VNĐ</span>
+                                                <div style={{height:'60px'}} className="item-form-detail" key={index}>
+                                                    <img style={{marginTop: '-12px'}} src={d?.image} alt="" height='80px' width='80px'/>
+                                                    <div style={{paddingTop: 'auto',paddingBottom:'auto'}} className="item-form-one">
+                                                        <div style={{fontWeight: "bold", fontSize: "14px", fontFamily:'Cabin'}}>{d.name}</div>
+                                                        <div style={{
+                                                            fontSize: "12px",
+                                                            fontWeight: "normal",
+                                                            lineHeight: "15px",
+                                                            fontFamily:'Cabin'
+                                                        }}>{d.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}VNĐ</div>
                                                     </div>
                                                     <Link to={{
                                                         pathname: '/waiter-detail-table-detail-item',
@@ -345,8 +350,8 @@ const ConfirmOrder = (props) => {
                                                             number_customer: dataTableByID.number_of_customer,
                                                         }
                                                     }}>
-                                                        <p className="search_plus_button_detail"
-                                                        >+</p>
+                                                        <div className="search_plus_button_detail"
+                                                        ><p>+</p></div>
                                                     </Link>
                                                 </div>
                                             )

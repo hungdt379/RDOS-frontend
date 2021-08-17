@@ -75,7 +75,7 @@
   line-height: 17px;
   color: #000000;
 }
-input[type='checkbox'].check-once-input:checked ~ label.check-once-label{
+input[type='checkbox'].check-once-input:checked ~ div.group-checkbox>div.check-once-label{
   background-color: #FFEEAA;
   border: 2px solid #FCBC3A;
 }
