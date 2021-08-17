@@ -212,7 +212,7 @@ const DetailCombo = (props) => {
                                             <div className="d-flex">
                                                 <div align="left" className="checkbox-dish">
                                                     {d?.dish_in_combo?.map((dic, index) => (dic.is_sold_out === false) ? (
-                                                        <div>
+                                                        <div style={{paddingTop: '3px', paddingBottom: '3px'}}>
                                                             <label className='check-one d-flex' key={index}>
                                                                 <input
                                                                     id={dic._id}
@@ -225,9 +225,11 @@ const DetailCombo = (props) => {
                                                                     className="check-once-input"
                                                                     checked={checkedState[index]}
                                                                 />
-                                                                <label for={dic._id}
-                                                                       className="check-once-label mr-2"></label>
-                                                                <div className="check-once-text">{dic.name}</div>
+                                                                <div style={{display: 'flex'}} className="group-checkbox">
+                                                                    <div
+                                                                        className="check-once-label mr-2"></div>
+                                                                    <div className="check-once-text">{dic.name}</div>
+                                                                </div>
                                                             </label>
                                                         </div>
                                                     ) : (
@@ -245,10 +247,11 @@ const DetailCombo = (props) => {
                                                                     checked={false}
                                                                     disabled={true}
                                                                 />
-                                                                <label for={dic._id}
-                                                                       style={{opacity : '0'}}
-                                                                       className="check-once-label mr-2"></label>
-                                                                <div style={{opacity: '0.5'}} className="check-once-text">{dic.name}</div>
+                                                                <div style={{display: 'flex'}} className="group-checkbox">
+                                                                    <div style={{opacity : '0'}}
+                                                                           className="check-once-label mr-2"></div>
+                                                                    <div style={{opacity: '0.5'}} className="check-once-text">{dic.name}</div>
+                                                                </div>
                                                             </label>
                                                         </div>
                                                     ))}

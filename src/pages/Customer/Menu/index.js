@@ -196,7 +196,7 @@ const CustomerMenu = (props) => {
                                                                             to="alcohol"
                                                                             spy={true}
                                                                             smooth={true}
-                                                                            offset={-136}
+                                                                            offset={-120}
                                                                             duration={500}
                                                                             align="center"
                                                                             className="cate-background-color avatar-title rounded-circle">
@@ -218,7 +218,7 @@ const CustomerMenu = (props) => {
                                                                             to="beer"
                                                                             spy={true}
                                                                             smooth={true}
-                                                                            offset={-136}
+                                                                            offset={-436}
                                                                             duration={500}
                                                                             align="center"
                                                                             className="cate-background-color avatar-title rounded-circle">
@@ -1031,8 +1031,8 @@ const CustomerMenu = (props) => {
                                         </div>
                                     ))}
                                 </div>
-                                <div id="alcohol">
-                                    <div className="title-menu"><b>Rượu</b></div>
+                                <div>
+                                    <div id="alcohol" className="title-menu"><b>Rượu</b></div>
                                     {props?.dataMenu?.alcohol?.map((alcohol) => (
                                         <div className="item-menu-other d-flex">
                                             <div style={{
@@ -1178,8 +1178,8 @@ const CustomerMenu = (props) => {
                                         </div>
                                     ))}
                                 </div>
-                                <div id="beer">
-                                    <div className="title-menu"><b>Bia</b></div>
+                                <div>
+                                    <div id="beer" className="title-menu"><b>Bia</b></div>
                                     {props?.dataMenu?.beer?.map((beer) => (
                                         <div className="item-menu-other d-flex">
                                             <div style={{

@@ -180,12 +180,6 @@ function CheckList(props) {
                                                             fontWeight: 'bold'
                                                         }}>{d.item_name}</span>
                                                         <span>{d.quantity}</span>
-                                                        <div className="save-button" onClick={() => {
-                                                            updateDrink(d._id);
-                                                            props.getCheckListCompleteRequest(location.state._id);
-                                                        }
-                                                        }>Xác Nhận
-                                                        </div>
                                                         <div className="contain_button_cl" onClick={() => {
                                                             deleteItem(d);
                                                             setTimeout(() => {

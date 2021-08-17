@@ -45,7 +45,7 @@ const SeeOrder = props => {
                         <div align="center" style={{
                             height: '60px',
                             backgroundColor: '#F8F8FB',
-                            paddingTop: '35px',
+                            paddingTop: '25px',
                             paddingBottom: '50px',
                             marginTop: 'auto',
                             marginBottom: 'auto'
@@ -56,6 +56,12 @@ const SeeOrder = props => {
                                 fontFamily: 'Cabin',
                                 lineHeight: '25px',
                             }}>Số người: {props.authCustomer.data.user.number_of_customer}</b>
+                            <div style={{
+                                fontStyle: 'normal',
+                                fontSize: '16px',
+                                fontFamily: 'Cabin',
+                                lineHeight: '20px',
+                            }}>Tổng tiền: <b>{props?.allViewOrder?.data?.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd</b></div>
                         </div>
                         <div style={{marginTop: '20px'}} className="cover-list">
                             <div className="side-list-menu">

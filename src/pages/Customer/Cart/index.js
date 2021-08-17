@@ -277,7 +277,7 @@ const Cart = (props) => {
                         <div style={{
                             fontFamily: 'Cabin',
                             fontSize: '15px',
-                        }}><b>Đặt món thành công bạn vui lòng đợi một chút !</b>
+                        }}><b>Đặt món thành công !</b>
                         </div>
                     </div>
                 </Modal>
@@ -295,7 +295,7 @@ const Cart = (props) => {
                         <div style={{
                             fontFamily: 'Cabin',
                             fontSize: '15px',
-                        }}><b>Phục vụ đang xử order trước đó, hãy đợi một chút !</b>
+                        }}><b>Phục vụ đang xử order trước đó !</b>
                         </div>
                     </div>
                 </Modal>
