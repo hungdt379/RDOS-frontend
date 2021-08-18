@@ -744,7 +744,7 @@ const OrderList = (props) => {
                             </div>
                         </div>
                     </Modal>
-                    {/*<Footer/>*/}
+                    <Footer/>
                 </div>
             ) : (<NotFound/>)}
         </React.Fragment>
