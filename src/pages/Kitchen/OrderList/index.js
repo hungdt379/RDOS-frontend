@@ -14,6 +14,7 @@ import chevonRight from "../../../assets/images/receptionist/chevron-down.png";
 import trash from "../../../assets/images/receptionist/trashre.png";
 import moveRight from "../../../assets/images/waiter/move-right.png";
 import {Modal} from "reactstrap";
+import Footer from "../../../components/RdosCustomerLayout/Footer";
 
 const OrderList = (props) => {
     const [openUpdateStatus, setOpenUpdateStatus] = useState(false);
@@ -403,6 +404,7 @@ const OrderList = (props) => {
                             </div>
                         </div>
                     </Modal>
+                    <Footer/>
                 </div>
             ) : (<NotFound/>)}
         </React.Fragment>

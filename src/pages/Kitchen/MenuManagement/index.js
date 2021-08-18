@@ -15,6 +15,7 @@ import trash from "../../../assets/images/receptionist/trashre.png";
 import changeServe from "../../../assets/images/waiter/arrows-exchange.png";
 import searchImg from "../../../assets/images/customer/search.png";
 import {Modal} from "reactstrap";
+import Footer from "../../../components/RdosCustomerLayout/Footer";
 
 const KitchenMenu = (props) => {
     const [search, setSearch] = useState('');
@@ -86,6 +87,7 @@ const KitchenMenu = (props) => {
                                                     value={search}
                                                        onChange={(e) => (
                                                            setSearch(e.target.value),
+                                                               setPage(1),
                                                                props.dispatch(actions.getAllListItemRequest(e.target.value,page,pageSize))
                                                        )}
                                                 />
@@ -241,6 +243,7 @@ const KitchenMenu = (props) => {
                             </div>
                         </div>
                     </Modal>
+                    <Footer/>
                 </div>
             ) : (<NotFound/>)}
         </React.Fragment>
