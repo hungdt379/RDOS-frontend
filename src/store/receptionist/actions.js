@@ -72,6 +72,24 @@ export const getAllTableReError = (error) => {
     };
 };
 
+//all table no pageSize re
+export const getAllTableReNoPageSizeRequest = (payload) => ({
+    type: actionTypes.GET_ALL_TABLE_RECEPTIONIST_NO_PAGESIZE_REQUEST,
+    payload: payload,
+});
+export const getAllTableReNoPageSizeSuccess = (response) => {
+    return {
+        type: actionTypes.GET_ALL_TABLE_RECEPTIONIST_NO_PAGESIZE_SUCCESS,
+        payload: response,
+    };
+};
+export const getAllTableReNoPageSizeError = (error) => {
+    return {
+        type: actionTypes.GET_ALL_TABLE_RECEPTIONIST_NO_PAGESIZE_ERROR,
+        payload: error,
+    };
+};
+
 //add table re
 export const addTableReRequest = (payload) => ({
     type: actionTypes.ADD_TABLE_RECEPTIONIST_REQUEST,

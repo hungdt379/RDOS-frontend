@@ -115,7 +115,7 @@ const ChangeTable = (props) => {
                                     props.history.push("/waiter-view-all-table");
 
                                 }, 1000)
-                            }}>Lưu</p>
+                            }}>Đổi</p>
                         </div>
                     </div>
                 ) : (<NotFound/>)}

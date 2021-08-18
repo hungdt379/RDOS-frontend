@@ -29,18 +29,20 @@ const ManageTable = (props) => {
     const [pageSize] = useState(10)
 
     const pageCount = Math.ceil(props?.allTableReceptionist?.total / pageSize);
-    const changePage = ({ selected }) => {
-        setPage(selected+1);
-        props.dispatch(actions.getAllTableReRequest(selected+1));
+    const changePage = ({selected}) => {
+        setPage(selected + 1);
+        props.dispatch(actions.getAllTableReRequest(selected + 1));
     };
 
-    console.log("pageCurrrent: "+ page)
+    console.log("pageCurrrent: " + page)
 
     const [openAdd, setOpenAdd] = useState(false);
 
     const [openAddTable, setOpenAddTable] = useState(false);
     const [openDelTableSuccess, setOpenDelTableSuccess] = useState(false);
     const [openDelTableFail, setOpenDelTableFail] = useState(false);
+    const [noEditTable, setNoEditTable] = useState('none');
+    const [noEditMaxCus, setNoEditMaxCus] = useState('none');
 
     const handleSubmitAddTable = (data) => {
         props.dispatch(actions.addTableReRequest({data}));
@@ -48,6 +50,7 @@ const ManageTable = (props) => {
         setOpenAddTable(true);
         setTimeout(() => {
             props.dispatch(actions.getAllTableReRequest(Math.ceil(props?.allTableReceptionist?.total / pageSize)));
+            props.dispatch(actions.getAllTableReNoPageSizeRequest(pageSize));
             setOpenAddTable(false);
         }, 1000)
     };
@@ -70,6 +73,7 @@ const ManageTable = (props) => {
         setOpenAddTable(true);
         setTimeout(() => {
             props.dispatch(actions.getAllTableReRequest(page));
+            props.dispatch(actions.getAllTableReNoPageSizeRequest(pageSize));
             setOpenAddTable(false);
         }, 1000)
     };
@@ -94,9 +98,11 @@ const ManageTable = (props) => {
             setrole(obj.data.user.role);
         }
         props.dispatch(actions.getAllTableReRequest(page));
+        props.dispatch(actions.getAllTableReNoPageSizeRequest(pageSize));
     }, []);
 
     console.log('role :' + role);
+    console.log('roleabc :' + props?.allTableReceptionistNoPagesize?.data?.map((tab, index) => tab.full_name));
 
     const menu = {
         menuChoose: '3',
@@ -145,6 +151,7 @@ const ManageTable = (props) => {
                                         }}
                                                 onClick={() => {
                                                     setOpenAdd(true)
+                                                    props.dispatch(actions.getAllTableReNoPageSizeRequest(props?.allTableReceptionistNoPagesize?.total));
                                                 }}
                                         >
                                             <b style={{
@@ -232,6 +239,7 @@ const ManageTable = (props) => {
                                                            // window.location.pathname = '/receptionist-manage/' + tabre._id
                                                            setOpenEdit(true)
                                                            setTableId(tabre._id)
+                                                           props.dispatch(actions.getAllTableReNoPageSizeRequest(props?.allTableReceptionistNoPagesize?.total));
                                                        }}
                                                     >
                                                         <img src={vector}
@@ -272,14 +280,15 @@ const ManageTable = (props) => {
                                                            border: '1px solid red'
                                                        }}
                                                        onClick={() => {
-                                                           if(tabre.is_active === false){
+                                                           if (tabre.is_active === false) {
                                                                props.dispatch(actions.deleteTableReRequest(tabre._id))
                                                                setOpenDelTableSuccess(true)
                                                                setTimeout(() => {
                                                                    props.dispatch(actions.getAllTableReRequest(page));
+                                                                   props.dispatch(actions.getAllTableReNoPageSizeRequest(pageSize));
                                                                    setOpenDelTableSuccess(false)
                                                                }, 1500)
-                                                           }else {
+                                                           } else {
                                                                setOpenDelTableFail(true)
                                                                setTimeout(() => {
                                                                    setOpenDelTableFail(false)
@@ -331,7 +340,7 @@ const ManageTable = (props) => {
                                       marginBottom: '60px',
                                       borderRadius: '20px',
                                   }}
-                                  >
+                            >
                                 <div><b style={{fontSize: '20px', fontFamily: 'Cabin'}}>Sửa thông tin bàn</b></div>
                                 <div className="modal-body">
                                     <Row>
@@ -383,17 +392,32 @@ const ManageTable = (props) => {
                                                      className="note-item">
                                                     <Input
                                                         style={{width: '90%', backgroundColor: '#FFEFCD'}}
-                                                        type="text"
+                                                        type="number"
                                                         title="Bạn chỉ được nhập số lớn hơn 0"
                                                         pattern="[0-9]+"
                                                         name="table_number"
-                                                        onChange={(e) => (
-                                                            setTableNumber(e.target.value)
-                                                        )}
+                                                        onChange={(e) => {
+                                                            if (e.target.value > 0 &&
+                                                                props?.allTableReceptionistNoPagesize?.data?.map((tab, index) => (tab._id !== table_id) ? tab.full_name : '').filter((tb, ind) => (tb === "Bàn "+e.target.value.replace(/^0+/, ''))).length === 0) {
+                                                                setTableNumber(e.target.value.replace(/^0+/, ''))
+                                                                setNoEditTable('none')
+                                                            } else {
+                                                                setNoEditTable('block')
+                                                            }
+                                                        }}
                                                         rows="5"
                                                         maxLength="50"
                                                         required
                                                     />
+                                                </div>
+                                                <div style={{display: noEditTable, paddingLeft: '5%'}}>
+                                                    <i style={{
+                                                        fontFamily: 'Cabin',
+                                                        fontSize: '15px',
+                                                        color: 'red'
+                                                    }}>
+                                                        Bàn đã tồn tại, hãy nhập lại(lớn hơn hoặc bằng 1)
+                                                    </i>
                                                 </div>
                                             </div>
                                         </Col>
@@ -417,17 +441,31 @@ const ManageTable = (props) => {
                                                      className="note-item">
                                                     <Input
                                                         style={{width: '90%', backgroundColor: '#FFEFCD'}}
-                                                        type="text"
+                                                        type="number"
                                                         title="Bạn chỉ được nhập số lớn hơn 0"
                                                         pattern="[0-9]+"
                                                         name="max_customer"
-                                                        onChange={(e) => (
-                                                            setMaxCustomer(e.target.value)
-                                                        )}
+                                                        onChange={(e) => {
+                                                            if (e.target.value > 0) {
+                                                                setMaxCustomer(e.target.value.replace(/^0+/, ''))
+                                                                setNoEditMaxCus('none')
+                                                            } else {
+                                                                setNoEditMaxCus('block')
+                                                            }
+                                                        }}
                                                         rows="5"
                                                         maxLength="50"
                                                         required
                                                     />
+                                                </div>
+                                                <div style={{display: noEditMaxCus, paddingLeft: '5%'}}>
+                                                    <i style={{
+                                                        fontFamily: 'Cabin',
+                                                        fontSize: '15px',
+                                                        color: 'red'
+                                                    }}>
+                                                        Số khách tối đa phải lớn hơn hoặc bằng 1
+                                                    </i>
                                                 </div>
                                             </div>
                                         </Col>
@@ -436,7 +474,12 @@ const ManageTable = (props) => {
                                             <div style={{width: '100%', paddingBottom: '20px'}}>
                                                 <Button
                                                     onClick={handleSubmitEditTable}
-                                                    style={{width: '80%', backgroundColor: '#FCBC3A'}}>
+                                                    style={{
+                                                        width: '80%',
+                                                        backgroundColor: (noEditMaxCus === 'none' && noEditTable === 'none' && table_number !== '' && max_customer !== '') ? '#FCBC3A' : '#eeeeee',
+                                                        color: (noEditMaxCus === 'none' && noEditTable === 'none' && table_number !== '' && max_customer !== '') ? '#000000' : '#a7a7a7',
+                                                    }}
+                                                    disabled={(noEditMaxCus === 'none' && noEditTable === 'none' && table_number !== '' && max_customer !== '') ? false : true}>
                                                     <div style={{
                                                         color: '#000000',
                                                         fontWeight: 'bold',
@@ -516,6 +559,7 @@ const mapStateToProps = (state) => {
         // totalsOfNotification:
         // state.Notification.totalOfNotifications.totalNotifications,
         allTableReceptionist: state.Receptionist.getAllTableReceptionist.allTableReceptionist,
+        allTableReceptionistNoPagesize: state.Receptionist.getAllTableReceptionistNoPagesize.allTableReceptionistNoPagesize,
         addTableReceptionist: state.Receptionist.postAddTableReceptionist.addTableReceptionist,
         deleteTableReceptionist: state.Receptionist.postDeleteTableReceptionist.deleteTableReceptionist,
         generateTableReceptionist: state.Receptionist.getGenerateTableReceptionist.generateTableReceptionist,

@@ -76,6 +76,24 @@ export function* watchGetTableReception() {
     yield takeEvery(actionTypes.GET_ALL_TABLE_RECEPTIONIST_REQUEST, allTableReception);
 }
 
+//all table re no pagesize
+function* allTableReceptionNoPagesize({payload:p}) {
+    try {
+        const response = yield call(
+            Request.getApi,
+            apiUrls.getAllTablesReceptionist,
+            {page: 1, pageSize: p}
+        );
+        yield put(actions.getAllTableReNoPageSizeSuccess(response));
+        console.log("get all table re no pagesize : "+ response.data)
+    } catch (error) {
+        yield put(actions.getAllTableReNoPageSizeError(error));
+    }
+}
+export function* watchGetTableReceptionNoPagesize() {
+    yield takeEvery(actionTypes.GET_ALL_TABLE_RECEPTIONIST_NO_PAGESIZE_REQUEST, allTableReceptionNoPagesize);
+}
+
 //add table re
 function* addTableReception({payload}) {
     try {
@@ -263,6 +281,7 @@ const sagaReceptionist = [
     watchGetFeedback(),
     watchMaskAsReadRecep(),
     watchGetTableReception(),
+    watchGetTableReceptionNoPagesize(),
     watchAddTableReception(),
     watchDeleteTableReception(),
     watchGenerateTableReception(),
