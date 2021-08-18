@@ -69,6 +69,23 @@ const getAllTableReceptionist = (state = allTableReceptionistReducer, action) =>
     }
 };
 
+//all table re
+const allTableReceptionistNoPagesizeReducer = {
+    allTableReceptionistNoPagesize: [],
+};
+const getAllTableReceptionistNoPagesize = (state = allTableReceptionistNoPagesizeReducer, action) => {
+    switch (action.type) {
+        case actionTypes.GET_ALL_TABLE_RECEPTIONIST_NO_PAGESIZE_REQUEST:
+            return { ...state };
+        case actionTypes.GET_ALL_TABLE_RECEPTIONIST_NO_PAGESIZE_SUCCESS:
+            return { ...state, allTableReceptionistNoPagesize: action.payload };
+        case actionTypes.GET_ALL_TABLE_RECEPTIONIST_NO_PAGESIZE_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
 //add table
 const postAddTableReceptionistReducer = {
     addTableReceptionist: [],
@@ -244,6 +261,7 @@ export const Receptionist = combineReducers({
     getAllFeedback,
     maskAsReadReceptionist,
     getAllTableReceptionist,
+    getAllTableReceptionistNoPagesize,
     postAddTableReceptionist,
     postDeleteTableReceptionist,
     getGenerateTableReceptionist,

@@ -186,7 +186,7 @@ const  ViewAllTable = (props) => {
                                     type="number"
                                     onChange={event => setNumber(event.target.value)}
                                     required
-                                    maxLength="1"
+                                    maxLength="2"
                                     onInput={maxLengthCheck}
                                 />
                             </DialogContent>
