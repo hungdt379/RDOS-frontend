@@ -13,6 +13,8 @@ import firebase from '../../helpers/firebase';
 //i18n
 import {withNamespaces} from "react-i18next";
 import NotificationCardFooter from "./NotificationCardFooter";
+import useSound from "use-sound";
+import notiAudio from "../../assets/audio/discord-notification.mp3";
 
 const NotificationFooter = (props) => {
     // Declare a new state variable, which we'll call "menu"
@@ -25,12 +27,18 @@ const NotificationFooter = (props) => {
     const [todoList, setTodoList] = useState(0);
     const [todoData, setTodoData] = useState();
 
+    const [notiOn] = useSound(
+        notiAudio,
+        { volume: 0.75 }
+    );
+
     useEffect(() => {
         const todoRef = firebase.database().ref('receptionist');
         todoRef.on('value', (snapshot) => {
             setTodoList(snapshot.numChildren());
             if(snapshot.numChildren() > 0){
                 setMenu(true);
+                notiOn()
             }else{
                 setMenu(false);
             }

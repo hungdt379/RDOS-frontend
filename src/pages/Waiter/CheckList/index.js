@@ -188,10 +188,6 @@ function CheckList(props) {
 
                                                         }
                                                         }>
-                                                            <div
-                                                                className="delete_contain_button_detail avatar-title rounded-circle">
-                                                                <div className="delete-icon-button">x</div>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 )

@@ -212,7 +212,7 @@ const ConfirmOrder = (props) => {
                         </Dialog>
 
                         <div style={{textAlign: "center", justifycontent: "center"}}>
-                            <PerfectScrollbar>
+                            <PerfectScrollbar style={{height: '450px'}}>
                                 <div className="list-Item_detail">
 
                                     {dataQueueOrder.item?.map((d, index) => (
@@ -328,7 +328,7 @@ const ConfirmOrder = (props) => {
                         </div>
                         <div>
                             {searchItem != '' ? <div style={{textAlign: "center", justifycontent: "center"}}>
-                                <PerfectScrollbar>
+                                <PerfectScrollbar style={{height: '300px'}}>
                                     <div className="list-Item_detail">
                                         {dataSearchItem?.map((d, index) => (
                                                 <div style={{height:'60px'}} className="item-form-detail" key={index}>
