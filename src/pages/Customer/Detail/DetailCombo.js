@@ -20,6 +20,8 @@ import check from "../../../assets/images/customer/play-list-check.png";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
 import shoppingCart from "../../../assets/images/customer/shopping-cart.png";
 import {Modal} from "reactstrap";
+import useSound from 'use-sound';
+import dingAudio from '../../../assets/audio/ding-sound-effect_2.mp3';
 
 const DetailCombo = (props) => {
     const dispatch = useDispatch();
@@ -111,11 +113,13 @@ const DetailCombo = (props) => {
         if (props?.dataCart?.data?.item_in_cart?.filter((iic) => (iic._id !== _id &&
             iic.category_id === props?.dataCategory?.map((cat, i) => cat._id)[0])).length !== 0 && props?.dataFoodInCombo?.data?.filter((dfic) => dfic.category_id === props?.dataCategory?.map((cat, i) => cat._id)[0]).length !== 0) {
             setOpenNoti(true);
+            successOn();
             setTimeout(() => {
                 setOpenNoti(false)
             }, 2800)
         } else {
             dispatch(addToCartRequest(data));
+            successOn();
             setTimeout(() => {
                 props.history.push('/customer-menu');
                 dispatch(getFoodInComboRequest());
@@ -148,6 +152,11 @@ const DetailCombo = (props) => {
         setQuantity(props.authCustomer.data.user.number_of_customer);
         setCheckedState(props?.dataFoodInCombo?.data?.find((cb) => cb).dish_in_combo.map((diccb, indexcb) => ((props?.dataCart?.data?.item_in_cart?.filter((dc, i) => (dc._id === _id))[0].dish_in_combo.filter((dicc, i) => (dicc === diccb.name)).length !== 0 && diccb.is_sold_out === false) ? true : (diccb.is_sold_out === false) ? false : null)));
     };
+
+    const [successOn] = useSound(
+        dingAudio,
+        { volume: 0.75 }
+    );
 
     return (
         <React.Fragment>

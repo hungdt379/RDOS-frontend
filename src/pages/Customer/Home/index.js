@@ -20,6 +20,8 @@ import awards from "../../../assets/images/customer/awards.png";
 
 import {Col, Modal, Row} from "reactstrap";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
+import useSound from "use-sound";
+import payAudio from "../../../assets/audio/ka-ching.mp3";
 
 const CustomerHome = (props) => {
     //const {tog_standard} = props;
@@ -85,6 +87,11 @@ const CustomerHome = (props) => {
 
     console.log("checkView Order: " + props?.allViewOrder?.data);
 
+    const [payOn] = useSound(
+        payAudio,
+        { volume: 0.75 }
+    );
+
     return (
         <React.Fragment>
             <div className="display-customer">
@@ -133,6 +140,7 @@ const CustomerHome = (props) => {
                                             (todoDataWa.filter((tw, index) => (tw.title === "Gọi thanh toán")).length === 0)) {
                                             props.dispatch(actions.postCallPaymentRequest());
                                             setOpenLoadPa(true);
+                                            payOn()
                                             setTimeout(() => {
                                                 setOpenLoadPa(false);
                                             }, 1000)

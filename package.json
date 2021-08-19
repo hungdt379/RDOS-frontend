@@ -95,7 +95,8 @@
     "simplebar-react": "^2.1.0",
     "store": "^2.0.12",
     "styled-components": "^5.0.1",
-    "toastr": "^2.1.4"
+    "toastr": "^2.1.4",
+    "use-sound": "^4.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

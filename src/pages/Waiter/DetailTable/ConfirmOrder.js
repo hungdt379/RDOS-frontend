@@ -47,6 +47,8 @@ const ConfirmOrder = (props) => {
 
     const [openCancel, setOpenCancel] = useState(false);
 
+    const [openDele, setOpenDele] = useState(false);
+
     const [open, setOpen] = useState(false);
 
     const searchClose = () => setOpenSearch(false);
@@ -125,9 +127,10 @@ const ConfirmOrder = (props) => {
         setOpenCancel(true);
         setTimeout(() => {
             setOpenCancel(false);
-            props.getQueueOrderRequest(value);
-            // window.location.reload();
-        }, 1000)
+            //props.getTableRequest(value);
+            // props.getQueueOrderRequest(value);
+            window.location.reload();
+        }, 1500)
     }
 
     const deleteQueueItem = (id) => {
@@ -136,9 +139,12 @@ const ConfirmOrder = (props) => {
             item_id: id
         }
         props.postDeleteQueueItemRequest(itemDelete);
+        setOpenDele(true);
         setTimeout(() => {
+            props.getTableRequest(value);
             props.getQueueOrderRequest(value);
-        }, 500)
+            setOpenDele(false);
+        }, 1500)
     }
 
     const confirm = () => {
@@ -228,7 +234,7 @@ const ConfirmOrder = (props) => {
                                                         lineHeight: "15px", fontFamily: 'Cabin'
                                                     }}>{d.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}VNĐ</span>
                                                 </div>
-                                                <div style={{display: 'flex', height: '35px'}} className="save-button">
+                                                <div style={{display: 'flex', height: '35px', top:'calc(100%-35px)'}} className="save-button">
                                                     <span onClick={() => {
                                                         customizeNumberSub(d)
                                                     }}><img className="minus-button-waiter" src={mathMinus}/></span>
@@ -313,6 +319,24 @@ const ConfirmOrder = (props) => {
                     width: '350px',
                     marginRight: 'auto',
                     marginLeft: 'auto',
+                    height: '100px',
+                    marginTop: '200px',
+                    marginBottom: "auto",
+                }} isOpen={openDele}>
+                    <div style={{backgroundColor: '#FFEFCD'}} align="center">
+                        <i style={{color: "#FCBC3A", fontSize: '50px'}}
+                           className="bx bx-calendar-check bx-tada"></i>
+                        <div style={{
+                            fontFamily: 'Cabin',
+                            fontSize: '15px',
+                        }}><b>Xóa Thành Công</b>
+                        </div>
+                    </div>
+                </Modal>
+                <Modal align="center" style={{
+                    width: '350px',
+                    marginRight: 'auto',
+                    marginLeft: 'auto',
                     marginTop: '150px',
                     marginBottom: "auto",
                 }} isOpen={openSearch} toggle={searchClose}>
@@ -328,7 +352,7 @@ const ConfirmOrder = (props) => {
                         </div>
                         <div>
                             {searchItem != '' ? <div style={{textAlign: "center", justifycontent: "center"}}>
-                                <PerfectScrollbar>
+                                <PerfectScrollbar style={{height: '300px'}}>
                                     <div className="list-Item_detail">
                                         {dataSearchItem?.map((d, index) => (
                                                 <div style={{height:'60px'}} className="item-form-detail" key={index}>

@@ -15,6 +15,9 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import close from "../../../assets/images/customer/close.png";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
 import {Modal} from "reactstrap";
+import useSound from 'use-sound';
+import wrongAudio from '../../../assets/audio/incorrect.swf.mp3';
+import dingAudio from '../../../assets/audio/ding-sound-effect_2.mp3';
 
 const Cart = (props) => {
 
@@ -32,6 +35,16 @@ const Cart = (props) => {
     }
 
     console.log("test :" + props?.dataSendOrder)
+
+    const [successOn] = useSound(
+        dingAudio,
+        { volume: 0.75 }
+    );
+
+    const [wrongOn] = useSound(
+        wrongAudio,
+        { volume: 0.75 }
+    );
 
     return (
         <React.Fragment>
@@ -202,6 +215,7 @@ const Cart = (props) => {
                                         .then(res => {
                                             if (res.status === 200) {
                                                 setOpenSendOrder(true);
+                                                successOn()
                                                 setTimeout(() => {
                                                     setOpenSendOrder(false);
                                                     props.history.push('/customer-menu')
@@ -209,6 +223,7 @@ const Cart = (props) => {
                                                 console.log(res)
                                             } else {
                                                 setOpenLoadCheck(true);
+                                                wrongOn()
                                                 setTimeout(() => {
                                                     setOpenLoadCheck(false);
                                                 }, 2000)

@@ -174,7 +174,7 @@ const OrderList = (props) => {
                                                                 props.dispatch(actions.getListConfirmOrderReRequest(page));
                                                                 props.dispatch(actions.getListPaidOrderReRequest(pageComplete));
                                                             }}
-                                                        /> <b className="input-status-re">{result.name}</b>
+                                                        /> <b className="input-status-re">{result.name === "Đã confirm" ? "Đã xác nhận" : result.name}</b>
                                                         <div for={result.id} className="line-color"></div>
                                                     </label>
                                                 </div>
@@ -635,6 +635,7 @@ const OrderList = (props) => {
                                                                             setOpenInvoiceSuccess(false)
                                                                             props.dispatch(actions.getListConfirmOrderReRequest(page));
                                                                             props.dispatch(actions.getListPaidOrderReRequest(page));
+                                                                            props.dispatch(actions.getDetailConfirmOrderReRequest())
                                                                         }, 1500)
                                                                     }}
                                                                     style={{
