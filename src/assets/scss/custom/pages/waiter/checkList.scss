@@ -3,9 +3,10 @@
 
 @media only screen and (max-width: 750px) {
   .container_checkList {
-    width: 100%;
+    width: auto;
     font-family: Cabin;
     font-style: normal;
+    height: auto;
     background: #FFFFFF;
     margin-bottom: 30px;
   }

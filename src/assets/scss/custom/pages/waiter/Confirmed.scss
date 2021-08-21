@@ -1,12 +1,13 @@
 
 @media only screen and (max-width: 750px) {
   .container_checkList {
-    width: 100%;
+    width: auto;
     font-style: normal;
+    height: auto;
     background: #FFFFFF;
   }
   .list-Item{
-    margin-top: 20px;
+    margin: 40px 0;
     display: flex;
     justify-items: center;
     flex-direction: column;

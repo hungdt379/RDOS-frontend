@@ -140,6 +140,41 @@ const getCheckListComplete = (state = CheckListCompleteReducer, action) => {
 };
 
 
+const CheckListFoodPrepareReducer = {
+  dataCheckListFoodPrepare: [],
+};
+
+const getCheckListFoodPrepare = (state = CheckListFoodPrepareReducer, action) => {
+  switch (action.type) {
+    case actionTypes.GET_CHECK_LIST_FOOD_PREPARE_REQUEST:
+      return { ...state };
+    case actionTypes.GET_CHECK_LIST_FOOD_PREPARE_SUCCESS:
+      state =  { ...state, dataCheckListFoodPrepare: action.payload };
+    case actionTypes.GET_CHECK_LIST_FOOD_PREPARE_ERROR:
+      return { ...state,error: action.payload };
+    default:
+      return state;
+  }
+};
+
+
+const CheckListFoodCompleteReducer = {
+  dataCheckListFoodComplete: [],
+};
+
+const getCheckListFoodComplete = (state = CheckListFoodCompleteReducer, action) => {
+  switch (action.type) {
+    case actionTypes.GET_CHECK_LIST_FOOD_COMPLETE_REQUEST:
+      return { ...state };
+    case actionTypes.GET_CHECK_LIST_FOOD_COMPLETE_SUCCESS:
+      state =  { ...state, dataCheckListFoodComplete: action.payload };
+    case actionTypes.GET_CHECK_LIST_FOOD_COMPLETE_ERROR:
+      return { ...state,dataCheckList: action.payload };
+    default:
+      return state;
+  }
+};
+
 const CloseTableReducer = {
   dataCloseTable: [],
 };
@@ -238,6 +273,8 @@ export const Notification = combineReducers({
   getTable,
   getCheckListPrepare,
   getCheckListComplete,
+  getCheckListFoodPrepare,
+  getCheckListFoodComplete,
   postUpdateTable,
   LogOut,
   postDeleteItem,
