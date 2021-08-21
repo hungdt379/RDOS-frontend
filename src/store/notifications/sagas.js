@@ -131,6 +131,23 @@ function* getCheckListPrepare({payload: p}) {
 export function* watchGetCheckListPrepare() {
   yield takeEvery(actionTypes.GET_CHECK_LIST_PREPARE_REQUEST, getCheckListPrepare);
 }
+// get check list food
+function* getCheckListFoodPrepare({payload: p}) {
+  try {
+    const response = yield call(Request.getApi,apiUrls.getFoodList,  {table_id: p,status:"prepare"});
+    if(response){
+      yield put(actions.getCheckListFoodPrepareSuccess(response));
+      console.log(response);
+    }
+  } catch (error) {
+    yield put(actions.getCheckListFoodPrepareError(error));
+  }
+}
+
+
+export function* watchGetCheckListFoodPrepare() {
+  yield takeEvery(actionTypes.GET_CHECK_LIST_FOOD_PREPARE_REQUEST, getCheckListFoodPrepare);
+}
 
 // get check list
 function* getCheckListComplete({payload: p}) {
@@ -145,9 +162,25 @@ function* getCheckListComplete({payload: p}) {
   }
 }
 
-
 export function* watchGetCheckListComplete() {
   yield takeEvery(actionTypes.GET_CHECK_LIST_COMPLETE_REQUEST, getCheckListComplete);
+}
+
+// get check list food comp
+function* getCheckListFoodComplete({payload: p}) {
+  try {
+    const response = yield call(Request.getApi,apiUrls.getFoodList,  {table_id: p,status:"completed"});
+    if(response){
+      yield put(actions.getCheckListFoodCompleteSuccess(response));
+      console.log(response);
+    }
+  } catch (error) {
+    yield put(actions.getCheckListFoodCompleteError(error));
+  }
+}
+
+export function* watchGetCheckListFoodComplete() {
+  yield takeEvery(actionTypes.GET_CHECK_LIST_FOOD_COMPLETE_REQUEST, getCheckListFoodComplete);
 }
 // get close table
 function* getCloseTable({ payload }) {
@@ -247,6 +280,8 @@ const sagaNotificatons = [
   watchGetLogOut(),
   watchGetCheckListComplete(),
   watchGetCheckListPrepare(),
+  watchGetCheckListFoodPrepare(),
+  watchGetCheckListFoodComplete(),
   watchPostDeleteItem(),
   watchGetCloseTable(),
   watchGetSearchItem(),

@@ -151,6 +151,43 @@ export const getCheckListCompleteError = (error) => {
   };
 };
 
+// get check list food Pre
+export const getCheckListFoodPrepareRequest = (payload) => ({
+  type: actionTypes.GET_CHECK_LIST_FOOD_PREPARE_REQUEST,
+  payload: payload,
+});
+export const getCheckListFoodPrepareSuccess = (response) => {
+  return {
+    type: actionTypes.GET_CHECK_LIST_FOOD_PREPARE_SUCCESS,
+    payload: response,
+  };
+};
+export const getCheckListFoodPrepareError = (error) => {
+  return {
+    type: actionTypes.GET_CHECK_LIST_FOOD_PREPARE_ERROR,
+    payload: error,
+  };
+};
+
+
+// get check list food Complete
+export const getCheckListFoodCompleteRequest = (payload) => ({
+  type: actionTypes.GET_CHECK_LIST_FOOD_COMPLETE_REQUEST,
+  payload: payload,
+});
+export const getCheckListFoodCompleteSuccess = (response) => {
+  return {
+    type: actionTypes.GET_CHECK_LIST_FOOD_COMPLETE_SUCCESS,
+    payload: response,
+  };
+};
+export const getCheckListFoodCompleteError = (error) => {
+  return {
+    type: actionTypes.GET_CHECK_LIST_FOOD_COMPLETE_ERROR,
+    payload: error,
+  };
+};
+
 
 // get close table
 export const getCloseTableRequest = (payload) => ({

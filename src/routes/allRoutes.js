@@ -28,7 +28,8 @@ import Feedback from "../pages/Customer/Feedback";
 import OrderList from "../pages/Receptionist/OrderList";
 import ViewFeedback from "../pages/Receptionist/ViewFeedback";
 import ViewAllTable from "../pages/Waiter/home";
-import CheckList from "../pages/Waiter/CheckList";
+import CheckList from "../pages/Waiter/CheckList/index";
+import CheckListFood from "../pages/Waiter/CheckList/Food";
 import ConfirmOrder from "../pages/Waiter/DetailTable/ConfirmOrder";
 import ConfirmedOrder from "../pages/Waiter/DetailTable/ConfirmedOrder";
 import ChangeTable from "../pages/Waiter/DetailTable/ChangeTable";
@@ -71,6 +72,7 @@ export const userRoutes = [
     // {path: "/waiter-sign-in-waiter" , component: SignIn},
     {path: "/waiter-view-all-table" , component: ViewAllTable},
     {path: "/waiter-check-list", component: CheckList},
+    {path: "/waiter-check-list-food", component: CheckListFood},
     {path: "/waiter-detail-table-confirm-order" , component: ConfirmOrder},
     {path: "/waiter-detail-table-confirmed-order" , component: ConfirmedOrder},
     {path: "/waiter-detail-table-change-table" , component: ChangeTable},

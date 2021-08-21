@@ -65,9 +65,7 @@ const Notification = (props) => {
                             <TableNav item={table}/>
                         </div>
                         <div style={{textAlign: "center", justifyContent: "center", paddingTop: '140px'}}>
-
-                            <div className="list-Item">
-
+                            <div className="list-Item-Notification">
                                 {dataNotification.data?.map((d, index) => (
                                         <div className="item-form" style={d.read == false ? {backgroundColor: "#EEEEEE"} : {backgroundColor: "#FFEFCD"} } key={index}>
                                             <span style={{

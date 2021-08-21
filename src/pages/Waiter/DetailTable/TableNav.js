@@ -181,6 +181,40 @@ const TableNav = (props) => {
                     </div>
                 </button>
             </div>
+            <div className="menu-type-a-waiter">
+                <button className="menu-type-waiter">
+                    <div>
+                        <label>
+                            <input
+                                type="radio"
+                                value={'6'}
+                                id={'6'}
+                                style={{opacity: '0'}}
+                                name="tableCheck"
+                                className="check-nav"
+                                checked={tableChoose === '6'}
+                            />
+                            <div style={{marginRight: 'auto', marginLeft: 'auto'}}
+                                 className="avatar-sm profile-user-wid">
+                                <div align="center"
+                                     className="cate-background-color-waiter avatar-title rounded-circle">
+                                    <Link to={{
+                                        pathname: '/waiter-check-list-food',
+                                        state: {
+                                            _id: props.item._id,
+                                            username: props.item.username
+                                        }
+                                    }}>
+                                        <img src={listCheck} className="icon-button-menu-waiter"/>
+                                    </Link>
+                                </div>
+                            </div>
+                        </label>
+
+                        <div className="square-text-button-waiter">Đồ Ăn</div>
+                    </div>
+                </button>
+            </div>
         </div>
 
     );

@@ -15,15 +15,17 @@ import {
 } from "../../../store/post/actions";
 import {apiError} from "../../../store/auth/login/actions";
 import {
-    getCheckListCompleteRequest,
+    getCheckListCompleteRequest, getCheckListFoodCompleteRequest, getCheckListFoodPrepareRequest,
     getCheckListPrepareRequest,
 } from "../../../store/notifications/actions";
 import Invalid from "../../Customer/Invalid";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
 
-function CheckList(props) {
+function Food(props) {
 
     const {dataCheckListPreparePage} = props;
+
+    console.log(dataCheckListPreparePage);
 
     const {dataCheckListCompletePage} = props;
 
@@ -33,34 +35,21 @@ function CheckList(props) {
 
     const location = useLocation();
 
-
-    function deleteItem(item) {
-        props.postDeleteDrinkRequest(item);
-
-    }
-
     const [role, setrole] = useState([]);
 
-    function updateDrink(id) {
-        const drinkID = {
-            _id: id
-        }
-        props.postUpdateDrinkRequest(drinkID);
-
-    }
 
     useEffect(() => {
         if (localStorage.getItem("authUser")) {
             const obj = JSON.parse(localStorage.getItem("authUser"));
             setrole(obj.data.user.role);
         }
-        props.getCheckListPrepareRequest(location.state._id);
+        props.getCheckListFoodPrepareRequest(location.state._id);
     }, []);
 
     const table = {
         _id: location.state._id,
         username: location.state.username,
-        navChoose: '5',
+        navChoose: '6',
     }
 
     return (
@@ -100,7 +89,7 @@ function CheckList(props) {
                                         checked={tableChoose === '1'}
                                     />
                                     <div className="item" onClick={() => {
-                                        props.getCheckListPrepareRequest(location.state._id);
+                                        props.getCheckListFoodPrepareRequest(location.state._id);
 
                                     }}>Đang chuẩn bị
                                     </div>
@@ -120,7 +109,7 @@ function CheckList(props) {
                                         checked={tableChoose === '2'}
                                     />
                                     <div className="item" onClick={() => {
-                                        props.getCheckListCompleteRequest(location.state._id);
+                                        props.getCheckListFoodCompleteRequest(location.state._id);
 
                                     }}>Hoàn thành
                                     </div>
@@ -139,27 +128,6 @@ function CheckList(props) {
                                                             fontWeight: 'bold'
                                                         }}>{d.item_name}</span>
                                                         <span>{d.quantity}</span>
-                                                        <div className="save-button" onClick={() => {
-                                                            updateDrink(d._id);
-                                                            setTimeout(() => {
-                                                                props.getCheckListPrepareRequest(location.state._id);
-                                                            }, 500)
-
-                                                        }
-                                                        }>Xác Nhận
-                                                        </div>
-                                                        <div className="contain_button_cl" onClick={() => {
-                                                            deleteItem(d);
-                                                            setTimeout(() => {
-                                                                props.getCheckListPrepareRequest(location.state._id);
-                                                            }, 500)
-                                                        }
-                                                        }>
-                                                            <div
-                                                                className="delete_contain_button_detail avatar-title rounded-circle">
-                                                                <div className="delete-icon-button">x</div>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 )
                                             )}
@@ -179,15 +147,6 @@ function CheckList(props) {
                                                             fontWeight: 'bold'
                                                         }}>{d.item_name}</span>
                                                         <span>{d.quantity}</span>
-                                                        <div className="contain_button_cl" onClick={() => {
-                                                            deleteItem(d);
-                                                            setTimeout(() => {
-                                                                props.getCheckListCompleteRequest(location.state._id);
-                                                            }, 500)
-
-                                                        }
-                                                        }>
-                                                        </div>
                                                     </div>
                                                 )
                                             )}
@@ -205,7 +164,6 @@ function CheckList(props) {
             <div className="none-display-customer">
                 <Invalid/>
             </div>
-
         </React.Fragment>
 
     );
@@ -213,16 +171,14 @@ function CheckList(props) {
 
 const mapStateToProps = (state) => {
     return {
-        dataCheckListPreparePage: state.Notification.getCheckListPrepare.dataCheckListPrepare,
-        dataCheckListCompletePage: state.Notification.getCheckListComplete.dataCheckListComplete,
+        dataCheckListPreparePage: state.Notification.getCheckListFoodPrepare.dataCheckListFoodPrepare,
+        dataCheckListCompletePage: state.Notification.getCheckListFoodComplete.dataCheckListFoodComplete,
     };
 };
-
-
 export default withRouter(connect(mapStateToProps, {
     postDeleteDrinkRequest,
     postUpdateDrinkRequest,
-    getCheckListPrepareRequest,
-    getCheckListCompleteRequest,
+    getCheckListFoodPrepareRequest,
+    getCheckListFoodCompleteRequest,
     apiError
-})(CheckList));
+})(Food));

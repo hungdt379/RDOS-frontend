@@ -91,7 +91,7 @@ const ConfirmedOrder = (props) => {
                             <Header username={location.state.username}/>
                             <TableNav item={table}/>
                         </div>
-                        <div style={{textAlign: "center", justifycontent: "center", paddingTop: '140px'}}>
+                        <div style={{textAlign: "center", paddingTop: '140px'}}>
                             <div className="list-Item">
                                 {dataConfirmedOrder.item?.map((d, index) => (
                                         <div className="item-form-checkList" key={index}>

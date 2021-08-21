@@ -83,16 +83,16 @@ const  ViewAllTable = (props) => {
 
         }
     }
-    function redirect(){
-        props.history.push(
-            {
-                pathname: '/waiter-detail-table-confirm-order',
-                state:{
-                    _id: id,
-                }
-            }
-        );
-    }
+    // function redirect(){
+    //     props.history.push(
+    //         {
+    //             pathname: '/waiter-detail-table-confirm-order',
+    //             state:{
+    //                 _id: id,
+    //             }
+    //         }
+    //     );
+    // }
 
     let list = [];
 

@@ -69,4 +69,5 @@ export const apiUrls = {
   getSearchItem: "api/search",
   getDetailSearchItem: "api/customer/menu/item/detail",
   postInsertItem: "api/waiter/table/queue/order/insert",
+  getFoodList: "api/waiter/table/order/dish"
 };

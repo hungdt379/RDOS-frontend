@@ -192,7 +192,7 @@ const ConfirmOrder = (props) => {
                         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                             <DialogTitle id="form-dialog-title" className="dia_title"> Nhập số Khách</DialogTitle>
                             <DialogContent>
-                                Nhập Từ 1 Đến 6
+                                Nhập Từ 1 Đến {dataTableByID.max_customer}
                             </DialogContent>
                             <DialogContent>
                                 <input
@@ -217,7 +217,7 @@ const ConfirmOrder = (props) => {
                             </DialogActions>
                         </Dialog>
 
-                        <div style={{textAlign: "center", justifycontent: "center"}}>
+                        <div style={{textAlign: "center", justifycontent: "center",height:"350px"}}>
                             <PerfectScrollbar>
                                 <div className="list-Item_detail">
 
