@@ -289,3 +289,39 @@ export const checkQueueOrderError = (error) => {
         payload: error,
     };
 };
+
+// view complete drink
+export const viewCompleteDrinkRequest = (tbid, s) => ({
+    type: actionTypes.VIEW_COMPLETE_DRINK_REQUEST,
+    payload: {tbid, s},
+});
+export const viewCompleteDrinkSuccess = (response) => {
+    return {
+        type: actionTypes.VIEW_COMPLETE_DRINK_SUCCESS,
+        payload: response,
+    };
+};
+export const viewCompleteDrinkError = (error) => {
+    return {
+        type: actionTypes.VIEW_COMPLETE_DRINK_ERROR,
+        payload: error,
+    };
+};
+
+// view complete food
+export const viewCompleteFoodRequest = (tbid, s) => ({
+    type: actionTypes.VIEW_COMPLETE_FOOD_REQUEST,
+    payload: {tbid, s},
+});
+export const viewCompleteFoodSuccess = (response) => {
+    return {
+        type: actionTypes.VIEW_COMPLETE_FOOD_SUCCESS,
+        payload: response,
+    };
+};
+export const viewCompleteFoodError = (error) => {
+    return {
+        type: actionTypes.VIEW_COMPLETE_FOOD_ERROR,
+        payload: error,
+    };
+};

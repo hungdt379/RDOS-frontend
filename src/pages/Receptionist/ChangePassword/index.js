@@ -11,6 +11,9 @@ import Footer from "../../../components/RdosCustomerLayout/Footer";
 import {Modal} from "reactstrap";
 import {AvField, AvForm} from "availity-reactstrap-validation";
 import {authHeaderGetApi, authHeaderGetApiCus} from "../../../helpers/jwt-token-access/auth-token-header";
+import useSound from "use-sound";
+import dingAudio from "../../../assets/audio/applepay.mp3";
+import failAudio from "../../../assets/audio/incorrect.swf.mp3";
 
 // Import menuDropdown
 
@@ -40,6 +43,15 @@ const ChangePassword = (props) => {
         menuChoose: '0',
     }
 
+    const [successOn] = useSound(
+        dingAudio,
+        { volume: 0.75 }
+    );
+
+    const [failOn] = useSound(
+        failAudio,
+        { volume: 0.75 }
+    );
     return (
         <div>
             {(role === 'r') ? (
@@ -155,6 +167,7 @@ const ChangePassword = (props) => {
                                                             .then(res => {
                                                                 if (res.status === 200) {
                                                                     setOpenChangePassword(true);
+                                                                    successOn()
                                                                     setTimeout(() => {
                                                                         window.location.reload();
                                                                         setOpenChangePassword(false);
@@ -162,6 +175,7 @@ const ChangePassword = (props) => {
                                                                     }, 2000)
                                                                     console.log(res)
                                                                 } else {
+                                                                    failOn()
                                                                     setOpenChangePasswordFalse(true);
                                                                     setTimeout(() => {
                                                                         setOpenChangePasswordFalse(false);

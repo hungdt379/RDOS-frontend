@@ -16,6 +16,8 @@ import changeServe from "../../../assets/images/waiter/arrows-exchange.png";
 import searchImg from "../../../assets/images/customer/search.png";
 import {Modal} from "reactstrap";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
+import useSound from "use-sound";
+import dingAudio from "../../../assets/audio/applepay.mp3";
 
 const KitchenMenu = (props) => {
     const [search, setSearch] = useState('');
@@ -52,6 +54,10 @@ const KitchenMenu = (props) => {
         kitchenChoose: '2',
     }
 
+    const [successOn] = useSound(
+        dingAudio,
+        { volume: 0.75 }
+    );
     return (
         <React.Fragment>
             {(role === 'k') ? (
@@ -185,6 +191,7 @@ const KitchenMenu = (props) => {
                                                                        }else{
                                                                            props.dispatch(actions.updateItemCanServeRequest(it?._id, false))
                                                                        }
+                                                                       successOn()
                                                                        setOpenUpdateStatus(true)
                                                                        setTimeout(() => {
                                                                            setOpenUpdateStatus(false)

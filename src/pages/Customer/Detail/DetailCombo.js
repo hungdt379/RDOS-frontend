@@ -21,7 +21,7 @@ import Footer from "../../../components/RdosCustomerLayout/Footer";
 import shoppingCart from "../../../assets/images/customer/shopping-cart.png";
 import {Modal} from "reactstrap";
 import useSound from 'use-sound';
-import dingAudio from '../../../assets/audio/ding-sound-effect_2.mp3';
+import dingAudio from '../../../assets/audio/applepay.mp3';
 
 const DetailCombo = (props) => {
     const dispatch = useDispatch();
@@ -384,9 +384,11 @@ const DetailCombo = (props) => {
                                                                         className="check-once-input"
                                                                         checked={checkedState[index]}
                                                                     />
-                                                                    <label htmlFor={dic._id}
-                                                                           className="check-once-label mr-2"></label>
-                                                                    <div className="check-once-text">{dic.name}</div>
+                                                                    <div style={{display: 'flex'}} className="group-checkbox">
+                                                                        <div
+                                                                            className="check-once-label mr-2"></div>
+                                                                        <div className="check-once-text">{dic.name}</div>
+                                                                    </div>
                                                                 </label>
                                                             </div>
                                                         ) : (
@@ -404,10 +406,11 @@ const DetailCombo = (props) => {
                                                                         checked={false}
                                                                         disabled={true}
                                                                     />
-                                                                    <label htmlFor={dic._id}
-                                                                           style={{opacity : '0'}}
-                                                                           className="check-once-label mr-2"></label>
-                                                                    <div style={{opacity: '0.5'}} className="check-once-text">{dic.name}</div>
+                                                                    <div style={{display: 'flex'}} className="group-checkbox">
+                                                                        <div style={{opacity : '0'}}
+                                                                             className="check-once-label mr-2"></div>
+                                                                        <div style={{opacity: '0.5'}} className="check-once-text">{dic.name}</div>
+                                                                    </div>
                                                                 </label>
                                                             </div>
                                                         ))}

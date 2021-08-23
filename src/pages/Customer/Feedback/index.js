@@ -11,6 +11,8 @@ import * as actions from "../../../store/customer/actions";
 import left from "../../../assets/images/customer/chevron-left-o.png";
 import note from "../../../assets/images/customer/notes.png";
 import {Modal} from "reactstrap";
+import useSound from "use-sound";
+import dingAudio from "../../../assets/audio/applepay.mp3";
 
 const Feedback = (props) => {
     const dispatch = useDispatch();
@@ -29,11 +31,17 @@ const Feedback = (props) => {
     const handleSubmit = () => {
         dispatch(sendFeedbackRequest(data));
         setOpenSendFeedback(true);
+        successOn()
         setTimeout(() => {
             props.history.push('/customer-home')
             setOpenSendFeedback(true);
         }, 2500)
     };
+
+    const [successOn] = useSound(
+        dingAudio,
+        { volume: 0.75 }
+    );
 
     return (
         <React.Fragment>

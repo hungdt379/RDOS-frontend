@@ -251,6 +251,40 @@ export function* watchCheckQueueOrder() {
     yield takeEvery(actionTypes.CHECK_QUEUE_ORDER_REQUEST, getCheckQueueOrder);
 }
 
+//view complete drink
+function* getViewCompleteDrink({payload: {tbid, s}}) {
+    try {
+        const response = yield call(Request.getApiCus, apiUrls.getCheckListApi, {table_id: tbid, status: s});
+        if (response) {
+            yield put(actions.viewCompleteDrinkSuccess(response));
+        }
+        console.log("complete drink: " + response)
+    } catch (error) {
+        yield put(actions.viewCompleteDrinkError(error));
+    }
+}
+
+export function* watchViewCompleteDrink() {
+    yield takeEvery(actionTypes.VIEW_COMPLETE_DRINK_REQUEST, getViewCompleteDrink);
+}
+
+//view complete food
+function* getViewCompleteFood({payload: {tbid, s}}) {
+    try {
+        const response = yield call(Request.getApiCus, apiUrls.getFoodList, {table_id: tbid, status: s});
+        if (response) {
+            yield put(actions.viewCompleteFoodSuccess(response));
+        }
+        console.log("complete food: " + response)
+    } catch (error) {
+        yield put(actions.viewCompleteFoodError(error));
+    }
+}
+
+export function* watchViewCompleteFood() {
+    yield takeEvery(actionTypes.VIEW_COMPLETE_FOOD_REQUEST, getViewCompleteFood);
+}
+
 const sagaCustomer = [
     watchGetAllCategory(),
     watchGetAllMenu(),
@@ -267,6 +301,8 @@ const sagaCustomer = [
     watchPostSendOrder(),
     watchGetAllViewOrder(),
     watchCheckQueueOrder(),
+    watchViewCompleteDrink(),
+    watchViewCompleteFood(),
 ];
 
 export default sagaCustomer;

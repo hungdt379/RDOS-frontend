@@ -25,6 +25,8 @@ import Footer from "../../../components/RdosCustomerLayout/Footer";
 import Search from "../../../assets/images/waiter/search.png";
 import mathPlus from "../../../assets/images/customer/math-plus.png";
 import mathMinus from "../../../assets/images/customer/math-minus.png";
+import useSound from "use-sound";
+import dingAudio from "../../../assets/audio/applepay.mp3";
 
 const ConfirmOrder = (props) => {
     const [role, setrole] = useState([]);
@@ -162,6 +164,11 @@ const ConfirmOrder = (props) => {
             object.target.value = object.target.value.slice(0, object.target.maxLength)
         }
     }
+
+    const [successOn] = useSound(
+        dingAudio,
+        { volume: 0.75 }
+    );
     return (
         <React.Fragment>
             <div className="display-customer">
@@ -266,6 +273,7 @@ const ConfirmOrder = (props) => {
 
                                 }}>Hủy</p>
                                 <p className="btn_2" onClick={() => {
+                                    successOn();
                                     confirm();
                                     setOpenLoadPa(true);
                                     setTimeout(() => {
