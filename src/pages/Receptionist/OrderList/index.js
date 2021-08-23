@@ -16,6 +16,9 @@ import {withNamespaces} from "react-i18next";
 import {authHeaderGetApi} from "../../../helpers/jwt-token-access/auth-token-header";
 import {Modal} from "reactstrap";
 import ReactPaginate from "react-paginate";
+import useSound from "use-sound";
+import dingAudio from "../../../assets/audio/applepay.mp3";
+import payAudio from "../../../assets/audio/ka-ching.mp3";
 
 // Import menuDropdown
 
@@ -99,6 +102,7 @@ const OrderList = (props) => {
     console.log('role :' + role);
 
     const handleEnterVoucher = () => {
+        successOn()
         props.dispatch(actions.postEnterVoucherReRequest({data}))
         setTimeout(() => {
             props.dispatch(actions.getDetailConfirmOrderReRequest(props?.detailConfirmOrderReceptionist?.data?._id))
@@ -141,6 +145,15 @@ const OrderList = (props) => {
         menuChoose: '1',
     }
 
+    const [successOn] = useSound(
+        dingAudio,
+        { volume: 0.75 }
+    );
+
+    const [payOn] = useSound(
+        payAudio,
+        { volume: 0.75 }
+    );
     return (
         <React.Fragment>
             {(role === 'r') ? (
@@ -220,6 +233,7 @@ const OrderList = (props) => {
                                                             <div className="add-button-re col-1">
                                                                 <Link onClick={(e) => {
                                                                     // window.location.pathname = '/receptionist-home/' + lco.table_id
+                                                                    successOn()
                                                                     props.dispatch(actions.getDetailConfirmOrderReRequest(lco._id))
                                                                     setOrderId(lco._id)
                                                                 }}>
@@ -294,6 +308,7 @@ const OrderList = (props) => {
                                                                             props.dispatch(actions.getDetailConfirmOrderReRequest(data.data._id))
                                                                             setOrderId(data.data._id)
                                                                             setOpenMatchingSuccess(true)
+                                                                            successOn()
                                                                             setTimeout(() => {
                                                                                 setOpenMatchingSuccess(false)
                                                                                 settoggleSwitch(false)
@@ -359,6 +374,7 @@ const OrderList = (props) => {
                                                                     // window.location.pathname = '/receptionist-home/' + lco.table_id
                                                                     props.dispatch(actions.getDetailConfirmOrderReRequest(lpo._id))
                                                                     setOrderId(lpo._id)
+                                                                    successOn()
                                                                 }}>
                                                                     <a
                                                                         style={{
@@ -630,6 +646,7 @@ const OrderList = (props) => {
                                                                     onClick={() => {
                                                                         props.dispatch(actions.getInvoiceCompletedOrderReRequest(_id))
                                                                         setOpenInvoiceSuccess(true)
+                                                                        payOn()
                                                                         setTimeout(() => {
                                                                             props.history.push('/receptionist-home')
                                                                             setOpenInvoiceSuccess(false)

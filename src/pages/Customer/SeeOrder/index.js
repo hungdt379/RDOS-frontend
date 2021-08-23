@@ -11,6 +11,7 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import {withNamespaces} from "react-i18next";
 import {connect} from "react-redux";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
+import ereader from "../../../assets/images/customer/ereader.png";
 
 const SeeOrder = props => {
 
@@ -43,9 +44,9 @@ const SeeOrder = props => {
 
                     <div>
                         <div align="center" style={{
-                            height: '60px',
+                            height: '120px',
                             backgroundColor: '#F8F8FB',
-                            paddingTop: '25px',
+                            paddingTop: '15px',
                             paddingBottom: '50px',
                             marginTop: 'auto',
                             marginBottom: 'auto'
@@ -62,6 +63,22 @@ const SeeOrder = props => {
                                 fontFamily: 'Cabin',
                                 lineHeight: '20px',
                             }}>Tổng tiền: <b>{props?.allViewOrder?.data?.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnd</b></div>
+                            <div>
+                                <Link to="/customer-check-food">
+                                    <button className="menu-button-checklist">
+                                        <div align='center' className="text-button-checklist">
+                                            Kiểm món ăn
+                                        </div>
+                                    </button>
+                                </Link>
+                                <Link to="/customer-check-drink">
+                                    <button className="menu-button-checklist">
+                                        <div align='center' className="text-button-checklist">
+                                            Kiểm đồ uống
+                                        </div>
+                                    </button>
+                                </Link>
+                            </div>
                         </div>
                         <div style={{marginTop: '20px'}} className="cover-list">
                             <div className="side-list-menu">

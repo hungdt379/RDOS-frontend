@@ -271,6 +271,42 @@ const getCheckQueueOrder = (state = checkQueueOrderReducer, action) => {
     }
 };
 
+//view complete drink
+const viewCompleteDrinkReducer = {
+    allViewCompleteDrink: [],
+};
+
+const getViewCompleteDrink = (state = viewCompleteDrinkReducer, action) => {
+    switch (action.type) {
+        case actionTypes.VIEW_COMPLETE_DRINK_REQUEST:
+            return { ...state };
+        case actionTypes.VIEW_COMPLETE_DRINK_SUCCESS:
+            state =  { ...state, allViewCompleteDrink: action.payload };
+        case actionTypes.VIEW_COMPLETE_DRINK_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+//view complete food
+const viewCompleteFoodReducer = {
+    allViewCompleteFood: [],
+};
+
+const getViewCompleteFood = (state = viewCompleteFoodReducer, action) => {
+    switch (action.type) {
+        case actionTypes.VIEW_COMPLETE_FOOD_REQUEST:
+            return { ...state };
+        case actionTypes.VIEW_COMPLETE_FOOD_SUCCESS:
+            state =  { ...state, allViewCompleteFood: action.payload };
+        case actionTypes.VIEW_COMPLETE_FOOD_ERROR:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
 export const Customer = combineReducers({
     getAllCategory,
     getAllMenu,
@@ -287,4 +323,6 @@ export const Customer = combineReducers({
     sendOrder,
     getViewOrder,
     getCheckQueueOrder,
+    getViewCompleteDrink,
+    getViewCompleteFood
 });

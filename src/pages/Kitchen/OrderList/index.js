@@ -15,6 +15,8 @@ import trash from "../../../assets/images/receptionist/trashre.png";
 import moveRight from "../../../assets/images/waiter/move-right.png";
 import {Modal} from "reactstrap";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
+import useSound from "use-sound";
+import dingAudio from "../../../assets/audio/applepay.mp3";
 
 const OrderList = (props) => {
     const [openUpdateStatus, setOpenUpdateStatus] = useState(false);
@@ -58,6 +60,11 @@ const OrderList = (props) => {
     const kitchen = {
         kitchenChoose: '1',
     }
+
+    const [successOn] = useSound(
+        dingAudio,
+        { volume: 0.75 }
+    );
 
     return (
         <React.Fragment>
@@ -190,6 +197,7 @@ const OrderList = (props) => {
                                                                        onClick={(e) => {
                                                                            props.dispatch(actions.updateStatusOfDishRequest(it?._id))
                                                                            setOpenUpdateStatus(true)
+                                                                           successOn()
                                                                            setTimeout(() => {
                                                                                setOpenUpdateStatus(false)
                                                                                props.dispatch(actions.getAllDishInConfirmRequest(page));
@@ -215,6 +223,7 @@ const OrderList = (props) => {
                                                                        onClick={() => {
                                                                            props.dispatch(actions.deleteItemConfirmRequest(it?._id, it?.order_id, it?.category_id, it?.item_id))
                                                                            setOpenDeleteStatus(true)
+                                                                           successOn()
                                                                            setTimeout(() => {
                                                                                setOpenDeleteStatus(false)
                                                                                props.dispatch(actions.getAllDishInConfirmRequest(page));
@@ -302,6 +311,7 @@ const OrderList = (props) => {
                                                                        onClick={(e) => {
                                                                            props.dispatch(actions.updateStatusOfDishRequest(it?._id))
                                                                            setOpenUpdateStatus(true)
+                                                                           successOn()
                                                                            setTimeout(() => {
                                                                                setOpenUpdateStatus(false)
                                                                                props.dispatch(actions.getAllDishInConfirmRequest(page));
@@ -327,6 +337,7 @@ const OrderList = (props) => {
                                                                        onClick={() => {
                                                                            props.dispatch(actions.deleteItemConfirmRequest(it?._id, it?.order_id, it?.category_id, it?.item_id))
                                                                            setOpenDeleteStatus(true)
+                                                                           successOn()
                                                                            setTimeout(() => {
                                                                                setOpenDeleteStatus(false)
                                                                                props.dispatch(actions.getAllDishInConfirmRequest(page));

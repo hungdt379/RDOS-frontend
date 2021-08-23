@@ -42,6 +42,8 @@ import ManageTable from "../pages/Receptionist/ManageTable";
 import DetailOrder from "../pages/Customer/SeeOrder/DetailOrder";
 import DetailItem from "../pages/Waiter/DetailTable/DetailItem";
 import ChangePassword from "../pages/Receptionist/ChangePassword";
+import CheckDrink from "../pages/Customer/SeeOrder/CheckDrink";
+import CheckFood from "../pages/Customer/SeeOrder/CheckFood";
 
 // Waiter Page;
 
@@ -58,6 +60,8 @@ export const customerRoutes = [
     {path: "/customer-see-order", component: SeeOrder},
     {path: "/customer-detail-item", component: DetailItemOrder},
     {path: "/customer-feedback", component: Feedback},
+    {path: "/customer-check-drink", component: CheckDrink},
+    {path: "/customer-check-food", component: CheckFood},
 ];
 
 export const userRoutes = [

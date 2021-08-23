@@ -19,6 +19,9 @@ import AddTable from "./AddTable";
 import Footer from "../../../components/RdosCustomerLayout/Footer";
 import {Modal} from "reactstrap";
 import ReactPaginate from "react-paginate";
+import useSound from "use-sound";
+import dingAudio from "../../../assets/audio/applepay.mp3";
+import failAudio from "../../../assets/audio/incorrect.swf.mp3";
 
 // Import menuDropdown
 
@@ -48,6 +51,7 @@ const ManageTable = (props) => {
         props.dispatch(actions.addTableReRequest({data}));
         setOpenAdd(false);
         setOpenAddTable(true);
+        successOn()
         setTimeout(() => {
             props.dispatch(actions.getAllTableReRequest(Math.ceil(props?.allTableReceptionist?.total / pageSize)));
             props.dispatch(actions.getAllTableReNoPageSizeRequest(pageSize));
@@ -61,6 +65,7 @@ const ManageTable = (props) => {
     const [table_id, setTableId] = useState('');
     const [table_number, setTableNumber] = useState('');
     const [max_customer, setMaxCustomer] = useState('');
+    const [delTable, setDelTable] = useState('');
     console.log("table_id: " + table_id);
     console.log("table_number: " + table_number);
     console.log("max_customer: " + max_customer);
@@ -68,6 +73,7 @@ const ManageTable = (props) => {
     const data = {table_id, table_number, max_customer};
 
     const handleSubmitEditTable = () => {
+        successOn()
         props.dispatch(actions.editTableReRequest({data}));
         setOpenEdit(false);
         setOpenAddTable(true);
@@ -107,6 +113,16 @@ const ManageTable = (props) => {
     const menu = {
         menuChoose: '3',
     }
+
+    const [successOn] = useSound(
+        dingAudio,
+        { volume: 0.75 }
+    );
+
+    const [failOn] = useSound(
+        failAudio,
+        { volume: 0.75 }
+    );
 
     return (
         <div>
@@ -281,7 +297,9 @@ const ManageTable = (props) => {
                                                        }}
                                                        onClick={() => {
                                                            if (tabre.is_active === false) {
+                                                               successOn()
                                                                props.dispatch(actions.deleteTableReRequest(tabre._id))
+                                                               setDelTable(tabre.full_name)
                                                                setOpenDelTableSuccess(true)
                                                                setTimeout(() => {
                                                                    props.dispatch(actions.getAllTableReRequest(page));
@@ -289,6 +307,7 @@ const ManageTable = (props) => {
                                                                    setOpenDelTableSuccess(false)
                                                                }, 1500)
                                                            } else {
+                                                               failOn()
                                                                setOpenDelTableFail(true)
                                                                setTimeout(() => {
                                                                    setOpenDelTableFail(false)
@@ -526,7 +545,7 @@ const ManageTable = (props) => {
                             <div style={{
                                 fontFamily: 'Cabin',
                                 fontSize: '15px',
-                            }}><b>Đã xóa bàn thành công !</b>
+                            }}><b>Đã xóa {delTable} thành công !</b>
                             </div>
                         </div>
                     </Modal>

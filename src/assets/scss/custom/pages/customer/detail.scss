@@ -131,3 +131,26 @@ input[type='checkbox'].check-all-button:checked ~ div.choose-all{
     margin-top: 10px;
   }
 }
+
+.view-complete-btn{
+  padding: 5px;
+}
+input[type = 'checkbox'].view-complete:checked ~ div.item-complete{
+  color: #1E1C19;
+  border-bottom: 3px solid #FCBC3A;
+}
+
+.view-complete-btn .item-complete{
+  padding: 0 10px;
+  color:  #7A7A7A;
+  font-size: large;
+}
+
+.item-form-complete{
+  background: #EEEEEE;
+  border-radius: 10px;
+  width: 90%;
+  padding: 15px 0px;
+  margin: 15px 0px;
+  margin-left: calc(100% - 95%);
+}
