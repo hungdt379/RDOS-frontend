@@ -101,14 +101,14 @@ const CheckFood = props => {
                                 <PerfectScrollbar className="list-menu">
                                     {props?.allViewCompleteFood?.data?.map((comd, index) => (
                                         <div className="item-form-complete d-flex" key={index}>
-                                            <div align="left" className="col-4" style={{
+                                            <div align="left" className="col-6" style={{
                                                 fontFamily: 'Cabin',
                                                 fontSize: '14px',
                                                 fontWeight: 'bold'
                                             }}>
                                                 {comd.item_name}
                                             </div>
-                                            <div align="center" className="col-4">{comd.quantity}</div>
+                                            <div align="center" className="col-2">{comd.quantity}</div>
                                             <div align="right" className="col-4">
                                                 {comd.status === 'prepare' ? (
                                                     <i style={{color: "#FCBC3A", fontSize: '20px'}}
