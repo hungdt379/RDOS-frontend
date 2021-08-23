@@ -172,23 +172,25 @@ function CheckList(props) {
                                     <PerfectScrollbar>
                                         <div className="list-Item_checkList">
                                             {dataCheckListCompletePage.data?.map((d, index) => (
-                                                    <div className="item-form-checkList" key={index}>
-                                                        <span style={{
-                                                            fontFamily: 'Cabin',
-                                                            fontSize: '14px',
-                                                            fontWeight: 'bold'
-                                                        }}>{d.item_name}</span>
-                                                        <span>{d.quantity}</span>
-                                                        <div className="contain_button_cl" onClick={() => {
-                                                            deleteItem(d);
-                                                            setTimeout(() => {
-                                                                props.getCheckListCompleteRequest(location.state._id);
-                                                            }, 500)
-
-                                                        }
-                                                        }>
-                                                        </div>
+                                                <div className="item-form-checkList d-flex" key={index}>
+                                                    <div align="left" className="col-6" style={{
+                                                        fontFamily: 'Cabin',
+                                                        fontSize: '14px',
+                                                        fontWeight: 'bold'
+                                                    }}>
+                                                        {d.item_name}
                                                     </div>
+                                                    <div align="center" className="col-2">{d.quantity}</div>
+                                                    <div align="right" className="col-4">
+                                                        {d.status === 'prepare' ? (
+                                                            <i style={{color: "#FCBC3A", fontSize: '20px'}}
+                                                               className="bx bx-hourglass bx-spin"></i>
+                                                        ) : (
+                                                            <i style={{color: "green", fontSize: '20px'}}
+                                                               className="bx bx-check bx-tada"></i>
+                                                        )}
+                                                    </div>
+                                                </div>
                                                 )
                                             )}
                                         </div>
