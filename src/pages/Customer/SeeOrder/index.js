@@ -80,7 +80,7 @@ const SeeOrder = props => {
                                 </Link>
                             </div>
                         </div>
-                        <div style={{marginTop: '20px'}} className="cover-list">
+                        <div style={{marginTop: '20px', paddingBottom: '50px'}} className="cover-list">
                             <div className="side-list-menu">
                                 <PerfectScrollbar className="list-menu">
                                     {props?.allViewOrder?.data?.item?.map((so, index) => (
