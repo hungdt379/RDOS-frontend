@@ -29,7 +29,7 @@ const NotificationFooter = (props) => {
 
     const [notiOn] = useSound(
         notiAudio,
-        { volume: 0.75 }
+        { volume: 1 }
     );
 
     useEffect(() => {

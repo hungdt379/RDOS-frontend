@@ -45,12 +45,12 @@ const ChangePassword = (props) => {
 
     const [successOn] = useSound(
         dingAudio,
-        { volume: 0.75 }
+        { volume: 1 }
     );
 
     const [failOn] = useSound(
         failAudio,
-        { volume: 0.75 }
+        { volume: 1 }
     );
     return (
         <div>

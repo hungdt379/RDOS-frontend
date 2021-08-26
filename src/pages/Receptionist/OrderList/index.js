@@ -19,6 +19,8 @@ import ReactPaginate from "react-paginate";
 import useSound from "use-sound";
 import dingAudio from "../../../assets/audio/applepay.mp3";
 import payAudio from "../../../assets/audio/ka-ching.mp3";
+import firebase from "../../../helpers/firebase";
+import {Button, Col, Input, Row} from "reactstrap/es";
 
 // Import menuDropdown
 
@@ -33,6 +35,7 @@ const OrderList = (props) => {
     const [displayStatus, setStatus] = useState("confirmed");
     const [voucher, setVoucher] = useState(0);
     const [_id, setOrderId] = useState('');
+    const [openInvoiceConfirm, setOpenInvoiceConfirm] = useState(false);
 
     console.log("status: " + displayStatus)
     console.log("id: " + _id)
@@ -97,6 +100,28 @@ const OrderList = (props) => {
         props.dispatch(actions.getListConfirmOrderReRequest(page));
         props.dispatch(actions.getListPaidOrderReRequest(page));
         //props.dispatch(actions.getDetailConfirmOrderReRequest(table_id));
+
+        const todoRef = firebase.database().ref('kitchen manager');
+        todoRef.on('value', (snapshot) => {
+            const todos = snapshot.val();
+            const todoData = [];
+            for (let id in todos) {
+                todoData.push({id, ...todos[id]});
+            }
+            if (todoData.filter(td => td.title === "Nhân viên đã xác nhận món mới").length > 0) {
+                props.dispatch(actions.getListConfirmOrderReRequest(page));
+                props.dispatch(actions.getListPaidOrderReRequest(page));
+            }
+        });
+
+        const todoRefPay = firebase.database().ref('receptionist');
+        todoRefPay.on('value', (snapshot) => {
+            if (snapshot.numChildren() > 0) {
+                props.dispatch(actions.getListConfirmOrderReRequest(page));
+                props.dispatch(actions.getListPaidOrderReRequest(page));
+                props.dispatch(actions.getDetailConfirmOrderReRequest(_id));
+            }
+        });
     }, []);
 
     console.log('role :' + role);
@@ -147,12 +172,12 @@ const OrderList = (props) => {
 
     const [successOn] = useSound(
         dingAudio,
-        { volume: 0.75 }
+        {volume: 1}
     );
 
     const [payOn] = useSound(
         payAudio,
-        { volume: 0.75 }
+        {volume: 1}
     );
     return (
         <React.Fragment>
@@ -186,8 +211,10 @@ const OrderList = (props) => {
                                                                 setStatus(e.target.value)
                                                                 props.dispatch(actions.getListConfirmOrderReRequest(page));
                                                                 props.dispatch(actions.getListPaidOrderReRequest(pageComplete));
+                                                                props.dispatch(actions.getDetailConfirmOrderReRequest())
                                                             }}
-                                                        /> <b className="input-status-re">{result.name === "Đã confirm" ? "Đã xác nhận" : result.name}</b>
+                                                        /> <b
+                                                        className="input-status-re">{result.name === "Đã confirm" ? "Đã xác nhận" : result.name}</b>
                                                         <div for={result.id} className="line-color"></div>
                                                     </label>
                                                 </div>
@@ -395,7 +422,7 @@ const OrderList = (props) => {
                                                 ))
                                                 }
                                             </PerfectScrollbar>
-                                            <div className="d-flex" style={{height:'70px'}}>
+                                            <div className="d-flex" style={{height: '70px'}}>
                                                 <div className="gop-hoa-don col-6 d-flex" align="left">
                                                     <ReactPaginate
                                                         previousLabel={
@@ -448,14 +475,22 @@ const OrderList = (props) => {
                                         </div>
                                         <div align="center" className="col-4 detail-order-re">
                                             <div className='detail-order-top-re'>Trạng thái</div>
-                                            <div
-                                                style={{color: (props?.detailConfirmOrderReceptionist?.data?.status === "confirmed" || props?.detailConfirmOrderReceptionist?.data?.status === "matching") ? "lightcoral" : "green"}}
-                                                className='detail-order-down-re'>
-                                                {props?.detailConfirmOrderReceptionist?.data?.status === "confirmed"
-                                                    ? "Đã xác nhận" : props?.detailConfirmOrderReceptionist?.data?.status === "matching"
-                                                        ? "Gộp đơn" : props?.detailConfirmOrderReceptionist?.data?.status === "completed"
-                                                            ? "Hoàn thành" : null}
-                                            </div>
+                                            {props?.detailConfirmOrderReceptionist?.data?.done_dish === true ? (
+                                                <div
+                                                    style={{color: "blue"}}
+                                                    className='detail-order-down-re'>
+                                                    Phục vụ xong
+                                                </div>
+                                            ):(
+                                                <div
+                                                    style={{color: (props?.detailConfirmOrderReceptionist?.data?.status === "confirmed" || props?.detailConfirmOrderReceptionist?.data?.status === "matching") ? "lightcoral" : "green"}}
+                                                    className='detail-order-down-re'>
+                                                    {props?.detailConfirmOrderReceptionist?.data?.status === "confirmed"
+                                                        ? "Đã xác nhận" : props?.detailConfirmOrderReceptionist?.data?.status === "matching"
+                                                            ? "Gộp đơn" : props?.detailConfirmOrderReceptionist?.data?.status === "completed"
+                                                                ? "Hoàn thành" : null}
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                     {(props?.detailConfirmOrderReceptionist?.data !== undefined) ? (
@@ -583,7 +618,8 @@ const OrderList = (props) => {
                                                                     color: '#000000',
                                                                 }}
                                                             >
-                                                                <div>Giá gốc: {props?.detailConfirmOrderReceptionist?.data?.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
+                                                                <div>Giá
+                                                                    gốc: {props?.detailConfirmOrderReceptionist?.data?.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
                                                                 <div>Voucher: {props?.detailConfirmOrderReceptionist?.data?.voucher} %</div>
                                                             </div>) : (null)}
                                                     </div>
@@ -639,21 +675,93 @@ const OrderList = (props) => {
                                                             </div>
                                                         )}
                                                     </div>
+                                                    <Modal size="md" isOpen={openInvoiceConfirm}
+                                                           toggle={() => setOpenInvoiceConfirm(false)} className="pt-5">
+                                                        <form align='center'
+                                                              style={{
+                                                                  marginTop: '30px',
+                                                                  marginBottom: '30px',
+                                                                  borderRadius: '20px',
+                                                              }}
+                                                        >
+                                                            <div><b style={{fontSize: '20px', fontFamily: 'Cabin'}}>Các món
+                                                                chưa xong vẫn xuất hóa đơn ?</b></div>
+                                                            <div className="modal-body">
+                                                                <Row>
+                                                                    <Col lg="6">
+                                                                        <div style={{width: '100%', paddingBottom: '20px'}}>
+                                                                            <Button
+                                                                                onClick={() => {
+                                                                                    props.dispatch(actions.getInvoiceCompletedOrderReRequest(_id))
+                                                                                    setOpenInvoiceSuccess(true)
+                                                                                    payOn()
+                                                                                    setTimeout(() => {
+                                                                                        props.history.push('/receptionist-home')
+                                                                                        setOpenInvoiceSuccess(false)
+                                                                                        props.dispatch(actions.getListConfirmOrderReRequest(page));
+                                                                                        props.dispatch(actions.getListPaidOrderReRequest(page));
+                                                                                        props.dispatch(actions.getDetailConfirmOrderReRequest())
+                                                                                    }, 1500)
+                                                                                }}
+                                                                                style={{
+                                                                                    width: '80%',
+                                                                                    backgroundColor: '#FCBC3A',
+                                                                                    color: '#000000',
+                                                                                    border:'1px solid #FCBC3A'
+                                                                                }}>
+                                                                                <div style={{
+                                                                                    color: '#000000',
+                                                                                    fontWeight: 'bold',
+                                                                                    fontFamily: 'Cabin'
+                                                                                }}>Xuất hóa đơn
+                                                                                </div>
+                                                                            </Button>
+                                                                        </div>
+                                                                    </Col>
+                                                                    <Col lg="6">
+                                                                        <div style={{width: '100%', paddingBottom: '20px'}}>
+                                                                            <Button
+                                                                                onClick={() => {
+                                                                                    setOpenInvoiceConfirm(false)
+                                                                                }}
+                                                                                style={{
+                                                                                    width: '80%',
+                                                                                    backgroundColor: '#EEEEEE',
+                                                                                    color: '#000000',
+                                                                                    border:'1px solid #EEEEEE'
+                                                                                }}>
+                                                                                <div style={{
+                                                                                    color: '#000000',
+                                                                                    fontWeight: 'bold',
+                                                                                    fontFamily: 'Cabin'
+                                                                                }}>Không xuất
+                                                                                </div>
+                                                                            </Button>
+                                                                        </div>
+                                                                    </Col>
+                                                                </Row>
+                                                            </div>
+                                                        </form>
+                                                    </Modal>
                                                     <div align="right" className="col-4">
                                                         {(props?.detailConfirmOrderReceptionist?.data?.status === "confirmed" || props?.detailConfirmOrderReceptionist?.data?.status === "matching")
                                                             ? (
                                                                 <button
                                                                     onClick={() => {
-                                                                        props.dispatch(actions.getInvoiceCompletedOrderReRequest(_id))
-                                                                        setOpenInvoiceSuccess(true)
-                                                                        payOn()
-                                                                        setTimeout(() => {
-                                                                            props.history.push('/receptionist-home')
-                                                                            setOpenInvoiceSuccess(false)
-                                                                            props.dispatch(actions.getListConfirmOrderReRequest(page));
-                                                                            props.dispatch(actions.getListPaidOrderReRequest(page));
-                                                                            props.dispatch(actions.getDetailConfirmOrderReRequest())
-                                                                        }, 1500)
+                                                                        if(props?.detailConfirmOrderReceptionist?.data?.done_dish === true){
+                                                                            props.dispatch(actions.getInvoiceCompletedOrderReRequest(_id))
+                                                                            setOpenInvoiceSuccess(true)
+                                                                            payOn()
+                                                                            setTimeout(() => {
+                                                                                props.history.push('/receptionist-home')
+                                                                                setOpenInvoiceSuccess(false)
+                                                                                props.dispatch(actions.getListConfirmOrderReRequest(page));
+                                                                                props.dispatch(actions.getListPaidOrderReRequest(page));
+                                                                                props.dispatch(actions.getDetailConfirmOrderReRequest())
+                                                                            }, 1500)
+                                                                        }else{
+                                                                            setOpenInvoiceConfirm(true);
+                                                                        }
                                                                     }}
                                                                     style={{
                                                                         backgroundColor: '#FCBC3A',
@@ -697,7 +805,8 @@ const OrderList = (props) => {
                                         )
                                         : (
                                             <div style={{backgroundColor: '#ffffff'}}>
-                                                <div className="mh-55" style={{fontSize: '20px'}}>Hãy chọn 1 Order để xem
+                                                <div className="mh-55" style={{fontSize: '20px'}}>Hãy chọn 1 Order để
+                                                    xem
                                                     chi
                                                     tiết
                                                 </div>

@@ -196,7 +196,7 @@ const CustomerMenu = (props) => {
                                                                             to="alcohol"
                                                                             spy={true}
                                                                             smooth={true}
-                                                                            offset={-120}
+                                                                            offset={-136}
                                                                             duration={500}
                                                                             align="center"
                                                                             className="cate-background-color avatar-title rounded-circle">
@@ -218,7 +218,7 @@ const CustomerMenu = (props) => {
                                                                             to="beer"
                                                                             spy={true}
                                                                             smooth={true}
-                                                                            offset={-436}
+                                                                            offset={-136}
                                                                             duration={500}
                                                                             align="center"
                                                                             className="cate-background-color avatar-title rounded-circle">

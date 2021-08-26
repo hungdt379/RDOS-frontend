@@ -89,7 +89,7 @@ const CustomerHome = (props) => {
 
     const [payOn] = useSound(
         payAudio,
-        { volume: 0.75 }
+        { volume: 1 }
     );
 
     return (

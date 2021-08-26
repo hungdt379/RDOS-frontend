@@ -20,7 +20,7 @@ const NotificationCardFooter = (props) => {
                 <div className="media-body">
                     <div className="menu-notification d-flex">
                         <p style={{fontFamily: 'Cabin'}} className="mt-0 mb-0 mr-2 ml-2 pl-5 font-size-15">
-                            {"Bồi bàn vừa thêm một món mới"}
+                            {data.title}
                         </p>
                         <p className="mt-0 mb-0 mr-2 ml-2 pl-5 font-size-15">
                             <i style={{color: "#FCBC3A", fontSize: '20px'}} className="bx bx-calendar-check bx-tada"></i>

@@ -167,7 +167,7 @@ const ConfirmOrder = (props) => {
 
     const [successOn] = useSound(
         dingAudio,
-        { volume: 0.75 }
+        { volume: 1 }
     );
     return (
         <React.Fragment>
