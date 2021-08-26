@@ -155,7 +155,7 @@ const DetailCombo = (props) => {
 
     const [successOn] = useSound(
         dingAudio,
-        { volume: 0.75 }
+        { volume: 1 }
     );
 
     return (

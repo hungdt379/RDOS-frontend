@@ -38,12 +38,12 @@ const Cart = (props) => {
 
     const [successOn] = useSound(
         dingAudio,
-        { volume: 0.75 }
+        { volume: 1 }
     );
 
     const [wrongOn] = useSound(
         wrongAudio,
-        { volume: 0.75 }
+        { volume: 1 }
     );
 
     return (

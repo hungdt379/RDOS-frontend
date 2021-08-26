@@ -239,6 +239,40 @@
         background-color: lightcoral;
       }
     }
+    input[type='checkbox'].check-re-order:checked ~ div.card-order{
+      background-color: #FFEFCD;
+      border: 1px solid #FCBC3A;
+    }
+    .card-order-time-out{
+      margin-bottom: 5px;
+      height: 50px;
+      width: 95%;
+      background-color: #FFD1D1;
+      align-items: center;
+      font-size: 16px;
+      .card-detail-order-text{
+        font-style: normal;
+        font-weight: normal;
+        font-size: 15px;
+        line-height: 17px;
+        color: #000000;
+      }
+      .card-detail-order-text-child{
+        font-family: Cabin;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 15px;
+        line-height: 17px;
+        color: #1E1C19;
+      }
+      .card-order-button{
+        background-color: lightcoral;
+      }
+    }
+    input[type='checkbox'].check-re-order:checked ~ div.card-order-time-out{
+      background-color: #FFEFCD;
+      border: 1px solid #FCBC3A;
+    }
   }
 }
 
