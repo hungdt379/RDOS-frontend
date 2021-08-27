@@ -82,6 +82,9 @@ const NotificationFooter = (props) => {
                                     ))
                                     : ''}
                             </PerfectScrollbar>
+                            <audio src={require(`../../assets/audio/discord-notification.mp3`)}
+                                   autoPlay={menu}
+                            />
                         </DropdownMenu>
                     </Dropdown>
                 </>

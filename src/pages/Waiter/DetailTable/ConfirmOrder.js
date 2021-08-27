@@ -27,6 +27,8 @@ import mathPlus from "../../../assets/images/customer/math-plus.png";
 import mathMinus from "../../../assets/images/customer/math-minus.png";
 import useSound from "use-sound";
 import dingAudio from "../../../assets/audio/applepay.mp3";
+import firebase from "../../../helpers/firebase";
+import * as actions from "../../../store/receptionist/actions";
 
 const ConfirmOrder = (props) => {
     const [role, setrole] = useState([]);
@@ -101,6 +103,14 @@ const ConfirmOrder = (props) => {
         }
         props.getTableRequest(value);
         props.getQueueOrderRequest(value);
+
+        const todoRefPay = firebase.database().ref('waiter');
+        todoRefPay.on('value', (snapshot) => {
+            if (snapshot.numChildren() > 0) {
+                props.getTableRequest(value);
+                props.getQueueOrderRequest(value);
+            }
+        });
 
     }, [dataUpdateTable]);
 

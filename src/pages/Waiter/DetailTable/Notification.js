@@ -67,7 +67,7 @@ const Notification = (props) => {
                         <div style={{textAlign: "center", justifyContent: "center", paddingTop: '140px'}}>
                             <div className="list-Item-Notification">
                                 {dataNotification.data?.map((d, index) => (
-                                        <div className="item-form" style={d.read == false ? {backgroundColor: "#EEEEEE"} : {backgroundColor: "#FFEFCD"} } key={index}>
+                                        <div className="item-form" style={d.read == false ? {backgroundColor: "#EEEEEE", paddingLeft:'10px'} : {backgroundColor: "#FFEFCD", paddingLeft:'10px'} } key={index}>
                                             <span style={{
                                                 fontFamily: 'Cabin',
                                                 fontSize: '14px',
