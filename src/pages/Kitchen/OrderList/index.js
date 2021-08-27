@@ -360,14 +360,14 @@ const OrderList = (props) => {
                                                                     <div align="center"
                                                                          className="col-3 card-detail-order-text-child">
                                                                         <b>{it?.note !== "" ? it?.note : null}</b>
-                                                                        <i style={{
-                                                                            color: 'red',
-                                                                            display: it?.is_late === true ? 'block' : 'none'
-                                                                        }}>Phục vụ trễ</i>
                                                                     </div>
                                                                     <div align="center"
                                                                          className="col-1 card-detail-order-text-child">
-                                                                        <b style={{color: '#FCBC3A'}}>Chuẩn bị</b>
+                                                                        {it?.is_late === true ? (
+                                                                            <i style={{color: 'red'}}>Phục vụ trễ</i>
+                                                                        ) : (
+                                                                            <b style={{color: '#FCBC3A'}}>Chuẩn bị</b>
+                                                                        )}
                                                                     </div>
                                                                     <div align="center"
                                                                          className="col-1 card-detail-order-text-child">
