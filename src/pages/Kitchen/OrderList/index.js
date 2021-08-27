@@ -43,10 +43,26 @@ const OrderList = (props) => {
     };
 
     const [pageCompleted, setPageCompleted] = useState(1)
-    const pageCountCompleted = Math.ceil(props?.allDishInComplete?.total / pageSize);
-    const changePageCompleted = ({selectedCompleted}) => {
-        setPageCompleted(selectedCompleted + 1);
-        props.dispatch(actions.getAllDishInCompletedRequest(selectedCompleted + 1));
+    const numberOfButtons = Math.ceil(props?.allDishInComplete?.total / pageSize);
+
+    const onButtonClick = (type) => {
+        if (type === "prev") {
+            if (pageCompleted === 1) {
+                setPageCompleted(1);
+                props.dispatch(actions.getAllDishInCompletedRequest(1));
+            } else {
+                setPageCompleted(pageCompleted - 1);
+                props.dispatch(actions.getAllDishInCompletedRequest(pageCompleted-1));
+            }
+        } else if (type === "next") {
+            if (numberOfButtons === pageCompleted) {
+                setPageCompleted(pageCompleted);
+                props.dispatch(actions.getAllDishInCompletedRequest(pageCompleted));
+            } else {
+                setPageCompleted(pageCompleted+1);
+                props.dispatch(actions.getAllDishInCompletedRequest(pageCompleted+1));
+            }
+        }
     };
 
     const [role, setrole] = useState([]);
@@ -427,11 +443,11 @@ const OrderList = (props) => {
                                                 <ReactPaginate
                                                     previousLabel={
                                                         <img src={chevonRight}
-                                                             className="plus-icon-button-re-left"/>
+                                                             className="plus-icon-button-re-left-page"/>
                                                     }
                                                     nextLabel={
                                                         <img src={chevonRight}
-                                                             className="plus-icon-button-re-right"/>
+                                                             className="plus-icon-button-re-right-page"/>
                                                     }
                                                     pageCount={pageCount}
                                                     onPageChange={changePage}
@@ -538,23 +554,46 @@ const OrderList = (props) => {
                                                 )}
                                             </div>
                                             <div className="mt-3">
-                                                <ReactPaginate
-                                                    previousLabel={
-                                                        <img src={chevonRight}
-                                                             className="plus-icon-button-re-left"/>
-                                                    }
-                                                    nextLabel={
-                                                        <img src={chevonRight}
-                                                             className="plus-icon-button-re-right"/>
-                                                    }
-                                                    pageCount={pageCountCompleted}
-                                                    onPageChange={changePageCompleted}
-                                                    containerClassName={"paginationBttns"}
-                                                    previousLinkClassName={"previousBttn"}
-                                                    nextLinkClassName={"nextBttn"}
-                                                    disabledClassName={"paginationDisabled"}
-                                                    activeClassName={"paginationActive"}
-                                                />
+                                                <div className="d-flex justify-content-center">
+                                                    <nav aria-label="Page navigation example">
+                                                        <ul className="pagination">
+                                                            <li className="page-item">
+                                                                <a
+                                                                    style={{borderColor:'#FCBC3A'}}
+                                                                    className="page-link"
+                                                                    onClick={() => {onButtonClick("prev")}}
+                                                                >
+                                                                    <img style={{width:"15px",height:"15px"}} src={chevonRight}
+                                                                         className="plus-icon-button-re-left-page"/>
+                                                                </a>
+                                                            </li>
+
+                                                            {new Array(numberOfButtons).fill("").map((el, index) => (
+                                                                <li className={`page-item ${index + 1 === pageCompleted ? "active-paging" : null}`}>
+                                                                    <a
+                                                                        className="page-link"
+                                                                        onClick={() => {
+                                                                            setPageCompleted(index + 1)
+                                                                            props.dispatch(actions.getAllDishInCompletedRequest (index + 1));
+                                                                        }}
+                                                                    >
+                                                                        {index + 1}
+                                                                    </a>
+                                                                </li>
+                                                            ))}
+                                                            <li className="page-item">
+                                                                <a
+                                                                    style={{borderColor:'#FCBC3A'}}
+                                                                    className="page-link"
+                                                                    onClick={() => {onButtonClick("next")}}
+                                                                >
+                                                                    <img style={{width:"15px",height:"15px"}} src={chevonRight}
+                                                                         className="plus-icon-button-re-right-page"/>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </nav>
+                                                </div>
                                             </div>
                                         </div>
                                     )}
