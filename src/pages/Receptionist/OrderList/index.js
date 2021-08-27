@@ -58,37 +58,29 @@ const OrderList = (props) => {
     };
 
     const [pageComplete, setPageComplete] = useState(1)
-    const pageCountComplete = Math.ceil(props?.listPaidOrderReceptionist?.total / pageSize);
-    const changePageComplete = ({selectedComplete}) => {
-        setPageComplete(selectedComplete + 1);
-        props.dispatch(actions.getListPaidOrderReRequest(selectedComplete + 1));
+    const numberOfButtons = Math.ceil(props?.listPaidOrderReceptionist?.total / pageSize);
+
+    const onButtonClick = (type) => {
+        if (type === "prev") {
+            if (pageComplete === 1) {
+                setPageComplete(1);
+                props.dispatch(actions.getListPaidOrderReRequest(1));
+            } else {
+                setPageComplete(pageComplete - 1);
+                props.dispatch(actions.getListPaidOrderReRequest(pageComplete-1));
+            }
+        } else if (type === "next") {
+            if (numberOfButtons === pageComplete) {
+                setPageComplete(pageComplete);
+                props.dispatch(actions.getListPaidOrderReRequest(pageComplete));
+            } else {
+                setPageComplete(pageComplete+1);
+                props.dispatch(actions.getListPaidOrderReRequest(pageComplete+1));
+            }
+        }
     };
 
-    const prevPage = () => {
-        const pg = page === 1 ? 1 : page - 1
-        setPage(pg)
-        props.dispatch(actions.getListConfirmOrderReRequest(pg));
-    }
-
-    const nextPage = () => {
-        const pg = page < Math.ceil(props?.listConfirmOrderReceptionist?.total / pageSize) ? page + 1 : page
-        setPage(pg)
-        props.dispatch(actions.getListConfirmOrderReRequest(pg));
-        // props.dispatch(actions.getAllNotificationReceptionist({ page, pageSize, receiver }));
-    }
-
-    const prevPageComplete = () => {
-        const pg = pageComplete === 1 ? 1 : pageComplete - 1
-        setPageComplete(pg)
-        props.dispatch(actions.getListPaidOrderReRequest(pg));
-    }
-
-    const nextPageComplete = () => {
-        const pg = pageComplete < Math.ceil(props?.listPaidOrderReceptionist?.total / pageSize) ? pageComplete + 1 : pageComplete
-        setPageComplete(pg)
-        props.dispatch(actions.getListPaidOrderReRequest(pg));
-        // props.dispatch(actions.getAllNotificationReceptionist({ page, pageSize, receiver }));
-    }
+    console.log("page Select: ")
 
     const [role, setrole] = useState([]);
 
@@ -98,7 +90,7 @@ const OrderList = (props) => {
             setrole(obj.data.user.role);
         }
         props.dispatch(actions.getListConfirmOrderReRequest(page));
-        props.dispatch(actions.getListPaidOrderReRequest(page));
+        props.dispatch(actions.getListPaidOrderReRequest(pageComplete));
         //props.dispatch(actions.getDetailConfirmOrderReRequest(table_id));
 
         const todoRef = firebase.database().ref('kitchen manager');
@@ -110,7 +102,7 @@ const OrderList = (props) => {
             }
             if (todoData.filter(td => td.title === "Nhân viên đã xác nhận món mới").length > 0) {
                 props.dispatch(actions.getListConfirmOrderReRequest(page));
-                props.dispatch(actions.getListPaidOrderReRequest(page));
+                props.dispatch(actions.getListPaidOrderReRequest(pageComplete));
             }
         });
 
@@ -118,7 +110,7 @@ const OrderList = (props) => {
         todoRefPay.on('value', (snapshot) => {
             if (snapshot.numChildren() > 0) {
                 props.dispatch(actions.getListConfirmOrderReRequest(page));
-                props.dispatch(actions.getListPaidOrderReRequest(page));
+                props.dispatch(actions.getListPaidOrderReRequest(pageComplete));
                 props.dispatch(actions.getDetailConfirmOrderReRequest(_id));
             }
         });
@@ -288,11 +280,11 @@ const OrderList = (props) => {
                                                     <ReactPaginate
                                                         previousLabel={
                                                             <img src={chevonRight}
-                                                                 className="plus-icon-button-re-left"/>
+                                                                 className="plus-icon-button-re-left-page"/>
                                                         }
                                                         nextLabel={
                                                             <img src={chevonRight}
-                                                                 className="plus-icon-button-re-right"/>
+                                                                 className="plus-icon-button-re-right-page"/>
                                                         }
                                                         pageCount={pageCount}
                                                         onPageChange={changePage}
@@ -424,23 +416,46 @@ const OrderList = (props) => {
                                             </PerfectScrollbar>
                                             <div className="d-flex" style={{height: '70px'}}>
                                                 <div className="gop-hoa-don col-6 d-flex" align="left">
-                                                    <ReactPaginate
-                                                        previousLabel={
-                                                            <img src={chevonRight}
-                                                                 className="plus-icon-button-re-left"/>
-                                                        }
-                                                        nextLabel={
-                                                            <img src={chevonRight}
-                                                                 className="plus-icon-button-re-right"/>
-                                                        }
-                                                        pageCount={pageCountComplete}
-                                                        onPageChange={changePageComplete}
-                                                        containerClassName={"paginationBttns"}
-                                                        previousLinkClassName={"previousBttn"}
-                                                        nextLinkClassName={"nextBttn"}
-                                                        disabledClassName={"paginationDisabled"}
-                                                        activeClassName={"paginationActive"}
-                                                    />
+                                                    <div className="d-flex justify-content-center">
+                                                        <nav aria-label="Page navigation example">
+                                                            <ul className="pagination">
+                                                                <li className="page-item">
+                                                                    <a
+                                                                        style={{borderColor:'#FCBC3A'}}
+                                                                        className="page-link"
+                                                                        onClick={() => {onButtonClick("prev")}}
+                                                                    >
+                                                                        <img style={{width:"15px",height:"15px"}} src={chevonRight}
+                                                                             className="plus-icon-button-re-left-page"/>
+                                                                    </a>
+                                                                </li>
+
+                                                                {new Array(numberOfButtons).fill("").map((el, index) => (
+                                                                    <li className={`page-item ${index + 1 === pageComplete ? "active-paging" : null}`}>
+                                                                        <a
+                                                                            className="page-link"
+                                                                            onClick={() => {
+                                                                                setPageComplete(index + 1)
+                                                                                props.dispatch(actions.getListPaidOrderReRequest(index + 1));
+                                                                            }}
+                                                                        >
+                                                                            {index + 1}
+                                                                        </a>
+                                                                    </li>
+                                                                ))}
+                                                                <li className="page-item">
+                                                                    <a
+                                                                        style={{borderColor:'#FCBC3A'}}
+                                                                        className="page-link"
+                                                                        onClick={() => {onButtonClick("next")}}
+                                                                    >
+                                                                        <img style={{width:"15px",height:"15px"}} src={chevonRight}
+                                                                             className="plus-icon-button-re-right-page"/>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </nav>
+                                                    </div>
                                                 </div>
                                                 <div className="gop-hoa-don col-6" align="right"
                                                      style={{height: '60px', alignItems: 'center'}}>
@@ -699,7 +714,7 @@ const OrderList = (props) => {
                                                                                         props.history.push('/receptionist-home')
                                                                                         setOpenInvoiceSuccess(false)
                                                                                         props.dispatch(actions.getListConfirmOrderReRequest(page));
-                                                                                        props.dispatch(actions.getListPaidOrderReRequest(page));
+                                                                                        props.dispatch(actions.getListPaidOrderReRequest(pageComplete));
                                                                                         props.dispatch(actions.getDetailConfirmOrderReRequest())
                                                                                     }, 1500)
                                                                                 }}
@@ -756,7 +771,7 @@ const OrderList = (props) => {
                                                                                 props.history.push('/receptionist-home')
                                                                                 setOpenInvoiceSuccess(false)
                                                                                 props.dispatch(actions.getListConfirmOrderReRequest(page));
-                                                                                props.dispatch(actions.getListPaidOrderReRequest(page));
+                                                                                props.dispatch(actions.getListPaidOrderReRequest(pageComplete));
                                                                                 props.dispatch(actions.getDetailConfirmOrderReRequest())
                                                                             }, 1500)
                                                                         }else{

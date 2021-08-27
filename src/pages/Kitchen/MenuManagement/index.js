@@ -213,11 +213,11 @@ const KitchenMenu = (props) => {
                                         <ReactPaginate
                                             previousLabel={
                                                 <img src={chevonRight}
-                                                     className="plus-icon-button-re-left"/>
+                                                     className="plus-icon-button-re-left-page"/>
                                             }
                                             nextLabel={
                                                 <img src={chevonRight}
-                                                     className="plus-icon-button-re-right"/>
+                                                     className="plus-icon-button-re-right-page"/>
                                             }
                                             pageCount={pageCount}
                                             onPageChange={changePage}
