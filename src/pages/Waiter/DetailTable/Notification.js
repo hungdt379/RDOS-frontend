@@ -76,7 +76,8 @@ const Notification = (props) => {
                                             <span style={{
                                                 fontFamily: 'Cabin',
                                                 fontSize: '14px',
-                                                fontWeight: 'normal'
+                                                fontWeight: 'normal',
+                                                paddingLeft:'10px'
                                             }}>{d.content}</span>
                                             {/*{d.read === false ?  <span></span> : ''}*/}
                                         </div>
