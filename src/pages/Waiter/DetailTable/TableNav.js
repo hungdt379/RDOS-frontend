@@ -1,13 +1,25 @@
-import {Link} from "react-router-dom";
-import React, {useState} from "react";
+import {Link, useLocation, withRouter} from "react-router-dom";
+import React, {useEffect, useState} from "react";
 import bell from "../../../assets/images/waiter/bell-big.png";
 import clock from "../../../assets/images/waiter/sand-clock-big.png";
 import arrow from "../../../assets/images/waiter/arrows-exchange-big.png";
 import carousel from "../../../assets/images/waiter/carousel-big.png";
 import listCheck from "../../../assets/images/waiter/play-list-check-big.png";
 import food from "../../../assets/images/customer/food.png";
+import firebase from "firebase";
 
 const TableNav = (props) => {
+
+    const location = useLocation();
+    const database = firebase.database();
+
+    let list = [];
+
+    database.ref('waiter/' + location.state._id).on('value', (snapshot) => {
+            list = snapshot.numChildren();
+        }
+    )
+
     const [tableChoose] = useState(props.item.navChoose);
     return (
         <div className="d-flex menu-bar-waiter">
@@ -36,6 +48,7 @@ const TableNav = (props) => {
                                         }
                                     }}>
                                         <img src={bell} className="icon-button-menu-waiter"/>
+                                        <div className="contain_button_all-detail">{list}</div>
                                     </Link>
                                 </div>
                             </div>
