@@ -296,7 +296,7 @@ const ConfirmOrder = (props) => {
                         </div>
                     </div>
                 ) : (<NotFound/>)}
-                <Footer/>
+
                 <Modal align="center" style={{
                     width: '350px',
                     marginRight: 'auto',
