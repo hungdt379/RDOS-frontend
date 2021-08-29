@@ -143,7 +143,7 @@ const CustomerHome = (props) => {
                                             payOn()
                                             setTimeout(() => {
                                                 setOpenLoadPa(false);
-                                            }, 1000)
+                                            }, 2500)
                                         } else {
                                             setOpenLoadCheck(true);
                                             setTimeout(() => {
