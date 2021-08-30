@@ -132,16 +132,16 @@ const ConfirmOrder = (props) => {
     }
 
     const cancel = () => {
-        let dataCancel = {
+        const dataCancel = {
             _id: dataQueueOrder._id
         }
         props.postCancelQueueOrderRequest(dataCancel);
         setOpenCancel(true);
         setTimeout(() => {
             setOpenCancel(false);
-            //props.getTableRequest(value);
-            // props.getQueueOrderRequest(value);
-            window.location.reload();
+            props.getTableRequest(value);
+            props.getQueueOrderRequest(value);
+            //window.location.reload();
         }, 1500)
     }
 
@@ -207,9 +207,11 @@ const ConfirmOrder = (props) => {
                             </button>
                         </div>
                         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                            <DialogTitle id="form-dialog-title" className="dia_title"> Nhập số Khách</DialogTitle>
+                            <DialogTitle id="form-dialog-title" className="dia_title">
+                                <div align="center"><b>Nhập số khách</b></div>
+                            </DialogTitle>
                             <DialogContent>
-                                Nhập Từ 1 Đến {dataTableByID.max_customer}
+                                <div align="center">Nhập Từ 1 Đến {dataTableByID.max_customer}</div>
                             </DialogContent>
                             <DialogContent>
                                 <input
@@ -223,14 +225,35 @@ const ConfirmOrder = (props) => {
                                 />
                             </DialogContent>
                             <DialogActions>
-                                <Button style={{backgroundColor: "#E5E5E5", color: "#1E1C19"}} onClick={handleClose}
-                                        color="primary">
-                                    Cancel
-                                </Button>
-                                <Button style={{backgroundColor: "#FCBC3A", color: "#1E1C19"}}
-                                        onClick={postUpdateNumberCustomer} color="primary">
-                                    Update
-                                </Button>
+
+                                <div align="center" style={{
+                                    width: '100%',
+                                }}>
+                                    <button style={{
+                                        backgroundColor: "#E5E5E5",
+                                        color: "#1E1C19",
+                                        width: '45%',
+                                        borderRadius: '10px',
+                                        height: '40px',
+                                        border: '1px solid #E5E5E5',
+                                        margin: '5px'
+                                    }} onClick={handleClose} color="primary">
+                                        Hủy
+                                    </button>
+
+                                    <button style={{
+                                        backgroundColor: "#FCBC3A",
+                                        color: "#1E1C19",
+                                        width: '45%',
+                                        borderRadius: '10px',
+                                        height: '40px',
+                                        border: '1px solid #FCBC3A',
+                                        margin: '5px'
+                                    }} onClick={postUpdateNumberCustomer} color="primary">
+                                        Xác Nhận
+                                    </button>
+                                </div>
+
                             </DialogActions>
                         </Dialog>
 
