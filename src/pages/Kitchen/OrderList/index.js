@@ -411,10 +411,13 @@ const OrderList = (props) => {
                                                                              className="avatar-xs profile-user-wid mr-3">
                                                                             <a align="center"
                                                                                className="avatar-title rounded-circle"
-                                                                               style={{
-                                                                                   backgroundColor: '#FFD1D1',
-                                                                                   border: '1px solid red'
-                                                                               }}
+                                                                               style={it?.is_late === true ? (
+                                                                                   {backgroundColor: '#ffffff',
+                                                                                   border: '1px solid red'}
+                                                                               ) : (
+                                                                                   {backgroundColor: '#FFD1D1',
+                                                                                   border: '1px solid red'}
+                                                                               )}
                                                                                onClick={() => {
                                                                                    props.dispatch(actions.deleteItemConfirmRequest(it?._id, it?.order_id, it?.category_id, it?.item_id))
                                                                                    setOpenDeleteStatus(true)

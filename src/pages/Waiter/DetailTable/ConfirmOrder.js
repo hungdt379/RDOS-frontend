@@ -257,7 +257,7 @@ const ConfirmOrder = (props) => {
                             </DialogActions>
                         </Dialog>
 
-                        <div style={{textAlign: "center", justifycontent: "center",height:"350px"}}>
+                        <div style={{textAlign: "center", justifycontent: "center",height:"350px", paddingBottom: '50px'}}>
                             <PerfectScrollbar>
                                 <div className="list-Item_detail">
 
@@ -319,7 +319,7 @@ const ConfirmOrder = (props) => {
                         </div>
                     </div>
                 ) : (<NotFound/>)}
-
+                <Footer/>
                 <Modal align="center" style={{
                     width: '350px',
                     marginRight: 'auto',
