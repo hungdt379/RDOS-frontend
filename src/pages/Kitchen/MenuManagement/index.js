@@ -148,7 +148,7 @@ const KitchenMenu = (props) => {
                                     </div>
                                     <div>
                                         {props?.allViewAllItem?.data?.map((it, i) => (
-                                                <div className="card-order d-flex">
+                                                <div style={{borderRadius:'20px'}} className="card-order d-flex">
                                                     <div align="left"
                                                          className="col-1 card-detail-order-text-child">
                                                         <div>{i + 1 + (page - 1) * 10}</div>
