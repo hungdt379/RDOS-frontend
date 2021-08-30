@@ -164,7 +164,7 @@ const OrderList = (props) => {
                                                     checked={(toggleSwitch === true) ? true : false}
                                                 />
                                                 <div className="choose-all-matching">
-                                                    <div className="choose-text-matching">Chọn nhiều món
+                                                    <div style={{paddingTop: '8px'}} className="choose-text-matching">Chọn nhiều món
                                                     </div>
                                                 </div>
                                             </label>
@@ -336,6 +336,7 @@ const OrderList = (props) => {
                                                                     disabled={(toggleSwitch === true) ? false : true}
                                                                 />
                                                                 <div
+                                                                    style={{borderRadius:'20px'}}
                                                                     className={it?.is_late === true ? "card-order-time-out col-12 d-flex" : "card-order col-12 d-flex"}>
                                                                     <div align="left"
                                                                          className="col-1 card-detail-order-text-child">
@@ -468,7 +469,7 @@ const OrderList = (props) => {
                                             }}>
                                                 {props?.allDishInComplete?.data?.map((it, i) =>
                                                     (
-                                                        <div className="card-order d-flex">
+                                                        <div style={{borderRadius:'20px'}} className="card-order d-flex">
                                                             <div align="left"
                                                                  className="col-1 card-detail-order-text-child">
                                                                 <div>{it?.order_code}</div>
