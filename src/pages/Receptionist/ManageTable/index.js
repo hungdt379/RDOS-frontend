@@ -45,6 +45,7 @@ const ManageTable = (props) => {
     const [openDelTableSuccess, setOpenDelTableSuccess] = useState(false);
     const [openDelTableFail, setOpenDelTableFail] = useState(false);
     const [noEditTable, setNoEditTable] = useState('none');
+    const [noEditTableTwo, setNoEditTableTwo] = useState('none');
     const [noEditMaxCus, setNoEditMaxCus] = useState('none');
 
     const handleSubmitAddTable = (data) => {
@@ -419,10 +420,13 @@ const ManageTable = (props) => {
                                                                 props?.allTableReceptionistNoPagesize?.data?.map((tab, index) => (tab._id !== table_id) ? tab.full_name : '').filter((tb, ind) => (tb === "Bàn "+e.target.value.replace(/^0+/, ''))).length === 0) {
                                                                 setTableNumber(e.target.value.replace(/^0+/, ''))
                                                                 setNoEditTable('none')
+                                                                setNoEditTableTwo('none')
                                                             } else if(e.target.value.match(/[0-9]/g) === null){
-                                                                setNoEditTable('block')
+                                                                setNoEditTableTwo('block')
+                                                                setNoEditTable('none')
                                                             } else {
                                                                 setNoEditTable('block')
+                                                                setNoEditTableTwo('none')
                                                             }
                                                         }}
                                                         rows="5"
@@ -436,7 +440,16 @@ const ManageTable = (props) => {
                                                         fontSize: '15px',
                                                         color: 'red'
                                                     }}>
-                                                        Bàn đã tồn tại, hãy nhập lại(lớn hơn hoặc bằng 1)
+                                                        Bàn đã tồn tại, hãy nhập lại
+                                                    </i>
+                                                </div>
+                                                <div style={{display: noEditTableTwo, paddingLeft: '5%'}}>
+                                                    <i style={{
+                                                        fontFamily: 'Cabin',
+                                                        fontSize: '15px',
+                                                        color: 'red'
+                                                    }}>
+                                                        Chỉ được nhập số bàn(lớn hơn hoặc bằng 1)
                                                     </i>
                                                 </div>
                                             </div>
@@ -500,7 +513,7 @@ const ManageTable = (props) => {
                                                         backgroundColor: (noEditMaxCus === 'none' && noEditTable === 'none' && table_number !== '' && max_customer !== '') ? '#FCBC3A' : '#eeeeee',
                                                         color: (noEditMaxCus === 'none' && noEditTable === 'none' && table_number !== '' && max_customer !== '') ? '#000000' : '#a7a7a7',
                                                     }}
-                                                    disabled={(noEditMaxCus === 'none' && noEditTable === 'none' && table_number !== '' && max_customer !== '') ? false : true}>
+                                                    disabled={(noEditMaxCus === 'none' && noEditTable === 'none' && noEditTableTwo === 'none' && table_number !== '' && max_customer !== '') ? false : true}>
                                                     <div style={{
                                                         color: '#000000',
                                                         fontWeight: 'bold',
