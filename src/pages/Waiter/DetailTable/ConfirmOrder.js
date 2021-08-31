@@ -175,6 +175,8 @@ const ConfirmOrder = (props) => {
         }
     }
 
+    const [noEditTable, setNoEditTable] = useState('none');
+
     const [successOn] = useSound(
         dingAudio,
         { volume: 1 }
@@ -216,13 +218,29 @@ const ConfirmOrder = (props) => {
                             <DialogContent>
                                 <input
                                     className="text_field"
-                                    type="number"
+                                    type="text"
                                     placeholder="Nhập Số Khách"
-                                    onChange={event => setNumber(event.target.value)}
+                                    onChange={event => {
+                                        if(event.target.value.match(/[1-9]/g) === null){
+                                            setNoEditTable("block")
+                                        }else{
+                                            setNoEditTable("none")
+                                            setNumber(event.target.value)
+                                        }
+                                    }}
                                     required
-                                    maxLength="1"
+                                    maxLength="2"
                                     onInput={maxLengthCheck}
                                 />
+                                <div style={{display: noEditTable}}>
+                                    <i style={{
+                                        fontFamily: 'Cabin',
+                                        fontSize: '15px',
+                                        color: 'red'
+                                    }}>
+                                        Số khách hàng không phù hợp
+                                    </i>
+                                </div>
                             </DialogContent>
                             <DialogActions>
 

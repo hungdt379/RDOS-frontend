@@ -134,6 +134,8 @@ const ViewAllTable = (props) => {
 
     }, []);
 
+    const [noEditTable, setNoEditTable] = useState('none');
+
     const maxLengthCheck = (object) => {
         if (object.target.value.length > object.target.maxLength) {
             object.target.value = object.target.value.slice(0, object.target.maxLength)
@@ -220,12 +222,28 @@ const ViewAllTable = (props) => {
                             <DialogContent>
                                 <input
                                     className="text_field"
-                                    type="number"
-                                    onChange={event => setNumber(event.target.value)}
+                                    type="text"
+                                    onChange={event => {
+                                        if(event.target.value.match(/[1-9]/g) === null){
+                                            setNoEditTable("block")
+                                        }else{
+                                            setNoEditTable("none")
+                                            setNumber(event.target.value)
+                                        }
+                                    }}
                                     required
                                     maxLength="2"
                                     onInput={maxLengthCheck}
                                 />
+                                <div style={{display: noEditTable}}>
+                                    <i style={{
+                                        fontFamily: 'Cabin',
+                                        fontSize: '15px',
+                                        color: 'red'
+                                    }}>
+                                        Số khách hàng không phù hợp
+                                    </i>
+                                </div>
                             </DialogContent>
                             <DialogActions>
 
