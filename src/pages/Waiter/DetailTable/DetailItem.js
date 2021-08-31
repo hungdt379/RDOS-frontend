@@ -32,6 +32,11 @@ const DetailItem = (props) => {
     console.log("comboId: " + _id);
     console.log("comboId detail: " + props?.dataFoodInCombo?.data);
 
+    const item ={
+        _id: _id,
+        table_id: table_id
+    }
+
     const [openNoti, setOpenNoti] = useState(false);
 
     const [openLoadDetail, setOpenLoadDetail] = useState(false);
@@ -39,7 +44,7 @@ const DetailItem = (props) => {
     useEffect(() => {
         dispatch(getFoodInComboRequest({_id}));
         dispatch(getCartRequest());
-        dispatch(getDetailItemRequest({_id}));
+        dispatch(getDetailItemRequest(item));
         dispatch(getAllCategoryRequest());
         setOpenLoadDetail(true);
         setTimeout(() => {

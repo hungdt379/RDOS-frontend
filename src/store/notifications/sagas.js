@@ -239,7 +239,7 @@ export function* watchGetSearchItem() {
 //get Detail Item
 function* DetailItem({ payload }) {
   try {
-    const response = yield call(Request.getApi,apiUrls.getDetailSearchItem,payload);
+    const response = yield call(Request.getApi,apiUrls.getDataDetailItem,payload);
     if(response){
       yield put(actions.getDetailItemSuccess(response));
     }

@@ -67,7 +67,8 @@ export const apiUrls = {
   postCustomizeOrder: "api/receptionist/order/confirm/item/quantity/update",
   postCustomizeQueue: "api/waiter/order/queue/item/quantity/update",
   getSearchItem: "api/search",
-  getDetailSearchItem: "api/customer/menu/item/detail",
+  // getDetailSearchItem: "api/customer/menu/item/detail",
   postInsertItem: "api/waiter/table/queue/order/insert",
-  getFoodList: "api/waiter/table/order/dish"
+  getFoodList: "api/waiter/table/order/dish",
+  getDataDetailItem: "api/waiter/table/dish/detail",
 };
