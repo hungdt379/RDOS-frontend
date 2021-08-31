@@ -67,15 +67,15 @@ const OrderList = (props) => {
                 props.dispatch(actions.getListPaidOrderReRequest(1));
             } else {
                 setPageComplete(pageComplete - 1);
-                props.dispatch(actions.getListPaidOrderReRequest(pageComplete-1));
+                props.dispatch(actions.getListPaidOrderReRequest(pageComplete - 1));
             }
         } else if (type === "next") {
             if (numberOfButtons === pageComplete) {
                 setPageComplete(pageComplete);
                 props.dispatch(actions.getListPaidOrderReRequest(pageComplete));
             } else {
-                setPageComplete(pageComplete+1);
-                props.dispatch(actions.getListPaidOrderReRequest(pageComplete+1));
+                setPageComplete(pageComplete + 1);
+                props.dispatch(actions.getListPaidOrderReRequest(pageComplete + 1));
             }
         }
     };
@@ -157,6 +157,7 @@ const OrderList = (props) => {
     const [openMatchingSuccess, setOpenMatchingSuccess] = useState(false);
     const [openInvoiceSuccess, setOpenInvoiceSuccess] = useState(false);
     const [openMatchingFail, setOpenMatchingFail] = useState(false);
+    const [noEditTable, setNoEditTable] = useState('none');
 
     const menu = {
         menuChoose: '1',
@@ -421,11 +422,14 @@ const OrderList = (props) => {
                                                             <ul className="pagination">
                                                                 <li className="page-item">
                                                                     <a
-                                                                        style={{borderColor:'#FCBC3A'}}
+                                                                        style={{borderColor: '#FCBC3A'}}
                                                                         className="page-link"
-                                                                        onClick={() => {onButtonClick("prev")}}
+                                                                        onClick={() => {
+                                                                            onButtonClick("prev")
+                                                                        }}
                                                                     >
-                                                                        <img style={{width:"15px",height:"15px"}} src={chevonRight}
+                                                                        <img style={{width: "15px", height: "15px"}}
+                                                                             src={chevonRight}
                                                                              className="plus-icon-button-re-left-page"/>
                                                                     </a>
                                                                 </li>
@@ -445,11 +449,14 @@ const OrderList = (props) => {
                                                                 ))}
                                                                 <li className="page-item">
                                                                     <a
-                                                                        style={{borderColor:'#FCBC3A'}}
+                                                                        style={{borderColor: '#FCBC3A'}}
                                                                         className="page-link"
-                                                                        onClick={() => {onButtonClick("next")}}
+                                                                        onClick={() => {
+                                                                            onButtonClick("next")
+                                                                        }}
                                                                     >
-                                                                        <img style={{width:"15px",height:"15px"}} src={chevonRight}
+                                                                        <img style={{width: "15px", height: "15px"}}
+                                                                             src={chevonRight}
                                                                              className="plus-icon-button-re-right-page"/>
                                                                     </a>
                                                                 </li>
@@ -496,7 +503,7 @@ const OrderList = (props) => {
                                                     className='detail-order-down-re'>
                                                     Phục vụ xong
                                                 </div>
-                                            ):(
+                                            ) : (
                                                 <div
                                                     style={{color: (props?.detailConfirmOrderReceptionist?.data?.status === "confirmed" || props?.detailConfirmOrderReceptionist?.data?.status === "matching") ? "lightcoral" : "green"}}
                                                     className='detail-order-down-re'>
@@ -640,37 +647,77 @@ const OrderList = (props) => {
                                                     </div>
                                                     <div align="left" className="col-5">
                                                         {(props?.detailConfirmOrderReceptionist?.data?.status === "confirmed" || props?.detailConfirmOrderReceptionist?.data?.status === "matching") ? (
-                                                            <div className="d-flex">
-                                                                <div>
-                                                                    <input style={{
-                                                                        height: 45,
-                                                                        width: '100%',
-                                                                        borderRadius: '10px'
-                                                                    }}
-                                                                           type="text"
-                                                                           name="voucher"
-                                                                           placeholder="Mã giảm giá..."
-                                                                        //value={search}
-                                                                           onChange={(e) => (
-                                                                               setVoucher(e.target.value)
-                                                                           )}
-                                                                    />
+                                                            <div>
+                                                                <div className="d-flex">
+                                                                    <div>
+                                                                        <input style={{
+                                                                            height: 45,
+                                                                            width: '100%',
+                                                                            borderRadius: '10px'
+                                                                        }}
+                                                                               type="text"
+                                                                               name="voucher"
+                                                                               placeholder="Mã giảm giá..."
+                                                                            //value={search}
+                                                                               onChange={(e) => {
+                                                                                   if (e.target.value === "") {
+                                                                                       setVoucher(0)
+                                                                                       setNoEditTable('none')
+                                                                                   } else if (e.target.value <= 100 && e.target.value >= 0) {
+                                                                                       setVoucher(e.target.value)
+                                                                                       setNoEditTable('none')
+                                                                                   } else if (e.target.value.match(/[0-9]/g) === null) {
+                                                                                       setNoEditTable('block')
+                                                                                   } else {
+                                                                                       setNoEditTable('block')
+                                                                                   }
+
+                                                                               }}
+                                                                        />
+                                                                    </div>
+                                                                    {noEditTable === 'block' ? (
+                                                                        <button
+                                                                            disabled={true}
+                                                                            style={{
+                                                                                height: 45,
+                                                                                width: 45,
+                                                                                borderRadius: '10px',
+                                                                                backgroundColor: '#6a7187',
+                                                                                fontFamily: 'Cabin',
+                                                                                fontStyle: 'normal',
+                                                                                fontWeight: 'bold',
+                                                                                border: '1px solid #6a7187'
+                                                                            }}
+                                                                        >
+                                                                            Xác nhận
+                                                                        </button>
+                                                                    ) : (
+                                                                        <button
+                                                                            onClick={handleEnterVoucher}
+                                                                            style={{
+                                                                                height: 45,
+                                                                                width: 45,
+                                                                                borderRadius: '10px',
+                                                                                backgroundColor: '#FCBC3A',
+                                                                                fontFamily: 'Cabin',
+                                                                                fontStyle: 'normal',
+                                                                                fontWeight: 'bold',
+                                                                                border: '1px solid #FCBC3A'
+                                                                            }}
+                                                                        >
+                                                                            Xác nhận
+                                                                        </button>
+                                                                    )}
                                                                 </div>
-                                                                <button
-                                                                    onClick={handleEnterVoucher}
-                                                                    style={{
-                                                                        height: 45,
-                                                                        width: 45,
-                                                                        borderRadius: '10px',
-                                                                        backgroundColor: '#FCBC3A',
+                                                                <div style={{display: noEditTable}}>
+                                                                    <i style={{
                                                                         fontFamily: 'Cabin',
-                                                                        fontStyle: 'normal',
-                                                                        fontWeight: 'bold',
-                                                                        border: '1px solid #FCBC3A'
-                                                                    }}
-                                                                >
-                                                                    Xác nhận
-                                                                </button>
+                                                                        fontSize: '15px',
+                                                                        color: 'red'
+                                                                    }}>
+                                                                        Voucher 0% đến 100 %, hãy nhập lại
+                                                                    </i>
+                                                                </div>
                                                             </div>
                                                         ) : (
                                                             <div
@@ -711,6 +758,7 @@ const OrderList = (props) => {
                                                                                     setOpenInvoiceSuccess(true)
                                                                                     payOn()
                                                                                     setTimeout(() => {
+                                                                                        setOpenInvoiceConfirm(false)
                                                                                         props.history.push('/receptionist-home')
                                                                                         setOpenInvoiceSuccess(false)
                                                                                         props.dispatch(actions.getListConfirmOrderReRequest(page));
@@ -722,7 +770,7 @@ const OrderList = (props) => {
                                                                                     width: '80%',
                                                                                     backgroundColor: '#FCBC3A',
                                                                                     color: '#000000',
-                                                                                    border:'1px solid #FCBC3A'
+                                                                                    border: '1px solid #FCBC3A'
                                                                                 }}>
                                                                                 <div style={{
                                                                                     color: '#000000',
@@ -743,7 +791,7 @@ const OrderList = (props) => {
                                                                                     width: '80%',
                                                                                     backgroundColor: '#EEEEEE',
                                                                                     color: '#000000',
-                                                                                    border:'1px solid #EEEEEE'
+                                                                                    border: '1px solid #EEEEEE'
                                                                                 }}>
                                                                                 <div style={{
                                                                                     color: '#000000',
@@ -763,7 +811,7 @@ const OrderList = (props) => {
                                                             ? (
                                                                 <button
                                                                     onClick={() => {
-                                                                        if(props?.detailConfirmOrderReceptionist?.data?.done_dish === true){
+                                                                        if (props?.detailConfirmOrderReceptionist?.data?.done_dish === true) {
                                                                             props.dispatch(actions.getInvoiceCompletedOrderReRequest(_id))
                                                                             setOpenInvoiceSuccess(true)
                                                                             payOn()
@@ -774,7 +822,7 @@ const OrderList = (props) => {
                                                                                 props.dispatch(actions.getListPaidOrderReRequest(pageComplete));
                                                                                 props.dispatch(actions.getDetailConfirmOrderReRequest())
                                                                             }, 1500)
-                                                                        }else{
+                                                                        } else {
                                                                             setOpenInvoiceConfirm(true);
                                                                         }
                                                                     }}

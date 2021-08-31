@@ -62,17 +62,18 @@ const AddTable = (props) => {
                                      className="note-item">
                                     <Input
                                         style={{width: '90%', backgroundColor: '#FFEFCD'}}
-                                        type="number"
+                                        type="text"
                                         title="Bạn chỉ được nhập số lớn hơn 0"
-                                        pattern="[0-9]+"
                                         name="table_number"
                                         onChange={(e) => {
                                             if (e.target.value > 0 &&
                                                 props?.allTableReceptionistNoPagesize?.data?.filter((tb, ind) => (tb.full_name === "Bàn "+e.target.value.replace(/^0+/, ''))).length === 0) {
                                                 setTableNumber(e.target.value.replace(/^0+/, ''))
                                                 setNoEditTable('none')
-                                            } else {
+                                            } else if(e.target.value.match(/[0-9]/g) === null){
                                                 setNoEditTable('block')
+                                            } else {
+                                                setNoEditTable("block")
                                             }
                                         }}
                                         rows="5"
@@ -111,14 +112,15 @@ const AddTable = (props) => {
                                      className="note-item">
                                     <Input
                                         style={{width: '90%', backgroundColor: '#FFEFCD'}}
-                                        type="number"
+                                        type="text"
                                         title="Bạn chỉ được nhập số lớn hơn 0"
-                                        pattern="[0-9]+"
                                         name="max_customer"
                                         onChange={(e) => {
                                             if (e.target.value > 0) {
                                                 setMaxCustomer(e.target.value.replace(/^0+/, ''))
                                                 setNoEditMaxCus('none')
+                                            } else if(e.target.value.match(/[0-9]/g) === null){
+                                                setNoEditMaxCus('block')
                                             } else {
                                                 setNoEditMaxCus('block')
                                             }
