@@ -310,8 +310,9 @@ const ConfirmOrder = (props) => {
                                     confirm();
                                     setOpenLoadPa(true);
                                     setTimeout(() => {
+                                        props.getTableRequest(value);
+                                        props.getQueueOrderRequest(value);
                                         setOpenLoadPa(false);
-                                        window.location.reload();
                                     }, 1000)
                                 }}>Xác Nhận</p>
                             </div>
