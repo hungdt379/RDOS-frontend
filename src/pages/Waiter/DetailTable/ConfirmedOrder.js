@@ -68,7 +68,10 @@ const ConfirmedOrder = (props) => {
             const obj = JSON.parse(localStorage.getItem("authUser"));
             setrole(obj.data.user.role);
         }
+        dataConfirmedOrder.item = []
         props.getConfirmedOrderRequest(value);
+
+
     }, []);
 
     const table = {
