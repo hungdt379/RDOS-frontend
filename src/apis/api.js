@@ -55,7 +55,7 @@ export const apiUrls = {
   getQueueOrderApi: "api/waiter/table/order/queue/view",
   postCancelQueueOrderApi: "api/waiter/table/order/queue/cancel",
   postConfirmQueueOrderApi: "api/waiter/table/order/queue/confirm",
-  getConfirmedOrderApi: "api/table/order/confirm/detail",
+  getConfirmedOrderApi: "api/waiter/table/order/confirm/detail/waiter",
   postDeleteItemApi: "api/waiter/table/order/confirm/item/delete",
   postNoteRemainApi: "api/waiter/table/order/confirm/note/add",
   getCheckListApi: "api/waiter/order/drink",
